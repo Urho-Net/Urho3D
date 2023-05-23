@@ -20,6 +20,8 @@ cd ${URHO3D_HOME}/DotNet/AndroidEnvironment
 
 cd ${URHO3D_HOME}
 
+mkdir -p ${URHO3D_HOME}/bin/Data/DotNet/android
+
 cp -f ${URHO3D_HOME}/DotNet/UrhoDotNet/mobile/android/UrhoDotNet.dll ${URHO3D_HOME}/bin/Data/DotNet/android
 cp -f ${URHO3D_HOME}/DotNet/UrhoDotNet/mobile/android/Mono.Android.dll ${URHO3D_HOME}/bin/Data/DotNet/android
 cp -f ${URHO3D_HOME}/DotNet/UrhoDotNet/mobile/android/UrhoDotNet.dll  ${URHONET_HOME_ROOT}/template/libs/dotnet/urho/mobile/android

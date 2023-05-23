@@ -133,10 +133,13 @@ DotNet/libs/wasm/MonoEmbedded.js
 DotNet/libs/wasm/MonoEmbedded.wasm
 
 DotNet/UrhoDotNet/*
-DotNet/libs/*
+DotNet/libs/macos/*
+DotNet/libs/iphone/*
 build-xcode-dotnet-dylib
 build-xcode
 build-ios-dotnet-lib
 build-ios-dotnet-metal-lib
 tools/SharpieBinder/bin/SharpieBinder.exe
 tools/SharpieBinder/bin/SharpieBinder.pdb
+.vscode
+bin/Data/DotNet
