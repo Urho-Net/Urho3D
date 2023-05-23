@@ -1,0 +1,11 @@
+URL: http://code.jquery.com/jquery-1.11.0.min.js
+Version: 1.11.0
+License: MIT / CC0
+License File: LICENSE
+
+Description:
+jQuery JavaScript helper library
+
+Local Modifications:
+LICENSE file added for compliance purposes. Downloaded from
+https://github.com/jquery/jquery/blob/master/LICENSE.txt.

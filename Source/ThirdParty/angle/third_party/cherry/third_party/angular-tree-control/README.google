@@ -1,0 +1,13 @@
+URL: https://github.com/wix/angular-tree-control/archive/0.1.5.tar.gz
+Version: 0.1.5
+License: MIT
+License File: LICENSE
+
+Description:
+Tree UI component for Angular
+
+Local Modifications:
+Changes to css/tree-control-attribute.css and css/tree-control.css to better
+suite use.
+Added treeControl.js and treeUtilities.js that for a derivative of
+angular-tree-control.js

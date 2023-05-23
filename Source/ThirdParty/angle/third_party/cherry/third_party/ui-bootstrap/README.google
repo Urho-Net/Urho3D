@@ -1,0 +1,12 @@
+URL: https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.10.0/ui-bootstrap-tpls.js
+Version: 0.10.0
+License: MIT
+License File: LICENSE
+
+Description:
+UI helper library for Angular
+
+Local Modifications:
+LICENSE file has been created for compliance purposes. Not included in original
+distribution. Copied from
+https://github.com/angular-ui/bootstrap/blob/master/LICENSE

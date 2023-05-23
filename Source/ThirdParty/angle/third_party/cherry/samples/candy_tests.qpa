@@ -1,0 +1,190 @@
+#sessionInfo releaseName 2013.x
+#sessionInfo releaseId 0xcafebabe
+#sessionInfo targetName "ANGLE"
+#sessionInfo candyTargetName "Candy Tests / Debug"
+#sessionInfo configName "Default"
+#sessionInfo resultName "Full"
+#sessionInfo timestamp 25.6.2013 14:11:16
+#beginSession
+#beginTestCaseResult Candy-Tests.Passing
+<?xml version="1.0"?>
+<TestCaseResult Version="0.3.2" CasePath="Candy-Tests.Passing" CaseType="SelfValidate">
+ <Number Name="TestDuration" Description="Test case duration in microseconds" Tag="Time" Unit="us">939.000000</Number>
+ <Result StatusCode="Pass">Trivial pass</Result>
+</TestCaseResult>
+
+#endTestCaseResult
+#beginTestCaseResult Candy-Tests.Failing
+<?xml version="1.0"?>
+<TestCaseResult Version="0.3.2" CasePath="Candy-Tests.Failing" CaseType="SelfValidate">
+ <Number Name="TestDuration" Description="Test case duration in microseconds" Tag="Time" Unit="us">661.000000</Number>
+ <Result StatusCode="Fail">Trivial failure</Result>
+</TestCaseResult>
+
+#endTestCaseResult
+#beginTestCaseResult Candy-Tests.QualityWarning
+<?xml version="1.0"?>
+<TestCaseResult Version="0.3.2" CasePath="Candy-Tests.QualityWarning" CaseType="SelfValidate">
+ <Number Name="TestDuration" Description="Test case duration in microseconds" Tag="Time" Unit="us">435.000000</Number>
+ <Result StatusCode="QualityWarning">Trivial quality warning</Result>
+</TestCaseResult>
+
+#endTestCaseResult
+#beginTestCaseResult Candy-Tests.CompatibilityWarning
+<?xml version="1.0"?>
+<TestCaseResult Version="0.3.2" CasePath="Candy-Tests.CompatibilityWarning" CaseType="SelfValidate">
+ <Number Name="TestDuration" Description="Test case duration in microseconds" Tag="Time" Unit="us">370.000000</Number>
+ <Result StatusCode="CompatibilityWarning">Trivial compatibility warning</Result>
+</TestCaseResult>
+
+#endTestCaseResult
+#beginTestCaseResult Candy-Tests.Infinite1
+#terminateTestCaseResult Disabled
+#beginTestCaseResult Candy-Tests.Infinite2
+<?xml version="1.0"?>
+<TestCaseResult Version="0.3.2" CasePath="Candy-Tests.Infinite2" CaseType="SelfValidate">
+
+#terminateTestCaseResult Timeout
+#beginTestCaseResult Candy-Tests.Crash1
+<?xml version="1.0"?>
+<TestCaseResult Version="0.3.2" CasePath="Candy-Tests.Crash1" CaseType="SelfValidate">
+ <Text>Segmentation fault: &apos;Access violation&apos;
+</Text>
+ <Text>  at 010734EE tcct::Crash1Case::iterate()
+</Text>
+ <Text>Backtrace:
+</Text>
+ <Text>   0: 010C190F qpCrashHandler_writeCrashInfo()
+</Text>
+ <Text>   1: 01082128 tcu::App::onCrash()
+</Text>
+ <Text>   2: 01081BFB tcu::crashHandlerFunc()
+</Text>
+ <Text>   3: 010C14C1 unhandledExceptionFilter()
+</Text>
+ <Text>   4: 7638003F GetProfileStringW()
+</Text>
+ <Text>   5: 777F74DF RtlKnownExceptionFilter()
+</Text>
+ <Text>   6: 777B9EC5 RtlInitializeExceptionChain()
+</Text>
+
+#terminateTestCaseResult Crash
+#beginTestCaseResult Candy-Tests.Crash2
+<?xml version="1.0"?>
+#terminateTestCaseResult Crash
+#beginTestCaseResult Candy-Tests.Breakpoint
+<?xml version="1.0"?>
+#terminateTestCaseResult Crash
+#beginTestCaseResult Candy-Tests.LogInvalidCharacters
+<?xml version="1.0"?>
+<TestCaseResult Version="0.3.2" CasePath="Candy-Tests.LogInvalidCharacters" CaseType="SelfValidate">
+ <Text>I hate &lt;SOH&gt;&lt;SI&gt;</Text>
+ <Number Name="TestDuration" Description="Test case duration in microseconds" Tag="Time" Unit="us">1358.000000</Number>
+ <Result StatusCode="Pass">Candy should rate this as failure!</Result>
+</TestCaseResult>
+
+#endTestCaseResult
+#beginTestCaseResult Candy-Tests.LogInvalidCharactersCrash
+<?xml version="1.0"?>
+<TestCaseResult Version="0.3.2" CasePath="Candy-Tests.LogInvalidCharactersCrash" CaseType="SelfValidate">
+ <Text>I hate &lt;SOH&gt;&lt;SI&gt;</Text>
+ <Text>Segmentation fault: &apos;Access violation&apos;
+</Text>
+ <Text>  at 003B3DEB tcct::LogInvalidCharactersCrashCase::iterate()
+</Text>
+ <Text>Backtrace:
+</Text>
+ <Text>   0: 0040190F qpCrashHandler_writeCrashInfo()
+</Text>
+ <Text>   1: 003C2128 tcu::App::onCrash()
+</Text>
+ <Text>   2: 003C1BFB tcu::crashHandlerFunc()
+</Text>
+ <Text>   3: 004014C1 unhandledExceptionFilter()
+</Text>
+ <Text>   4: 7638003F GetProfileStringW()
+</Text>
+ <Text>   5: 777F74DF RtlKnownExceptionFilter()
+</Text>
+ <Text>   6: 777B9EC5 RtlInitializeExceptionChain()
+</Text>
+
+#terminateTestCaseResult Crash
+#beginTestCaseResult Candy-Tests.OutOfResourcesError
+<?xml version="1.0"?>
+<TestCaseResult Version="0.3.2" CasePath="Candy-Tests.OutOfResourcesError" CaseType="SelfValidate">
+ <Text>Simulated resource error: &apos;In Soviet Russia expression expresses you&apos; at ..\..\..\..\deqp\modules\candytest\tcCandyTest.cpp:136</Text>
+ <Number Name="TestDuration" Description="Test case duration in microseconds" Tag="Time" Unit="us">1970.000000</Number>
+ <Result StatusCode="ResourceError">Resource error during test execution</Result>
+</TestCaseResult>
+
+#endTestCaseResult
+#beginTestCaseResult Candy-Tests.OutOfResourcesErrorInInit
+<?xml version="1.0"?>
+<TestCaseResult Version="0.3.2" CasePath="Candy-Tests.OutOfResourcesErrorInInit" CaseType="SelfValidate">
+ <Text>Simulated resource error in init: &apos;In Soviet Russia expression expresses you&apos; at ..\..\..\..\deqp\modules\candytest\tcCandyTest.cpp:151</Text>
+ <Number Name="TestDuration" Description="Test case duration in microseconds" Tag="Time" Unit="us">1503.000000</Number>
+ <Result StatusCode="ResourceError">Resource error in test case init</Result>
+</TestCaseResult>
+
+#endTestCaseResult
+#beginTestCaseResult Candy-Tests.NotSupportedError
+<?xml version="1.0"?>
+<TestCaseResult Version="0.3.2" CasePath="Candy-Tests.NotSupportedError" CaseType="SelfValidate">
+ <Text>Trivial unsupported error: &apos;!Supported&apos; at ..\..\..\..\deqp\modules\candytest\tcCandyTest.cpp:166</Text>
+ <Number Name="TestDuration" Description="Test case duration in microseconds" Tag="Time" Unit="us">957.000000</Number>
+ <Result StatusCode="NotSupported">Not supported</Result>
+</TestCaseResult>
+
+#endTestCaseResult
+#beginTestCaseResult Candy-Tests.NotSupportedErrorInInit
+<?xml version="1.0"?>
+<TestCaseResult Version="0.3.2" CasePath="Candy-Tests.NotSupportedErrorInInit" CaseType="SelfValidate">
+ <Text>Trivial unsupported error in init: &apos;!Supported&apos; at ..\..\..\..\deqp\modules\candytest\tcCandyTest.cpp:181</Text>
+ <Number Name="TestDuration" Description="Test case duration in microseconds" Tag="Time" Unit="us">558.000000</Number>
+ <Result StatusCode="NotSupported">Not supported</Result>
+</TestCaseResult>
+
+#endTestCaseResult
+#beginTestCaseResult Candy-Tests.PerformanceTest
+<?xml version="1.0"?>
+<TestCaseResult Version="0.3.2" CasePath="Candy-Tests.PerformanceTest" CaseType="Performance">
+ <Number Name="TestDuration" Description="Test case duration in microseconds" Tag="Time" Unit="us">418.000000</Number>
+ <Result StatusCode="Pass">123</Result>
+</TestCaseResult>
+
+#endTestCaseResult
+#beginTestCaseResult Candy-Tests.PerformanceTestWithInvalidResult
+<?xml version="1.0"?>
+<TestCaseResult Version="0.3.2" CasePath="Candy-Tests.PerformanceTestWithInvalidResult" CaseType="Performance">
+ <Number Name="TestDuration" Description="Test case duration in microseconds" Tag="Time" Unit="us">425.000000</Number>
+ <Result StatusCode="Pass">You are so foobared!</Result>
+</TestCaseResult>
+
+#endTestCaseResult
+#beginTestCaseResult Candy-Tests.AccuracyTest
+<?xml version="1.0"?>
+<TestCaseResult Version="0.3.2" CasePath="Candy-Tests.AccuracyTest" CaseType="Accuracy">
+ <Number Name="TestDuration" Description="Test case duration in microseconds" Tag="Time" Unit="us">410.000000</Number>
+ <Result StatusCode="Pass">42</Result>
+</TestCaseResult>
+
+#endTestCaseResult
+#beginTestCaseResult Candy-Tests.CapabilityIntTest
+<?xml version="1.0"?>
+<TestCaseResult Version="0.3.2" CasePath="Candy-Tests.CapabilityIntTest" CaseType="Capability">
+ <Number Name="TestDuration" Description="Test case duration in microseconds" Tag="Time" Unit="us">549.000000</Number>
+ <Result StatusCode="Pass">124321</Result>
+</TestCaseResult>
+
+#endTestCaseResult
+#beginTestCaseResult Candy-Tests.CapabilityNotSupportedTest
+<?xml version="1.0"?>
+<TestCaseResult Version="0.3.2" CasePath="Candy-Tests.CapabilityNotSupportedTest" CaseType="Capability">
+ <Number Name="TestDuration" Description="Test case duration in microseconds" Tag="Time" Unit="us">409.000000</Number>
+ <Result StatusCode="NotSupported">Not supported capability</Result>
+</TestCaseResult>
+
+#endTestCaseResult
+#endSession

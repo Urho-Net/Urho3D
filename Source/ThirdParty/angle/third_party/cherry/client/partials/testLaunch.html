@@ -1,0 +1,292 @@
+<!--
+Copyright 2015 Google Inc. All rights reserved.
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+
+<script type="text/ng-template" id="configure-device.html">
+	<form class="form-horizontal">
+		<!-- Device name -->
+		<div class="row form-group">
+			<label class="col-md-3 control-label" for="name">Name:</label>
+			<div class="col-md-8">
+				<input id="name" type="text" class="form-control input-md" ng-model="value.name" required />
+			</div>
+		</div>
+
+		<!-- Target address -->
+		<div class="row form-group">
+			<label class="col-md-3 control-label" for="targetAddress">Target Address:</label>
+			<div class="col-md-8">
+				<input id="targetAddress" type="text" class="form-control input-md" ng-model="value.targetAddress" required />
+			</div>
+		</div>
+
+		<!-- Target port -->
+		<div class="row form-group">
+			<label class="col-md-3 control-label" for="targetPort">Target Port:</label>
+			<div class="col-md-8">
+				<input id="targetPort" type="text" class="form-control input-md" ng-model="value.targetPort" required />
+			</div>
+		</div>
+
+		<!-- Spawn local process -->
+		<div class="row form-group">
+			<label class="col-md-3 control-label" for="spawnLocalProcess">Spawn Local Process:</label>
+			<div class="col-md-8">
+				<input id="spawnLocalProcess" type="text" class="form-control input-md" ng-model="value.localProcessPath" />
+			</div>
+		</div>
+
+		<!-- Binary name -->
+		<div class="row form-group">
+			<label class="col-md-3 control-label" for="testBinaryName">Binary Name:</label>
+			<div class="col-md-8">
+				<input id="testBinaryName" type="text" class="form-control input-md" ng-model="value.binaryPath" />
+			</div>
+		</div>
+
+		<!-- Working dir -->
+		<div class="row form-group">
+			<label class="col-md-3 control-label" for="testBinaryWorkingDir">Working Directory:</label>
+			<div class="col-md-8">
+				<input id="testBinaryWorkingDir" type="text" class="form-control input-md" ng-model="value.workingDir" />
+			</div>
+		</div>
+
+		<hr width="60%"/>
+
+		<!-- Command line -->
+		<div class="row form-group">
+			<label class="col-md-3 control-label" for="testBinaryCommandLine">Command Line:</label>
+			<div class="col-md-8">
+				<textarea id="testBinaryCommandLine" type="text" rows="4" class="form-control input-md" ng-model="value.commandLine"></textarea>
+			</div>
+		</div>
+
+		<!-- Delete and Save -->
+		<div class="row">
+			<div class="col-md-12 pull-right">
+				<div class="pull-right">
+					<button ng-if="!isNewObject" id="deleteButton" type="button" class="btn btn-danger" ng-click="deleteConfig()">
+						<i class="glyphicon glyphicon-trash"></i> Delete
+					</button>
+					<button id="saveButton" type="button" class="btn btn-primary" ng-click="saveConfig(name)" ng-disabled="!isModified()">
+						<i class="glyphicon glyphicon-save"></i> Save
+					</button>
+				</div>
+			</div>
+		</div>
+
+	</form>
+</script>
+
+<script type="text/ng-template" id="configure-adb-device.html">
+	<form class="form-horizontal">
+		<!-- Device name -->
+		<div class="row form-group">
+			<label class="col-md-3 control-label" for="name">Name:</label>
+			<div class="col-md-8">
+				<input id="name" type="text" class="form-control input-md" ng-model="value.name" required />
+			</div>
+		</div>
+
+		<!-- Target port -->
+		<div class="row form-group">
+			<label class="col-md-3 control-label" for="targetPort">Local Port:</label>
+			<div class="col-md-8">
+				<input id="targetPort" type="text" class="form-control input-md" ng-model="value.targetPort" required />
+			</div>
+		</div>
+
+		<hr width="60%"/>
+
+		<!-- Command line -->
+		<div class="row form-group">
+			<label class="col-md-3 control-label" for="testBinaryCommandLine">Command Line:</label>
+			<div class="col-md-8">
+				<textarea id="testBinaryCommandLine" type="text" rows="4" class="form-control input-md" ng-model="value.commandLine"></textarea>
+			</div>
+		</div>
+
+		<!-- Save -->
+		<div class="row">
+			<div class="col-md-12">
+				<button id="saveButton" type="button" class="btn btn-primary pull-right" ng-click="saveConfig(name)" ng-disabled="!isModified()">
+					<i class="glyphicon glyphicon-save"></i> Save
+				</button>
+			</div>
+		</div>
+
+	</form>
+</script>
+
+<div class="row">
+	<div class="col-md-8 col-md-offset-2">
+		<!-- \todo [petri] is show on $scope.foobar the right way to hide until loaded? -->
+		<div id="deviceConfigList" class="jumbotron" ng-controller="TestLaunchCtrl" ng-show="normalDevices && adbDeviceConnections">
+			<!-- Choose device -->
+			<h3>Choose Device</h3>
+
+			<!-- List group device selection -->
+			<div id="deviceConfig" ng-repeat="device in normalDevices.devices" ng-class="{active:selectedDeviceId===device.id}" class="panel panel-default" ng-controller="DeviceConfigCtrl" ng-init="initExisting(device.id)">
+				<div id="titleBar" class="panel-heading clickable" ng-click="selectDevice(device.id)" ng-dblclick="isOpen = !isOpen">
+					<h4 class="panel-title">
+						<b>{{ value.name }}</b>
+						<div id="expandButton" class="pull-right" ng-click="isOpen = !isOpen">
+							<i class="glyphicon" ng-class="{'glyphicon-chevron-down': isOpen, 'glyphicon-chevron-right': !isOpen}"></i>
+						</div>
+					</h4>
+				</div>
+
+				<div class="panel-collapse" collapse="!isOpen">
+					<div class="panel-body" ng-include src="'configure-device.html'"></div>
+				</div>
+			</div>
+
+			<!-- Add new item -->
+			<div id="newDeviceConfig" class="panel panel-default" ng-class="{active:selectedDeviceId===''}" ng-controller="DeviceConfigCtrl" ng-init="initNew()">
+				<div id="titleBar" class="panel-heading clickable" ng-click="selectDevice('')" ng-dblclick="isOpen = !isOpen">
+					<h4 class="panel-title">
+						<b><span class="glyphicon glyphicon-plus"></span> New...</b>
+						<div id="expandButton" class="pull-right" ng-click="isOpen = !isOpen">
+							<i class="glyphicon" ng-class="{'glyphicon-chevron-down': isOpen, 'glyphicon-chevron-right': !isOpen}"></i>
+						</div>
+					</h4>
+				</div>
+
+				<div class="panel-collapse" collapse="!isOpen">
+					<div class="panel-body" ng-include src="'configure-device.html'"></div>
+				</div>
+			</div>
+
+			<!-- ADB devices -->
+			<span ng-switch="adbDeviceConnections.connections.length === 0">
+				<span ng-switch-when="true">
+					No Android devices detected with ADB
+					<span ng-if="adbDeviceConnections.error.length !== 0">({{ adbDeviceConnections.error }})</span>
+				</span>
+				<h4 ng-switch-when="false">Connected Android devices (via ADB)</h4>
+			</span>
+
+			<div ng-controller="DeviceConfigCtrl" ng-repeat="connection in adbDeviceConnections.connections" ng-class="{active:selectedDeviceId===connection.deviceId}" class="panel panel-default" ng-init="initADB(connection)">
+				<div class="panel-heading clickable" ng-click="selectDevice(connection.deviceId)" ng-dblclick="isOpen = !isOpen">
+					<h4 class="panel-title">
+						<b>{{ value.name || 'Unknown device' }}</b> ({{ value.adbSerialNumber || '' }})
+						- <span ng-class="connection.state | adbDeviceStateClass">{{ connection.state | adbDeviceStateHumanReadable }}</span>
+
+						<div id="expandButton" class="pull-right" ng-click="isOpen = !isOpen">
+							<i class="glyphicon" ng-class="{'glyphicon-chevron-down': isOpen, 'glyphicon-chevron-right': !isOpen}"></i>
+						</div>
+					</h4>
+				</div>
+				<div class="panel-collapse" collapse="!isOpen">
+					<div class="panel-body" ng-include src="'configure-adb-device.html'"></div>
+				</div>
+			</div>
+
+			<!-- Test selection -->
+			<h3 class="subheading">Select Tests</h3>
+
+			<form id="testCaseSelection" class="form-horizontal">
+				<div class="row form-group">
+					<div class="container">
+						<div class="row form-group">
+							<div class="col-md-8 col-md-offset-1">
+								<ul class="nav nav-tabs">
+									<li class="clickable" ng-class="{active:activeSelectorTab==='tree'}"><a ng-click="setSelectorTab('tree')">Select</a></li>
+									<li class="clickable" ng-class="{active:activeSelectorTab==='sets'}"><a ng-click="setSelectorTab('sets')">Test sets</a></li>
+								</ul>
+								<div class="tab-content">
+									<div id="select" class="tab-pane" ng-class="{active:activeSelectorTab==='tree'}">
+										<div class="panel panel-default">
+											<div class="panel-heading">
+												<span class="test-path-filter-input-container">
+													<input id="testCasePathFilter" type="text" placeholder="Path filter" class="form-control input-sm test-path-filter-input" ng-model="testCasePathFilter" />
+												</span>
+											</div>
+											<div class="panel-body test-launch-tree-container" style="overflow-y:scroll;">
+												<div class="tree-border">
+													<!-- \todo [nuutti 14-08-2014] Shift-click selection annoyingly hilights the text.
+														 Do something so that doesn't happen. Funnily, doesn't seem to happen
+														 with <a> elements with href (on most browsers at least). -->
+													<treecontrol class="tree-light" tree-model="fullTestCaseTree" tree-selectable="{selectionType:testTreeSelectionType, setAccess:setTestTreeAccess}">
+														{{ node.label }}
+													</treecontrol>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div id="testsets" class="tab-pane" ng-class="{active:activeSelectorTab==='sets'}" ng-controller="TestSetSelectCtrl" ng-init="initTestSetCtrl()">
+										<div style="margin-top: 8px;">
+											<span class="clickable" id="expandButton" ng-click="isOpen = !isOpen">
+												Manage sets
+												<i class="glyphicon" ng-class="{'glyphicon-chevron-down': isOpen, 'glyphicon-chevron-right': !isOpen}"></i>
+											</span>
+										</div>
+										<div class="panel-collapse" collapse="!isOpen">
+											<div class="panel-body test-set-panel">
+												<form enctype="multipart/form-data">
+													<div class="row controller-row">
+														<div class="col-md-6">
+															<input id="editableTestSetName" type="text" placeholder="Test set name" class="form-control input" ng-model="editableTestSetName" /> <!-- Separate editable name from selected set name -->
+														</div>
+														<div class="col-md-6">
+															<input id="selectedFilterFile" file-model="uploadFilterFile" type="file" multiple>
+														</div>
+													</div>
+													<div class="row">
+														<div class="col-md-2">
+															<button id="addTestSetButton" type="button" class="btn btn-primary btn-block btn-test-set" ng-click="uploadTestSet()" ng-disabled="!editableTestSetName">Add</button>
+														</div>
+														<div class="col-md-2">
+															<button id="deleteTestSetButton" type="button" class="btn btn-primary btn-block btn-test-set" ng-click="deleteTestSet(selectedTestSet)" ng-disabled="!selectedSetHeader">Delete</button>
+														</div>
+													</div>
+												</form>
+											</div>
+										</div>
+										<div class="panel panel-default">
+											<div class="panel-body test-launch-tree-container" style="overflow-y:scroll;">
+												<div ng-repeat="testSet in testSets.testSetHeaders" class="clickable tree-label" ng-click="selectTestSet(testSet)" >
+													<span ng-class="{'selected-test-set':selectedSetHeader.id===testSet.id}">{{ testSet.name }} </span>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="row form-group">
+							<label class="col-md-2 control-label" for="testNameFilters">Additional Tests:</label>
+						</div>
+						<div class="row form-group">
+							<div class="col-md-7 col-md-offset-1">
+								<input id="testNameFilters" type="text" class="form-control input-md" ng-model="testNameFilters" />
+							</div>
+						</div>
+						<!-- Execute button -->
+						<div class="pull-right clearfix">
+							<!-- \todo [petri] disable button selected device if not properly configured? -->
+							<button id="executeButton" class="btn btn-lg btn-success" ng-disabled="!canExecuteTestBatch()" ng-click="executeTestBatch()">Execute Tests!</button>
+						</div>
+						<!-- \todo [petri] kludge to add a bit of margin below button -->
+						<br />
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+
+</div>

@@ -1,0 +1,119 @@
+#sessionInfo releaseName 2014.x
+#sessionInfo releaseId 0xcafebabe
+#sessionInfo targetName "WGL"
+#sessionInfo candyTargetName "Win32 WGL / Internal"
+#sessionInfo configName "Default"
+#sessionInfo resultName "GLES2 / Info"
+#sessionInfo timestamp 2014-04-07 18:12:08Z
+#beginSession
+#beginTestCaseResult dEQP-GLES2.info.vendor
+<?xml version="1.0" encoding="UTF-8"?>
+<TestCaseResult Version="0.3.3" CasePath="dEQP-GLES2.info.vendor" CaseType="SelfValidate">
+ <Text>NVIDIA Corporation</Text>
+ <Number Name="TestDuration" Description="Test case duration in microseconds" Tag="Time" Unit="us">889</Number>
+ <Text>Multisampling state reset failed: glGetError() returned GL_INVALID_ENUM at gluStateReset.cpp:112</Text>
+ <Text>Error in state reset, test program will terminate.</Text>
+ <Result StatusCode="Pass">Pass</Result>
+</TestCaseResult>
+
+#endTestCaseResult
+#beginTestCaseResult dEQP-GLES2.info.renderer
+<?xml version="1.0" encoding="UTF-8"?>
+<TestCaseResult Version="0.3.3" CasePath="dEQP-GLES2.info.renderer" CaseType="SelfValidate">
+ <Text>GeForce GT 330M/PCI/SSE2</Text>
+ <Number Name="TestDuration" Description="Test case duration in microseconds" Tag="Time" Unit="us">246</Number>
+ <Text>Multisampling state reset failed: glGetError() returned GL_INVALID_ENUM at gluStateReset.cpp:112</Text>
+ <Text>Error in state reset, test program will terminate.</Text>
+ <Result StatusCode="Pass">Pass</Result>
+</TestCaseResult>
+
+#endTestCaseResult
+#beginTestCaseResult dEQP-GLES2.info.version
+<?xml version="1.0" encoding="UTF-8"?>
+<TestCaseResult Version="0.3.3" CasePath="dEQP-GLES2.info.version" CaseType="SelfValidate">
+ <Text>OpenGL ES 2.0</Text>
+ <Number Name="TestDuration" Description="Test case duration in microseconds" Tag="Time" Unit="us">202</Number>
+ <Text>Multisampling state reset failed: glGetError() returned GL_INVALID_ENUM at gluStateReset.cpp:112</Text>
+ <Text>Error in state reset, test program will terminate.</Text>
+ <Result StatusCode="Pass">Pass</Result>
+</TestCaseResult>
+
+#endTestCaseResult
+#beginTestCaseResult dEQP-GLES2.info.shading_language_version
+<?xml version="1.0" encoding="UTF-8"?>
+<TestCaseResult Version="0.3.3" CasePath="dEQP-GLES2.info.shading_language_version" CaseType="SelfValidate">
+ <Text>1.20 NVIDIA via Cg compiler</Text>
+ <Number Name="TestDuration" Description="Test case duration in microseconds" Tag="Time" Unit="us">308</Number>
+ <Text>Multisampling state reset failed: glGetError() returned GL_INVALID_ENUM at gluStateReset.cpp:112</Text>
+ <Text>Error in state reset, test program will terminate.</Text>
+ <Result StatusCode="Pass">Pass</Result>
+</TestCaseResult>
+
+#endTestCaseResult
+#beginTestCaseResult dEQP-GLES2.info.extensions
+<?xml version="1.0" encoding="UTF-8"?>
+<TestCaseResult Version="0.3.3" CasePath="dEQP-GLES2.info.extensions" CaseType="SelfValidate">
+ <Text>GL_ARB_draw_buffers</Text>
+ <Text>GL_ARB_fragment_program</Text>
+ <Text>GL_ARB_half_float_pixel</Text>
+ <Text>GL_ARB_texture_rectangle</Text>
+ <Text>GL_ARB_vertex_program</Text>
+ <Text>GL_EXT_bgra</Text>
+ <Text>GL_EXT_Cg_shader</Text>
+ <Text>GL_EXT_packed_float</Text>
+ <Text>GL_EXT_texture_array</Text>
+ <Text>GL_EXT_texture_compression_latc</Text>
+ <Text>GL_EXT_texture_compression_s3tc</Text>
+ <Text>GL_EXT_texture_filter_anisotropic</Text>
+ <Text>GL_EXT_texture_format_BGRA8888</Text>
+ <Text>GL_EXT_texture_type_2_10_10_10_REV</Text>
+ <Text>GL_NV_alpha_test</Text>
+ <Text>GL_NV_blend_minmax</Text>
+ <Text>GL_NV_complex_primitives</Text>
+ <Text>GL_NV_depth_buffer_float</Text>
+ <Text>GL_NV_fbo_color_attachments</Text>
+ <Text>GL_NV_fragdepth</Text>
+ <Text>GL_NV_fragment_program</Text>
+ <Text>GL_NV_fragment_program2</Text>
+ <Text>GL_NV_gpu_program4</Text>
+ <Text>GL_NV_gpu_program4_1</Text>
+ <Text>GL_NV_texture_lod_clamp</Text>
+ <Text>GL_NV_vertex_program</Text>
+ <Text>GL_NV_vertex_program1_1</Text>
+ <Text>GL_NV_vertex_program2</Text>
+ <Text>GL_NV_vertex_program2_option</Text>
+ <Text>GL_NV_vertex_program3</Text>
+ <Text>GL_OES_fbo_render_mipmap</Text>
+ <Text>GL_OES_mapbuffer</Text>
+ <Text>GL_OES_packed_depth_stencil</Text>
+ <Text>GL_OES_rgb8_rgba8</Text>
+ <Text>GL_OES_texture_3D</Text>
+ <Text>GL_OES_texture_float</Text>
+ <Text></Text>
+ <Number Name="TestDuration" Description="Test case duration in microseconds" Tag="Time" Unit="us">2313</Number>
+ <Text>Multisampling state reset failed: glGetError() returned GL_INVALID_ENUM at gluStateReset.cpp:112</Text>
+ <Text>Error in state reset, test program will terminate.</Text>
+ <Result StatusCode="Pass">Pass</Result>
+</TestCaseResult>
+
+#endTestCaseResult
+#beginTestCaseResult dEQP-GLES2.info.render_target
+<?xml version="1.0" encoding="UTF-8"?>
+<TestCaseResult Version="0.3.3" CasePath="dEQP-GLES2.info.render_target" CaseType="SelfValidate">
+ <Number Name="RedBits" Description="Red channel bits" Unit="">8</Number>
+ <Number Name="GreenBits" Description="Green channel bits" Unit="">8</Number>
+ <Number Name="BlueBits" Description="Blue channel bits" Unit="">8</Number>
+ <Number Name="AlphaBits" Description="Alpha channel bits" Unit="">8</Number>
+ <Number Name="DepthBits" Description="Depth bits" Unit="">24</Number>
+ <Number Name="StencilBits" Description="Stencil bits" Unit="">8</Number>
+ <Number Name="NumSamples" Description="Number of samples" Unit="">0</Number>
+ <Number Name="Width" Description="Width" Unit="">400</Number>
+ <Number Name="Height" Description="Height" Unit="">300</Number>
+ <Number Name="TestDuration" Description="Test case duration in microseconds" Tag="Time" Unit="us">612</Number>
+ <Text>Multisampling state reset failed: glGetError() returned GL_INVALID_ENUM at gluStateReset.cpp:112</Text>
+ <Text>Error in state reset, test program will terminate.</Text>
+ <Result StatusCode="Pass">Pass</Result>
+</TestCaseResult>
+
+#endTestCaseResult
+#endSession

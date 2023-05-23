@@ -136,5 +136,7 @@ DotNet/UrhoDotNet/*
 DotNet/libs/*
 build-xcode-dotnet-dylib
 build-xcode
+build-ios-dotnet-lib
+build-ios-dotnet-metal-lib
 tools/SharpieBinder/bin/SharpieBinder.exe
 tools/SharpieBinder/bin/SharpieBinder.pdb

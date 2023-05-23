@@ -1,0 +1,13 @@
+URL: https://github.com/urish/angular-spinner/archive/744e26a0307bbd2b0f0da0761e6522573364b1a6.zip
+Version: 744e26a0307bbd2b0f0da0761e6522573364b1a6
+License: MIT
+License File: LICENSE
+
+Description:
+Spinner component for Angular
+
+Local Modifications:
+LICENSE file has been created for compliance purposes. Not included in original
+distribution. LICENSE file contents copied from
+http://en.wikipedia.org/wiki/MIT_License. Added copyright info from
+angular-spinner.js

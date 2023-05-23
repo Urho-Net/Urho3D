@@ -1,0 +1,58 @@
+
+High Level
+----------
+
+- test execution improvements
+  1 better configuration: devices, test packages, etc.
+  2 robustness & error handling
+  o dynamic device handling (Android via adb.exe)
+  * target/device handling (support spawning local executable)
+  * better test choosing: do something a bit smarter than X hard-coded cases..
+  * support multiple test packages
+  * handling multiple test executions (queue and/or execute in parallel)
+
+- usability improvements
+  o treeview performance with large data on Chrome, Firefox, IE
+  * visualize active things (batch results being executed, connected devices, etc.)
+  * remember last used settings (some saved locally, some on server)
+  * advanced result log viewing (image zooming, diff highlights, etc.)
+  * GUI redesign (drop batch result "tabs" from results screen, etc.)
+  * misc. functionality: remove batch results, etc.
+
+- test harnesses
+  * integration tests
+  * unit tests (rtdb, others?)
+
+- portability
+  * Linux, OSX
+  * Firefox, Safari, IE
+
+- database robustness
+  * transaction conflict resolution
+  * closer-to-native SQL usage
+
+
+Saving GUI Settings
+-------------------
+
+Need to save some settings for improved usability:
+
+- currently selected (last used) device config
+  * also its modified parameters (in case not saved yet)
+  * invent some concept for supporting shadowed rtdb objects (with modifications)
+
+Implementation alternatives:
+
+a) store locally (IndexedDB or somesuch)
+  + saved across sessions
+  - confusion with multiple settings
+b) store locally (in transient variables)
+  + not confused with multiple settings
+  - not saved across sessions
+c) store on server (use rtdb)
+  + use existing infra for storage
+  - clutters databae with extra objects
+  - confuses settings from multiple users
+d) open batch result page in new tab
+  + might be cleanest approach anyways (at least as an option)
+  - doesn't work across sessions

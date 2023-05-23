@@ -1,0 +1,93 @@
+<!--
+Copyright 2015 Google Inc. All rights reserved.
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+
+<div rtdb-version-view>
+	<div class="panel panel-default" ng-controller="BatchResultComparisonCtrl">
+		<div class="panel-heading clearfix">
+			<h3 class="panel-title pull-left">
+				<span style="font-size: 28px;">Batch Result Comparison</span>
+				<span style="font-size: 20px;" ng-repeat="batchResult in batchResults"> - <a ui-sref="batchResult({batchResultId:batchResultIds[$index]})">{{ batchResult.name }}</a></span>
+			</h3>
+		</div>
+
+		<div class="panel-body" id="mainPanelBody">
+			<div id="testCaseListContainer" style="float:left;">
+				<div ng-switch="isInitialized">
+					<div ng-switch-when="false">Initializing...
+						<div class="progress">
+							<div class="de-progress-bar" ng-style="{width:initProgress()*100+'%'}"></div>
+						</div>
+					</div>
+					<div ng-switch-when="true">
+						<div class="panel panel-default">
+							<div class="panel-heading">
+								<span class="test-filter-buttons-container">
+									<button ng-repeat="filter in booleanFilters" type="button" class="btn btn-xs on-off-button" ng-disabled="!isInitialized" on-off-button-model="booleanFilterEnabled[$index]">
+										{{ filter.description }}
+									</button>
+								</span>
+								<span class="test-path-filter-input-container">
+									<input id="testCasePathFilter" type="text" placeholder="Path filter" class="form-control input-sm test-path-filter-input" ng-model="$parent.testCasePathFilter" />
+								</span>
+							</div>
+							<div class="panel-body" style="overflow-y:scroll;" sized-by-window>
+								<treecontrol class="tree-light" tree-model="unionTestCaseTree">
+									<!-- TEST GROUP -->
+									<div id="testCaseGroupNode" ng-if="node.type === 'testGroup'">
+										<a class="test-case-tree-item"
+										   ui-sref="batchResultComparison.group({testGroupPath:node.path, batchResultId:batchResultIds[node.existsInTree.indexOf(true)]})"
+										   ng-class="{'tree-selected':node.path===stateParams.testGroupPath}">{{ node.label }}</a>
+
+										<div class="test-case-status-box">
+											<div ng-repeat="batchResultId in batchResultIds" class="progress tree-progress test-group-progress test-node-status compare-view-test-node-status">
+												<div ng-if="node.existsInTree[$index]" ng-controller="TreeGroupCtrl" ng-init="init(batchResultId + node.headerIdSuffix)" style="width:100%;height:100%;">
+													<a ui-sref="batchResultComparison.group({testGroupPath:node.path, batchResultId:batchResultId})" ng-class="{'tree-selected':node.path===stateParams.testGroupPath&&batchResultId===stateParams.batchResultId}" ng-include src="'partials/testTreeGroupStatus.html'"></a>
+												</div>
+												<div ng-if="!node.existsInTree[$index]">
+													<div class="de-progress-bar-text">0 / 0</div>
+												</div>
+											</div>
+										</div>
+									</div>
+
+									<!-- TEST CASE -->
+									<div id="testCaseLeafNode" ng-if="node.type === 'testCase'">
+										<a class="test-case-tree-item"
+										   ui-sref="batchResultComparison.case({testCasePath:node.path, batchResultId:batchResultIds[node.existsInTree.indexOf(true)]})"
+										   ng-class="{'tree-selected':node.path===stateParams.testCasePath}">{{ node.label }}</a>
+
+										<div class="test-case-status-box">
+											<div ng-repeat="batchResultId in batchResultIds" class="test-node-status compare-view-test-node-status">
+												<a ng-if="node.existsInTree[$index]" ui-sref="batchResultComparison.case({testCasePath:node.path, batchResultId:batchResultId})" ng-class="{'tree-selected':node.path===stateParams.testCasePath&&batchResultId===stateParams.batchResultId}" ng-controller="TreeLeafCtrl" ng-init="init(testCaseHeaders[batchResultId + node.headerIdSuffix])" ng-include src="'partials/testTreeLeafStatus.html'"></a>
+												<span ng-if="!node.existsInTree[$index]" style="overflow:hidden;">None</span>
+											</div>
+										</div>
+									</div>
+								</treecontrol>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div sized-by-window class="size-drag-bar" style="float:left;" size-drag-bar='{"left":"testCaseListContainer", "right":"testCaseContainer", "container":"mainPanelBody", "leftMinWidthRatio":0.2, "rightMinWidthRatio":0.2, "initialLeftWidthRatio":0.3}'></div>
+
+			<div id="testCaseContainer" style="float:left;">
+				<ui-view ng-if="isInitialized" />
+			</div>
+		</div>
+	</div>
+</div>

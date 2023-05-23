@@ -1,0 +1,11 @@
+URL: https://github.com/angular-ui/ui-router/archive/0.2.10.tar.gz
+Version: 0.2.10
+License: MIT
+License File: LICENSE
+
+Description:
+UI helper library for Angular
+
+Local Modifications:
+Small change to release/angular-ui-router.js to allow disabling Angular UI
+router from the Client code.

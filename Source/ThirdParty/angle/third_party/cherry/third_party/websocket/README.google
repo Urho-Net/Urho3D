@@ -1,0 +1,9 @@
+URL: https://github.com/gorilla/websocket/archive/1e6e1281b05fe5eaaf3300bdedb8e75880b9c6fd.zip
+Version: 1e6e1281b05fe5eaaf3300bdedb8e75880b9c6fd
+License: BSD
+License File: LICENSE
+
+Description:
+Websocket library for Go Language
+
+Local Modifications:

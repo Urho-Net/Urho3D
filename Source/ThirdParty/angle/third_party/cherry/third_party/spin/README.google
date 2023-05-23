@@ -1,0 +1,12 @@
+URL: http://fgnass.github.io/spin.js/spin.js
+Version: 2.0.1
+License: MIT
+License File: LICENSE
+
+Description:
+JavaScript loading spinner implementation. Used by Angular Spinner.
+
+Local Modifications:
+LICENSE file has been created for compliance purposes. Not included in original
+distribution. Copied from http://en.wikipedia.org/wiki/MIT_License and added
+copyright from spin.js.

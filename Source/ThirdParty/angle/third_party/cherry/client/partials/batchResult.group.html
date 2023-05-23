@@ -1,0 +1,130 @@
+<!--
+Copyright 2015 Google Inc. All rights reserved.
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+
+<div class="panel panel-default de-right-panel" ng-controller="TestGroupStatsCtrl">
+	<div class="panel-heading" style="overflow:hidden;">
+		<h3 style="display:inline;" class="panel-title" ng-switch="testGroupPath === ''">
+			<span ng-switch-when="true">Batch statistics</span>
+			<span ng-switch-when="false">
+				<!-- Batch name if we are comparing -->
+				<span class="de-batch-name" ng-if="batchResultName !== ''">{{ batchResultName }}</span>
+				{{ testGroupPath }}
+			</span>
+		</h3>
+	</div>
+	<div class="panel-body de-batch-panel-body">
+		<div class="progress">
+			<div class="de-progress-bar de-progress-bar-success" ng-style="{width:(getResultTypePercentage(value, 'numSuccess') + '%')}">
+				<div class="de-progress-bar-hint"> Success: {{ getResultTypeCount(value, 'numSuccess') }} ({{ getResultTypePercentage(value, 'numSuccess') }}%) </div>
+			</div>
+			<div class="de-progress-bar de-progress-bar-fail" ng-style="{width:(getResultTypePercentage(value, 'numFailure') + '%')}">
+				<div class="de-progress-bar-hint"> Fail: {{ getResultTypeCount(value, 'numFailure') }} ({{ getResultTypePercentage(value, 'numFailure') }}%) </div>
+			</div>
+			<div class="de-progress-bar de-progress-bar-crash-timeout" ng-style="{width:(getResultTypePercentage(value, 'numCrash', 'numTimeout') + '%')}">
+				<div class="de-progress-bar-hint"> Crash or timeout: {{ getResultTypeCount(value, 'numCrash', 'numTimeout') }} ({{ getResultTypePercentage(value, 'numCrash', 'numTimeout') }}%) </div>
+			</div>
+			<div class="de-progress-bar de-progress-bar-warning" ng-style="{width:(getResultTypePercentage(value, 'numQualityWarning', 'numCompatibilityWarning') + '%')}">
+				<div class="de-progress-bar-hint"> Warning: {{ getResultTypeCount(value, 'numQualityWarning', 'numCompatibilityWarning') }} ({{ getResultTypePercentage(value, 'numQualityWarning', 'numCompatibilityWarning') }}%) </div>
+			</div>
+			<div class="de-progress-bar de-progress-bar-not-supported" ng-style="{width:(getResultTypePercentage(value, 'numNotSupported') + '%')}">
+				<div class="de-progress-bar-hint"> Not supported: {{ getResultTypeCount(value, 'numNotSupported') }} ({{ getResultTypePercentage(value, 'numNotSupported') }}%) </div>
+			</div>
+			<div class="de-progress-bar de-progress-bar-resource-internal-error" ng-style="{width:(getResultTypePercentage(value, 'numResourceError', 'numInternalError') + '%')}">
+				<div class="de-progress-bar-hint"> Error: {{ getResultTypeCount(value, 'numResourceError', 'numInternalError') }} ({{ getResultTypePercentage(value, 'numResourceError', 'numInternalError') }}%) </div>
+			</div>
+			<div class="de-progress-bar-text">{{ getNumResults(value) }} / {{ value.numTotalCases }}</div>
+		</div>
+		<div sized-by-window class="container">
+			<table class="table">
+				<!-- General Success -->
+				<tr class="de-row-header">
+					<td>Successes</td>
+				</tr>
+				<tr>
+					<td>Success</td>
+					<td>{{ value.numSuccess }} of {{ value.numTotalCases }}</td>
+					<td ng-if="value.numTotalCases != 0">{{ value.numSuccess / value.numTotalCases | percent }}</td>
+				</tr>
+
+				<!-- General Failures -->
+				<tr class="de-row-header">
+					<td>Failures</td>
+				</tr>
+				<tr>
+					<td>Failure</td>
+					<td>{{ value.numFailure }} of {{ value.numTotalCases }}</td>
+					<td ng-if="value.numTotalCases != 0">{{ value.numFailure / value.numTotalCases | percent }}</td>
+				</tr>
+				<tr>
+					<td>Crash</td>
+					<td>{{ value.numCrash }} of {{ value.numTotalCases }}</td>
+					<td ng-if="value.numTotalCases != 0">{{ value.numCrash / value.numTotalCases | percent }}</td>
+				</tr>
+				<tr>
+					<td>Timeout</td>
+					<td>{{ value.numTimeout }} of {{ value.numTotalCases }}</td>
+					<td ng-if="value.numTotalCases != 0">{{ value.numTimeout / value.numTotalCases | percent }}</td>
+				</tr>
+
+				<!-- General Warnings -->
+				<tr class="de-row-header">
+					<td>Warnings</td>
+				</tr>
+				<tr>
+					<td>Quality warning</td>
+					<td>{{ value.numQualityWarning }} of {{ value.numTotalCases }}</td>
+					<td ng-if="value.numTotalCases != 0">{{ value.numQualityWarning / value.numTotalCases | percent }}</td>
+				</tr>
+				<tr>
+					<td>Compatibility warning</td>
+					<td>{{ value.numCompatibilityWarning }} of {{ value.numTotalCases }}</td>
+					<td ng-if="value.numTotalCases != 0">{{ value.numCompatibilityWarning / value.numTotalCases | percent }}</td>
+				</tr>
+
+				<!-- General Others -->
+				<tr class="de-row-header">
+					<td>Others</td>
+				</tr>
+				<tr>
+					<td>Not supported</td>
+					<td>{{ value.numNotSupported }} of {{ value.numTotalCases }}</td>
+					<td ng-if="value.numTotalCases != 0">{{ value.numNotSupported / value.numTotalCases | percent }}</td>
+				</tr>
+				<tr>
+					<td>Resource error</td>
+					<td>{{ value.numResourceError }} of {{ value.numTotalCases }}</td>
+					<td ng-if="value.numTotalCases != 0">{{ value.numResourceError / value.numTotalCases | percent }}</td>
+				</tr>
+				<tr>
+					<td>Internal error</td>
+					<td>{{ value.numInternalError }} of {{ value.numTotalCases }}</td>
+					<td ng-if="value.numTotalCases != 0">{{ value.numInternalError / value.numTotalCases | percent }}</td>
+				</tr>
+
+				<!-- General Not Executed -->
+				<tr class="de-row-header">
+					<td>Run status</td>
+				</tr>
+				<!-- TODO: Separate to pending/running/disabled/canceled categories -->
+				<tr>
+					<td>Not executed</td>
+					<td>{{ value.numTotalCases - getNumResults(value) }} of {{ value.numTotalCases }}</td>
+					<td ng-if="value.numTotalCases != 0">{{ (value.numTotalCases - getNumResults(value)) / value.numTotalCases | percent }}</td>
+				</tr>
+			</table>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,10 @@
+URL: https://github.com/mattn/go-sqlite3/archive/467f50b0c026317ad28fc2c0a08aab6f755cfc7a
+
+Version: 467f50b0c026317ad28fc2c0a08aab6f755cfc7a
+License: MIT
+License File: LICENSE
+
+Description:
+SQLite bindings for Go language
+
+Local Modifications:

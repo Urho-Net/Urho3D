@@ -1,0 +1,105 @@
+<!--
+Copyright 2015 Google Inc. All rights reserved.
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+
+<!doctype html>
+<html ng-app="cherry">
+<head>
+	<meta charset="utf-8">
+	<title ng-bind="'Cherry' + titleSuffix">Cherry</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="lib/bootstrap/css/bootstrap.css" />
+	<link rel="stylesheet" href="css/bootstrap-fix.css" />
+	<link rel="stylesheet" href="lib/angular-tree-control/css/tree-control-attribute.css" />
+	<link rel="stylesheet" href="lib/angular-tree-control/css/tree-control.css" />
+	<link rel="stylesheet" href="css/style.css" />
+</head>
+
+<body ng-controller="GlobalCtrl">
+	<!-- Site nav -->
+	<div class="navbar navbar-inverse navbar-fixed-top" role="navigation" ng-controller="NavCtrl">
+		<div class="container">
+			<div class="navbar-header">
+				<a class="navbar-brand" ui-sref="main">
+					<img src="/img/cherry.png" style="height:100%;" /> Cherry
+				</a>
+			</div>
+			<div class="collapse navbar-collapse">
+				<ul class="nav navbar-nav">
+					<li ng-class="{ active: $state.includes('testLaunch') }"><a ui-sref="testLaunch">Tests</a></li>
+					<li ng-class="{ active: $state.includes('results') || $state.includes('batchResult') }">
+						<a ui-sref="results">Results
+							<span class="badge" ng-show="value.batchResultIds.length > 0">{{ value.batchResultIds.length }}</span>
+						</a>
+					</li>
+				</ul>
+
+				<ul class="nav navbar-nav navbar-right">
+					<li style="margin-top:15px;" class="badge" ng-show="numActiveUploads() > 0">{{ numActiveUploads() }} upload(s) active</li>
+
+					<!-- Global (outstanding RPC) spinner -->
+					<li>
+						<div id="globalSpinner" class="spinner-box">
+							<div us-spinner="{radius:6, width:3, lines:10, color:'#fff'}" spinner-key="rpc-spinner"></div>
+						</div>
+					</li>
+
+					<!-- WebSocket disconnected indicator -->
+					<li ng-cloak ng-show="connectionStatus === 'disconnected'">
+						<button class="btn btn-danger" ng-click="reconnect()">
+							<span class="glyphicon glyphicon-exclamation-sign"></span>
+							connection lost!
+						</button>
+					</li>
+					<li ng-class="{ active: $state.includes('about') }"><a href="#/about">About</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+
+	<!-- Main -->
+	<div class="container-fluid">
+		<div ui-view>
+		</div>
+	</div>
+
+	<!-- External libraries -->
+	<script src="lib/underscore/underscore.js"></script>
+	<script src="lib/jquery/jquery-1.11.0.min.js"></script>
+	<script src="lib/angular/angular.js"></script>
+	<script src="lib/ui-router/release/angular-ui-router.js"></script>
+	<script src="ui-bootstrap/ui-bootstrap-tpls.js"></script>
+	<script src="lib/sax/lib/sax.js"></script>
+	<script src="lib/spin/spin.js"></script>
+	<script src="lib/angular-spinner/angular-spinner.js"></script>
+	<script src="lib/angular-tree-control/treeUtilities.js"></script>
+	<script src="lib/angular-tree-control/treeControl.js"></script>
+
+	<!-- Cherry JavaScript -->
+	<script src="js/statusCodes.js"></script>
+	<script src="js/testCaseTypes.js"></script>
+	<script src="js/objectOp.js"></script>
+	<script src="js/app.js"></script>
+	<script src="js/services.js"></script>
+	<script src="js/controllers.js"></script>
+	<script src="js/filters.js"></script>
+	<script src="js/directives.js"></script>
+	<script src="js/testLaunch.js"></script>
+	<script src="js/results.js"></script>
+	<script src="js/batchResult.js"></script>
+	<script src="js/testCaseResult.js"></script>
+	<script src="js/batchResultComparison.js"></script>
+</body>
+</html>

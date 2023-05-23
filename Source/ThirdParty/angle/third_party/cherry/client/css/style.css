@@ -1,0 +1,288 @@
+/*
+ * Copyright 2015 Google Inc. All rights reserved.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+/* Angular */
+
+[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+	display: none !important;
+}
+
+/* Generic */
+
+body {
+	padding-top:	60px;
+	overflow-y:		scroll;
+}
+
+.navbar-brand {
+	color:			#b41010 !important;
+	font-size:		24px;
+	font-weight:	900;
+}
+
+/* \todo [petri] why doesn't bootstrap automatically apply active style to navbar items? */
+ul.nav-sidebar > li.active {
+	font-weight:	500;
+	background:		#ddd;
+}
+
+/*.de-sample-table {
+	width:			100px !important;
+	overflow:		hidden;
+}*/
+
+.clickable {
+	cursor:			pointer;
+}
+
+.size-drag-bar {
+	width: 5px;
+	background-color: #ccc;
+	border: 2px solid white;
+	cursor: col-resize;
+}
+
+.file-input-button {
+	position: relative;
+	overflow: hidden;
+}
+
+.file-input-button input[type="file"] {
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	width: 100%;
+	height: 100%;
+	opacity: 0;
+	cursor: inherit;
+}
+
+.on-off-button {
+	color: #333;
+	background-color: #fff;
+	border-color: #ccc;
+}
+
+.on-off-button:hover, .on-off-button:focus, .on-off-button.active, .on-off-button:active {
+	border-color: #adadad;
+}
+
+.on-off-button:active, .on-off-button.active {
+	background-color: #ebebeb;
+}
+
+.test-launch-tree-container {
+	height: 400px;
+}
+
+.de-text {
+	white-space: pre-wrap;
+	min-height: 1em;
+}
+
+.de-section, .de-shader-program, .de-shader, .de-egl-config-set, .de-build-info, .de-image-set {
+	background: #eee;
+	border: 2px solid #ccc;
+	padding: 3px;
+	margin-bottom: 10px;
+}
+
+.de-section-heading, .de-shader-program-heading, .de-shader-heading, .de-egl-config-set-heading, .de-build-info-heading {
+	font-size: 16px;
+}
+
+.de-build-status-ok {
+	color: green;
+}
+
+.de-build-status-fail {
+	color: red;
+}
+
+.debug {
+	border:			1px solid blue;
+}
+
+.list-group-item.active {
+	border-color: #aaf !important;
+	background-color: #ddf !important;
+}
+
+.list-group-item.active .list-group-item-heading {
+	color: #000 !important;
+}
+
+.batch-result-list-device-name {
+	color: gray;
+	font-size: 14px;
+}
+
+.batch-result-name {
+	font-size: 28px;
+}
+
+.batch-result-name-input {
+	background-color: #e3e3e3;
+	border: none;
+}
+
+.batch-result-name-input::-ms-clear {
+	display: none;
+}
+
+.batch-result-name-width-helper {
+	white-space: pre-wrap;
+	display: none;
+}
+
+.batch-result-status {
+	font-size: 20px;
+}
+
+.batch-result-device-name {
+	color: gray;
+	font-size: 16px;
+}
+
+.test-case-tree-item {
+	display: inline-block;
+	white-space: nowrap;
+}
+
+.test-filter-buttons-container {
+	float: right;
+}
+
+.test-path-filter-input-container {
+	display: block;
+	overflow: hidden;
+}
+
+.test-path-filter-input {
+	padding: 3px 5px;
+	height: 22px;
+	width: 100%;
+}
+
+/* Test case status */
+
+.test-case-status-box {
+	display:		inline-block;
+	position:		absolute;
+	background:		white;
+	padding-left:	4px;
+	right:			0px;
+	top:			0px;
+}
+
+.test-node-status {
+	width:		80px;
+	overflow:	hidden;
+}
+
+.test-group-progress {
+	height:			18px;
+	position:		relative;
+}
+
+.tree-progress {
+	margin-bottom:	inherit;
+	position:		relative;
+}
+
+.compare-view-test-node-status {
+	display:		inline-block;
+	margin-right:	4px;
+}
+
+.test-status-pass {
+	color:	green;
+}
+
+.test-status-fail {
+	color:	red;
+}
+
+.test-status-pending {
+	color:	gray;
+}
+
+.test-status-running {
+	color:	blue;
+}
+
+.test-status-quality-warning,
+.test-status-compatibility-warning,
+.test-status-not-supported,
+.test-status-resource-error,
+.test-status-internal-error,
+.test-status-canceled,
+.test-status-timeout,
+.test-status-crash,
+.test-status-disabled {
+
+	color: orange;
+}
+
+.adb-device-state-online {
+	color: green;
+}
+
+.adb-device-state-other {
+	color: red;
+}
+
+/* Spinner */
+
+.spinner-box {
+	position:		relative;
+	display:		inline-block;
+	vertical-align:	middle;
+	width:			24px;
+	height:			24px;
+	margin:			4px;
+}
+
+/* Device select */
+
+.choose-device-button {
+	width:			100%;
+}
+
+.panel {
+	margin:			8px;
+	transition:		border-color 0.05s ease-in-out 0s, box-shadow 0.05s ease-in-out 0s;
+}
+
+.panel.active {
+	border-color:	#66E97F;
+	box-shadow:		0 2px 2px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgba(102, 233, 125, 0.6);
+	outline:		0 none;
+}
+
+span.selected-test-set {
+	font-weight:	bold;
+}
+
+.test-set-panel {
+	padding-top:	8px;
+	padding-bottom:	8px;
+}
+
+.btn-test-set {
+	margin-top:		8px;
+	margin-bottom:	0px;
+}

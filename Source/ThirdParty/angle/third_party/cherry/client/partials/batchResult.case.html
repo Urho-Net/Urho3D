@@ -1,0 +1,36 @@
+<!--
+Copyright 2015 Google Inc. All rights reserved.
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+
+<div class="panel panel-default de-right-panel" ng-controller="TestCaseResultCtrl">
+	<div class="panel-heading" style="overflow:hidden;">
+		<h3 class="panel-title">
+			<!-- Need to have the float-right as the first child to avoid Firefox bug with floats after white-space: nowrap inline elements -->
+			<span id="status" class="pull-right" ng-class="header.status | testStatusClass">[{{ header.status | testStatusHumanReadable }}]</span>
+			<!-- Batch name if we are comparing -->
+			<span class="de-batch-name" ng-if="batchResultName !== ''">{{ batchResultName }}</span>
+			<!-- Title (test case name) linking to the test-case-only view or, if we're
+				 already there, to the corresponding batch result view -->
+			<a ng-if="stateName === 'testCase'" ui-sref="batchResult.case(stateParams)" id="title">{{ result.path || '&nbsp;' }}</a>
+			<a ng-if="stateName !== 'testCase'" ui-sref="testCase(stateParams)" id="title">{{ result.path || '&nbsp;' }}</a>
+		</h3>
+	</div>
+
+	<div class="panel-body" style="overflow-y:scroll;" sized-by-window>
+		<div>
+			<div de-dynamic-html="logHtml"></div>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,106 @@
+<!--
+Copyright 2015 Google Inc. All rights reserved.
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+
+<div class="panel panel-default" ng-controller="BatchResultCtrl" ng-show="batchResult">
+	<div class="panel-heading clearfix">
+		<!-- \todo [nuutti] Hacky positioning all around. -->
+		<h3 class="panel-title pull-left">
+			<!-- \todo [nuutti] The length attribute in the spinner is a workaround for terrible lagging in Firefox; if
+								the width attribute in line 243 in spin.js is too *small*, UI is very laggy for some reason.
+								Find proper solution? -->
+			<!-- \todo [petri] use some helper function to detect which statuses should show spinner (eg, initializing)? -->
+			<div id="batchResultSpinner" style="margin-right: 10px;" class="spinner-box" ng-show="batchResult.status === BATCH_STATUS_CODE.RUNNING" us-spinner="{radius:6, width:3, lines:10, length:12, color:'#88f'}"></div>
+			<span class="batch-result-name">
+				<!-- \note The width of the name input field is determined by the width of its text. There doesn't
+						   seem to be a straightforward way to do this, so it's done in a hacky way by setting the
+						   contents of the (hidden) batchResultNameWidthHelper to the input's value, getting its
+						   width and setting the input's width based on that. If more than one things like this are
+						   needed on the same page, something more sophisticated than an element-id-based jquery hack
+						   is needed. -->
+				<input id="batchResultNameInput" type="text" ng-model="batchResultNameInput" ng-trim="false" class="batch-result-name-input" ng-style="{width:batchResultNameInputWidth()}" />
+				<span id="batchResultNameWidthHelper" class="batch-result-name-width-helper"><span id="batchResultName">{{ batchResultNameInput }}</span></span>
+			</span>
+			<span id="batchResultStatus" class="batch-result-status">[{{ batchResult.status | batchStatusHumanReadable }}]</span>
+			<span class="batch-result-device-name">{{ deviceConfigName }}</span>
+		</h3>
+		<!-- \note Here, the purpose of the download attribute is to make the browser
+				   download the thing without leaving the current page. The download
+				   attribute isn't supported by latest IE, but the latest IE seems to
+				   do the desired thing anyway. -->
+		<a class="btn" ng-disabled="!isInitialized" ng-href="/export/{{ batchResultId | encodeURIComponent }}" download>Export batch log</a>
+		<a class="btn" ng-disabled="!isInitialized" ng-href="/executionLog/{{ batchResultId | encodeURIComponent }}">Show execution log</a>
+		<span class="pull-right">
+			<button class="btn btn-default" type="button" ng-click="executeSubBatch()" ng-disabled="!isInitialized || !anyNodesForSubBatch">Execute selected</button>
+			<button class="btn btn-success" type="button" ng-click="continueExecution()" ng-disabled="!isContinuable">Continue</button>
+			<button class="btn btn-danger" type="button" ng-click="stopExecution()" ng-disabled="!isStoppable">Stop</button>
+		</span>
+	</div>
+
+	<div class="panel-body" id="mainPanelBody">
+		<!-- Test case list -->
+		<div id="testCaseListContainer" style="float:left;">
+			<div ng-switch="isInitialized">
+				<div ng-switch-when="false">Initializing...
+					<div class="progress">
+						<div class="de-progress-bar" ng-style="{width:initProgress()*100+'%'}"></div>
+					</div>
+				</div>
+				<div ng-switch-when="true" ng-controller="TestCaseListCtrl">
+					<!-- Treeview -->
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<span class="test-path-filter-input-container">
+								<input id="testCasePathFilter" type="text" placeholder="Path filter" class="form-control input-sm test-path-filter-input" ng-model="testCasePathFilter" />
+							</span>
+						</div>
+						<div class="panel-body" style="overflow-y:scroll;" sized-by-window ng-click="maybeUnselectNodes($event)">
+							<div id="testCaseTree" class="tree-border">
+								<treecontrol class="tree-light" tree-model="testCaseTree" tree-selectable="{selectionType:treeSelectionType, setAccess:setTreeAccess}">
+									<!-- TEST GROUP -->
+									<div id="testCaseGroupNode" ng-if="node.type === 'testGroup'">
+										<a id="nodePath" class="test-case-tree-item" node-path="{{node.path}}" ui-sref="batchResult.group({testGroupPath:node.path})">
+											<span id="nodeLabel">{{ node.label }}</span>
+											<div class="test-case-status-box" ng-controller="TreeGroupCtrl" ng-init="init(batchResultId + node.headerIdSuffix)">
+												<div class="progress tree-progress test-group-progress test-node-status" ng-include src="'partials/testTreeGroupStatus.html'"></div>
+											</div>
+										</a>
+									</div>
+
+									<!-- TEST CASE -->
+									<div id="testCaseLeafNode" ng-if="node.type === 'testCase'">
+										<a id="nodePath" class="test-case-tree-item" node-path="{{node.path}}" ui-sref="batchResult.case({testCasePath:node.path})">
+											<span id="nodeLabel">{{ node.label }}</span>
+											<div class="test-case-status-box" ng-controller="TreeLeafCtrl" ng-init="init(batchResultId + node.headerIdSuffix)">
+												<div class="test-node-status" ng-include src="'partials/testTreeLeafStatus.html'"></div>
+											</div>
+										</a>
+									</div>
+								</treecontrol>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div sized-by-window class="size-drag-bar" style="float:left;" size-drag-bar='{"left":"testCaseListContainer", "right":"testCaseContainer", "container":"mainPanelBody", "leftMinWidthRatio":0.2, "rightMinWidthRatio":0.2, "initialLeftWidthRatio":0.3}'></div>
+
+		<!-- Test case result or test group view -->
+		<div id="testCaseContainer" style="float:left;">
+			<ui-view ng-if="isInitialized" />
+		</div>
+	</div>
+</div>

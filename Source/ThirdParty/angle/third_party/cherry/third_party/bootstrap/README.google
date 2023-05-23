@@ -1,0 +1,11 @@
+URL: https://github.com/twbs/bootstrap/releases/download/v3.1.1/bootstrap-3.1.1-dist.zip
+Version: 3.1.1
+License: MIT
+License File: LICENSE
+
+Description:
+UI library for Web Applications
+
+Local Modifications:
+LICENSE file added for compliance purposes. Downloaded from
+https://github.com/twbs/bootstrap/blob/master/LICENSE.

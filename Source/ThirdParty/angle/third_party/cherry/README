@@ -1,0 +1,113 @@
+BROWSER-BASED (ANDROID) NATIVE TEST EXECUTION TOOL (FOR GRAPHICS)
+-----------------------------------------------------------------
+
+Setting Up Development Environment
+----------------------------------
+
+LINUX
+
+- Install golang (sudo apt-get install golang or https://golang.org/doc/install)
+
+- Set up go path (For example, export GOPATH=$HOME/gopath)
+
+WINDOWS
+
+In order to be able to build Cherry on Windows, the following are required.
+
+- Go distribution: https://golang.org/doc/install
+  * (use 32-bit installation on Windows, 64-bit doesn't compile sqlite out-of-the-box)
+  * set GOPATH=C:\go or GOPATH=<path to cherry>
+    + All dependiencies (go get) will be installed here
+
+- MinGW: http://www.mingw.org/
+  * add "c:\MinGW\bin" to PATH
+  * run "mingw-get install gcc"
+  * required for building sqlite Go package
+  * note: using Cygwin GCC doesn't work
+
+
+64-BIT WINDOWS
+
+64-bit build of sqlite driver requires MinGW toolchain that supports x64. Such toolchain
+is maintained by mingw-w64 project (http://mingw-w64.sourceforge.net/).
+
+- Download threads-win32 / SEH / x64 variant from mingw-builds source:
+  * http://sourceforge.net/projects/mingw-w64/files/Toolchains%20targetting%20Win64/Personal%20Builds/mingw-builds/4.8.2/threads-win32/seh/x86_64-4.8.2-release-win32-seh-rt_v3-rev3.7z/download
+
+- Extract onto C:\ and add C:\mingw64 to PATH.
+
+- Install 64-bit Go distribution.
+
+
+Deqp integration
+----------------
+
+Cherry has been built for running deqp GPU tests. To get the deqp test lists for cherry:
+
+1. mkdir <path-to-cherry>/data
+
+2. Go to deqp dir
+
+3. python scripts/build_caselists.py <path-to-cherry>/data
+
+This will build deqp locally and dump the caselist from current binaries to the data dir.
+
+The process should be repeated every time new tests have been added.
+
+
+Running Cherry
+--------------
+
+1. Make sure adb executable is in the path
+
+2. Run "go run server.go" in your cherry/ directory.
+
+3. Point your favorite browser to http://127.0.0.1:8080.
+
+
+Running Selenium Tests
+----------------------
+
+Prerequisites:
+
+- install Python setuptools
+  * https://pypi.python.org/pypi/setuptools
+
+- install Python bindings for Selenium
+  * easiest option is "pip install selenium", if you have pip installed
+  * or install manually from: http://selenium-python.readthedocs.org/installation.html#downloading-python-bindings-for-selenium
+
+- install unittest-xml-reporting
+  * download package https://pypi.python.org/pypi/unittest-xml-reporting
+  * extract contents and run 'setup.py install'
+
+Steps:
+
+- build Cherry server by running: "go build" in cherry/
+
+- run "test.py" in cherry/test/
+  * you can specify browser with "test.py --browser=chrome" (also supports: firefox and ie)
+  * you can pass arguments to python's unittest with --unittest, e.g.: "test.py --unittest --help"
+
+
+
+Architecture Overview
+---------------------
+
+Comsists of browser-based GUI client and HTTP server (written in Go).
+
+Server:
+- written in Go language
+- real-time database
+  * notification support (clients can listen to objects)
+  * versioned views: temporarily retain snapshot of current state of database
+  * optimistic transactions (retry-on-conflict)
+  * backing storage in SQLite (other backends possible)
+- RPC interface for client
+- support multiple simultaneous clients
+
+GUI Client:
+- built on AngularJS (modern html5 web framework from Google)
+- uses Twitter Bootstrap for responsive layouts and design
+- invokes server via its RPC interface
+- database objects visualized by binding to Angular controllers

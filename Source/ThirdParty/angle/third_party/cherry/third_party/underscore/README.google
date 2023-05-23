@@ -1,0 +1,9 @@
+URL: https://github.com/jashkenas/underscore/archive/1.5.2.tar.gz
+Version: 1.5.2
+License: MIT
+License File: LICENSE
+
+Description:
+Functional programming tools for JavaScript
+
+Local Modifications:

@@ -1,0 +1,19 @@
+{
+  "format_version": "1.1",
+  "package_name": "gn/gn/mac-amd64",
+  "version_file": ".versions/gn.cipd_version",
+  "install_mode": "copy",
+  "files": [
+    {
+      "name": "gn",
+      "size": 2389576,
+      "executable": true,
+      "hash": "NXZxc0o_jHeJsLTguuJOtE39foeXXBImuYNSGaT5cnAC"
+    },
+    {
+      "name": ".versions/gn.cipd_version",
+      "size": 104,
+      "hash": "9oFKHaZ1qKpDH0zxl5HYCShix1eIO49bql920aPXmkYC"
+    }
+  ]
+}

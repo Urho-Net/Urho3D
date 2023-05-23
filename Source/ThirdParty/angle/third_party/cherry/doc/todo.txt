@@ -1,0 +1,117 @@
+
+ToDo
+----
+
+Last Minute:
+- fix test package order to be deterministic (not dependent on hash iteration order)
+
+Bugs:
+- bug: if selected device config is deleted, execute button stays enabled!
+- bug: 'all results' is not auto-selected in tree
+- bug: crashing test case stops test batch progress
+- bug: execservers are sometimes leaked on Linux (is it always or just on test crash?)
+- bug: unsupported cases (everything GLES3) leaves test cases with status 'running'
+- bug: case result view says "loading" when no log is available (case pending or not executed)
+- bug: long test case names in treeview nastily overlap status code
+- bug: deadlock with client goroutine calling into rtdb calling back with listener updates
+- bug: progress of batch stops if unable to launch test package executable
+- bug: if cherry.exe is launched from test.py, the spawned execservers create a visible window
+
+Backlog:
+- clean up error handling (esp. in testrunner)
+- use ip:port as deviceId for queueing purposes
+- refactor rtdb object crud logic into a re-usable package/service (start using for device configs)
+- plan for saving test launch settings (and others)
+- test case image extraction
+  * custom http routes for images
+  * custom de-duplicating binary database
+- dynamic device handling
+- when opening direct link to test case, automatically expand test case path in treeview
+- test runner robustness
+- display raw test log xml (use tabs in result log view?)
+- convert database to use schemas with table for each object type
+- optimize treeview
+  * function calls inside treeview (replace with explicit logic?)
+  * get rid of filters in treeview (or use lazy initialization?)
+
+
+Done
+----
+
+- basic data model (for results)
+- dummy test executor
+- dummy test case result data
+- placeholder test result xml converter (into angular-html)
+- initial test case visualization
+- basic infrastructure for viewing test case results
+- basic handling of sample lists
+- move xml conversion to client
+- basic treeview for test cases (highlight active one)
+- qpa data parsing (simulated execution with real data, for testing purposes)
+- qpa archive parser (only archive format, not internal xml)
+- test group progress bar visuals
+- bug: when starting with empty Cherry.db, batchResultList isn't properly initialized
+- bug: dynamic update of test case results during test execution
+- auto-open items in treeview (with horrible kludge!)
+- execserver protocol message support
+- initial tcpip-link to execserver
+- other test result data types
+- integrate qpa parser with tcpip link
+- basic communication from commlink to testrunner
+- multi-case prefix encoder
+- execute multiple cases in single batch
+- test runner can continue from terminated tester process
+- bug: test case statuses are not parsed from xml log
+- bug: if test case not in test package, test runner keeps on trying forever (without progress)
+- fix test case status code (parse from xml or take from #terminate)
+- xml-imported test cases, test sets
+- test name filtering support
+- allow specifying test name filters from the GUI
+- use type.id pair to identify rtdb objects (i.e., make them bucketed)
+- implement proper transactions in rtdb
+- group multiple test case inits into single transaction (to speed up test launch)
+- support spawning local execserver
+- fix batch result object model (test case tree is now explicitly represented in database)
+- bug: writeQueue becomes full and blocks whole rtdb server
+- bug: send all object updates as single message (not one msg per object)
+- bug: test case selection does not work
+- bug: pressing treeview status box activates row, but doesn't show test case
+- bug: server still becomes deadlocked?!
+- implement listener unsubscribes/destruction
+- bug: test execution sometimes stops (doesn't make any progress)
+- implement batch result stats
+- bug: goroutine leaks (in CommLinkTcpIp.Stop())
+- optimize test case treeview (horribly slow to open even ~50 results!)
+- correct values to test group progress bars
+- test package (==binary) support in test execution
+- more test cases: use full hierarchy? test sets or similar?
+- client-side multi-subscribe (enqueue subscribes and send in one batch)
+- client-side incoming message queue (handle incoming messages in larger batches)
+- batched rtdb subscribe and unsubscribe (from client)
+- simplify & optimize treeview
+- bug: quick subscribe+unsubscribe leads to panic on server (unsubscribe of not-yet-subscribed object)
+- wrap buffered queues in a class
+- reimplement reflection-based service libraries from scratch
+- switch to gob for db storage
+- new device / test selection screen
+- new batch result view
+- support multiple test packages
+- separate batch result list view & test case view
+- better batch result list view (progress bars etc.)
+- batch execution scheduler (only allow one execution for now?)
+- stop/continue test execution
+- create new device (support device config rename?)
+- remove/rename device configs
+- bug: test case name 'constructor' causes havoc with javascript objects..
+- refactor client-side file structure (split up large .js files)
+- fix Selenium tests to not bork on timing issues
+- bug: empty test case filters leaves batch in state 'initializing'
+- bug: cannot give command line args to local spawned process
+- basic test infrastructure
+- basic tests
+- plan for better concurrency in rtdb
+- improve object-op handling in rtdb (wrap in a class, with decent API)
+- document test infrastructure (how to expand + todos/notes)
+- add Selenium test for launching a test case
+- bind multiple rtdb objects into same scope
+- versioned views to rtdb (needed by test runner when launching tests?)
