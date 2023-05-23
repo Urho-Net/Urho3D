@@ -1,0 +1,445 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<api>
+  <package name="com.google.protobuf.nano.android">
+    <class abstract="true" deprecated="not deprecated" extends="com.google.protobuf.nano.ExtendableMessageNano" extends-generic-aware="com.google.protobuf.nano.ExtendableMessageNano&lt;M&gt;" final="false" name="ParcelableExtendableMessageNano" static="false" visibility="public">
+      <typeParameters>
+        <typeParameter name="M">
+          <genericConstraints>
+            <genericConstraint type="com.google.protobuf.nano.ExtendableMessageNano&lt;M&gt;" />
+          </genericConstraints>
+        </typeParameter>
+      </typeParameters>
+      <implements name="android.os.Parcelable" name-generic-aware="android.os.Parcelable"></implements>
+      <constructor deprecated="not deprecated" final="false" name="ParcelableExtendableMessageNano" static="false" type="com.google.protobuf.nano.android.ParcelableExtendableMessageNano" visibility="public"></constructor>
+      <method abstract="false" deprecated="not deprecated" final="false" name="describeContents" native="false" return="int" static="false" synchronized="false" visibility="public"></method>
+      <method abstract="false" deprecated="not deprecated" final="false" name="writeToParcel" native="false" return="void" static="false" synchronized="false" visibility="public">
+        <parameter name="p0" type="android.os.Parcel"></parameter>
+        <parameter name="p1" type="int"></parameter>
+      </method>
+      <field deprecated="not deprecated" final="true" name="CREATOR" static="true" transient="false" type="android.os.Parcelable.Creator" type-generic-aware="android.os.Parcelable.Creator&lt;com.google.protobuf.nano.android.ParcelableExtendableMessageNano&lt;?&gt;&gt;" visibility="public" volatile="false"></field>
+    </class>
+    <class abstract="false" deprecated="not deprecated" extends="java.lang.Object" extends-generic-aware="java.lang.Object" final="false" name="ParcelableExtendableMessageNano.1" static="true" visibility="">
+      <implements name="android.os.Parcelable.Creator" name-generic-aware="android.os.Parcelable.Creator&lt;com.google.protobuf.nano.android.ParcelableExtendableMessageNano&lt;?&gt;&gt;"></implements>
+      <method abstract="false" deprecated="not deprecated" final="false" name="createFromParcel" native="false" return="com.google.protobuf.nano.android.ParcelableExtendableMessageNano&lt;?&gt;" static="false" synchronized="false" visibility="public">
+        <parameter name="p0" type="android.os.Parcel"></parameter>
+      </method>
+      <method abstract="false" deprecated="not deprecated" final="false" name="newArray" native="false" return="com.google.protobuf.nano.android.ParcelableExtendableMessageNano&lt;?&gt;[]" static="false" synchronized="false" visibility="public">
+        <parameter name="p0" type="int"></parameter>
+      </method>
+    </class>
+    <class abstract="true" deprecated="not deprecated" extends="com.google.protobuf.nano.MessageNano" extends-generic-aware="com.google.protobuf.nano.MessageNano" final="false" name="ParcelableMessageNano" static="false" visibility="public">
+      <implements name="android.os.Parcelable" name-generic-aware="android.os.Parcelable"></implements>
+      <constructor deprecated="not deprecated" final="false" name="ParcelableMessageNano" static="false" type="com.google.protobuf.nano.android.ParcelableMessageNano" visibility="public"></constructor>
+      <method abstract="false" deprecated="not deprecated" final="false" name="describeContents" native="false" return="int" static="false" synchronized="false" visibility="public"></method>
+      <method abstract="false" deprecated="not deprecated" final="false" name="writeToParcel" native="false" return="void" static="false" synchronized="false" visibility="public">
+        <parameter name="p0" type="android.os.Parcel"></parameter>
+        <parameter name="p1" type="int"></parameter>
+      </method>
+      <field deprecated="not deprecated" final="true" name="CREATOR" static="true" transient="false" type="android.os.Parcelable.Creator" type-generic-aware="android.os.Parcelable.Creator&lt;com.google.protobuf.nano.android.ParcelableMessageNano&gt;" visibility="public" volatile="false"></field>
+    </class>
+    <class abstract="false" deprecated="not deprecated" extends="java.lang.Object" extends-generic-aware="java.lang.Object" final="false" name="ParcelableMessageNano.1" static="true" visibility="">
+      <implements name="android.os.Parcelable.Creator" name-generic-aware="android.os.Parcelable.Creator&lt;com.google.protobuf.nano.android.ParcelableMessageNano&gt;"></implements>
+      <method abstract="false" deprecated="not deprecated" final="false" name="createFromParcel" native="false" return="com.google.protobuf.nano.android.ParcelableMessageNano" static="false" synchronized="false" visibility="public">
+        <parameter name="p0" type="android.os.Parcel"></parameter>
+      </method>
+      <method abstract="false" deprecated="not deprecated" final="false" name="newArray" native="false" return="com.google.protobuf.nano.android.ParcelableMessageNano[]" static="false" synchronized="false" visibility="public">
+        <parameter name="p0" type="int"></parameter>
+      </method>
+    </class>
+    <class abstract="false" deprecated="not deprecated" extends="java.lang.Object" extends-generic-aware="java.lang.Object" final="true" name="ParcelingUtil" static="false" visibility="" />
+  </package>
+  <package name="com.google.vrtoolkit.cardboard">
+    <class abstract="false" deprecated="not deprecated" extends="java.lang.Object" extends-generic-aware="java.lang.Object" final="true" name="BuildConfig" static="false" visibility="public">
+      <constructor deprecated="not deprecated" final="false" name="BuildConfig" static="false" type="com.google.vrtoolkit.cardboard.BuildConfig" visibility="public"></constructor>
+      <field deprecated="not deprecated" final="true" name="APPLICATION_ID" static="true" transient="false" type="java.lang.String" type-generic-aware="java.lang.String" value="&quot;com.google.vrtoolkit.cardboard&quot;" visibility="public" volatile="false"></field>
+      <field deprecated="not deprecated" final="true" name="BUILD_TYPE" static="true" transient="false" type="java.lang.String" type-generic-aware="java.lang.String" value="&quot;release&quot;" visibility="public" volatile="false"></field>
+      <field deprecated="not deprecated" final="true" name="DEBUG" static="true" transient="false" type="boolean" type-generic-aware="boolean" value="false" visibility="public" volatile="false"></field>
+      <field deprecated="not deprecated" final="true" name="FLAVOR" static="true" transient="false" type="java.lang.String" type-generic-aware="java.lang.String" value="&quot;&quot;" visibility="public" volatile="false"></field>
+      <field deprecated="not deprecated" final="true" name="VERSION_CODE" static="true" transient="false" type="int" type-generic-aware="int" value="1" visibility="public" volatile="false"></field>
+      <field deprecated="not deprecated" final="true" name="VERSION_NAME" static="true" transient="false" type="java.lang.String" type-generic-aware="java.lang.String" value="&quot;1.0&quot;" visibility="public" volatile="false"></field>
+    </class>
+  </package>
+  <package name="com.google.vrtoolkit.cardboard.sensors">
+    <interface abstract="true" deprecated="not deprecated" final="false" name="Clock" static="false" visibility="public">
+      <method abstract="true" deprecated="not deprecated" final="false" name="nanoTime" native="false" return="long" static="false" synchronized="false" visibility="public"></method>
+    </interface>
+    <class abstract="false" deprecated="not deprecated" extends="java.lang.Object" extends-generic-aware="java.lang.Object" final="false" name="DeviceSensorLooper" static="false" visibility="public">
+      <implements name="com.google.vrtoolkit.cardboard.sensors.SensorEventProvider" name-generic-aware="com.google.vrtoolkit.cardboard.sensors.SensorEventProvider"></implements>
+      <constructor deprecated="not deprecated" final="false" name="DeviceSensorLooper" static="false" type="com.google.vrtoolkit.cardboard.sensors.DeviceSensorLooper" visibility="public">
+        <parameter name="p0" type="android.hardware.SensorManager"></parameter>
+      </constructor>
+      <method abstract="false" deprecated="not deprecated" final="false" name="registerListener" native="false" return="void" static="false" synchronized="false" visibility="public">
+        <parameter name="p0" type="android.hardware.SensorEventListener"></parameter>
+      </method>
+      <method abstract="false" deprecated="not deprecated" final="false" name="start" native="false" return="void" static="false" synchronized="false" visibility="public"></method>
+      <method abstract="false" deprecated="not deprecated" final="false" name="stop" native="false" return="void" static="false" synchronized="false" visibility="public"></method>
+      <method abstract="false" deprecated="not deprecated" final="false" name="unregisterListener" native="false" return="void" static="false" synchronized="false" visibility="public">
+        <parameter name="p0" type="android.hardware.SensorEventListener"></parameter>
+      </method>
+    </class>
+    <class abstract="false" deprecated="not deprecated" extends="java.lang.Object" extends-generic-aware="java.lang.Object" final="false" name="DeviceSensorLooper.1" static="false" visibility="">
+      <implements name="android.hardware.SensorEventListener" name-generic-aware="android.hardware.SensorEventListener"></implements>
+      <method abstract="false" deprecated="not deprecated" final="false" name="onAccuracyChanged" native="false" return="void" static="false" synchronized="false" visibility="public">
+        <parameter name="p0" type="android.hardware.Sensor"></parameter>
+        <parameter name="p1" type="int"></parameter>
+      </method>
+      <method abstract="false" deprecated="not deprecated" final="false" name="onSensorChanged" native="false" return="void" static="false" synchronized="false" visibility="public">
+        <parameter name="p0" type="android.hardware.SensorEvent"></parameter>
+      </method>
+    </class>
+    <class abstract="false" deprecated="not deprecated" extends="android.os.HandlerThread" extends-generic-aware="android.os.HandlerThread" final="false" name="DeviceSensorLooper.2" static="false" visibility="" />
+    <class abstract="false" deprecated="not deprecated" extends="java.lang.Object" extends-generic-aware="java.lang.Object" final="false" name="HeadTracker" static="false" visibility="public">
+      <implements name="android.hardware.SensorEventListener" name-generic-aware="android.hardware.SensorEventListener"></implements>
+      <constructor deprecated="not deprecated" final="false" name="HeadTracker" static="false" type="com.google.vrtoolkit.cardboard.sensors.HeadTracker" visibility="public">
+        <parameter name="p0" type="com.google.vrtoolkit.cardboard.sensors.SensorEventProvider"></parameter>
+        <parameter name="p1" type="com.google.vrtoolkit.cardboard.sensors.Clock"></parameter>
+        <parameter name="p2" type="android.view.Display"></parameter>
+      </constructor>
+      <method abstract="false" deprecated="not deprecated" final="false" name="createFromContext" native="false" return="com.google.vrtoolkit.cardboard.sensors.HeadTracker" static="true" synchronized="false" visibility="public">
+        <parameter name="p0" type="android.content.Context"></parameter>
+      </method>
+      <method abstract="false" deprecated="not deprecated" final="false" name="getLastHeadView" native="false" return="void" static="false" synchronized="false" visibility="public">
+        <parameter name="p0" type="float[]"></parameter>
+        <parameter name="p1" type="int"></parameter>
+      </method>
+      <method abstract="false" deprecated="not deprecated" final="false" name="onAccuracyChanged" native="false" return="void" static="false" synchronized="false" visibility="public">
+        <parameter name="p0" type="android.hardware.Sensor"></parameter>
+        <parameter name="p1" type="int"></parameter>
+      </method>
+      <method abstract="false" deprecated="not deprecated" final="false" name="onSensorChanged" native="false" return="void" static="false" synchronized="false" visibility="public">
+        <parameter name="p0" type="android.hardware.SensorEvent"></parameter>
+      </method>
+      <method abstract="false" deprecated="not deprecated" final="false" name="setGyroBias" native="false" return="void" static="false" synchronized="false" visibility="public">
+        <parameter name="p0" type="float[]"></parameter>
+      </method>
+      <method abstract="false" deprecated="not deprecated" final="false" name="setNeckModelEnabled" native="false" return="void" static="false" synchronized="false" visibility="public">
+        <parameter name="p0" type="boolean"></parameter>
+      </method>
+      <method abstract="false" deprecated="not deprecated" final="false" name="startTracking" native="false" return="void" static="false" synchronized="false" visibility="public"></method>
+      <method abstract="false" deprecated="not deprecated" final="false" name="stopTracking" native="false" return="void" static="false" synchronized="false" visibility="public"></method>
+    </class>
+    <class abstract="false" deprecated="not deprecated" extends="java.lang.Object" extends-generic-aware="java.lang.Object" final="false" name="MagnetSensor" static="false" visibility="public">
+      <constructor deprecated="not deprecated" final="false" name="MagnetSensor" static="false" type="com.google.vrtoolkit.cardboard.sensors.MagnetSensor" visibility="public">
+        <parameter name="p0" type="android.content.Context"></parameter>
+      </constructor>
+      <method abstract="false" deprecated="not deprecated" final="false" name="setOnCardboardTriggerListener" native="false" return="void" static="false" synchronized="false" visibility="public">
+        <parameter name="p0" type="com.google.vrtoolkit.cardboard.sensors.MagnetSensor.OnCardboardTriggerListener"></parameter>
+      </method>
+      <method abstract="false" deprecated="not deprecated" final="false" name="start" native="false" return="void" static="false" synchronized="false" visibility="public"></method>
+      <method abstract="false" deprecated="not deprecated" final="false" name="stop" native="false" return="void" static="false" synchronized="false" visibility="public"></method>
+    </class>
+    <interface abstract="true" deprecated="not deprecated" final="false" name="MagnetSensor.OnCardboardTriggerListener" static="true" visibility="public">
+      <method abstract="true" deprecated="not deprecated" final="false" name="onCardboardTrigger" native="false" return="void" static="false" synchronized="false" visibility="public"></method>
+    </interface>
+    <class abstract="false" deprecated="not deprecated" extends="com.google.vrtoolkit.cardboard.sensors.MagnetSensor.TriggerDetector" extends-generic-aware="com.google.vrtoolkit.cardboard.sensors.MagnetSensor.TriggerDetector" final="false" name="MagnetSensor.ThresholdTriggerDetector" static="true" visibility="">
+      <constructor deprecated="not deprecated" final="false" name="MagnetSensor.ThresholdTriggerDetector" static="false" type="com.google.vrtoolkit.cardboard.sensors.MagnetSensor.ThresholdTriggerDetector" visibility="public">
+        <parameter name="p0" type="android.content.Context"></parameter>
+      </constructor>
+      <constructor deprecated="not deprecated" final="false" name="MagnetSensor.ThresholdTriggerDetector" static="false" type="com.google.vrtoolkit.cardboard.sensors.MagnetSensor.ThresholdTriggerDetector" visibility="public">
+        <parameter name="p0" type="android.content.Context"></parameter>
+        <parameter name="p1" type="int"></parameter>
+        <parameter name="p2" type="int"></parameter>
+      </constructor>
+      <method abstract="false" deprecated="not deprecated" final="false" name="onAccuracyChanged" native="false" return="void" static="false" synchronized="false" visibility="public">
+        <parameter name="p0" type="android.hardware.Sensor"></parameter>
+        <parameter name="p1" type="int"></parameter>
+      </method>
+      <method abstract="false" deprecated="not deprecated" final="false" name="onSensorChanged" native="false" return="void" static="false" synchronized="false" visibility="public">
+        <parameter name="p0" type="android.hardware.SensorEvent"></parameter>
+      </method>
+    </class>
+    <class abstract="true" deprecated="not deprecated" extends="java.lang.Object" extends-generic-aware="java.lang.Object" final="false" name="MagnetSensor.TriggerDetector" static="true" visibility="">
+      <implements name="android.hardware.SensorEventListener" name-generic-aware="android.hardware.SensorEventListener"></implements>
+      <implements name="java.lang.Runnable" name-generic-aware="java.lang.Runnable"></implements>
+      <constructor deprecated="not deprecated" final="false" name="MagnetSensor.TriggerDetector" static="false" type="com.google.vrtoolkit.cardboard.sensors.MagnetSensor.TriggerDetector" visibility="public">
+        <parameter name="p0" type="android.content.Context"></parameter>
+      </constructor>
+      <method abstract="false" deprecated="not deprecated" final="false" name="handleButtonPressed" native="false" return="void" static="false" synchronized="false" visibility="protected"></method>
+      <method abstract="false" deprecated="not deprecated" final="false" name="onAccuracyChanged" native="false" return="void" static="false" synchronized="false" visibility="public">
+        <parameter name="p0" type="android.hardware.Sensor"></parameter>
+        <parameter name="p1" type="int"></parameter>
+      </method>
+      <method abstract="false" deprecated="not deprecated" final="false" name="onSensorChanged" native="false" return="void" static="false" synchronized="false" visibility="public">
+        <parameter name="p0" type="android.hardware.SensorEvent"></parameter>
+      </method>
+      <method abstract="false" deprecated="not deprecated" final="false" name="run" native="false" return="void" static="false" synchronized="false" visibility="public"></method>
+      <method abstract="false" deprecated="not deprecated" final="false" name="setOnCardboardTriggerListener" native="false" return="void" static="false" synchronized="true" visibility="public">
+        <parameter name="p0" type="com.google.vrtoolkit.cardboard.sensors.MagnetSensor.OnCardboardTriggerListener"></parameter>
+        <parameter name="p1" type="android.os.Handler"></parameter>
+      </method>
+      <method abstract="false" deprecated="not deprecated" final="false" name="stop" native="false" return="void" static="false" synchronized="false" visibility="public"></method>
+      <field deprecated="not deprecated" final="true" name="TAG" static="true" transient="false" type="java.lang.String" type-generic-aware="java.lang.String" value="&quot;TriggerDetector&quot;" visibility="protected" volatile="false"></field>
+      <field deprecated="not deprecated" final="false" name="mHandler" static="false" transient="false" type="android.os.Handler" type-generic-aware="android.os.Handler" visibility="protected" volatile="false"></field>
+      <field deprecated="not deprecated" final="false" name="mListenerRef" static="false" transient="false" type="java.lang.ref.WeakReference" type-generic-aware="java.lang.ref.WeakReference&lt;com.google.vrtoolkit.cardboard.sensors.MagnetSensor.OnCardboardTriggerListener&gt;" visibility="protected" volatile="false"></field>
+      <field deprecated="not deprecated" final="false" name="mMagnetometer" static="false" transient="false" type="android.hardware.Sensor" type-generic-aware="android.hardware.Sensor" visibility="protected" volatile="false"></field>
+      <field deprecated="not deprecated" final="false" name="mSensorManager" static="false" transient="false" type="android.hardware.SensorManager" type-generic-aware="android.hardware.SensorManager" visibility="protected" volatile="false"></field>
+    </class>
+    <class abstract="false" deprecated="not deprecated" extends="java.lang.Object" extends-generic-aware="java.lang.Object" final="false" name="MagnetSensor.TriggerDetector.1" static="false" visibility="">
+      <implements name="java.lang.Runnable" name-generic-aware="java.lang.Runnable"></implements>
+      <method abstract="false" deprecated="not deprecated" final="false" name="run" native="false" return="void" static="false" synchronized="false" visibility="public"></method>
+    </class>
+    <class abstract="false" deprecated="not deprecated" extends="com.google.vrtoolkit.cardboard.sensors.MagnetSensor.TriggerDetector" extends-generic-aware="com.google.vrtoolkit.cardboard.sensors.MagnetSensor.TriggerDetector" final="false" name="MagnetSensor.VectorTriggerDetector" static="true" visibility="">
+      <constructor deprecated="not deprecated" final="false" name="MagnetSensor.VectorTriggerDetector" static="false" type="com.google.vrtoolkit.cardboard.sensors.MagnetSensor.VectorTriggerDetector" visibility="public">
+        <parameter name="p0" type="android.content.Context"></parameter>
+      </constructor>
+      <constructor deprecated="not deprecated" final="false" name="MagnetSensor.VectorTriggerDetector" static="false" type="com.google.vrtoolkit.cardboard.sensors.MagnetSensor.VectorTriggerDetector" visibility="public">
+        <parameter name="p0" type="android.content.Context"></parameter>
+        <parameter name="p1" type="int"></parameter>
+        <parameter name="p2" type="int"></parameter>
+        <parameter name="p3" type="int"></parameter>
+      </constructor>
+      <method abstract="false" deprecated="not deprecated" final="false" name="onAccuracyChanged" native="false" return="void" static="false" synchronized="false" visibility="public">
+        <parameter name="p0" type="android.hardware.Sensor"></parameter>
+        <parameter name="p1" type="int"></parameter>
+      </method>
+      <method abstract="false" deprecated="not deprecated" final="false" name="onSensorChanged" native="false" return="void" static="false" synchronized="false" visibility="public">
+        <parameter name="p0" type="android.hardware.SensorEvent"></parameter>
+      </method>
+    </class>
+    <interface abstract="true" deprecated="not deprecated" final="false" name="SensorEventProvider" static="false" visibility="public">
+      <method abstract="true" deprecated="not deprecated" final="false" name="registerListener" native="false" return="void" static="false" synchronized="false" visibility="public">
+        <parameter name="p0" type="android.hardware.SensorEventListener"></parameter>
+      </method>
+      <method abstract="true" deprecated="not deprecated" final="false" name="start" native="false" return="void" static="false" synchronized="false" visibility="public"></method>
+      <method abstract="true" deprecated="not deprecated" final="false" name="stop" native="false" return="void" static="false" synchronized="false" visibility="public"></method>
+      <method abstract="true" deprecated="not deprecated" final="false" name="unregisterListener" native="false" return="void" static="false" synchronized="false" visibility="public">
+        <parameter name="p0" type="android.hardware.SensorEventListener"></parameter>
+      </method>
+    </interface>
+    <class abstract="false" deprecated="not deprecated" extends="java.lang.Object" extends-generic-aware="java.lang.Object" final="false" name="SystemClock" static="false" visibility="public">
+      <implements name="com.google.vrtoolkit.cardboard.sensors.Clock" name-generic-aware="com.google.vrtoolkit.cardboard.sensors.Clock"></implements>
+      <constructor deprecated="not deprecated" final="false" name="SystemClock" static="false" type="com.google.vrtoolkit.cardboard.sensors.SystemClock" visibility="public"></constructor>
+      <method abstract="false" deprecated="not deprecated" final="false" name="nanoTime" native="false" return="long" static="false" synchronized="false" visibility="public"></method>
+    </class>
+  </package>
+  <package name="com.google.vrtoolkit.cardboard.sensors.internal">
+    <class abstract="false" deprecated="not deprecated" extends="java.lang.Object" extends-generic-aware="java.lang.Object" final="false" name="GyroBiasEstimator" static="false" visibility="public">
+      <constructor deprecated="not deprecated" final="false" name="GyroBiasEstimator" static="false" type="com.google.vrtoolkit.cardboard.sensors.internal.GyroBiasEstimator" visibility="public"></constructor>
+      <method abstract="false" deprecated="not deprecated" final="false" name="getEstimate" native="false" return="void" static="false" synchronized="false" visibility="public">
+        <parameter name="p0" type="com.google.vrtoolkit.cardboard.sensors.internal.GyroBiasEstimator.Estimate"></parameter>
+      </method>
+      <method abstract="false" deprecated="not deprecated" final="false" name="processAccelerometer" native="false" return="void" static="false" synchronized="false" visibility="public">
+        <parameter name="p0" type="com.google.vrtoolkit.cardboard.sensors.internal.Vector3d"></parameter>
+        <parameter name="p1" type="long"></parameter>
+      </method>
+      <method abstract="false" deprecated="not deprecated" final="false" name="processGyroscope" native="false" return="void" static="false" synchronized="false" visibility="public">
+        <parameter name="p0" type="com.google.vrtoolkit.cardboard.sensors.internal.Vector3d"></parameter>
+        <parameter name="p1" type="long"></parameter>
+      </method>
+    </class>
+    <class abstract="false" deprecated="not deprecated" extends="java.lang.Object" extends-generic-aware="java.lang.Object" final="false" name="GyroBiasEstimator.Estimate" static="true" visibility="public">
+      <constructor deprecated="not deprecated" final="false" name="GyroBiasEstimator.Estimate" static="false" type="com.google.vrtoolkit.cardboard.sensors.internal.GyroBiasEstimator.Estimate" visibility="public"></constructor>
+      <method abstract="false" deprecated="not deprecated" final="false" name="set" native="false" return="void" static="false" synchronized="false" visibility="public">
+        <parameter name="p0" type="com.google.vrtoolkit.cardboard.sensors.internal.GyroBiasEstimator.Estimate"></parameter>
+      </method>
+      <field deprecated="not deprecated" final="true" name="mBias" static="false" transient="false" type="com.google.vrtoolkit.cardboard.sensors.internal.Vector3d" type-generic-aware="com.google.vrtoolkit.cardboard.sensors.internal.Vector3d" visibility="public" volatile="false"></field>
+      <field deprecated="not deprecated" final="false" name="mState" static="false" transient="false" type="com.google.vrtoolkit.cardboard.sensors.internal.GyroBiasEstimator.Estimate.State" type-generic-aware="com.google.vrtoolkit.cardboard.sensors.internal.GyroBiasEstimator.Estimate.State" visibility="public" volatile="false"></field>
+    </class>
+    <class abstract="false" deprecated="not deprecated" extends="java.lang.Enum" extends-generic-aware="java.lang.Enum&lt;com.google.vrtoolkit.cardboard.sensors.internal.GyroBiasEstimator.Estimate.State&gt;" final="true" name="GyroBiasEstimator.Estimate.State" static="true" visibility="public">
+      <method abstract="false" deprecated="not deprecated" final="false" name="valueOf" native="false" return="com.google.vrtoolkit.cardboard.sensors.internal.GyroBiasEstimator.Estimate.State" static="true" synchronized="false" visibility="public">
+        <parameter name="p0" type="java.lang.String"></parameter>
+      </method>
+      <method abstract="false" deprecated="not deprecated" final="false" name="values" native="false" return="com.google.vrtoolkit.cardboard.sensors.internal.GyroBiasEstimator.Estimate.State[]" static="true" synchronized="false" visibility="public"></method>
+      <field deprecated="not deprecated" final="true" name="CALIBRATED" static="true" transient="false" type="com.google.vrtoolkit.cardboard.sensors.internal.GyroBiasEstimator.Estimate.State" type-generic-aware="com.google.vrtoolkit.cardboard.sensors.internal.GyroBiasEstimator.Estimate.State" visibility="public" volatile="false"></field>
+      <field deprecated="not deprecated" final="true" name="CALIBRATING" static="true" transient="false" type="com.google.vrtoolkit.cardboard.sensors.internal.GyroBiasEstimator.Estimate.State" type-generic-aware="com.google.vrtoolkit.cardboard.sensors.internal.GyroBiasEstimator.Estimate.State" visibility="public" volatile="false"></field>
+      <field deprecated="not deprecated" final="true" name="UNCALIBRATED" static="true" transient="false" type="com.google.vrtoolkit.cardboard.sensors.internal.GyroBiasEstimator.Estimate.State" type-generic-aware="com.google.vrtoolkit.cardboard.sensors.internal.GyroBiasEstimator.Estimate.State" visibility="public" volatile="false"></field>
+    </class>
+    <class abstract="false" deprecated="not deprecated" extends="java.lang.Object" extends-generic-aware="java.lang.Object" final="false" name="Matrix3x3d" static="false" visibility="public">
+      <constructor deprecated="not deprecated" final="false" name="Matrix3x3d" static="false" type="com.google.vrtoolkit.cardboard.sensors.internal.Matrix3x3d" visibility="public">
+        <parameter name="p0" type="com.google.vrtoolkit.cardboard.sensors.internal.Matrix3x3d"></parameter>
+      </constructor>
+      <constructor deprecated="not deprecated" final="false" name="Matrix3x3d" static="false" type="com.google.vrtoolkit.cardboard.sensors.internal.Matrix3x3d" visibility="public">
+        <parameter name="p0" type="double"></parameter>
+        <parameter name="p1" type="double"></parameter>
+        <parameter name="p2" type="double"></parameter>
+        <parameter name="p3" type="double"></parameter>
+        <parameter name="p4" type="double"></parameter>
+        <parameter name="p5" type="double"></parameter>
+        <parameter name="p6" type="double"></parameter>
+        <parameter name="p7" type="double"></parameter>
+        <parameter name="p8" type="double"></parameter>
+      </constructor>
+      <constructor deprecated="not deprecated" final="false" name="Matrix3x3d" static="false" type="com.google.vrtoolkit.cardboard.sensors.internal.Matrix3x3d" visibility="public"></constructor>
+      <method abstract="false" deprecated="not deprecated" final="false" name="add" native="false" return="void" static="true" synchronized="false" visibility="public">
+        <parameter name="p0" type="com.google.vrtoolkit.cardboard.sensors.internal.Matrix3x3d"></parameter>
+        <parameter name="p1" type="com.google.vrtoolkit.cardboard.sensors.internal.Matrix3x3d"></parameter>
+        <parameter name="p2" type="com.google.vrtoolkit.cardboard.sensors.internal.Matrix3x3d"></parameter>
+      </method>
+      <method abstract="false" deprecated="not deprecated" final="false" name="determinant" native="false" return="double" static="false" synchronized="false" visibility="public"></method>
+      <method abstract="false" deprecated="not deprecated" final="false" name="get" native="false" return="double" static="false" synchronized="false" visibility="public">
+        <parameter name="p0" type="int"></parameter>
+        <parameter name="p1" type="int"></parameter>
+      </method>
+      <method abstract="false" deprecated="not deprecated" final="false" name="getColumn" native="false" return="void" static="false" synchronized="false" visibility="public">
+        <parameter name="p0" type="int"></parameter>
+        <parameter name="p1" type="com.google.vrtoolkit.cardboard.sensors.internal.Vector3d"></parameter>
+      </method>
+      <method abstract="false" deprecated="not deprecated" final="false" name="invert" native="false" return="boolean" static="false" synchronized="false" visibility="public">
+        <parameter name="p0" type="com.google.vrtoolkit.cardboard.sensors.internal.Matrix3x3d"></parameter>
+      </method>
+      <method abstract="false" deprecated="not deprecated" final="false" name="minusEquals" native="false" return="void" static="false" synchronized="false" visibility="public">
+        <parameter name="p0" type="com.google.vrtoolkit.cardboard.sensors.internal.Matrix3x3d"></parameter>
+      </method>
+      <method abstract="false" deprecated="not deprecated" final="false" name="mult" native="false" return="void" static="true" synchronized="false" visibility="public">
+        <parameter name="p0" type="com.google.vrtoolkit.cardboard.sensors.internal.Matrix3x3d"></parameter>
+        <parameter name="p1" type="com.google.vrtoolkit.cardboard.sensors.internal.Matrix3x3d"></parameter>
+        <parameter name="p2" type="com.google.vrtoolkit.cardboard.sensors.internal.Matrix3x3d"></parameter>
+      </method>
+      <method abstract="false" deprecated="not deprecated" final="false" name="mult" native="false" return="void" static="true" synchronized="false" visibility="public">
+        <parameter name="p0" type="com.google.vrtoolkit.cardboard.sensors.internal.Matrix3x3d"></parameter>
+        <parameter name="p1" type="com.google.vrtoolkit.cardboard.sensors.internal.Vector3d"></parameter>
+        <parameter name="p2" type="com.google.vrtoolkit.cardboard.sensors.internal.Vector3d"></parameter>
+      </method>
+      <method abstract="false" deprecated="not deprecated" final="false" name="plusEquals" native="false" return="void" static="false" synchronized="false" visibility="public">
+        <parameter name="p0" type="com.google.vrtoolkit.cardboard.sensors.internal.Matrix3x3d"></parameter>
+      </method>
+      <method abstract="false" deprecated="not deprecated" final="false" name="scale" native="false" return="void" static="false" synchronized="false" visibility="public">
+        <parameter name="p0" type="double"></parameter>
+      </method>
+      <method abstract="false" deprecated="not deprecated" final="false" name="set" native="false" return="void" static="false" synchronized="false" visibility="public">
+        <parameter name="p0" type="com.google.vrtoolkit.cardboard.sensors.internal.Matrix3x3d"></parameter>
+      </method>
+      <method abstract="false" deprecated="not deprecated" final="false" name="set" native="false" return="void" static="false" synchronized="false" visibility="public">
+        <parameter name="p0" type="double"></parameter>
+        <parameter name="p1" type="double"></parameter>
+        <parameter name="p2" type="double"></parameter>
+        <parameter name="p3" type="double"></parameter>
+        <parameter name="p4" type="double"></parameter>
+        <parameter name="p5" type="double"></parameter>
+        <parameter name="p6" type="double"></parameter>
+        <parameter name="p7" type="double"></parameter>
+        <parameter name="p8" type="double"></parameter>
+      </method>
+      <method abstract="false" deprecated="not deprecated" final="false" name="set" native="false" return="void" static="false" synchronized="false" visibility="public">
+        <parameter name="p0" type="int"></parameter>
+        <parameter name="p1" type="int"></parameter>
+        <parameter name="p2" type="double"></parameter>
+      </method>
+      <method abstract="false" deprecated="not deprecated" final="false" name="setColumn" native="false" return="void" static="false" synchronized="false" visibility="public">
+        <parameter name="p0" type="int"></parameter>
+        <parameter name="p1" type="com.google.vrtoolkit.cardboard.sensors.internal.Vector3d"></parameter>
+      </method>
+      <method abstract="false" deprecated="not deprecated" final="false" name="setIdentity" native="false" return="void" static="false" synchronized="false" visibility="public"></method>
+      <method abstract="false" deprecated="not deprecated" final="false" name="setSameDiagonal" native="false" return="void" static="false" synchronized="false" visibility="public">
+        <parameter name="p0" type="double"></parameter>
+      </method>
+      <method abstract="false" deprecated="not deprecated" final="false" name="setZero" native="false" return="void" static="false" synchronized="false" visibility="public"></method>
+      <method abstract="false" deprecated="not deprecated" final="false" name="transpose" native="false" return="void" static="false" synchronized="false" visibility="public"></method>
+      <method abstract="false" deprecated="not deprecated" final="false" name="transpose" native="false" return="void" static="false" synchronized="false" visibility="public">
+        <parameter name="p0" type="com.google.vrtoolkit.cardboard.sensors.internal.Matrix3x3d"></parameter>
+      </method>
+      <field deprecated="not deprecated" final="false" name="m" static="false" transient="false" type="double[]" type-generic-aware="double[]" value="null" visibility="public" volatile="false"></field>
+    </class>
+    <class abstract="false" deprecated="not deprecated" extends="java.lang.Object" extends-generic-aware="java.lang.Object" final="false" name="OrientationEKF" static="false" visibility="public">
+      <constructor deprecated="not deprecated" final="false" name="OrientationEKF" static="false" type="com.google.vrtoolkit.cardboard.sensors.internal.OrientationEKF" visibility="public"></constructor>
+      <method abstract="false" deprecated="not deprecated" final="false" name="arrayAssign" native="false" return="void" static="true" synchronized="false" visibility="public">
+        <parameter name="p0" type="double[][]"></parameter>
+        <parameter name="p1" type="com.google.vrtoolkit.cardboard.sensors.internal.Matrix3x3d"></parameter>
+      </method>
+      <method abstract="false" deprecated="not deprecated" final="false" name="getGLMatrix" native="false" return="double[]" static="false" synchronized="false" visibility="public"></method>
+      <method abstract="false" deprecated="not deprecated" final="false" name="getHeadingDegrees" native="false" return="double" static="false" synchronized="false" visibility="public"></method>
+      <method abstract="false" deprecated="not deprecated" final="false" name="getPredictedGLMatrix" native="false" return="double[]" static="false" synchronized="false" visibility="public">
+        <parameter name="p0" type="double"></parameter>
+      </method>
+      <method abstract="false" deprecated="not deprecated" final="false" name="getRotationMatrix" native="false" return="com.google.vrtoolkit.cardboard.sensors.internal.Matrix3x3d" static="false" synchronized="false" visibility="public"></method>
+      <method abstract="false" deprecated="not deprecated" final="false" name="isAlignedToGravity" native="false" return="boolean" static="false" synchronized="false" visibility="public"></method>
+      <method abstract="false" deprecated="not deprecated" final="false" name="isAlignedToNorth" native="false" return="boolean" static="false" synchronized="false" visibility="public"></method>
+      <method abstract="false" deprecated="not deprecated" final="false" name="isReady" native="false" return="boolean" static="false" synchronized="false" visibility="public"></method>
+      <method abstract="false" deprecated="not deprecated" final="false" name="processAcc" native="false" return="void" static="false" synchronized="true" visibility="public">
+        <parameter name="p0" type="com.google.vrtoolkit.cardboard.sensors.internal.Vector3d"></parameter>
+        <parameter name="p1" type="long"></parameter>
+      </method>
+      <method abstract="false" deprecated="not deprecated" final="false" name="processGyro" native="false" return="void" static="false" synchronized="true" visibility="public">
+        <parameter name="p0" type="com.google.vrtoolkit.cardboard.sensors.internal.Vector3d"></parameter>
+        <parameter name="p1" type="long"></parameter>
+      </method>
+      <method abstract="false" deprecated="not deprecated" final="false" name="processMag" native="false" return="void" static="false" synchronized="true" visibility="public">
+        <parameter name="p0" type="float[]"></parameter>
+        <parameter name="p1" type="long"></parameter>
+      </method>
+      <method abstract="false" deprecated="not deprecated" final="false" name="reset" native="false" return="void" static="false" synchronized="false" visibility="public"></method>
+      <method abstract="false" deprecated="not deprecated" final="false" name="setHeadingDegrees" native="false" return="void" static="false" synchronized="true" visibility="public">
+        <parameter name="p0" type="double"></parameter>
+      </method>
+    </class>
+    <class abstract="false" deprecated="not deprecated" extends="java.lang.Object" extends-generic-aware="java.lang.Object" final="false" name="So3Util" static="false" visibility="public">
+      <constructor deprecated="not deprecated" final="false" name="So3Util" static="false" type="com.google.vrtoolkit.cardboard.sensors.internal.So3Util" visibility="public"></constructor>
+      <method abstract="false" deprecated="not deprecated" final="false" name="generatorField" native="false" return="void" static="true" synchronized="false" visibility="public">
+        <parameter name="p0" type="int"></parameter>
+        <parameter name="p1" type="com.google.vrtoolkit.cardboard.sensors.internal.Matrix3x3d"></parameter>
+        <parameter name="p2" type="com.google.vrtoolkit.cardboard.sensors.internal.Matrix3x3d"></parameter>
+      </method>
+      <method abstract="false" deprecated="not deprecated" final="false" name="muFromSO3" native="false" return="void" static="true" synchronized="false" visibility="public">
+        <parameter name="p0" type="com.google.vrtoolkit.cardboard.sensors.internal.Matrix3x3d"></parameter>
+        <parameter name="p1" type="com.google.vrtoolkit.cardboard.sensors.internal.Vector3d"></parameter>
+      </method>
+      <method abstract="false" deprecated="not deprecated" final="false" name="sO3FromMu" native="false" return="void" static="true" synchronized="false" visibility="public">
+        <parameter name="p0" type="com.google.vrtoolkit.cardboard.sensors.internal.Vector3d"></parameter>
+        <parameter name="p1" type="com.google.vrtoolkit.cardboard.sensors.internal.Matrix3x3d"></parameter>
+      </method>
+      <method abstract="false" deprecated="not deprecated" final="false" name="sO3FromTwoVec" native="false" return="void" static="true" synchronized="false" visibility="public">
+        <parameter name="p0" type="com.google.vrtoolkit.cardboard.sensors.internal.Vector3d"></parameter>
+        <parameter name="p1" type="com.google.vrtoolkit.cardboard.sensors.internal.Vector3d"></parameter>
+        <parameter name="p2" type="com.google.vrtoolkit.cardboard.sensors.internal.Matrix3x3d"></parameter>
+      </method>
+    </class>
+    <class abstract="false" deprecated="not deprecated" extends="java.lang.Object" extends-generic-aware="java.lang.Object" final="false" name="Vector3d" static="false" visibility="public">
+      <constructor deprecated="not deprecated" final="false" name="Vector3d" static="false" type="com.google.vrtoolkit.cardboard.sensors.internal.Vector3d" visibility="public"></constructor>
+      <constructor deprecated="not deprecated" final="false" name="Vector3d" static="false" type="com.google.vrtoolkit.cardboard.sensors.internal.Vector3d" visibility="public">
+        <parameter name="p0" type="double"></parameter>
+        <parameter name="p1" type="double"></parameter>
+        <parameter name="p2" type="double"></parameter>
+      </constructor>
+      <method abstract="false" deprecated="not deprecated" final="false" name="add" native="false" return="void" static="true" synchronized="false" visibility="public">
+        <parameter name="p0" type="com.google.vrtoolkit.cardboard.sensors.internal.Vector3d"></parameter>
+        <parameter name="p1" type="com.google.vrtoolkit.cardboard.sensors.internal.Vector3d"></parameter>
+        <parameter name="p2" type="com.google.vrtoolkit.cardboard.sensors.internal.Vector3d"></parameter>
+      </method>
+      <method abstract="false" deprecated="not deprecated" final="false" name="cross" native="false" return="void" static="true" synchronized="false" visibility="public">
+        <parameter name="p0" type="com.google.vrtoolkit.cardboard.sensors.internal.Vector3d"></parameter>
+        <parameter name="p1" type="com.google.vrtoolkit.cardboard.sensors.internal.Vector3d"></parameter>
+        <parameter name="p2" type="com.google.vrtoolkit.cardboard.sensors.internal.Vector3d"></parameter>
+      </method>
+      <method abstract="false" deprecated="not deprecated" final="false" name="dot" native="false" return="double" static="true" synchronized="false" visibility="public">
+        <parameter name="p0" type="com.google.vrtoolkit.cardboard.sensors.internal.Vector3d"></parameter>
+        <parameter name="p1" type="com.google.vrtoolkit.cardboard.sensors.internal.Vector3d"></parameter>
+      </method>
+      <method abstract="false" deprecated="not deprecated" final="false" name="largestAbsComponent" native="false" return="int" static="true" synchronized="false" visibility="public">
+        <parameter name="p0" type="com.google.vrtoolkit.cardboard.sensors.internal.Vector3d"></parameter>
+      </method>
+      <method abstract="false" deprecated="not deprecated" final="false" name="length" native="false" return="double" static="false" synchronized="false" visibility="public"></method>
+      <method abstract="false" deprecated="not deprecated" final="false" name="normalize" native="false" return="void" static="false" synchronized="false" visibility="public"></method>
+      <method abstract="false" deprecated="not deprecated" final="false" name="ortho" native="false" return="void" static="true" synchronized="false" visibility="public">
+        <parameter name="p0" type="com.google.vrtoolkit.cardboard.sensors.internal.Vector3d"></parameter>
+        <parameter name="p1" type="com.google.vrtoolkit.cardboard.sensors.internal.Vector3d"></parameter>
+      </method>
+      <method abstract="false" deprecated="not deprecated" final="false" name="sameValues" native="false" return="boolean" static="false" synchronized="false" visibility="public">
+        <parameter name="p0" type="com.google.vrtoolkit.cardboard.sensors.internal.Vector3d"></parameter>
+      </method>
+      <method abstract="false" deprecated="not deprecated" final="false" name="scale" native="false" return="void" static="false" synchronized="false" visibility="public">
+        <parameter name="p0" type="double"></parameter>
+      </method>
+      <method abstract="false" deprecated="not deprecated" final="false" name="set" native="false" return="void" static="false" synchronized="false" visibility="public">
+        <parameter name="p0" type="com.google.vrtoolkit.cardboard.sensors.internal.Vector3d"></parameter>
+      </method>
+      <method abstract="false" deprecated="not deprecated" final="false" name="set" native="false" return="void" static="false" synchronized="false" visibility="public">
+        <parameter name="p0" type="double"></parameter>
+        <parameter name="p1" type="double"></parameter>
+        <parameter name="p2" type="double"></parameter>
+      </method>
+      <method abstract="false" deprecated="not deprecated" final="false" name="setComponent" native="false" return="void" static="false" synchronized="false" visibility="public">
+        <parameter name="p0" type="int"></parameter>
+        <parameter name="p1" type="double"></parameter>
+      </method>
+      <method abstract="false" deprecated="not deprecated" final="false" name="setZero" native="false" return="void" static="false" synchronized="false" visibility="public"></method>
+      <method abstract="false" deprecated="not deprecated" final="false" name="sub" native="false" return="void" static="true" synchronized="false" visibility="public">
+        <parameter name="p0" type="com.google.vrtoolkit.cardboard.sensors.internal.Vector3d"></parameter>
+        <parameter name="p1" type="com.google.vrtoolkit.cardboard.sensors.internal.Vector3d"></parameter>
+        <parameter name="p2" type="com.google.vrtoolkit.cardboard.sensors.internal.Vector3d"></parameter>
+      </method>
+      <field deprecated="not deprecated" final="false" name="x" static="false" transient="false" type="double" type-generic-aware="double" visibility="public" volatile="false"></field>
+      <field deprecated="not deprecated" final="false" name="y" static="false" transient="false" type="double" type-generic-aware="double" visibility="public" volatile="false"></field>
+      <field deprecated="not deprecated" final="false" name="z" static="false" transient="false" type="double" type-generic-aware="double" visibility="public" volatile="false"></field>
+    </class>
+  </package>
+</api>

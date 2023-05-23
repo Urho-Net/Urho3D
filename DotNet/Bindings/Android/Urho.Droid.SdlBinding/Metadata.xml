@@ -1,0 +1,6 @@
+<metadata>
+	<attr path="/api/package[@name='org.libsdl.app']/class[@name='SDLJoystickHandler']" name="visibility">public</attr>
+	<attr path="/api/package[@name='org.libsdl.app']/class[@name='SDLSurface']" name="visibility">public</attr>
+	<attr path="/api/package[@name='org.libsdl.app']/class[@name='SDLHapticHandler']" name="visibility">public</attr>
+	<attr path="/api/package[@name='org.libsdl.app']/class[@name='SDLGenericMotionListener_API12']" name="visibility">public</attr>
+</metadata>

@@ -1,0 +1,90 @@
+Dotnet runtime build
+---------------------
+Git clone --recursive https://github.com/elix22/runtime
+git checkout v6.0.5
+
+IOS
+==============================================================================================
+----------------------------------------------------------------------------------------------
+https://github.com/elix22/runtime/blob/main/docs/workflow/testing/libraries/testing-apple.md
+----------------------------------------------------------------------------------------------
+./build.sh mono+libs  -os iOS -arch arm64  -c Release 
+==============================================================================================
+
+Android 
+==============================================================================================
+----------------------------------------------------------------------------------------------
+https://github.com/elix22/runtime/blob/main/docs/workflow/testing/libraries/testing-android.md
+----------------------------------------------------------------------------------------------
+./build.sh mono+libs -os Android -arch arm64 -c Release 
+./build.sh mono+libs -os Android -arch arm -c Release
+./build.sh mono+libs -os Android -arch x86 -c Release
+./build.sh mono+libs -os Android -arch x64 -c Release
+
+----------------------------------------------------------------------------------------------
+/Users/elialoni/Development/runtime/artifacts/bin/runtime   
+----------------------------------------------------------------------------------------------
+BCL
+libSystem.IO.Compression.Native.so			
+libSystem.Security.Cryptography.Native.Android.so
+libSystem.Native.so
+
+----------------------------------------------------------------------------------------------
+/Users/elialoni/Development/runtime/artifacts/bin/mono
+----------------------------------------------------------------------------------------------
+mono-aot-cross
+include/
+libmono-component-debugger.so			
+libmono-component-hot_reload.so
+libmono-component-diagnostics_tracing.so	
+libmonosgen-2.0.so
+
+----------------------------------------------------------------------------------------------
+AOT - examples
+----------------------------------------------------------------------------------------------
+export MONO_PATH=Android/app/src/main/assets/Data/Dotnet/android/arm64-v8a
+JNILIBS_PATH=Android/app/src/main/jniLibs/arm64-v8a
+for i in ${MONO_PATH}/*.dll 
+    do 
+        filename=$(basename -- ${i})
+        name=$(basename -- ${filename} .dll)
+        $URHONET_HOME_ROOT/tools/aotcompiler/android/macos/android-arm64/mono-aot-cross "--aot=mtriple=aarch64-linux-android,nimt-trampolines=2000,ntrampolines=10000,nrgctx-fetch-trampolines=256,ngsharedvt-trampolines=4400,nftnptr-arg-trampolines=4000,nrgctx-trampolines=21000,tool-prefix=${ANDROID_NDK_ROOT}/toolchains/llvm/prebuilt/darwin-x86_64/bin/aarch64-linux-android-,hybrid,outfile=${JNILIBS_PATH}/${filename}.so,data-outfile=${MONO_PATH}/${name}.aotdata" "${MONO_PATH}/${filename}"
+    done
+
+
+export MONO_PATH=Android/app/src/main/assets/Data/Dotnet/android/armeabi-v7a
+JNILIBS_PATH=Android/app/src/main/jniLibs/armeabi-v7a
+for i in ${MONO_PATH}/*.dll 
+    do 
+        filename=$(basename -- ${i})
+        name=$(basename -- ${filename} .dll)
+        $URHONET_HOME_ROOT/tools/aotcompiler/android/macos/android-arm/mono-aot-cross "--aot=mtriple=armv7-linux-gnueabi,nimt-trampolines=2000,ntrampolines=10000,nrgctx-fetch-trampolines=256,ngsharedvt-trampolines=4400,nftnptr-arg-trampolines=4000,nrgctx-trampolines=21000,tool-prefix=${ANDROID_NDK_ROOT}/toolchains/llvm/prebuilt/darwin-x86_64/bin/arm-linux-androideabi-,hybrid,outfile=${JNILIBS_PATH}/${filename}.so,data-outfile=${MONO_PATH}/${name}.aotdata" "${MONO_PATH}/${filename}"
+    done
+==============================================================================================
+Web
+==============================================================================================
+./build.sh mono+libs -os Browser -c Release
+
+----------------------------------------------------------------------------------------------
+runtime/src/tasks/WasmAppBuilder/IcallTableGenerator.cs
+Needs fixing
+warning: undefined symbol: SystemNative_FStat2 (referenced by top-level compiled C/C++ code)
+warning: undefined symbol: SystemNative_LStat2 (referenced by top-level compiled C/C++ code)
+warning: undefined symbol: SystemNative_Stat2 (referenced by top-level compiled C/C++ code)
+warning: undefined symbol: SystemNative_Symlink (referenced by top-level compiled C/C++ code)
+warning: undefined symbol: SystemNative_UTime (referenced by top-level compiled C/C++ code)
+warning: undefined symbol: SystemNative_UTimes (referenced by top-level compiled C/C++ code)
+----------------------------------------------------------------------------------------------
+
+
+Some docs
+----------------------------------------------------------------------------------------------
+runtime/docs/design/mono/components.md                   
+runtime/docs/design/mono/diagnostics-tracing.md          
+runtime/docs/design/mono/mobile-runtimeconfig-json.md    
+runtime/docs/design/mono/wasm-aot.md
+
+/runtime/src/mono/cmake/config.h.in/
+comment for debug purpose 'cmakedefine DISABLE_ASSERT_MESSAGES 1'
+
+

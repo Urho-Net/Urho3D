@@ -1,0 +1,1866 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<api>
+<package name="com.google.protobuf.nano">
+<class abstract="false" deprecated="not deprecated" extends="java.lang.Object" extends-generic-aware="java.lang.Object" final="true" name="CodedInputByteBufferNano" static="false" visibility="public">
+<method abstract="false" deprecated="not deprecated" final="false" name="checkLastTagWas" native="false" return="void" static="false" synchronized="false" visibility="public">
+<parameter name="p0" type="int">
+</parameter>
+<exception name="InvalidProtocolBufferNanoException" type="com.google.protobuf.nano.InvalidProtocolBufferNanoException">
+</exception>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="decodeZigZag32" native="false" return="int" static="true" synchronized="false" visibility="public">
+<parameter name="p0" type="int">
+</parameter>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="decodeZigZag64" native="false" return="long" static="true" synchronized="false" visibility="public">
+<parameter name="p0" type="long">
+</parameter>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="getBytesUntilLimit" native="false" return="int" static="false" synchronized="false" visibility="public">
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="getData" native="false" return="byte[]" static="false" synchronized="false" visibility="public">
+<parameter name="p0" type="int">
+</parameter>
+<parameter name="p1" type="int">
+</parameter>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="getPosition" native="false" return="int" static="false" synchronized="false" visibility="public">
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="isAtEnd" native="false" return="boolean" static="false" synchronized="false" visibility="public">
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="newInstance" native="false" return="com.google.protobuf.nano.CodedInputByteBufferNano" static="true" synchronized="false" visibility="public">
+<parameter name="p0" type="byte[]">
+</parameter>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="newInstance" native="false" return="com.google.protobuf.nano.CodedInputByteBufferNano" static="true" synchronized="false" visibility="public">
+<parameter name="p0" type="byte[]">
+</parameter>
+<parameter name="p1" type="int">
+</parameter>
+<parameter name="p2" type="int">
+</parameter>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="popLimit" native="false" return="void" static="false" synchronized="false" visibility="public">
+<parameter name="p0" type="int">
+</parameter>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="pushLimit" native="false" return="int" static="false" synchronized="false" visibility="public">
+<parameter name="p0" type="int">
+</parameter>
+<exception name="InvalidProtocolBufferNanoException" type="com.google.protobuf.nano.InvalidProtocolBufferNanoException">
+</exception>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="readBool" native="false" return="boolean" static="false" synchronized="false" visibility="public">
+<exception name="IOException" type="java.io.IOException">
+</exception>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="readBytes" native="false" return="byte[]" static="false" synchronized="false" visibility="public">
+<exception name="IOException" type="java.io.IOException">
+</exception>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="readDouble" native="false" return="double" static="false" synchronized="false" visibility="public">
+<exception name="IOException" type="java.io.IOException">
+</exception>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="readEnum" native="false" return="int" static="false" synchronized="false" visibility="public">
+<exception name="IOException" type="java.io.IOException">
+</exception>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="readFixed32" native="false" return="int" static="false" synchronized="false" visibility="public">
+<exception name="IOException" type="java.io.IOException">
+</exception>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="readFixed64" native="false" return="long" static="false" synchronized="false" visibility="public">
+<exception name="IOException" type="java.io.IOException">
+</exception>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="readFloat" native="false" return="float" static="false" synchronized="false" visibility="public">
+<exception name="IOException" type="java.io.IOException">
+</exception>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="readGroup" native="false" return="void" static="false" synchronized="false" visibility="public">
+<parameter name="p0" type="com.google.protobuf.nano.MessageNano">
+</parameter>
+<parameter name="p1" type="int">
+</parameter>
+<exception name="IOException" type="java.io.IOException">
+</exception>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="readInt32" native="false" return="int" static="false" synchronized="false" visibility="public">
+<exception name="IOException" type="java.io.IOException">
+</exception>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="readInt64" native="false" return="long" static="false" synchronized="false" visibility="public">
+<exception name="IOException" type="java.io.IOException">
+</exception>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="readMessage" native="false" return="void" static="false" synchronized="false" visibility="public">
+<parameter name="p0" type="com.google.protobuf.nano.MessageNano">
+</parameter>
+<exception name="IOException" type="java.io.IOException">
+</exception>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="readRawByte" native="false" return="byte" static="false" synchronized="false" visibility="public">
+<exception name="IOException" type="java.io.IOException">
+</exception>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="readRawBytes" native="false" return="byte[]" static="false" synchronized="false" visibility="public">
+<parameter name="p0" type="int">
+</parameter>
+<exception name="IOException" type="java.io.IOException">
+</exception>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="readRawLittleEndian32" native="false" return="int" static="false" synchronized="false" visibility="public">
+<exception name="IOException" type="java.io.IOException">
+</exception>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="readRawLittleEndian64" native="false" return="long" static="false" synchronized="false" visibility="public">
+<exception name="IOException" type="java.io.IOException">
+</exception>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="readRawVarint32" native="false" return="int" static="false" synchronized="false" visibility="public">
+<exception name="IOException" type="java.io.IOException">
+</exception>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="readRawVarint64" native="false" return="long" static="false" synchronized="false" visibility="public">
+<exception name="IOException" type="java.io.IOException">
+</exception>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="readSFixed32" native="false" return="int" static="false" synchronized="false" visibility="public">
+<exception name="IOException" type="java.io.IOException">
+</exception>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="readSFixed64" native="false" return="long" static="false" synchronized="false" visibility="public">
+<exception name="IOException" type="java.io.IOException">
+</exception>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="readSInt32" native="false" return="int" static="false" synchronized="false" visibility="public">
+<exception name="IOException" type="java.io.IOException">
+</exception>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="readSInt64" native="false" return="long" static="false" synchronized="false" visibility="public">
+<exception name="IOException" type="java.io.IOException">
+</exception>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="readString" native="false" return="java.lang.String" static="false" synchronized="false" visibility="public">
+<exception name="IOException" type="java.io.IOException">
+</exception>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="readTag" native="false" return="int" static="false" synchronized="false" visibility="public">
+<exception name="IOException" type="java.io.IOException">
+</exception>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="readUInt32" native="false" return="int" static="false" synchronized="false" visibility="public">
+<exception name="IOException" type="java.io.IOException">
+</exception>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="readUInt64" native="false" return="long" static="false" synchronized="false" visibility="public">
+<exception name="IOException" type="java.io.IOException">
+</exception>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="resetSizeCounter" native="false" return="void" static="false" synchronized="false" visibility="public">
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="rewindToPosition" native="false" return="void" static="false" synchronized="false" visibility="public">
+<parameter name="p0" type="int">
+</parameter>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="setRecursionLimit" native="false" return="int" static="false" synchronized="false" visibility="public">
+<parameter name="p0" type="int">
+</parameter>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="setSizeLimit" native="false" return="int" static="false" synchronized="false" visibility="public">
+<parameter name="p0" type="int">
+</parameter>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="skipField" native="false" return="boolean" static="false" synchronized="false" visibility="public">
+<parameter name="p0" type="int">
+</parameter>
+<exception name="IOException" type="java.io.IOException">
+</exception>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="skipMessage" native="false" return="void" static="false" synchronized="false" visibility="public">
+<exception name="IOException" type="java.io.IOException">
+</exception>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="skipRawBytes" native="false" return="void" static="false" synchronized="false" visibility="public">
+<parameter name="p0" type="int">
+</parameter>
+<exception name="IOException" type="java.io.IOException">
+</exception>
+</method>
+</class>
+<class abstract="false" deprecated="not deprecated" extends="java.lang.Object" extends-generic-aware="java.lang.Object" final="true" name="CodedOutputByteBufferNano" static="false" visibility="public">
+<method abstract="false" deprecated="not deprecated" final="false" name="checkNoSpaceLeft" native="false" return="void" static="false" synchronized="false" visibility="public">
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="computeBoolSize" native="false" return="int" static="true" synchronized="false" visibility="public">
+<parameter name="p0" type="int">
+</parameter>
+<parameter name="p1" type="boolean">
+</parameter>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="computeBoolSizeNoTag" native="false" return="int" static="true" synchronized="false" visibility="public">
+<parameter name="p0" type="boolean">
+</parameter>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="computeBytesSize" native="false" return="int" static="true" synchronized="false" visibility="public">
+<parameter name="p0" type="int">
+</parameter>
+<parameter name="p1" type="byte[]">
+</parameter>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="computeBytesSizeNoTag" native="false" return="int" static="true" synchronized="false" visibility="public">
+<parameter name="p0" type="byte[]">
+</parameter>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="computeDoubleSize" native="false" return="int" static="true" synchronized="false" visibility="public">
+<parameter name="p0" type="int">
+</parameter>
+<parameter name="p1" type="double">
+</parameter>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="computeDoubleSizeNoTag" native="false" return="int" static="true" synchronized="false" visibility="public">
+<parameter name="p0" type="double">
+</parameter>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="computeEnumSize" native="false" return="int" static="true" synchronized="false" visibility="public">
+<parameter name="p0" type="int">
+</parameter>
+<parameter name="p1" type="int">
+</parameter>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="computeEnumSizeNoTag" native="false" return="int" static="true" synchronized="false" visibility="public">
+<parameter name="p0" type="int">
+</parameter>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="computeFixed32Size" native="false" return="int" static="true" synchronized="false" visibility="public">
+<parameter name="p0" type="int">
+</parameter>
+<parameter name="p1" type="int">
+</parameter>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="computeFixed32SizeNoTag" native="false" return="int" static="true" synchronized="false" visibility="public">
+<parameter name="p0" type="int">
+</parameter>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="computeFixed64Size" native="false" return="int" static="true" synchronized="false" visibility="public">
+<parameter name="p0" type="int">
+</parameter>
+<parameter name="p1" type="long">
+</parameter>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="computeFixed64SizeNoTag" native="false" return="int" static="true" synchronized="false" visibility="public">
+<parameter name="p0" type="long">
+</parameter>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="computeFloatSize" native="false" return="int" static="true" synchronized="false" visibility="public">
+<parameter name="p0" type="int">
+</parameter>
+<parameter name="p1" type="float">
+</parameter>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="computeFloatSizeNoTag" native="false" return="int" static="true" synchronized="false" visibility="public">
+<parameter name="p0" type="float">
+</parameter>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="computeGroupSize" native="false" return="int" static="true" synchronized="false" visibility="public">
+<parameter name="p0" type="int">
+</parameter>
+<parameter name="p1" type="com.google.protobuf.nano.MessageNano">
+</parameter>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="computeGroupSizeNoTag" native="false" return="int" static="true" synchronized="false" visibility="public">
+<parameter name="p0" type="com.google.protobuf.nano.MessageNano">
+</parameter>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="computeInt32Size" native="false" return="int" static="true" synchronized="false" visibility="public">
+<parameter name="p0" type="int">
+</parameter>
+<parameter name="p1" type="int">
+</parameter>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="computeInt32SizeNoTag" native="false" return="int" static="true" synchronized="false" visibility="public">
+<parameter name="p0" type="int">
+</parameter>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="computeInt64Size" native="false" return="int" static="true" synchronized="false" visibility="public">
+<parameter name="p0" type="int">
+</parameter>
+<parameter name="p1" type="long">
+</parameter>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="computeInt64SizeNoTag" native="false" return="int" static="true" synchronized="false" visibility="public">
+<parameter name="p0" type="long">
+</parameter>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="computeMessageSize" native="false" return="int" static="true" synchronized="false" visibility="public">
+<parameter name="p0" type="int">
+</parameter>
+<parameter name="p1" type="com.google.protobuf.nano.MessageNano">
+</parameter>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="computeMessageSizeNoTag" native="false" return="int" static="true" synchronized="false" visibility="public">
+<parameter name="p0" type="com.google.protobuf.nano.MessageNano">
+</parameter>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="computeRawVarint32Size" native="false" return="int" static="true" synchronized="false" visibility="public">
+<parameter name="p0" type="int">
+</parameter>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="computeRawVarint64Size" native="false" return="int" static="true" synchronized="false" visibility="public">
+<parameter name="p0" type="long">
+</parameter>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="computeSFixed32Size" native="false" return="int" static="true" synchronized="false" visibility="public">
+<parameter name="p0" type="int">
+</parameter>
+<parameter name="p1" type="int">
+</parameter>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="computeSFixed32SizeNoTag" native="false" return="int" static="true" synchronized="false" visibility="public">
+<parameter name="p0" type="int">
+</parameter>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="computeSFixed64Size" native="false" return="int" static="true" synchronized="false" visibility="public">
+<parameter name="p0" type="int">
+</parameter>
+<parameter name="p1" type="long">
+</parameter>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="computeSFixed64SizeNoTag" native="false" return="int" static="true" synchronized="false" visibility="public">
+<parameter name="p0" type="long">
+</parameter>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="computeSInt32Size" native="false" return="int" static="true" synchronized="false" visibility="public">
+<parameter name="p0" type="int">
+</parameter>
+<parameter name="p1" type="int">
+</parameter>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="computeSInt32SizeNoTag" native="false" return="int" static="true" synchronized="false" visibility="public">
+<parameter name="p0" type="int">
+</parameter>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="computeSInt64Size" native="false" return="int" static="true" synchronized="false" visibility="public">
+<parameter name="p0" type="int">
+</parameter>
+<parameter name="p1" type="long">
+</parameter>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="computeSInt64SizeNoTag" native="false" return="int" static="true" synchronized="false" visibility="public">
+<parameter name="p0" type="long">
+</parameter>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="computeStringSize" native="false" return="int" static="true" synchronized="false" visibility="public">
+<parameter name="p0" type="int">
+</parameter>
+<parameter name="p1" type="java.lang.String">
+</parameter>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="computeStringSizeNoTag" native="false" return="int" static="true" synchronized="false" visibility="public">
+<parameter name="p0" type="java.lang.String">
+</parameter>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="computeTagSize" native="false" return="int" static="true" synchronized="false" visibility="public">
+<parameter name="p0" type="int">
+</parameter>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="computeUInt32Size" native="false" return="int" static="true" synchronized="false" visibility="public">
+<parameter name="p0" type="int">
+</parameter>
+<parameter name="p1" type="int">
+</parameter>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="computeUInt32SizeNoTag" native="false" return="int" static="true" synchronized="false" visibility="public">
+<parameter name="p0" type="int">
+</parameter>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="computeUInt64Size" native="false" return="int" static="true" synchronized="false" visibility="public">
+<parameter name="p0" type="int">
+</parameter>
+<parameter name="p1" type="long">
+</parameter>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="computeUInt64SizeNoTag" native="false" return="int" static="true" synchronized="false" visibility="public">
+<parameter name="p0" type="long">
+</parameter>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="encodeZigZag32" native="false" return="int" static="true" synchronized="false" visibility="public">
+<parameter name="p0" type="int">
+</parameter>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="encodeZigZag64" native="false" return="long" static="true" synchronized="false" visibility="public">
+<parameter name="p0" type="long">
+</parameter>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="newInstance" native="false" return="com.google.protobuf.nano.CodedOutputByteBufferNano" static="true" synchronized="false" visibility="public">
+<parameter name="p0" type="byte[]">
+</parameter>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="newInstance" native="false" return="com.google.protobuf.nano.CodedOutputByteBufferNano" static="true" synchronized="false" visibility="public">
+<parameter name="p0" type="byte[]">
+</parameter>
+<parameter name="p1" type="int">
+</parameter>
+<parameter name="p2" type="int">
+</parameter>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="spaceLeft" native="false" return="int" static="false" synchronized="false" visibility="public">
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="writeBool" native="false" return="void" static="false" synchronized="false" visibility="public">
+<parameter name="p0" type="int">
+</parameter>
+<parameter name="p1" type="boolean">
+</parameter>
+<exception name="IOException" type="java.io.IOException">
+</exception>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="writeBoolNoTag" native="false" return="void" static="false" synchronized="false" visibility="public">
+<parameter name="p0" type="boolean">
+</parameter>
+<exception name="IOException" type="java.io.IOException">
+</exception>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="writeBytes" native="false" return="void" static="false" synchronized="false" visibility="public">
+<parameter name="p0" type="int">
+</parameter>
+<parameter name="p1" type="byte[]">
+</parameter>
+<exception name="IOException" type="java.io.IOException">
+</exception>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="writeBytesNoTag" native="false" return="void" static="false" synchronized="false" visibility="public">
+<parameter name="p0" type="byte[]">
+</parameter>
+<exception name="IOException" type="java.io.IOException">
+</exception>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="writeDouble" native="false" return="void" static="false" synchronized="false" visibility="public">
+<parameter name="p0" type="int">
+</parameter>
+<parameter name="p1" type="double">
+</parameter>
+<exception name="IOException" type="java.io.IOException">
+</exception>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="writeDoubleNoTag" native="false" return="void" static="false" synchronized="false" visibility="public">
+<parameter name="p0" type="double">
+</parameter>
+<exception name="IOException" type="java.io.IOException">
+</exception>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="writeEnum" native="false" return="void" static="false" synchronized="false" visibility="public">
+<parameter name="p0" type="int">
+</parameter>
+<parameter name="p1" type="int">
+</parameter>
+<exception name="IOException" type="java.io.IOException">
+</exception>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="writeEnumNoTag" native="false" return="void" static="false" synchronized="false" visibility="public">
+<parameter name="p0" type="int">
+</parameter>
+<exception name="IOException" type="java.io.IOException">
+</exception>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="writeFixed32" native="false" return="void" static="false" synchronized="false" visibility="public">
+<parameter name="p0" type="int">
+</parameter>
+<parameter name="p1" type="int">
+</parameter>
+<exception name="IOException" type="java.io.IOException">
+</exception>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="writeFixed32NoTag" native="false" return="void" static="false" synchronized="false" visibility="public">
+<parameter name="p0" type="int">
+</parameter>
+<exception name="IOException" type="java.io.IOException">
+</exception>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="writeFixed64" native="false" return="void" static="false" synchronized="false" visibility="public">
+<parameter name="p0" type="int">
+</parameter>
+<parameter name="p1" type="long">
+</parameter>
+<exception name="IOException" type="java.io.IOException">
+</exception>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="writeFixed64NoTag" native="false" return="void" static="false" synchronized="false" visibility="public">
+<parameter name="p0" type="long">
+</parameter>
+<exception name="IOException" type="java.io.IOException">
+</exception>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="writeFloat" native="false" return="void" static="false" synchronized="false" visibility="public">
+<parameter name="p0" type="int">
+</parameter>
+<parameter name="p1" type="float">
+</parameter>
+<exception name="IOException" type="java.io.IOException">
+</exception>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="writeFloatNoTag" native="false" return="void" static="false" synchronized="false" visibility="public">
+<parameter name="p0" type="float">
+</parameter>
+<exception name="IOException" type="java.io.IOException">
+</exception>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="writeGroup" native="false" return="void" static="false" synchronized="false" visibility="public">
+<parameter name="p0" type="int">
+</parameter>
+<parameter name="p1" type="com.google.protobuf.nano.MessageNano">
+</parameter>
+<exception name="IOException" type="java.io.IOException">
+</exception>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="writeGroupNoTag" native="false" return="void" static="false" synchronized="false" visibility="public">
+<parameter name="p0" type="com.google.protobuf.nano.MessageNano">
+</parameter>
+<exception name="IOException" type="java.io.IOException">
+</exception>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="writeInt32" native="false" return="void" static="false" synchronized="false" visibility="public">
+<parameter name="p0" type="int">
+</parameter>
+<parameter name="p1" type="int">
+</parameter>
+<exception name="IOException" type="java.io.IOException">
+</exception>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="writeInt32NoTag" native="false" return="void" static="false" synchronized="false" visibility="public">
+<parameter name="p0" type="int">
+</parameter>
+<exception name="IOException" type="java.io.IOException">
+</exception>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="writeInt64" native="false" return="void" static="false" synchronized="false" visibility="public">
+<parameter name="p0" type="int">
+</parameter>
+<parameter name="p1" type="long">
+</parameter>
+<exception name="IOException" type="java.io.IOException">
+</exception>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="writeInt64NoTag" native="false" return="void" static="false" synchronized="false" visibility="public">
+<parameter name="p0" type="long">
+</parameter>
+<exception name="IOException" type="java.io.IOException">
+</exception>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="writeMessage" native="false" return="void" static="false" synchronized="false" visibility="public">
+<parameter name="p0" type="int">
+</parameter>
+<parameter name="p1" type="com.google.protobuf.nano.MessageNano">
+</parameter>
+<exception name="IOException" type="java.io.IOException">
+</exception>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="writeMessageNoTag" native="false" return="void" static="false" synchronized="false" visibility="public">
+<parameter name="p0" type="com.google.protobuf.nano.MessageNano">
+</parameter>
+<exception name="IOException" type="java.io.IOException">
+</exception>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="writeRawByte" native="false" return="void" static="false" synchronized="false" visibility="public">
+<parameter name="p0" type="byte">
+</parameter>
+<exception name="IOException" type="java.io.IOException">
+</exception>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="writeRawByte" native="false" return="void" static="false" synchronized="false" visibility="public">
+<parameter name="p0" type="int">
+</parameter>
+<exception name="IOException" type="java.io.IOException">
+</exception>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="writeRawBytes" native="false" return="void" static="false" synchronized="false" visibility="public">
+<parameter name="p0" type="byte[]">
+</parameter>
+<exception name="IOException" type="java.io.IOException">
+</exception>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="writeRawBytes" native="false" return="void" static="false" synchronized="false" visibility="public">
+<parameter name="p0" type="byte[]">
+</parameter>
+<parameter name="p1" type="int">
+</parameter>
+<parameter name="p2" type="int">
+</parameter>
+<exception name="IOException" type="java.io.IOException">
+</exception>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="writeRawLittleEndian32" native="false" return="void" static="false" synchronized="false" visibility="public">
+<parameter name="p0" type="int">
+</parameter>
+<exception name="IOException" type="java.io.IOException">
+</exception>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="writeRawLittleEndian64" native="false" return="void" static="false" synchronized="false" visibility="public">
+<parameter name="p0" type="long">
+</parameter>
+<exception name="IOException" type="java.io.IOException">
+</exception>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="writeRawVarint32" native="false" return="void" static="false" synchronized="false" visibility="public">
+<parameter name="p0" type="int">
+</parameter>
+<exception name="IOException" type="java.io.IOException">
+</exception>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="writeRawVarint64" native="false" return="void" static="false" synchronized="false" visibility="public">
+<parameter name="p0" type="long">
+</parameter>
+<exception name="IOException" type="java.io.IOException">
+</exception>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="writeSFixed32" native="false" return="void" static="false" synchronized="false" visibility="public">
+<parameter name="p0" type="int">
+</parameter>
+<parameter name="p1" type="int">
+</parameter>
+<exception name="IOException" type="java.io.IOException">
+</exception>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="writeSFixed32NoTag" native="false" return="void" static="false" synchronized="false" visibility="public">
+<parameter name="p0" type="int">
+</parameter>
+<exception name="IOException" type="java.io.IOException">
+</exception>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="writeSFixed64" native="false" return="void" static="false" synchronized="false" visibility="public">
+<parameter name="p0" type="int">
+</parameter>
+<parameter name="p1" type="long">
+</parameter>
+<exception name="IOException" type="java.io.IOException">
+</exception>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="writeSFixed64NoTag" native="false" return="void" static="false" synchronized="false" visibility="public">
+<parameter name="p0" type="long">
+</parameter>
+<exception name="IOException" type="java.io.IOException">
+</exception>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="writeSInt32" native="false" return="void" static="false" synchronized="false" visibility="public">
+<parameter name="p0" type="int">
+</parameter>
+<parameter name="p1" type="int">
+</parameter>
+<exception name="IOException" type="java.io.IOException">
+</exception>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="writeSInt32NoTag" native="false" return="void" static="false" synchronized="false" visibility="public">
+<parameter name="p0" type="int">
+</parameter>
+<exception name="IOException" type="java.io.IOException">
+</exception>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="writeSInt64" native="false" return="void" static="false" synchronized="false" visibility="public">
+<parameter name="p0" type="int">
+</parameter>
+<parameter name="p1" type="long">
+</parameter>
+<exception name="IOException" type="java.io.IOException">
+</exception>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="writeSInt64NoTag" native="false" return="void" static="false" synchronized="false" visibility="public">
+<parameter name="p0" type="long">
+</parameter>
+<exception name="IOException" type="java.io.IOException">
+</exception>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="writeString" native="false" return="void" static="false" synchronized="false" visibility="public">
+<parameter name="p0" type="int">
+</parameter>
+<parameter name="p1" type="java.lang.String">
+</parameter>
+<exception name="IOException" type="java.io.IOException">
+</exception>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="writeStringNoTag" native="false" return="void" static="false" synchronized="false" visibility="public">
+<parameter name="p0" type="java.lang.String">
+</parameter>
+<exception name="IOException" type="java.io.IOException">
+</exception>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="writeTag" native="false" return="void" static="false" synchronized="false" visibility="public">
+<parameter name="p0" type="int">
+</parameter>
+<parameter name="p1" type="int">
+</parameter>
+<exception name="IOException" type="java.io.IOException">
+</exception>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="writeUInt32" native="false" return="void" static="false" synchronized="false" visibility="public">
+<parameter name="p0" type="int">
+</parameter>
+<parameter name="p1" type="int">
+</parameter>
+<exception name="IOException" type="java.io.IOException">
+</exception>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="writeUInt32NoTag" native="false" return="void" static="false" synchronized="false" visibility="public">
+<parameter name="p0" type="int">
+</parameter>
+<exception name="IOException" type="java.io.IOException">
+</exception>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="writeUInt64" native="false" return="void" static="false" synchronized="false" visibility="public">
+<parameter name="p0" type="int">
+</parameter>
+<parameter name="p1" type="long">
+</parameter>
+<exception name="IOException" type="java.io.IOException">
+</exception>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="writeUInt64NoTag" native="false" return="void" static="false" synchronized="false" visibility="public">
+<parameter name="p0" type="long">
+</parameter>
+<exception name="IOException" type="java.io.IOException">
+</exception>
+</method>
+<field deprecated="not deprecated" final="true" name="LITTLE_ENDIAN_32_SIZE" static="true" transient="false" type="int" type-generic-aware="int" value="4" visibility="public" volatile="false">
+</field>
+<field deprecated="not deprecated" final="true" name="LITTLE_ENDIAN_64_SIZE" static="true" transient="false" type="int" type-generic-aware="int" value="8" visibility="public" volatile="false">
+</field>
+</class>
+<class abstract="false" deprecated="not deprecated" extends="java.io.IOException" extends-generic-aware="java.io.IOException" final="false" name="CodedOutputByteBufferNano.OutOfSpaceException" static="true" visibility="public"/>
+<class abstract="true" deprecated="not deprecated" extends="com.google.protobuf.nano.MessageNano" extends-generic-aware="com.google.protobuf.nano.MessageNano" final="false" name="ExtendableMessageNano" static="false" visibility="public">
+<typeParameters>
+<typeParameter name="M">
+<genericConstraints>
+<genericConstraint type="com.google.protobuf.nano.ExtendableMessageNano&lt;M&gt;"/>
+</genericConstraints>
+</typeParameter>
+</typeParameters>
+<constructor deprecated="not deprecated" final="false" name="ExtendableMessageNano" static="false" type="com.google.protobuf.nano.ExtendableMessageNano" visibility="public">
+</constructor>
+<method abstract="false" deprecated="not deprecated" final="true" name="getExtension" native="false" return="T" static="false" synchronized="false" visibility="public">
+<typeParameters>
+<typeParameter name="T"/>
+</typeParameters>
+<parameter name="p0" type="com.google.protobuf.nano.Extension&lt;M, T&gt;">
+</parameter>
+</method>
+<method abstract="false" deprecated="not deprecated" final="true" name="hasExtension" native="false" return="boolean" static="false" synchronized="false" visibility="public">
+<parameter name="p0" type="com.google.protobuf.nano.Extension&lt;M, ?&gt;">
+</parameter>
+</method>
+<method abstract="false" deprecated="not deprecated" final="true" name="setExtension" native="false" return="M" static="false" synchronized="false" visibility="public">
+<typeParameters>
+<typeParameter name="T"/>
+</typeParameters>
+<parameter name="p0" type="com.google.protobuf.nano.Extension&lt;M, T&gt;">
+</parameter>
+<parameter name="p1" type="T">
+</parameter>
+</method>
+<method abstract="false" deprecated="not deprecated" final="true" name="storeUnknownField" native="false" return="boolean" static="false" synchronized="false" visibility="protected">
+<parameter name="p0" type="com.google.protobuf.nano.CodedInputByteBufferNano">
+</parameter>
+<parameter name="p1" type="int">
+</parameter>
+<exception name="IOException" type="java.io.IOException">
+</exception>
+</method>
+<method abstract="false" deprecated="not deprecated" final="true" name="unknownFieldDataEquals" native="false" return="boolean" static="false" synchronized="false" visibility="protected">
+<parameter name="p0" type="M">
+</parameter>
+</method>
+<method abstract="false" deprecated="not deprecated" final="true" name="unknownFieldDataHashCode" native="false" return="int" static="false" synchronized="false" visibility="protected">
+</method>
+<field deprecated="not deprecated" final="false" name="unknownFieldData" static="false" transient="false" type="com.google.protobuf.nano.FieldArray" type-generic-aware="com.google.protobuf.nano.FieldArray" visibility="protected" volatile="false">
+</field>
+</class>
+<class abstract="false" deprecated="not deprecated" extends="java.lang.Object" extends-generic-aware="java.lang.Object" final="false" name="Extension" static="false" visibility="public">
+<typeParameters>
+<typeParameter name="M">
+<genericConstraints>
+<genericConstraint type="com.google.protobuf.nano.ExtendableMessageNano&lt;M&gt;"/>
+</genericConstraints>
+</typeParameter>
+<typeParameter name="T"/>
+</typeParameters>
+<method abstract="false" deprecated="not deprecated" final="false" name="computeRepeatedSerializedSize" native="false" return="int" static="false" synchronized="false" visibility="protected">
+<parameter name="p0" type="java.lang.Object">
+</parameter>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="computeSingularSerializedSize" native="false" return="int" static="false" synchronized="false" visibility="protected">
+<parameter name="p0" type="java.lang.Object">
+</parameter>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="createMessageTyped" native="false" return="com.google.protobuf.nano.Extension&lt;M, T&gt;" static="true" synchronized="false" visibility="public">
+<typeParameters>
+<typeParameter name="M">
+<genericConstraints>
+<genericConstraint type="com.google.protobuf.nano.ExtendableMessageNano&lt;M&gt;"/>
+</genericConstraints>
+</typeParameter>
+<typeParameter name="T">
+<genericConstraints>
+<genericConstraint type="com.google.protobuf.nano.MessageNano"/>
+</genericConstraints>
+</typeParameter>
+</typeParameters>
+<parameter name="p0" type="int">
+</parameter>
+<parameter name="p1" type="java.lang.Class&lt;T&gt;">
+</parameter>
+<parameter name="p2" type="int">
+</parameter>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="createPrimitiveTyped" native="false" return="com.google.protobuf.nano.Extension&lt;M, T&gt;" static="true" synchronized="false" visibility="public">
+<typeParameters>
+<typeParameter name="M">
+<genericConstraints>
+<genericConstraint type="com.google.protobuf.nano.ExtendableMessageNano&lt;M&gt;"/>
+</genericConstraints>
+</typeParameter>
+<typeParameter name="T"/>
+</typeParameters>
+<parameter name="p0" type="int">
+</parameter>
+<parameter name="p1" type="java.lang.Class&lt;T&gt;">
+</parameter>
+<parameter name="p2" type="int">
+</parameter>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="createRepeatedMessageTyped" native="false" return="com.google.protobuf.nano.Extension&lt;M, T[]&gt;" static="true" synchronized="false" visibility="public">
+<typeParameters>
+<typeParameter name="M">
+<genericConstraints>
+<genericConstraint type="com.google.protobuf.nano.ExtendableMessageNano&lt;M&gt;"/>
+</genericConstraints>
+</typeParameter>
+<typeParameter name="T">
+<genericConstraints>
+<genericConstraint type="com.google.protobuf.nano.MessageNano"/>
+</genericConstraints>
+</typeParameter>
+</typeParameters>
+<parameter name="p0" type="int">
+</parameter>
+<parameter name="p1" type="java.lang.Class&lt;T[]&gt;">
+</parameter>
+<parameter name="p2" type="int">
+</parameter>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="createRepeatedPrimitiveTyped" native="false" return="com.google.protobuf.nano.Extension&lt;M, T&gt;" static="true" synchronized="false" visibility="public">
+<typeParameters>
+<typeParameter name="M">
+<genericConstraints>
+<genericConstraint type="com.google.protobuf.nano.ExtendableMessageNano&lt;M&gt;"/>
+</genericConstraints>
+</typeParameter>
+<typeParameter name="T"/>
+</typeParameters>
+<parameter name="p0" type="int">
+</parameter>
+<parameter name="p1" type="java.lang.Class&lt;T&gt;">
+</parameter>
+<parameter name="p2" type="int">
+</parameter>
+<parameter name="p3" type="int">
+</parameter>
+<parameter name="p4" type="int">
+</parameter>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="readData" native="false" return="java.lang.Object" static="false" synchronized="false" visibility="protected">
+<parameter name="p0" type="com.google.protobuf.nano.CodedInputByteBufferNano">
+</parameter>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="writeRepeatedData" native="false" return="void" static="false" synchronized="false" visibility="protected">
+<parameter name="p0" type="java.lang.Object">
+</parameter>
+<parameter name="p1" type="com.google.protobuf.nano.CodedOutputByteBufferNano">
+</parameter>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="writeSingularData" native="false" return="void" static="false" synchronized="false" visibility="protected">
+<parameter name="p0" type="java.lang.Object">
+</parameter>
+<parameter name="p1" type="com.google.protobuf.nano.CodedOutputByteBufferNano">
+</parameter>
+</method>
+<field deprecated="not deprecated" final="true" name="TYPE_BOOL" static="true" transient="false" type="int" type-generic-aware="int" value="8" visibility="public" volatile="false">
+</field>
+<field deprecated="not deprecated" final="true" name="TYPE_BYTES" static="true" transient="false" type="int" type-generic-aware="int" value="12" visibility="public" volatile="false">
+</field>
+<field deprecated="not deprecated" final="true" name="TYPE_DOUBLE" static="true" transient="false" type="int" type-generic-aware="int" value="1" visibility="public" volatile="false">
+</field>
+<field deprecated="not deprecated" final="true" name="TYPE_ENUM" static="true" transient="false" type="int" type-generic-aware="int" value="14" visibility="public" volatile="false">
+</field>
+<field deprecated="not deprecated" final="true" name="TYPE_FIXED32" static="true" transient="false" type="int" type-generic-aware="int" value="7" visibility="public" volatile="false">
+</field>
+<field deprecated="not deprecated" final="true" name="TYPE_FIXED64" static="true" transient="false" type="int" type-generic-aware="int" value="6" visibility="public" volatile="false">
+</field>
+<field deprecated="not deprecated" final="true" name="TYPE_FLOAT" static="true" transient="false" type="int" type-generic-aware="int" value="2" visibility="public" volatile="false">
+</field>
+<field deprecated="not deprecated" final="true" name="TYPE_GROUP" static="true" transient="false" type="int" type-generic-aware="int" value="10" visibility="public" volatile="false">
+</field>
+<field deprecated="not deprecated" final="true" name="TYPE_INT32" static="true" transient="false" type="int" type-generic-aware="int" value="5" visibility="public" volatile="false">
+</field>
+<field deprecated="not deprecated" final="true" name="TYPE_INT64" static="true" transient="false" type="int" type-generic-aware="int" value="3" visibility="public" volatile="false">
+</field>
+<field deprecated="not deprecated" final="true" name="TYPE_MESSAGE" static="true" transient="false" type="int" type-generic-aware="int" value="11" visibility="public" volatile="false">
+</field>
+<field deprecated="not deprecated" final="true" name="TYPE_SFIXED32" static="true" transient="false" type="int" type-generic-aware="int" value="15" visibility="public" volatile="false">
+</field>
+<field deprecated="not deprecated" final="true" name="TYPE_SFIXED64" static="true" transient="false" type="int" type-generic-aware="int" value="16" visibility="public" volatile="false">
+</field>
+<field deprecated="not deprecated" final="true" name="TYPE_SINT32" static="true" transient="false" type="int" type-generic-aware="int" value="17" visibility="public" volatile="false">
+</field>
+<field deprecated="not deprecated" final="true" name="TYPE_SINT64" static="true" transient="false" type="int" type-generic-aware="int" value="18" visibility="public" volatile="false">
+</field>
+<field deprecated="not deprecated" final="true" name="TYPE_STRING" static="true" transient="false" type="int" type-generic-aware="int" value="9" visibility="public" volatile="false">
+</field>
+<field deprecated="not deprecated" final="true" name="TYPE_UINT32" static="true" transient="false" type="int" type-generic-aware="int" value="13" visibility="public" volatile="false">
+</field>
+<field deprecated="not deprecated" final="true" name="TYPE_UINT64" static="true" transient="false" type="int" type-generic-aware="int" value="4" visibility="public" volatile="false">
+</field>
+<field deprecated="not deprecated" final="true" name="clazz" static="false" transient="false" type="java.lang.Class" type-generic-aware="java.lang.Class&lt;T&gt;" visibility="protected" volatile="false">
+</field>
+<field deprecated="not deprecated" final="true" name="repeated" static="false" transient="false" type="boolean" type-generic-aware="boolean" visibility="protected" volatile="false">
+</field>
+<field deprecated="not deprecated" final="true" name="tag" static="false" transient="false" type="int" type-generic-aware="int" visibility="public" volatile="false">
+</field>
+<field deprecated="not deprecated" final="true" name="type" static="false" transient="false" type="int" type-generic-aware="int" visibility="protected" volatile="false">
+</field>
+</class>
+<class abstract="false" deprecated="not deprecated" extends="java.lang.Object" extends-generic-aware="java.lang.Object" final="false" name="Extension.1" static="true" visibility=""/>
+<class abstract="false" deprecated="not deprecated" extends="com.google.protobuf.nano.Extension" extends-generic-aware="com.google.protobuf.nano.Extension&lt;M, T&gt;" final="false" name="Extension.PrimitiveExtension" static="true" visibility="">
+<typeParameters>
+<typeParameter name="M">
+<genericConstraints>
+<genericConstraint type="com.google.protobuf.nano.ExtendableMessageNano&lt;M&gt;"/>
+</genericConstraints>
+</typeParameter>
+<typeParameter name="T"/>
+</typeParameters>
+<constructor deprecated="not deprecated" final="false" name="Extension.PrimitiveExtension" static="false" type="com.google.protobuf.nano.Extension.PrimitiveExtension" visibility="public">
+<parameter name="p0" type="int">
+</parameter>
+<parameter name="p1" type="java.lang.Class&lt;T&gt;">
+</parameter>
+<parameter name="p2" type="int">
+</parameter>
+<parameter name="p3" type="boolean">
+</parameter>
+<parameter name="p4" type="int">
+</parameter>
+<parameter name="p5" type="int">
+</parameter>
+</constructor>
+<method abstract="false" deprecated="not deprecated" final="true" name="computeSingularSerializedSize" native="false" return="int" static="false" synchronized="false" visibility="protected">
+<parameter name="p0" type="java.lang.Object">
+</parameter>
+</method>
+<method abstract="false" deprecated="not deprecated" final="true" name="writeSingularData" native="false" return="void" static="false" synchronized="false" visibility="protected">
+<parameter name="p0" type="java.lang.Object">
+</parameter>
+<parameter name="p1" type="com.google.protobuf.nano.CodedOutputByteBufferNano">
+</parameter>
+</method>
+</class>
+<class abstract="false" deprecated="not deprecated" extends="java.lang.Object" extends-generic-aware="java.lang.Object" final="false" name="FieldArray" static="false" visibility="">
+<constructor deprecated="not deprecated" final="false" name="FieldArray" static="false" type="com.google.protobuf.nano.FieldArray" visibility="public">
+</constructor>
+<constructor deprecated="not deprecated" final="false" name="FieldArray" static="false" type="com.google.protobuf.nano.FieldArray" visibility="public">
+<parameter name="p0" type="int">
+</parameter>
+</constructor>
+<method abstract="false" deprecated="not deprecated" final="false" name="isEmpty" native="false" return="boolean" static="false" synchronized="false" visibility="public">
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="remove" native="false" return="void" static="false" synchronized="false" visibility="public">
+<parameter name="p0" type="int">
+</parameter>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="size" native="false" return="int" static="false" synchronized="false" visibility="public">
+</method>
+</class>
+<class abstract="false" deprecated="not deprecated" extends="java.lang.Object" extends-generic-aware="java.lang.Object" final="false" name="FieldData" static="false" visibility=""/>
+<class abstract="false" deprecated="not deprecated" extends="java.lang.Object" extends-generic-aware="java.lang.Object" final="true" name="InternalNano" static="false" visibility="public">
+<method abstract="false" deprecated="not deprecated" final="false" name="bytesDefaultValue" native="false" return="byte[]" static="true" synchronized="false" visibility="public">
+<parameter name="p0" type="java.lang.String">
+</parameter>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="copyFromUtf8" native="false" return="byte[]" static="true" synchronized="false" visibility="public">
+<parameter name="p0" type="java.lang.String">
+</parameter>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="equals" native="false" return="boolean" static="true" synchronized="false" visibility="public">
+<parameter name="p0" type="boolean[]">
+</parameter>
+<parameter name="p1" type="boolean[]">
+</parameter>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="equals" native="false" return="boolean" static="true" synchronized="false" visibility="public">
+<parameter name="p0" type="byte[][]">
+</parameter>
+<parameter name="p1" type="byte[][]">
+</parameter>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="equals" native="false" return="boolean" static="true" synchronized="false" visibility="public">
+<parameter name="p0" type="double[]">
+</parameter>
+<parameter name="p1" type="double[]">
+</parameter>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="equals" native="false" return="boolean" static="true" synchronized="false" visibility="public">
+<parameter name="p0" type="float[]">
+</parameter>
+<parameter name="p1" type="float[]">
+</parameter>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="equals" native="false" return="boolean" static="true" synchronized="false" visibility="public">
+<parameter name="p0" type="int[]">
+</parameter>
+<parameter name="p1" type="int[]">
+</parameter>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="equals" native="false" return="boolean" static="true" synchronized="false" visibility="public">
+<parameter name="p0" type="java.lang.Object[]">
+</parameter>
+<parameter name="p1" type="java.lang.Object[]">
+</parameter>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="equals" native="false" return="boolean" static="true" synchronized="false" visibility="public">
+<parameter name="p0" type="long[]">
+</parameter>
+<parameter name="p1" type="long[]">
+</parameter>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="hashCode" native="false" return="int" static="true" synchronized="false" visibility="public">
+<parameter name="p0" type="boolean[]">
+</parameter>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="hashCode" native="false" return="int" static="true" synchronized="false" visibility="public">
+<parameter name="p0" type="byte[][]">
+</parameter>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="hashCode" native="false" return="int" static="true" synchronized="false" visibility="public">
+<parameter name="p0" type="double[]">
+</parameter>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="hashCode" native="false" return="int" static="true" synchronized="false" visibility="public">
+<parameter name="p0" type="float[]">
+</parameter>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="hashCode" native="false" return="int" static="true" synchronized="false" visibility="public">
+<parameter name="p0" type="int[]">
+</parameter>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="hashCode" native="false" return="int" static="true" synchronized="false" visibility="public">
+<parameter name="p0" type="java.lang.Object[]">
+</parameter>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="hashCode" native="false" return="int" static="true" synchronized="false" visibility="public">
+<parameter name="p0" type="long[]">
+</parameter>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="stringDefaultValue" native="false" return="java.lang.String" static="true" synchronized="false" visibility="public">
+<parameter name="p0" type="java.lang.String">
+</parameter>
+</method>
+<field deprecated="not deprecated" final="true" name="LAZY_INIT_LOCK" static="true" transient="false" type="java.lang.Object" type-generic-aware="java.lang.Object" visibility="public" volatile="false">
+</field>
+</class>
+<class abstract="false" deprecated="not deprecated" extends="java.io.IOException" extends-generic-aware="java.io.IOException" final="false" name="InvalidProtocolBufferNanoException" static="false" visibility="public">
+<constructor deprecated="not deprecated" final="false" name="InvalidProtocolBufferNanoException" static="false" type="com.google.protobuf.nano.InvalidProtocolBufferNanoException" visibility="public">
+<parameter name="p0" type="java.lang.String">
+</parameter>
+</constructor>
+</class>
+<class abstract="true" deprecated="not deprecated" extends="java.lang.Object" extends-generic-aware="java.lang.Object" final="false" name="MessageNano" static="false" visibility="public">
+<constructor deprecated="not deprecated" final="false" name="MessageNano" static="false" type="com.google.protobuf.nano.MessageNano" visibility="public">
+</constructor>
+<method abstract="false" deprecated="not deprecated" final="false" name="computeSerializedSize" native="false" return="int" static="false" synchronized="false" visibility="protected">
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="getCachedSize" native="false" return="int" static="false" synchronized="false" visibility="public">
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="getSerializedSize" native="false" return="int" static="false" synchronized="false" visibility="public">
+</method>
+<method abstract="false" deprecated="not deprecated" final="true" name="mergeFrom" native="false" return="T" static="true" synchronized="false" visibility="public">
+<typeParameters>
+<typeParameter name="T">
+<genericConstraints>
+<genericConstraint type="com.google.protobuf.nano.MessageNano"/>
+</genericConstraints>
+</typeParameter>
+</typeParameters>
+<parameter name="p0" type="T">
+</parameter>
+<parameter name="p1" type="byte[]">
+</parameter>
+<exception name="InvalidProtocolBufferNanoException" type="com.google.protobuf.nano.InvalidProtocolBufferNanoException">
+</exception>
+</method>
+<method abstract="false" deprecated="not deprecated" final="true" name="mergeFrom" native="false" return="T" static="true" synchronized="false" visibility="public">
+<typeParameters>
+<typeParameter name="T">
+<genericConstraints>
+<genericConstraint type="com.google.protobuf.nano.MessageNano"/>
+</genericConstraints>
+</typeParameter>
+</typeParameters>
+<parameter name="p0" type="T">
+</parameter>
+<parameter name="p1" type="byte[]">
+</parameter>
+<parameter name="p2" type="int">
+</parameter>
+<parameter name="p3" type="int">
+</parameter>
+<exception name="InvalidProtocolBufferNanoException" type="com.google.protobuf.nano.InvalidProtocolBufferNanoException">
+</exception>
+</method>
+<method abstract="true" deprecated="not deprecated" final="false" name="mergeFrom" native="false" return="com.google.protobuf.nano.MessageNano" static="false" synchronized="false" visibility="public">
+<parameter name="p0" type="com.google.protobuf.nano.CodedInputByteBufferNano">
+</parameter>
+<exception name="IOException" type="java.io.IOException">
+</exception>
+</method>
+<method abstract="false" deprecated="not deprecated" final="true" name="messageNanoEquals" native="false" return="boolean" static="true" synchronized="false" visibility="public">
+<parameter name="p0" type="com.google.protobuf.nano.MessageNano">
+</parameter>
+<parameter name="p1" type="com.google.protobuf.nano.MessageNano">
+</parameter>
+</method>
+<method abstract="false" deprecated="not deprecated" final="true" name="toByteArray" native="false" return="byte[]" static="true" synchronized="false" visibility="public">
+<parameter name="p0" type="com.google.protobuf.nano.MessageNano">
+</parameter>
+</method>
+<method abstract="false" deprecated="not deprecated" final="true" name="toByteArray" native="false" return="void" static="true" synchronized="false" visibility="public">
+<parameter name="p0" type="com.google.protobuf.nano.MessageNano">
+</parameter>
+<parameter name="p1" type="byte[]">
+</parameter>
+<parameter name="p2" type="int">
+</parameter>
+<parameter name="p3" type="int">
+</parameter>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="writeTo" native="false" return="void" static="false" synchronized="false" visibility="public">
+<parameter name="p0" type="com.google.protobuf.nano.CodedOutputByteBufferNano">
+</parameter>
+<exception name="IOException" type="java.io.IOException">
+</exception>
+</method>
+<field deprecated="not deprecated" final="false" name="cachedSize" static="false" transient="false" type="int" type-generic-aware="int" visibility="protected" volatile="true">
+</field>
+</class>
+<class abstract="false" deprecated="not deprecated" extends="java.lang.Object" extends-generic-aware="java.lang.Object" final="true" name="MessageNanoPrinter" static="false" visibility="public">
+<method abstract="false" deprecated="not deprecated" final="false" name="print" native="false" return="java.lang.String" static="true" synchronized="false" visibility="public">
+<typeParameters>
+<typeParameter name="T">
+<genericConstraints>
+<genericConstraint type="com.google.protobuf.nano.MessageNano"/>
+</genericConstraints>
+</typeParameter>
+</typeParameters>
+<parameter name="p0" type="T">
+</parameter>
+</method>
+</class>
+<class abstract="false" deprecated="not deprecated" extends="java.lang.Object" extends-generic-aware="java.lang.Object" final="true" name="UnknownFieldData" static="false" visibility=""/>
+<class abstract="false" deprecated="not deprecated" extends="java.lang.Object" extends-generic-aware="java.lang.Object" final="true" name="WireFormatNano" static="false" visibility="public">
+<method abstract="false" deprecated="not deprecated" final="true" name="getRepeatedFieldArrayLength" native="false" return="int" static="true" synchronized="false" visibility="public">
+<parameter name="p0" type="com.google.protobuf.nano.CodedInputByteBufferNano">
+</parameter>
+<parameter name="p1" type="int">
+</parameter>
+<exception name="IOException" type="java.io.IOException">
+</exception>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="getTagFieldNumber" native="false" return="int" static="true" synchronized="false" visibility="public">
+<parameter name="p0" type="int">
+</parameter>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="parseUnknownField" native="false" return="boolean" static="true" synchronized="false" visibility="public">
+<parameter name="p0" type="com.google.protobuf.nano.CodedInputByteBufferNano">
+</parameter>
+<parameter name="p1" type="int">
+</parameter>
+<exception name="IOException" type="java.io.IOException">
+</exception>
+</method>
+<field deprecated="not deprecated" final="true" name="EMPTY_BOOLEAN_ARRAY" static="true" transient="false" type="boolean[]" type-generic-aware="boolean[]" visibility="public" volatile="false">
+</field>
+<field deprecated="not deprecated" final="true" name="EMPTY_BYTES" static="true" transient="false" type="byte[]" type-generic-aware="byte[]" visibility="public" volatile="false">
+</field>
+<field deprecated="not deprecated" final="true" name="EMPTY_BYTES_ARRAY" static="true" transient="false" type="byte[][]" type-generic-aware="byte[][]" visibility="public" volatile="false">
+</field>
+<field deprecated="not deprecated" final="true" name="EMPTY_DOUBLE_ARRAY" static="true" transient="false" type="double[]" type-generic-aware="double[]" visibility="public" volatile="false">
+</field>
+<field deprecated="not deprecated" final="true" name="EMPTY_FLOAT_ARRAY" static="true" transient="false" type="float[]" type-generic-aware="float[]" visibility="public" volatile="false">
+</field>
+<field deprecated="not deprecated" final="true" name="EMPTY_INT_ARRAY" static="true" transient="false" type="int[]" type-generic-aware="int[]" visibility="public" volatile="false">
+</field>
+<field deprecated="not deprecated" final="true" name="EMPTY_LONG_ARRAY" static="true" transient="false" type="long[]" type-generic-aware="long[]" visibility="public" volatile="false">
+</field>
+<field deprecated="not deprecated" final="true" name="EMPTY_STRING_ARRAY" static="true" transient="false" type="java.lang.String[]" type-generic-aware="java.lang.String[]" visibility="public" volatile="false">
+</field>
+</class>
+</package>
+<package name="com.google.protobuf.nano.android">
+<class abstract="true" deprecated="not deprecated" extends="com.google.protobuf.nano.ExtendableMessageNano" extends-generic-aware="com.google.protobuf.nano.ExtendableMessageNano&lt;M&gt;" final="false" name="ParcelableExtendableMessageNano" static="false" visibility="public">
+<typeParameters>
+<typeParameter name="M">
+<genericConstraints>
+<genericConstraint type="com.google.protobuf.nano.ExtendableMessageNano&lt;M&gt;"/>
+</genericConstraints>
+</typeParameter>
+</typeParameters>
+<implements name="android.os.Parcelable" name-generic-aware="android.os.Parcelable">
+</implements>
+<constructor deprecated="not deprecated" final="false" name="ParcelableExtendableMessageNano" static="false" type="com.google.protobuf.nano.android.ParcelableExtendableMessageNano" visibility="public">
+</constructor>
+<method abstract="false" deprecated="not deprecated" final="false" name="describeContents" native="false" return="int" static="false" synchronized="false" visibility="public">
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="writeToParcel" native="false" return="void" static="false" synchronized="false" visibility="public">
+<parameter name="p0" type="android.os.Parcel">
+</parameter>
+<parameter name="p1" type="int">
+</parameter>
+</method>
+<field deprecated="not deprecated" final="true" name="CREATOR" static="true" transient="false" type="android.os.Parcelable.Creator" type-generic-aware="android.os.Parcelable.Creator&lt;com.google.protobuf.nano.android.ParcelableExtendableMessageNano&lt;?&gt;&gt;" visibility="public" volatile="false">
+</field>
+</class>
+<class abstract="false" deprecated="not deprecated" extends="java.lang.Object" extends-generic-aware="java.lang.Object" final="false" name="ParcelableExtendableMessageNano.1" static="true" visibility="">
+<implements name="android.os.Parcelable.Creator" name-generic-aware="android.os.Parcelable.Creator&lt;com.google.protobuf.nano.android.ParcelableExtendableMessageNano&lt;?&gt;&gt;">
+</implements>
+<method abstract="false" deprecated="not deprecated" final="false" name="createFromParcel" native="false" return="com.google.protobuf.nano.android.ParcelableExtendableMessageNano&lt;?&gt;" static="false" synchronized="false" visibility="public">
+<parameter name="p0" type="android.os.Parcel">
+</parameter>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="newArray" native="false" return="com.google.protobuf.nano.android.ParcelableExtendableMessageNano&lt;?&gt;[]" static="false" synchronized="false" visibility="public">
+<parameter name="p0" type="int">
+</parameter>
+</method>
+</class>
+<class abstract="true" deprecated="not deprecated" extends="com.google.protobuf.nano.MessageNano" extends-generic-aware="com.google.protobuf.nano.MessageNano" final="false" name="ParcelableMessageNano" static="false" visibility="public">
+<implements name="android.os.Parcelable" name-generic-aware="android.os.Parcelable">
+</implements>
+<constructor deprecated="not deprecated" final="false" name="ParcelableMessageNano" static="false" type="com.google.protobuf.nano.android.ParcelableMessageNano" visibility="public">
+</constructor>
+<method abstract="false" deprecated="not deprecated" final="false" name="describeContents" native="false" return="int" static="false" synchronized="false" visibility="public">
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="writeToParcel" native="false" return="void" static="false" synchronized="false" visibility="public">
+<parameter name="p0" type="android.os.Parcel">
+</parameter>
+<parameter name="p1" type="int">
+</parameter>
+</method>
+<field deprecated="not deprecated" final="true" name="CREATOR" static="true" transient="false" type="android.os.Parcelable.Creator" type-generic-aware="android.os.Parcelable.Creator&lt;com.google.protobuf.nano.android.ParcelableMessageNano&gt;" visibility="public" volatile="false">
+</field>
+</class>
+<class abstract="false" deprecated="not deprecated" extends="java.lang.Object" extends-generic-aware="java.lang.Object" final="false" name="ParcelableMessageNano.1" static="true" visibility="">
+<implements name="android.os.Parcelable.Creator" name-generic-aware="android.os.Parcelable.Creator&lt;com.google.protobuf.nano.android.ParcelableMessageNano&gt;">
+</implements>
+<method abstract="false" deprecated="not deprecated" final="false" name="createFromParcel" native="false" return="com.google.protobuf.nano.android.ParcelableMessageNano" static="false" synchronized="false" visibility="public">
+<parameter name="p0" type="android.os.Parcel">
+</parameter>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="newArray" native="false" return="com.google.protobuf.nano.android.ParcelableMessageNano[]" static="false" synchronized="false" visibility="public">
+<parameter name="p0" type="int">
+</parameter>
+</method>
+</class>
+<class abstract="false" deprecated="not deprecated" extends="java.lang.Object" extends-generic-aware="java.lang.Object" final="true" name="ParcelingUtil" static="false" visibility=""/>
+</package>
+<package name="com.google.vrtoolkit.cardboard">
+<class abstract="false" deprecated="not deprecated" extends="java.lang.Object" extends-generic-aware="java.lang.Object" final="true" name="BuildConfig" static="false" visibility="public">
+<constructor deprecated="not deprecated" final="false" name="BuildConfig" static="false" type="com.google.vrtoolkit.cardboard.BuildConfig" visibility="public">
+</constructor>
+<field deprecated="not deprecated" final="true" name="APPLICATION_ID" static="true" transient="false" type="java.lang.String" type-generic-aware="java.lang.String" value="&quot;com.google.vrtoolkit.cardboard&quot;" visibility="public" volatile="false">
+</field>
+<field deprecated="not deprecated" final="true" name="BUILD_TYPE" static="true" transient="false" type="java.lang.String" type-generic-aware="java.lang.String" value="&quot;release&quot;" visibility="public" volatile="false">
+</field>
+<field deprecated="not deprecated" final="true" name="DEBUG" static="true" transient="false" type="boolean" type-generic-aware="boolean" value="false" visibility="public" volatile="false">
+</field>
+<field deprecated="not deprecated" final="true" name="FLAVOR" static="true" transient="false" type="java.lang.String" type-generic-aware="java.lang.String" value="&quot;&quot;" visibility="public" volatile="false">
+</field>
+<field deprecated="not deprecated" final="true" name="VERSION_CODE" static="true" transient="false" type="int" type-generic-aware="int" value="1" visibility="public" volatile="false">
+</field>
+<field deprecated="not deprecated" final="true" name="VERSION_NAME" static="true" transient="false" type="java.lang.String" type-generic-aware="java.lang.String" value="&quot;1.0&quot;" visibility="public" volatile="false">
+</field>
+</class>
+</package>
+<package name="com.google.vrtoolkit.cardboard.sensors">
+<interface abstract="true" deprecated="not deprecated" final="false" name="Clock" static="false" visibility="public">
+<method abstract="true" deprecated="not deprecated" final="false" name="nanoTime" native="false" return="long" static="false" synchronized="false" visibility="public">
+</method>
+</interface>
+<class abstract="false" deprecated="not deprecated" extends="java.lang.Object" extends-generic-aware="java.lang.Object" final="false" name="DeviceSensorLooper" static="false" visibility="public">
+<implements name="com.google.vrtoolkit.cardboard.sensors.SensorEventProvider" name-generic-aware="com.google.vrtoolkit.cardboard.sensors.SensorEventProvider">
+</implements>
+<constructor deprecated="not deprecated" final="false" name="DeviceSensorLooper" static="false" type="com.google.vrtoolkit.cardboard.sensors.DeviceSensorLooper" visibility="public">
+<parameter name="p0" type="android.hardware.SensorManager">
+</parameter>
+</constructor>
+<method abstract="false" deprecated="not deprecated" final="false" name="registerListener" native="false" return="void" static="false" synchronized="false" visibility="public">
+<parameter name="p0" type="android.hardware.SensorEventListener">
+</parameter>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="start" native="false" return="void" static="false" synchronized="false" visibility="public">
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="stop" native="false" return="void" static="false" synchronized="false" visibility="public">
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="unregisterListener" native="false" return="void" static="false" synchronized="false" visibility="public">
+<parameter name="p0" type="android.hardware.SensorEventListener">
+</parameter>
+</method>
+</class>
+<class abstract="false" deprecated="not deprecated" extends="java.lang.Object" extends-generic-aware="java.lang.Object" final="false" name="DeviceSensorLooper.1" static="false" visibility="">
+<implements name="android.hardware.SensorEventListener" name-generic-aware="android.hardware.SensorEventListener">
+</implements>
+<method abstract="false" deprecated="not deprecated" final="false" name="onAccuracyChanged" native="false" return="void" static="false" synchronized="false" visibility="public">
+<parameter name="p0" type="android.hardware.Sensor">
+</parameter>
+<parameter name="p1" type="int">
+</parameter>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="onSensorChanged" native="false" return="void" static="false" synchronized="false" visibility="public">
+<parameter name="p0" type="android.hardware.SensorEvent">
+</parameter>
+</method>
+</class>
+<class abstract="false" deprecated="not deprecated" extends="android.os.HandlerThread" extends-generic-aware="android.os.HandlerThread" final="false" name="DeviceSensorLooper.2" static="false" visibility=""/>
+<class abstract="false" deprecated="not deprecated" extends="java.lang.Object" extends-generic-aware="java.lang.Object" final="false" name="HeadTracker" static="false" visibility="public">
+<implements name="android.hardware.SensorEventListener" name-generic-aware="android.hardware.SensorEventListener">
+</implements>
+<constructor deprecated="not deprecated" final="false" name="HeadTracker" static="false" type="com.google.vrtoolkit.cardboard.sensors.HeadTracker" visibility="public">
+<parameter name="p0" type="com.google.vrtoolkit.cardboard.sensors.SensorEventProvider">
+</parameter>
+<parameter name="p1" type="com.google.vrtoolkit.cardboard.sensors.Clock">
+</parameter>
+<parameter name="p2" type="android.view.Display">
+</parameter>
+</constructor>
+<method abstract="false" deprecated="not deprecated" final="false" name="createFromContext" native="false" return="com.google.vrtoolkit.cardboard.sensors.HeadTracker" static="true" synchronized="false" visibility="public">
+<parameter name="p0" type="android.content.Context">
+</parameter>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="getLastHeadView" native="false" return="void" static="false" synchronized="false" visibility="public">
+<parameter name="p0" type="float[]">
+</parameter>
+<parameter name="p1" type="int">
+</parameter>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="onAccuracyChanged" native="false" return="void" static="false" synchronized="false" visibility="public">
+<parameter name="p0" type="android.hardware.Sensor">
+</parameter>
+<parameter name="p1" type="int">
+</parameter>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="onSensorChanged" native="false" return="void" static="false" synchronized="false" visibility="public">
+<parameter name="p0" type="android.hardware.SensorEvent">
+</parameter>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="setGyroBias" native="false" return="void" static="false" synchronized="false" visibility="public">
+<parameter name="p0" type="float[]">
+</parameter>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="setNeckModelEnabled" native="false" return="void" static="false" synchronized="false" visibility="public">
+<parameter name="p0" type="boolean">
+</parameter>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="startTracking" native="false" return="void" static="false" synchronized="false" visibility="public">
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="stopTracking" native="false" return="void" static="false" synchronized="false" visibility="public">
+</method>
+</class>
+<class abstract="false" deprecated="not deprecated" extends="java.lang.Object" extends-generic-aware="java.lang.Object" final="false" name="MagnetSensor" static="false" visibility="public">
+<constructor deprecated="not deprecated" final="false" name="MagnetSensor" static="false" type="com.google.vrtoolkit.cardboard.sensors.MagnetSensor" visibility="public">
+<parameter name="p0" type="android.content.Context">
+</parameter>
+</constructor>
+<method abstract="false" deprecated="not deprecated" final="false" name="setOnCardboardTriggerListener" native="false" return="void" static="false" synchronized="false" visibility="public">
+<parameter name="p0" type="com.google.vrtoolkit.cardboard.sensors.MagnetSensor.OnCardboardTriggerListener">
+</parameter>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="start" native="false" return="void" static="false" synchronized="false" visibility="public">
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="stop" native="false" return="void" static="false" synchronized="false" visibility="public">
+</method>
+</class>
+<interface abstract="true" deprecated="not deprecated" final="false" name="MagnetSensor.OnCardboardTriggerListener" static="true" visibility="public">
+<method abstract="true" deprecated="not deprecated" final="false" name="onCardboardTrigger" native="false" return="void" static="false" synchronized="false" visibility="public">
+</method>
+</interface>
+<class abstract="false" deprecated="not deprecated" extends="com.google.vrtoolkit.cardboard.sensors.MagnetSensor.TriggerDetector" extends-generic-aware="com.google.vrtoolkit.cardboard.sensors.MagnetSensor.TriggerDetector" final="false" name="MagnetSensor.ThresholdTriggerDetector" static="true" visibility="">
+<constructor deprecated="not deprecated" final="false" name="MagnetSensor.ThresholdTriggerDetector" static="false" type="com.google.vrtoolkit.cardboard.sensors.MagnetSensor.ThresholdTriggerDetector" visibility="public">
+<parameter name="p0" type="android.content.Context">
+</parameter>
+</constructor>
+<constructor deprecated="not deprecated" final="false" name="MagnetSensor.ThresholdTriggerDetector" static="false" type="com.google.vrtoolkit.cardboard.sensors.MagnetSensor.ThresholdTriggerDetector" visibility="public">
+<parameter name="p0" type="android.content.Context">
+</parameter>
+<parameter name="p1" type="int">
+</parameter>
+<parameter name="p2" type="int">
+</parameter>
+</constructor>
+<method abstract="false" deprecated="not deprecated" final="false" name="onAccuracyChanged" native="false" return="void" static="false" synchronized="false" visibility="public">
+<parameter name="p0" type="android.hardware.Sensor">
+</parameter>
+<parameter name="p1" type="int">
+</parameter>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="onSensorChanged" native="false" return="void" static="false" synchronized="false" visibility="public">
+<parameter name="p0" type="android.hardware.SensorEvent">
+</parameter>
+</method>
+</class>
+<class abstract="true" deprecated="not deprecated" extends="java.lang.Object" extends-generic-aware="java.lang.Object" final="false" name="MagnetSensor.TriggerDetector" static="true" visibility="">
+<implements name="android.hardware.SensorEventListener" name-generic-aware="android.hardware.SensorEventListener">
+</implements>
+<implements name="java.lang.Runnable" name-generic-aware="java.lang.Runnable">
+</implements>
+<constructor deprecated="not deprecated" final="false" name="MagnetSensor.TriggerDetector" static="false" type="com.google.vrtoolkit.cardboard.sensors.MagnetSensor.TriggerDetector" visibility="public">
+<parameter name="p0" type="android.content.Context">
+</parameter>
+</constructor>
+<method abstract="false" deprecated="not deprecated" final="false" name="handleButtonPressed" native="false" return="void" static="false" synchronized="false" visibility="protected">
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="onAccuracyChanged" native="false" return="void" static="false" synchronized="false" visibility="public">
+<parameter name="p0" type="android.hardware.Sensor">
+</parameter>
+<parameter name="p1" type="int">
+</parameter>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="onSensorChanged" native="false" return="void" static="false" synchronized="false" visibility="public">
+<parameter name="p0" type="android.hardware.SensorEvent">
+</parameter>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="run" native="false" return="void" static="false" synchronized="false" visibility="public">
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="setOnCardboardTriggerListener" native="false" return="void" static="false" synchronized="true" visibility="public">
+<parameter name="p0" type="com.google.vrtoolkit.cardboard.sensors.MagnetSensor.OnCardboardTriggerListener">
+</parameter>
+<parameter name="p1" type="android.os.Handler">
+</parameter>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="stop" native="false" return="void" static="false" synchronized="false" visibility="public">
+</method>
+<field deprecated="not deprecated" final="true" name="TAG" static="true" transient="false" type="java.lang.String" type-generic-aware="java.lang.String" value="&quot;TriggerDetector&quot;" visibility="protected" volatile="false">
+</field>
+<field deprecated="not deprecated" final="false" name="mHandler" static="false" transient="false" type="android.os.Handler" type-generic-aware="android.os.Handler" visibility="protected" volatile="false">
+</field>
+<field deprecated="not deprecated" final="false" name="mListenerRef" static="false" transient="false" type="java.lang.ref.WeakReference" type-generic-aware="java.lang.ref.WeakReference&lt;com.google.vrtoolkit.cardboard.sensors.MagnetSensor.OnCardboardTriggerListener&gt;" visibility="protected" volatile="false">
+</field>
+<field deprecated="not deprecated" final="false" name="mMagnetometer" static="false" transient="false" type="android.hardware.Sensor" type-generic-aware="android.hardware.Sensor" visibility="protected" volatile="false">
+</field>
+<field deprecated="not deprecated" final="false" name="mSensorManager" static="false" transient="false" type="android.hardware.SensorManager" type-generic-aware="android.hardware.SensorManager" visibility="protected" volatile="false">
+</field>
+</class>
+<class abstract="false" deprecated="not deprecated" extends="java.lang.Object" extends-generic-aware="java.lang.Object" final="false" name="MagnetSensor.TriggerDetector.1" static="false" visibility="">
+<implements name="java.lang.Runnable" name-generic-aware="java.lang.Runnable">
+</implements>
+<method abstract="false" deprecated="not deprecated" final="false" name="run" native="false" return="void" static="false" synchronized="false" visibility="public">
+</method>
+</class>
+<class abstract="false" deprecated="not deprecated" extends="com.google.vrtoolkit.cardboard.sensors.MagnetSensor.TriggerDetector" extends-generic-aware="com.google.vrtoolkit.cardboard.sensors.MagnetSensor.TriggerDetector" final="false" name="MagnetSensor.VectorTriggerDetector" static="true" visibility="">
+<constructor deprecated="not deprecated" final="false" name="MagnetSensor.VectorTriggerDetector" static="false" type="com.google.vrtoolkit.cardboard.sensors.MagnetSensor.VectorTriggerDetector" visibility="public">
+<parameter name="p0" type="android.content.Context">
+</parameter>
+</constructor>
+<constructor deprecated="not deprecated" final="false" name="MagnetSensor.VectorTriggerDetector" static="false" type="com.google.vrtoolkit.cardboard.sensors.MagnetSensor.VectorTriggerDetector" visibility="public">
+<parameter name="p0" type="android.content.Context">
+</parameter>
+<parameter name="p1" type="int">
+</parameter>
+<parameter name="p2" type="int">
+</parameter>
+<parameter name="p3" type="int">
+</parameter>
+</constructor>
+<method abstract="false" deprecated="not deprecated" final="false" name="onAccuracyChanged" native="false" return="void" static="false" synchronized="false" visibility="public">
+<parameter name="p0" type="android.hardware.Sensor">
+</parameter>
+<parameter name="p1" type="int">
+</parameter>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="onSensorChanged" native="false" return="void" static="false" synchronized="false" visibility="public">
+<parameter name="p0" type="android.hardware.SensorEvent">
+</parameter>
+</method>
+</class>
+<interface abstract="true" deprecated="not deprecated" final="false" name="SensorEventProvider" static="false" visibility="public">
+<method abstract="true" deprecated="not deprecated" final="false" name="registerListener" native="false" return="void" static="false" synchronized="false" visibility="public">
+<parameter name="p0" type="android.hardware.SensorEventListener">
+</parameter>
+</method>
+<method abstract="true" deprecated="not deprecated" final="false" name="start" native="false" return="void" static="false" synchronized="false" visibility="public">
+</method>
+<method abstract="true" deprecated="not deprecated" final="false" name="stop" native="false" return="void" static="false" synchronized="false" visibility="public">
+</method>
+<method abstract="true" deprecated="not deprecated" final="false" name="unregisterListener" native="false" return="void" static="false" synchronized="false" visibility="public">
+<parameter name="p0" type="android.hardware.SensorEventListener">
+</parameter>
+</method>
+</interface>
+<class abstract="false" deprecated="not deprecated" extends="java.lang.Object" extends-generic-aware="java.lang.Object" final="false" name="SystemClock" static="false" visibility="public">
+<implements name="com.google.vrtoolkit.cardboard.sensors.Clock" name-generic-aware="com.google.vrtoolkit.cardboard.sensors.Clock">
+</implements>
+<constructor deprecated="not deprecated" final="false" name="SystemClock" static="false" type="com.google.vrtoolkit.cardboard.sensors.SystemClock" visibility="public">
+</constructor>
+<method abstract="false" deprecated="not deprecated" final="false" name="nanoTime" native="false" return="long" static="false" synchronized="false" visibility="public">
+</method>
+</class>
+</package>
+<package name="com.google.vrtoolkit.cardboard.sensors.internal">
+<class abstract="false" deprecated="not deprecated" extends="java.lang.Object" extends-generic-aware="java.lang.Object" final="false" name="GyroBiasEstimator" static="false" visibility="public">
+<constructor deprecated="not deprecated" final="false" name="GyroBiasEstimator" static="false" type="com.google.vrtoolkit.cardboard.sensors.internal.GyroBiasEstimator" visibility="public">
+</constructor>
+<method abstract="false" deprecated="not deprecated" final="false" name="getEstimate" native="false" return="void" static="false" synchronized="false" visibility="public">
+<parameter name="p0" type="com.google.vrtoolkit.cardboard.sensors.internal.GyroBiasEstimator.Estimate">
+</parameter>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="processAccelerometer" native="false" return="void" static="false" synchronized="false" visibility="public">
+<parameter name="p0" type="com.google.vrtoolkit.cardboard.sensors.internal.Vector3d">
+</parameter>
+<parameter name="p1" type="long">
+</parameter>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="processGyroscope" native="false" return="void" static="false" synchronized="false" visibility="public">
+<parameter name="p0" type="com.google.vrtoolkit.cardboard.sensors.internal.Vector3d">
+</parameter>
+<parameter name="p1" type="long">
+</parameter>
+</method>
+</class>
+<class abstract="false" deprecated="not deprecated" extends="java.lang.Object" extends-generic-aware="java.lang.Object" final="false" name="GyroBiasEstimator.Estimate" static="true" visibility="public">
+<constructor deprecated="not deprecated" final="false" name="GyroBiasEstimator.Estimate" static="false" type="com.google.vrtoolkit.cardboard.sensors.internal.GyroBiasEstimator.Estimate" visibility="public">
+</constructor>
+<method abstract="false" deprecated="not deprecated" final="false" name="set" native="false" return="void" static="false" synchronized="false" visibility="public">
+<parameter name="p0" type="com.google.vrtoolkit.cardboard.sensors.internal.GyroBiasEstimator.Estimate">
+</parameter>
+</method>
+<field deprecated="not deprecated" final="true" name="mBias" static="false" transient="false" type="com.google.vrtoolkit.cardboard.sensors.internal.Vector3d" type-generic-aware="com.google.vrtoolkit.cardboard.sensors.internal.Vector3d" visibility="public" volatile="false">
+</field>
+<field deprecated="not deprecated" final="false" name="mState" static="false" transient="false" type="com.google.vrtoolkit.cardboard.sensors.internal.GyroBiasEstimator.Estimate.State" type-generic-aware="com.google.vrtoolkit.cardboard.sensors.internal.GyroBiasEstimator.Estimate.State" visibility="public" volatile="false">
+</field>
+</class>
+<class abstract="false" deprecated="not deprecated" extends="java.lang.Enum" extends-generic-aware="java.lang.Enum&lt;com.google.vrtoolkit.cardboard.sensors.internal.GyroBiasEstimator.Estimate.State&gt;" final="true" name="GyroBiasEstimator.Estimate.State" static="true" visibility="public">
+<method abstract="false" deprecated="not deprecated" final="false" name="valueOf" native="false" return="com.google.vrtoolkit.cardboard.sensors.internal.GyroBiasEstimator.Estimate.State" static="true" synchronized="false" visibility="public">
+<parameter name="p0" type="java.lang.String">
+</parameter>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="values" native="false" return="com.google.vrtoolkit.cardboard.sensors.internal.GyroBiasEstimator.Estimate.State[]" static="true" synchronized="false" visibility="public">
+</method>
+<field deprecated="not deprecated" final="true" name="CALIBRATED" static="true" transient="false" type="com.google.vrtoolkit.cardboard.sensors.internal.GyroBiasEstimator.Estimate.State" type-generic-aware="com.google.vrtoolkit.cardboard.sensors.internal.GyroBiasEstimator.Estimate.State" visibility="public" volatile="false">
+</field>
+<field deprecated="not deprecated" final="true" name="CALIBRATING" static="true" transient="false" type="com.google.vrtoolkit.cardboard.sensors.internal.GyroBiasEstimator.Estimate.State" type-generic-aware="com.google.vrtoolkit.cardboard.sensors.internal.GyroBiasEstimator.Estimate.State" visibility="public" volatile="false">
+</field>
+<field deprecated="not deprecated" final="true" name="UNCALIBRATED" static="true" transient="false" type="com.google.vrtoolkit.cardboard.sensors.internal.GyroBiasEstimator.Estimate.State" type-generic-aware="com.google.vrtoolkit.cardboard.sensors.internal.GyroBiasEstimator.Estimate.State" visibility="public" volatile="false">
+</field>
+</class>
+<class abstract="false" deprecated="not deprecated" extends="java.lang.Object" extends-generic-aware="java.lang.Object" final="false" name="Matrix3x3d" static="false" visibility="public">
+<constructor deprecated="not deprecated" final="false" name="Matrix3x3d" static="false" type="com.google.vrtoolkit.cardboard.sensors.internal.Matrix3x3d" visibility="public">
+<parameter name="p0" type="com.google.vrtoolkit.cardboard.sensors.internal.Matrix3x3d">
+</parameter>
+</constructor>
+<constructor deprecated="not deprecated" final="false" name="Matrix3x3d" static="false" type="com.google.vrtoolkit.cardboard.sensors.internal.Matrix3x3d" visibility="public">
+<parameter name="p0" type="double">
+</parameter>
+<parameter name="p1" type="double">
+</parameter>
+<parameter name="p2" type="double">
+</parameter>
+<parameter name="p3" type="double">
+</parameter>
+<parameter name="p4" type="double">
+</parameter>
+<parameter name="p5" type="double">
+</parameter>
+<parameter name="p6" type="double">
+</parameter>
+<parameter name="p7" type="double">
+</parameter>
+<parameter name="p8" type="double">
+</parameter>
+</constructor>
+<constructor deprecated="not deprecated" final="false" name="Matrix3x3d" static="false" type="com.google.vrtoolkit.cardboard.sensors.internal.Matrix3x3d" visibility="public">
+</constructor>
+<method abstract="false" deprecated="not deprecated" final="false" name="add" native="false" return="void" static="true" synchronized="false" visibility="public">
+<parameter name="p0" type="com.google.vrtoolkit.cardboard.sensors.internal.Matrix3x3d">
+</parameter>
+<parameter name="p1" type="com.google.vrtoolkit.cardboard.sensors.internal.Matrix3x3d">
+</parameter>
+<parameter name="p2" type="com.google.vrtoolkit.cardboard.sensors.internal.Matrix3x3d">
+</parameter>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="determinant" native="false" return="double" static="false" synchronized="false" visibility="public">
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="get" native="false" return="double" static="false" synchronized="false" visibility="public">
+<parameter name="p0" type="int">
+</parameter>
+<parameter name="p1" type="int">
+</parameter>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="getColumn" native="false" return="void" static="false" synchronized="false" visibility="public">
+<parameter name="p0" type="int">
+</parameter>
+<parameter name="p1" type="com.google.vrtoolkit.cardboard.sensors.internal.Vector3d">
+</parameter>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="invert" native="false" return="boolean" static="false" synchronized="false" visibility="public">
+<parameter name="p0" type="com.google.vrtoolkit.cardboard.sensors.internal.Matrix3x3d">
+</parameter>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="minusEquals" native="false" return="void" static="false" synchronized="false" visibility="public">
+<parameter name="p0" type="com.google.vrtoolkit.cardboard.sensors.internal.Matrix3x3d">
+</parameter>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="mult" native="false" return="void" static="true" synchronized="false" visibility="public">
+<parameter name="p0" type="com.google.vrtoolkit.cardboard.sensors.internal.Matrix3x3d">
+</parameter>
+<parameter name="p1" type="com.google.vrtoolkit.cardboard.sensors.internal.Matrix3x3d">
+</parameter>
+<parameter name="p2" type="com.google.vrtoolkit.cardboard.sensors.internal.Matrix3x3d">
+</parameter>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="mult" native="false" return="void" static="true" synchronized="false" visibility="public">
+<parameter name="p0" type="com.google.vrtoolkit.cardboard.sensors.internal.Matrix3x3d">
+</parameter>
+<parameter name="p1" type="com.google.vrtoolkit.cardboard.sensors.internal.Vector3d">
+</parameter>
+<parameter name="p2" type="com.google.vrtoolkit.cardboard.sensors.internal.Vector3d">
+</parameter>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="plusEquals" native="false" return="void" static="false" synchronized="false" visibility="public">
+<parameter name="p0" type="com.google.vrtoolkit.cardboard.sensors.internal.Matrix3x3d">
+</parameter>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="scale" native="false" return="void" static="false" synchronized="false" visibility="public">
+<parameter name="p0" type="double">
+</parameter>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="set" native="false" return="void" static="false" synchronized="false" visibility="public">
+<parameter name="p0" type="com.google.vrtoolkit.cardboard.sensors.internal.Matrix3x3d">
+</parameter>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="set" native="false" return="void" static="false" synchronized="false" visibility="public">
+<parameter name="p0" type="double">
+</parameter>
+<parameter name="p1" type="double">
+</parameter>
+<parameter name="p2" type="double">
+</parameter>
+<parameter name="p3" type="double">
+</parameter>
+<parameter name="p4" type="double">
+</parameter>
+<parameter name="p5" type="double">
+</parameter>
+<parameter name="p6" type="double">
+</parameter>
+<parameter name="p7" type="double">
+</parameter>
+<parameter name="p8" type="double">
+</parameter>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="set" native="false" return="void" static="false" synchronized="false" visibility="public">
+<parameter name="p0" type="int">
+</parameter>
+<parameter name="p1" type="int">
+</parameter>
+<parameter name="p2" type="double">
+</parameter>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="setColumn" native="false" return="void" static="false" synchronized="false" visibility="public">
+<parameter name="p0" type="int">
+</parameter>
+<parameter name="p1" type="com.google.vrtoolkit.cardboard.sensors.internal.Vector3d">
+</parameter>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="setIdentity" native="false" return="void" static="false" synchronized="false" visibility="public">
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="setSameDiagonal" native="false" return="void" static="false" synchronized="false" visibility="public">
+<parameter name="p0" type="double">
+</parameter>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="setZero" native="false" return="void" static="false" synchronized="false" visibility="public">
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="transpose" native="false" return="void" static="false" synchronized="false" visibility="public">
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="transpose" native="false" return="void" static="false" synchronized="false" visibility="public">
+<parameter name="p0" type="com.google.vrtoolkit.cardboard.sensors.internal.Matrix3x3d">
+</parameter>
+</method>
+<field deprecated="not deprecated" final="false" name="m" static="false" transient="false" type="double[]" type-generic-aware="double[]" value="null" visibility="public" volatile="false">
+</field>
+</class>
+<class abstract="false" deprecated="not deprecated" extends="java.lang.Object" extends-generic-aware="java.lang.Object" final="false" name="OrientationEKF" static="false" visibility="public">
+<constructor deprecated="not deprecated" final="false" name="OrientationEKF" static="false" type="com.google.vrtoolkit.cardboard.sensors.internal.OrientationEKF" visibility="public">
+</constructor>
+<method abstract="false" deprecated="not deprecated" final="false" name="arrayAssign" native="false" return="void" static="true" synchronized="false" visibility="public">
+<parameter name="p0" type="double[][]">
+</parameter>
+<parameter name="p1" type="com.google.vrtoolkit.cardboard.sensors.internal.Matrix3x3d">
+</parameter>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="getGLMatrix" native="false" return="double[]" static="false" synchronized="false" visibility="public">
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="getHeadingDegrees" native="false" return="double" static="false" synchronized="false" visibility="public">
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="getPredictedGLMatrix" native="false" return="double[]" static="false" synchronized="false" visibility="public">
+<parameter name="p0" type="double">
+</parameter>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="getRotationMatrix" native="false" return="com.google.vrtoolkit.cardboard.sensors.internal.Matrix3x3d" static="false" synchronized="false" visibility="public">
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="isAlignedToGravity" native="false" return="boolean" static="false" synchronized="false" visibility="public">
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="isAlignedToNorth" native="false" return="boolean" static="false" synchronized="false" visibility="public">
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="isReady" native="false" return="boolean" static="false" synchronized="false" visibility="public">
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="processAcc" native="false" return="void" static="false" synchronized="true" visibility="public">
+<parameter name="p0" type="com.google.vrtoolkit.cardboard.sensors.internal.Vector3d">
+</parameter>
+<parameter name="p1" type="long">
+</parameter>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="processGyro" native="false" return="void" static="false" synchronized="true" visibility="public">
+<parameter name="p0" type="com.google.vrtoolkit.cardboard.sensors.internal.Vector3d">
+</parameter>
+<parameter name="p1" type="long">
+</parameter>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="processMag" native="false" return="void" static="false" synchronized="true" visibility="public">
+<parameter name="p0" type="float[]">
+</parameter>
+<parameter name="p1" type="long">
+</parameter>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="reset" native="false" return="void" static="false" synchronized="false" visibility="public">
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="setHeadingDegrees" native="false" return="void" static="false" synchronized="true" visibility="public">
+<parameter name="p0" type="double">
+</parameter>
+</method>
+</class>
+<class abstract="false" deprecated="not deprecated" extends="java.lang.Object" extends-generic-aware="java.lang.Object" final="false" name="So3Util" static="false" visibility="public">
+<constructor deprecated="not deprecated" final="false" name="So3Util" static="false" type="com.google.vrtoolkit.cardboard.sensors.internal.So3Util" visibility="public">
+</constructor>
+<method abstract="false" deprecated="not deprecated" final="false" name="generatorField" native="false" return="void" static="true" synchronized="false" visibility="public">
+<parameter name="p0" type="int">
+</parameter>
+<parameter name="p1" type="com.google.vrtoolkit.cardboard.sensors.internal.Matrix3x3d">
+</parameter>
+<parameter name="p2" type="com.google.vrtoolkit.cardboard.sensors.internal.Matrix3x3d">
+</parameter>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="muFromSO3" native="false" return="void" static="true" synchronized="false" visibility="public">
+<parameter name="p0" type="com.google.vrtoolkit.cardboard.sensors.internal.Matrix3x3d">
+</parameter>
+<parameter name="p1" type="com.google.vrtoolkit.cardboard.sensors.internal.Vector3d">
+</parameter>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="sO3FromMu" native="false" return="void" static="true" synchronized="false" visibility="public">
+<parameter name="p0" type="com.google.vrtoolkit.cardboard.sensors.internal.Vector3d">
+</parameter>
+<parameter name="p1" type="com.google.vrtoolkit.cardboard.sensors.internal.Matrix3x3d">
+</parameter>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="sO3FromTwoVec" native="false" return="void" static="true" synchronized="false" visibility="public">
+<parameter name="p0" type="com.google.vrtoolkit.cardboard.sensors.internal.Vector3d">
+</parameter>
+<parameter name="p1" type="com.google.vrtoolkit.cardboard.sensors.internal.Vector3d">
+</parameter>
+<parameter name="p2" type="com.google.vrtoolkit.cardboard.sensors.internal.Matrix3x3d">
+</parameter>
+</method>
+</class>
+<class abstract="false" deprecated="not deprecated" extends="java.lang.Object" extends-generic-aware="java.lang.Object" final="false" name="Vector3d" static="false" visibility="public">
+<constructor deprecated="not deprecated" final="false" name="Vector3d" static="false" type="com.google.vrtoolkit.cardboard.sensors.internal.Vector3d" visibility="public">
+</constructor>
+<constructor deprecated="not deprecated" final="false" name="Vector3d" static="false" type="com.google.vrtoolkit.cardboard.sensors.internal.Vector3d" visibility="public">
+<parameter name="p0" type="double">
+</parameter>
+<parameter name="p1" type="double">
+</parameter>
+<parameter name="p2" type="double">
+</parameter>
+</constructor>
+<method abstract="false" deprecated="not deprecated" final="false" name="add" native="false" return="void" static="true" synchronized="false" visibility="public">
+<parameter name="p0" type="com.google.vrtoolkit.cardboard.sensors.internal.Vector3d">
+</parameter>
+<parameter name="p1" type="com.google.vrtoolkit.cardboard.sensors.internal.Vector3d">
+</parameter>
+<parameter name="p2" type="com.google.vrtoolkit.cardboard.sensors.internal.Vector3d">
+</parameter>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="cross" native="false" return="void" static="true" synchronized="false" visibility="public">
+<parameter name="p0" type="com.google.vrtoolkit.cardboard.sensors.internal.Vector3d">
+</parameter>
+<parameter name="p1" type="com.google.vrtoolkit.cardboard.sensors.internal.Vector3d">
+</parameter>
+<parameter name="p2" type="com.google.vrtoolkit.cardboard.sensors.internal.Vector3d">
+</parameter>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="dot" native="false" return="double" static="true" synchronized="false" visibility="public">
+<parameter name="p0" type="com.google.vrtoolkit.cardboard.sensors.internal.Vector3d">
+</parameter>
+<parameter name="p1" type="com.google.vrtoolkit.cardboard.sensors.internal.Vector3d">
+</parameter>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="largestAbsComponent" native="false" return="int" static="true" synchronized="false" visibility="public">
+<parameter name="p0" type="com.google.vrtoolkit.cardboard.sensors.internal.Vector3d">
+</parameter>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="length" native="false" return="double" static="false" synchronized="false" visibility="public">
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="normalize" native="false" return="void" static="false" synchronized="false" visibility="public">
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="ortho" native="false" return="void" static="true" synchronized="false" visibility="public">
+<parameter name="p0" type="com.google.vrtoolkit.cardboard.sensors.internal.Vector3d">
+</parameter>
+<parameter name="p1" type="com.google.vrtoolkit.cardboard.sensors.internal.Vector3d">
+</parameter>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="sameValues" native="false" return="boolean" static="false" synchronized="false" visibility="public">
+<parameter name="p0" type="com.google.vrtoolkit.cardboard.sensors.internal.Vector3d">
+</parameter>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="scale" native="false" return="void" static="false" synchronized="false" visibility="public">
+<parameter name="p0" type="double">
+</parameter>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="set" native="false" return="void" static="false" synchronized="false" visibility="public">
+<parameter name="p0" type="com.google.vrtoolkit.cardboard.sensors.internal.Vector3d">
+</parameter>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="set" native="false" return="void" static="false" synchronized="false" visibility="public">
+<parameter name="p0" type="double">
+</parameter>
+<parameter name="p1" type="double">
+</parameter>
+<parameter name="p2" type="double">
+</parameter>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="setComponent" native="false" return="void" static="false" synchronized="false" visibility="public">
+<parameter name="p0" type="int">
+</parameter>
+<parameter name="p1" type="double">
+</parameter>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="setZero" native="false" return="void" static="false" synchronized="false" visibility="public">
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="sub" native="false" return="void" static="true" synchronized="false" visibility="public">
+<parameter name="p0" type="com.google.vrtoolkit.cardboard.sensors.internal.Vector3d">
+</parameter>
+<parameter name="p1" type="com.google.vrtoolkit.cardboard.sensors.internal.Vector3d">
+</parameter>
+<parameter name="p2" type="com.google.vrtoolkit.cardboard.sensors.internal.Vector3d">
+</parameter>
+</method>
+<field deprecated="not deprecated" final="false" name="x" static="false" transient="false" type="double" type-generic-aware="double" visibility="public" volatile="false">
+</field>
+<field deprecated="not deprecated" final="false" name="y" static="false" transient="false" type="double" type-generic-aware="double" visibility="public" volatile="false">
+</field>
+<field deprecated="not deprecated" final="false" name="z" static="false" transient="false" type="double" type-generic-aware="double" visibility="public" volatile="false">
+</field>
+</class>
+</package>
+</api>
