@@ -131,3 +131,10 @@ DotNet/libs/android/net6.0-Release/x86_64/libMonoEmbedded.so
 DotNet/libs/android/net6.0-Release/x86_64/libUrho3D.so
 DotNet/libs/wasm/MonoEmbedded.js
 DotNet/libs/wasm/MonoEmbedded.wasm
+
+DotNet/UrhoDotNet/*
+DotNet/libs/*
+build-xcode-dotnet-dylib
+build-xcode
+tools/SharpieBinder/bin/SharpieBinder.exe
+tools/SharpieBinder/bin/SharpieBinder.pdb
