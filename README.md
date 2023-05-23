@@ -1,20 +1,8 @@
 # Urho.Net
 This repository serves as a development repository for Urho.Net. It encompasses the complete native and managed source code, along with a range of tools and scripts.
 
-# Urho3D
-
-[![CI/CD](https://github.com/urho3d/Urho3D/workflows/CI/CD/badge.svg)](https://github.com/urho3d/Urho3D/actions?query=workflow%3ACI%2FCD)
-[![Coverity Scan Build Status](https://scan.coverity.com/projects/4954/badge.svg)](https://scan.coverity.com/projects/urho3d-urho3d)
-
-**Urho3D** is a free lightweight, cross-platform 2D and 3D game engine implemented in C++ and released under the MIT license. Greatly inspired by OGRE and Horde3D.
-
-Main website: [https://urho3d.github.io/](https://urho3d.github.io/)
-
 ## License
-Licensed under the MIT license, see [LICENSE](https://github.com/Urho-Net/Urho3D/blob/main/licenses/urho3d/LICENSE) for details.
-
-## Contributing
-Before making pull requests, please read the [Contribution checklist](https://urho3d.github.io/documentation/HEAD/_contribution_checklist.html) and [Coding conventions](https://urho3d.github.io/documentation/HEAD/_coding_conventions.html) pages from the documentation.
+Licensed under the MIT license, see [LICENSES](https://github.com/Urho-Net/Urho3D/blob/main/licenses/urho3d/LICENSE) for details.
 
 ## Credits
 
