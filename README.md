@@ -1,6 +1,5 @@
-![Urho3D logo](https://raw.githubusercontent.com/urho3d/Urho3D/master/bin/Data/Textures/LogoLarge.png)
-
-If you would like to enable the Metal Backend on iOS and Mac devices , please check the following link  https://github.com/elix22/Urho3D/wiki/Angle-using-Metal-backend
+# Urho.Net
+This repository serves as a development repository for Urho.Net. It encompasses the complete native and managed source code, along with a range of tools and scripts.
 
 # Urho3D
 
@@ -12,7 +11,7 @@ If you would like to enable the Metal Backend on iOS and Mac devices , please ch
 Main website: [https://urho3d.github.io/](https://urho3d.github.io/)
 
 ## License
-Licensed under the MIT license, see [LICENSE](https://github.com/urho3d/Urho3D/blob/master/LICENSE) for details.
+Licensed under the MIT license, see [LICENSE](https://github.com/Urho-Net/Urho3D/blob/main/licenses/urho3d/LICENSE) for details.
 
 ## Contributing
 Before making pull requests, please read the [Contribution checklist](https://urho3d.github.io/documentation/HEAD/_contribution_checklist.html) and [Coding conventions](https://urho3d.github.io/documentation/HEAD/_coding_conventions.html) pages from the documentation.
