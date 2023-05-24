@@ -1,5 +1,17 @@
+script_path=$(readlink -f "$0")
+scriptDir=$(dirname "$script_path")
+URHO3D_HOME=${scriptDir}/../
+
+configureFile=${scriptDir}/../../configure.sh
+if [ -e "$configureFile" ]; then
+    cd ${scriptDir}/../../
+    echo "configure.sh found , calling it !"
+    ./configure.sh
+fi
+
 URHONET_HOME_ROOT=$(cat ~/.urhonet_config/urhonethome)
-URHO3D_HOME=$(pwd)
+URHO3D_HOME=${scriptDir}/../
+
 
 if [ ! -d "$URHONET_HOME_ROOT" ]; then
     echo  "Urho.Net is not configured , please  run configure.sh (configure.bat on Windows) from the Urho.Net installation folder  "
@@ -8,7 +20,6 @@ else
     echo "URHONET_HOME_ROOT=${URHONET_HOME_ROOT}"
 fi
 
-CWD=$(pwd)
 unamestr=$(uname)
 # Switch-on alias expansion within the script 
 shopt -s expand_aliases
@@ -21,9 +32,20 @@ else
 	alias aliassedinplace='sed -i""'
 fi
 
+cd ${URHO3D_HOME}
 
 ./script/make_csharp_editor_bindings.sh
+exit_status=$?
+if [ $exit_status -ne 0 ]; then
+echo "An error occurred while executing make_csharp_editor_bindings.sh Exiting."
+exit 1 
+fi
 ./script/build_xcode_dotnet_editor_dylib.sh 
+exit_status=$?
+if [ $exit_status -ne 0 ]; then
+echo "An error occurred while executing build_xcode_dotnet_editor_dylib.sh  Exiting."
+exit 1 
+fi
 
 mkdir -p ${URHONET_HOME_ROOT}/template/libs/dotnet/urho/desktop
 cp -f ${URHO3D_HOME}/DotNet/UrhoDotNet/editor/UrhoDotNet.dll ${URHONET_HOME_ROOT}/template/libs/dotnet/urho/desktop

@@ -1,5 +1,16 @@
+script_path=$(readlink -f "$0")
+scriptDir=$(dirname "$script_path")
+
+
+configureFile=${scriptDir}/../../configure.sh
+if [ -e "$configureFile" ]; then
+    cd ${scriptDir}/../../
+    echo "configure.sh found , calling it !"
+    ./configure.sh
+fi
+
 URHONET_HOME_ROOT=$(cat ~/.urhonet_config/urhonethome)
-URHO3D_HOME=$(pwd)
+URHO3D_HOME=${scriptDir}/../
 
 if [ ! -d "$URHONET_HOME_ROOT" ]; then
     echo  "Urho.Net is not configured , please  run configure.sh (configure.bat on Windows) from the Urho.Net installation folder  "
@@ -8,11 +19,21 @@ else
     echo "URHONET_HOME_ROOT=${URHONET_HOME_ROOT}"
 fi
 
+cd ${URHO3D_HOME}
 ./script/build_android_dotnet_libs.sh
+exit_status=$?
+if [ $exit_status -ne 0 ]; then
+    echo "An error occurred while executing build_android_dotnet_libs.sh Exiting."
+    exit 1 
+fi
 
 # build UrhoDotNet.dll  assembly for all supported platforms
 cd ${URHO3D_HOME}/DotNet/Bindings
 ./build-android-bindings.sh
+if [ $exit_status -ne 0 ]; then
+    echo "An error occurred while executing build-android-bindings.sh Exiting."
+    exit 1 
+fi
 
 # build Mono.Android.dll  assembly for all supported platforms
 cd ${URHO3D_HOME}/DotNet/AndroidEnvironment
