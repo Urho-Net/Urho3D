@@ -17,16 +17,30 @@ else {
 }
 
 & "$scriptDir\build_android_dotnet_libs.ps1"
-
+# Check the exit code
+if ($LASTEXITCODE -ne 0) {
+    Write-Output "An error occurred in the called build_android_dotnet_libs.ps1 script. Stopping execution."
+    exit -1
+}
 
 # build UrhoDotNet.dll assembly for all supported platforms
 Set-Location "$URHO3D_HOME\DotNet\Bindings"
 & ".\build-android-bindings.ps1"
-
+# Check the exit code
+if ($LASTEXITCODE -ne 0) {
+    Write-Output "An error occurred in the called build-android-bindings.ps1 script. Stopping execution."
+    exit -1
+}
 
 # build Mono.Android.dll assembly for all supported platforms
 Set-Location "$URHO3D_HOME\DotNet\AndroidEnvironment"
 & ".\build-android-runtime-environment.ps1"
+
+# Check the exit code
+if ($LASTEXITCODE -ne 0) {
+    Write-Output "An error occurred in the called build-android-runtime-environment.ps script. Stopping execution."
+    exit -1
+}
 
 Set-Location $URHO3D_HOME
 
