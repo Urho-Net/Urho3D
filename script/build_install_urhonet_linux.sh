@@ -1,5 +1,17 @@
+script_path=$(readlink -f "$0")
+scriptDir=$(dirname "$script_path")
+URHO3D_HOME=${scriptDir}/..
+
+configureFile=${scriptDir}/../../configure.sh
+if [ -e "$configureFile" ]; then
+    cd ${scriptDir}/../../
+    echo "configure.sh found , calling it !"
+    ./configure.sh
+fi
+
+
 URHONET_HOME_ROOT=$(cat ~/.urhonet_config/urhonethome)
-URHO3D_HOME=$(pwd)
+URHO3D_HOME=${scriptDir}/../
 
 if [ ! -d "$URHONET_HOME_ROOT" ]; then
     echo  "Urho.Net is not configured , please  run configure.sh (configure.bat on Windows) from the Urho.Net installation folder  "
@@ -8,7 +20,9 @@ else
     echo "URHONET_HOME_ROOT=${URHONET_HOME_ROOT}"
 fi
 
-CWD=$(pwd)
+cd ${URHO3D_HOME}
+
+
 unamestr=$(uname)
 # Switch-on alias expansion within the script 
 shopt -s expand_aliases

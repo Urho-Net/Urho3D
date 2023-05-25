@@ -145,3 +145,4 @@ tools/SharpieBinder/bin/SharpieBinder.pdb
 bin/Data/DotNet
 template/*
 runtime
+build-dotnet-lib
