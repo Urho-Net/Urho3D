@@ -1,6 +1,17 @@
+
+script_path=$(readlink -f "$0")
+scriptDir=$(dirname "$script_path")
+
 URHONET_HOME_ROOT=$(cat ~/.urhonet_config/urhonethome)
-URHO3D_HOME=$(pwd)
+URHO3D_HOME=${scriptDir}/../
 unamestr=$(uname)
+
+configureFile=${scriptDir}/../../configure.sh
+if [ -e "$configureFile" ]; then
+    cd ${scriptDir}/../../
+    echo "configure.sh found , calling it !"
+    ./configure.sh
+fi
 
 if [ ! -d "$URHONET_HOME_ROOT" ]; then
     echo  "Urho.Net is not configured , please  run configure.sh (configure.bat on Windows) from the Urho.Net installation folder  "
@@ -15,6 +26,7 @@ else
 	outputdir="linux"
 fi
 
+cd ${URHO3D_HOME}
 
 if [ ! -d runtime ]; then
     git clone --recursive https://github.com/dotnet/runtime.git

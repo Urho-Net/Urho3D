@@ -144,3 +144,4 @@ tools/SharpieBinder/bin/SharpieBinder.pdb
 .vscode
 bin/Data/DotNet
 template/*
+runtime
