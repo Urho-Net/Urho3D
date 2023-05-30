@@ -17,6 +17,9 @@ else
 	alias aliassedinplace='sed -i""'
 fi
 
+# Only on Mac
+if [[ "$unamestr" == "Darwin" ]]; then
+
 rm -rf ${URHO3D_HOME}/DotNet/Bindings/Portable/Generated
 
 ./script/cmake_xcode.sh build-xcode -DURHO3D_DATABASE_SQLITE=1 -DURHO3D_PCH=0  -DURHO3D_WEBP=0 -DURHO3D_LUA=0 -DURHO3D_ANGELSCRIPT=0 -DURHO3D_TOOLS=1  -DCMAKE_OSX_DEPLOYMENT_TARGET=10.15
@@ -51,6 +54,7 @@ cd ${URHO3D_HOME}/DotNet/Bindings && perl ParseEvents.pl ${URHO3D_HOME}/build-xc
 # corrections on generated Object.Events.cs
 aliassedinplace "s*VariantMap*EventDataContainer*g" "${URHO3D_HOME}/DotNet/Bindings/Portable/Generated/Object.Events.cs"
 
+fi
 
 
 # build UrhoDotNet.dll  assembly for all supported platforms

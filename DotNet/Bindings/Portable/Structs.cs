@@ -899,14 +899,6 @@ namespace Urho
             A = alpha;
         }
 
-        public Color(byte r=255, byte g=255, byte b=255, byte a=255)
-        {
-            R = r / 255f;
-            G = g / 255f;
-            B = b / 255f;
-            A = a / 255f;
-        }
-
         public static Color White = new Color(1, 1, 1);
         public static Color Gray = new Color(0.5f, 0.5f, 0.5f);
         public static Color Black = new Color(0.0f, 0.0f, 0.0f);
