@@ -2,16 +2,16 @@ using System;
 
 namespace Urho
 {
-	internal static class EaseMath
+	public static class EaseMath
     {
-		internal static float BackIn(float time)
+		public static float BackIn(float time)
         {
             const float overshoot = 1.70158f;
             
             return time * time * ((overshoot + 1) * time - overshoot);
         }
 
-		internal static float BackOut(float time)
+		public static float BackOut(float time)
         {
             const float overshoot = 1.70158f;
 
@@ -19,7 +19,7 @@ namespace Urho
             return time * time * ((overshoot + 1) * time + overshoot) + 1;
         }
 
-		internal static float BackInOut(float time)
+		public static float BackInOut(float time)
         {
             const float overshoot = 1.70158f * 1.525f;
 
@@ -35,7 +35,7 @@ namespace Urho
             }
         }
 
-		internal static float BounceOut(float time)
+		public static float BounceOut(float time)
         {
             if (time < 1 / 2.75)
             {
@@ -56,12 +56,12 @@ namespace Urho
             return 7.5625f * time * time + 0.984375f;
         }
 
-		internal static float BounceIn(float time)
+		public static float BounceIn(float time)
         {
             return 1f - BounceOut(1f - time);
         }
 
-		internal static float BounceInOut(float time)
+		public static float BounceInOut(float time)
         {
             if (time < 0.5f)
             {
@@ -71,32 +71,32 @@ namespace Urho
             return BounceOut(time * 2 - 1) * 0.5f + 0.5f;
         }
 
-		internal static float SineOut(float time)
+		public static float SineOut(float time)
         {
             return (float) Math.Sin(time * MathHelper.PiOver2);
         }
 
-		internal static float SineIn(float time)
+		public static float SineIn(float time)
         {
 			return -1f * (float)Math.Cos(time * MathHelper.PiOver2) + 1f;
         }
 
-		internal static float SineInOut(float time)
+		public static float SineInOut(float time)
         {
             return -0.5f * ((float)Math.Cos((float)Math.PI * time) - 1f);
         }
 
-		internal static float ExponentialOut(float time)
+		public static float ExponentialOut(float time)
         {
             return time == 1f ? 1f : (-(float)Math.Pow(2f, -10f * time / 1f) + 1f);
         }
 
-		internal static float ExponentialIn(float time)
+		public static float ExponentialIn(float time)
         {
             return time == 0f ? 0f : (float)Math.Pow(2f, 10f * (time / 1f - 1f)) - 1f * 0.001f;
         }
 
-		internal static float ExponentialInOut(float time)
+		public static float ExponentialInOut(float time)
         {
             time /= 0.5f;
             if (time < 1)
@@ -109,7 +109,7 @@ namespace Urho
             }
         }
 
-		internal static float ElasticIn(float time, float period)
+		public static float ElasticIn(float time, float period)
         {
             if (time == 0 || time == 1)
             {
@@ -123,7 +123,7 @@ namespace Urho
             }
         }
 
-		internal static float ElasticOut(float time, float period)
+		public static float ElasticOut(float time, float period)
         {
             if (time == 0 || time == 1)
             {
@@ -136,7 +136,7 @@ namespace Urho
             }
         }
 
-		internal static float ElasticInOut(float time, float period)
+		public static float ElasticInOut(float time, float period)
         {
             if (time == 0 || time == 1)
             {

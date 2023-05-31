@@ -17,6 +17,7 @@ using Urho.Resources;
 using Urho.Actions;
 using Urho.Gui;
 using System.Threading;
+using Urho.UIActions;
 
 namespace Urho
 {
@@ -168,6 +169,7 @@ namespace Urho
             var timeStep = args.TimeStep;
             Update?.Invoke(args);
             ActionManager.Update(timeStep);
+            UIActionManager.Update(timeStep);
             OnUpdate(timeStep);
 
             MainLoopDispatcher.HandleUpdate(timeStep);
@@ -207,7 +209,10 @@ namespace Urho
         {
             isExiting = true;
             if (CancelActiveActionsOnStop)
+            {
                 Current.ActionManager.CancelActiveActions();
+                Current.UIActionManager.CancelActiveActions();
+            }
             LogSharp.Debug("ProxyStop");
             UrhoPlatformInitializer.Initialized = false;
             var context = Current?.Context;
@@ -340,6 +345,18 @@ namespace Urho
                 if (actionManager == null)
                     actionManager = new ActionManager();
                 return actionManager;
+            }
+        }
+
+        UIActionManager uiActionManager;
+        public UIActionManager UIActionManager
+        {
+            get
+            {
+                Runtime.Validate(typeof(Application));
+                if (uiActionManager == null)
+                    uiActionManager = new UIActionManager();
+                return uiActionManager;
             }
         }
 
