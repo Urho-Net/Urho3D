@@ -21,7 +21,7 @@
 //
 
 #include "../Precompiled.h"
-
+#include <cstdint>
 #include "../Core/Context.h"
 #include "../Graphics/Graphics.h"
 #include "../Graphics/Texture2D.h"
