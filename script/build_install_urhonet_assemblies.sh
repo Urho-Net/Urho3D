@@ -1,15 +1,37 @@
-script_path=$(readlink -f "$0")
-scriptDir=$(dirname "$script_path")
+unamestr=$(uname)
 
-configureFile=${scriptDir}/../../configure.sh
-if [ -e "$configureFile" ]; then
-    cd ${scriptDir}/../../
-    echo "configure.sh found , calling it !"
-    ./configure.sh
+if [[ "$unamestr" == "Darwin" ]]; then
+    function readlink(){
+    DIR="${1%/*}"
+    (cd "$DIR" && echo "$(pwd -P)")
+    }
+
+    script_path=$(readlink  "$0")
+    scriptDir=$(dirname "$script_path")
+ 
+    configureFile=${scriptDir}/../configure.sh
+    if [ -e "$configureFile" ]; then
+        cd ${scriptDir}/../
+        echo "configure.sh found , calling it !"
+        ./configure.sh
+    fi
+    URHO3D_HOME=${scriptDir}
+else
+	script_path=$(readlink -f "$0")
+    scriptDir=$(dirname "$script_path")
+
+
+    configureFile=${scriptDir}/../../configure.sh
+    if [ -e "$configureFile" ]; then
+        cd ${scriptDir}/../../
+        echo "configure.sh found , calling it !"
+        ./configure.sh
+    fi
+    URHO3D_HOME=${scriptDir}/../
 fi
 
 URHONET_HOME_ROOT=$(cat ~/.urhonet_config/urhonethome)
-URHO3D_HOME=${scriptDir}/../
+
 
 if [ ! -d "$URHONET_HOME_ROOT" ]; then
     echo  "Urho.Net is not configured , please  run configure.sh (configure.bat on Windows) from the Urho.Net installation folder  "

@@ -1,21 +1,34 @@
+unamestr=$(uname)
 
-script_path=$(readlink -f "$0")
-scriptDir=$(dirname "$script_path")
-URHO3D_HOME=${scriptDir}/../
+if [[ "$unamestr" == "Darwin" ]]; then
+    function readlink(){
+    DIR="${1%/*}"
+    (cd "$DIR" && echo "$(pwd -P)")
+    }
 
+    script_path=$(readlink  "$0")
+    scriptDir=$(dirname "$script_path")
+    URHO3D_HOME=${scriptDir}
+else
+	script_path=$(readlink -f "$0")
+    scriptDir=$(dirname "$script_path")
+    URHO3D_HOME=${scriptDir}/../
+fi
 
 LOCAL_CLANG=tools/clang+llvm-3.7.0-x86_64-apple-darwin/bin/clang
 CUSTOM_CLANG=$(pwd)/${LOCAL_CLANG}
 MONO64=mono64
 XBUILD=xbuild
  
-unamestr=$(uname)
+
 shopt -s expand_aliases
 if [[ "$unamestr" == "Darwin" ]]; then
 	alias aliassedinplace='sed -i ""'
 else
 	alias aliassedinplace='sed -i""'
 fi
+
+cd ${URHO3D_HOME}
 
 # Only on Mac
 if [[ "$unamestr" == "Darwin" ]]; then
