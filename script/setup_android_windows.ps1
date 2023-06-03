@@ -34,5 +34,5 @@ echo "Installing Android packages..."
 # Display installed versions
 echo "Installed versions:"
 java -version
-$env:ANDROID_HOME\cmdline-tools\latest\bin\sdkmanager.bat --version
-$env:ANDROID_NDK_HOME\ndk-build.cmd --version
+& "$env:ANDROID_HOME\cmdline-tools\latest\bin\sdkmanager.bat" --version
+& "$env:ANDROID_NDK_HOME\ndk-build.cmd" --version
