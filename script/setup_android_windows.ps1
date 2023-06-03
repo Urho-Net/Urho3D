@@ -20,19 +20,18 @@ Remove-Item "android-ndk.zip"
 
 # Configure environment variables
 echo "Configuring environment variables..."
-$env:Path += ";$env:ANDROID_HOME\cmdline-tools\latest\bin;$env:ANDROID_HOME\platform-tools"
+$env:Path += ";$env:ANDROID_HOME\tools;$env:ANDROID_HOME\platform-tools"
 $env:ANDROID_NDK_HOME = "$env:USERPROFILE\android-ndk-r21e"
 
 # Accept Android SDK licenses
 echo "Accepting Android SDK licenses..."
-& "$env:ANDROID_HOME\cmdline-tools\latest\bin\sdkmanager.bat" --licenses --sdk_root="$env:ANDROID_HOME"
+& "$env:ANDROID_HOME\tools\bin\sdkmanager.bat" --licenses
 
 # Install required Android packages
 echo "Installing Android packages..."
-& "$env:ANDROID_HOME\cmdline-tools\latest\bin\sdkmanager.bat" "platform-tools" "build-tools;30.0.3" "platforms;android-30" --sdk_root="$env:ANDROID_HOME"
+& "$env:ANDROID_HOME\tools\bin\sdkmanager.bat" "platform-tools" "build-tools;30.0.3" "platforms;android-30"
 
 # Display installed versions
 echo "Installed versions:"
 java -version
-& "$env:ANDROID_HOME\cmdline-tools\latest\bin\sdkmanager.bat" --version
-& "$env:ANDROID_NDK_HOME\ndk-build.cmd" --version
+& "$env:ANDROID_HOME\tools\sdkmanager.bat" --version

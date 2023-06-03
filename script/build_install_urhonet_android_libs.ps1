@@ -1,12 +1,14 @@
 $scriptDir = Split-Path -Parent $MyInvocation.MyCommand.Path
-$URHO3D_HOME="$scriptDir/../"
-$URHONET_HOME_ROOT = Get-Content "$env:USERPROFILE\.urhonet_config\urhonethome"
+$URHO3D_HOME=$scriptDir+"/../"
 
 $configureFile = $scriptDir+"/../../configure.bat"
 if (Test-Path -Path $configureFile -PathType Leaf) {
     Write-Host "found configure.bat , calling it!"
     & $configureFile
 }
+
+$URHONET_HOME_ROOT = Get-Content "$env:USERPROFILE\.urhonet_config\urhonethome"
+
 
 if (-not (Test-Path $URHONET_HOME_ROOT)) {
     Write-Host "Urho.Net is not configured, please run configure.bat from the Urho.Net installation folder"

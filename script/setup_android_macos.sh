@@ -27,15 +27,15 @@ export JAVA_HOME=/usr/local/opt/openjdk@8
 export ANDROID_NDK_HOME=$ANDROID_NDK_ROOT/android-ndk-r21e
 
 # Accept Android SDK licenses
-yes | sdkmanager --licenses
+yes | $ANDROID_SDK_ROOT/cmdline-tools/latest/bin/sdkmanager --licenses
 
 # Install required Android packages
 echo "Installing Android packages..."
-sdkmanager "platform-tools" "build-tools;30.0.3" "platforms;android-30"
+$ANDROID_SDK_ROOT/cmdline-tools/latest/bin/sdkmanager "platform-tools" "build-tools;30.0.3" "platforms;android-30"
 
 # Display installed versions
 echo "Installed versions:"
 java -version
 javac -version
-sdkmanager --version
+$ANDROID_SDK_ROOT/cmdline-tools/latest/bin/sdkmanager --version
 $ANDROID_NDK_HOME/ndk-build --version
