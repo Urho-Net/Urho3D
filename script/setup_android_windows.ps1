@@ -28,7 +28,9 @@ $env:JAVA_HOME = "C:\Program Files\AdoptOpenJDK\jdk-8.0.302.8-hotspot"
 $env:ANDROID_NDK_HOME = "$env:ANDROID_NDK_ROOT\android-ndk-r21e"
 
 # Accept Android SDK licenses
-Write-Host "y" | $env:ANDROID_SDK_ROOT\cmdline-tools\tools\bin\sdkmanager --licenses
+# Write-Host "y" | $env:ANDROID_SDK_ROOT\cmdline-tools\tools\bin\sdkmanager --licenses
+Set-Content -Path "$env:ANDROID_SDK_ROOT\cmdline-tools\tools\bin\accept_licenses.bat" -Value "echo y | %~dp0sdkmanager --licenses"
+Start-Process -FilePath "$env:ANDROID_SDK_ROOT\cmdline-tools\tools\bin\accept_licenses.bat"
 
 
 
