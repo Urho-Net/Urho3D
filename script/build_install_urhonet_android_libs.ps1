@@ -25,6 +25,8 @@ if ($LASTEXITCODE -ne 0) {
     exit -1
 }
 
+$env:PATH
+
 # build UrhoDotNet.dll assembly for all supported platforms
 Set-Location "$URHO3D_HOME\DotNet\Bindings"
 & ".\build-android-bindings.ps1"
