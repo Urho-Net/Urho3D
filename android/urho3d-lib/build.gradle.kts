@@ -167,7 +167,7 @@ afterEvaluate {
             if (System.getenv("CI") != null) {
                 "externalNativeBuild$config" {
                     @Suppress("UnstableApiUsage")
-                    timeout.set(Duration.ofMinutes(25))
+                    timeout.set(Duration.ofMinutes(360))
                 }
             }
         }

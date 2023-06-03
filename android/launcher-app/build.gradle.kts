@@ -121,7 +121,7 @@ afterEvaluate {
                 mustRunAfter(":android:urho3d-lib:externalNativeBuild$config")
                 if (System.getenv("CI") != null) {
                     @Suppress("UnstableApiUsage")
-                    timeout.set(Duration.ofMinutes(15))
+                    timeout.set(Duration.ofMinutes(360))
                 }
             }
         }
