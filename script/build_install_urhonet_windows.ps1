@@ -22,6 +22,11 @@ cd $URHO3D_HOME
 # building the Native part an copy it to the Urho.Net folder
 script/cmake_vs2019_dotnet_dll.bat build-vs2019-dotnet-dll
 cmake --build build-vs2019-dotnet-dll/.  --config Release
+# Check if the file doesn't exist
+if (-not (Test-Path -Path build-vs2019-dotnet-dll\bin\Urho3D.dll)) {
+  Write-Host "Urho3D.dll does not exist. Exiting with an error."
+  exit 1
+}
 Copy-Item   build-vs2019-dotnet-dll\bin\Urho3D.dll  -Destination  $URHONET_HOME_ROOT/template/libs/windows 
 
 # compiling the dotnet assembly

@@ -63,7 +63,32 @@ cd ${URHO3D_HOME}/DotNet/AndroidEnvironment
 
 cd ${URHO3D_HOME}
 
+
+# Source files
+source_files=(
+    "${URHO3D_HOME}/DotNet/UrhoDotNet/mobile/android/UrhoDotNet.dll"
+    "${URHO3D_HOME}/DotNet/UrhoDotNet/mobile/android/Mono.Android.dll"
+    "${URHO3D_HOME}/DotNet/libs/android/net6.0-Release/arm64-v8a/libUrho3D.so"
+    "${URHO3D_HOME}/DotNet/libs/android/net6.0-Release/armeabi-v7a/libUrho3D.so"
+    "${URHO3D_HOME}/DotNet/libs/android/net6.0-Release/x86/libUrho3D.so"
+    "${URHO3D_HOME}/DotNet/libs/android/net6.0-Release/x86_64/libUrho3D.so"
+    "${URHO3D_HOME}/DotNet/libs/android/net6.0-Release/arm64-v8a/libMonoEmbedded.so"
+    "${URHO3D_HOME}/DotNet/libs/android/net6.0-Release/armeabi-v7a/libMonoEmbedded.so"
+    "${URHO3D_HOME}/DotNet/libs/android/net6.0-Release/x86/libMonoEmbedded.so"
+    "${URHO3D_HOME}/DotNet/libs/android/net6.0-Release/x86_64/libMonoEmbedded.so"
+    "${URHO3D_HOME}/android/urho3d-lib/build/intermediates/aar_main_jar/release/classes.jar"
+)
+
+# Check if source files exist
+for file in "${source_files[@]}"; do
+    if [ ! -e "$file" ]; then
+        echo "File '$file' does not exist. Exiting with an error."
+        exit 1
+    fi
+done
+
 mkdir -p ${URHO3D_HOME}/bin/Data/DotNet/android
+
 
 cp -f ${URHO3D_HOME}/DotNet/UrhoDotNet/mobile/android/UrhoDotNet.dll ${URHO3D_HOME}/bin/Data/DotNet/android
 cp -f ${URHO3D_HOME}/DotNet/UrhoDotNet/mobile/android/Mono.Android.dll ${URHO3D_HOME}/bin/Data/DotNet/android

@@ -64,21 +64,40 @@ cp -f ${URHO3D_HOME}/Source/Samples/MonoEmbed/MonoEmbed.h  ${URHONET_HOME_ROOT}/
 
 cp -fRL ${URHO3D_HOME}/build-ios-dotnet-lib/include ${URHONET_HOME_ROOT}/template/IOS
 
+
+if [ ! -e ${URHO3D_HOME}/DotNet/libs/iphone/Release-iphoneos/libUrho3D-GLES.a ]; then
+  echo "Release-iphoneos/libUrho3D-GLES.a does not exist. Exiting with an error."
+  exit 1
+fi
+
 mkdir -p ${URHONET_HOME_ROOT}/template/libs/ios/urho3d/gles
 mkdir -p ${URHONET_HOME_ROOT}/template/libs/ios/urho3d/gles/release
 mkdir -p ${URHONET_HOME_ROOT}/template/libs/ios/urho3d/gles/debug
 cp -f ${URHO3D_HOME}/DotNet/libs/iphone/Release-iphoneos/libUrho3D-GLES.a  ${URHONET_HOME_ROOT}/template/libs/ios/urho3d/gles/release/libUrho3D.a
 
+if [ ! -e ${URHO3D_HOME}/DotNet/libs/iphone/Debug-iphoneos/libUrho3D-GLES.a ]; then
+  echo "Debug-iphoneos/libUrho3D-GLES.a does not exist. Exiting with an error."
+  exit 1
+fi
 cp -f ${URHO3D_HOME}/DotNet/libs/iphone/Debug-iphoneos/libUrho3D-GLES.a  ${URHONET_HOME_ROOT}/template/libs/ios/urho3d/gles/debug/libUrho3D.a
 rm -f ${URHONET_HOME_ROOT}/template/libs/ios/urho3d/gles/debug/libUrho3D.split.*
 split -b45M  ${URHONET_HOME_ROOT}/template/libs/ios/urho3d/gles/debug/libUrho3D.a  ${URHONET_HOME_ROOT}/template/libs/ios/urho3d/gles/debug/libUrho3D.split.
 rm -f ${URHONET_HOME_ROOT}/template/libs/ios/urho3d/gles/debug/libUrho3D.a
 
+
+if [ ! -e ${URHO3D_HOME}/DotNet/libs/iphone/Release-iphoneos/libUrho3D-Metal.a ]; then
+  echo "Release-iphoneos/libUrho3D-Metal.a does not exist. Exiting with an error."
+  exit 1
+fi
 mkdir -p ${URHONET_HOME_ROOT}/template/libs/ios/urho3d/metal
 mkdir -p ${URHONET_HOME_ROOT}/template/libs/ios/urho3d/metal/release
 mkdir -p ${URHONET_HOME_ROOT}/template/libs/ios/urho3d/metal/debug
 cp -f ${URHO3D_HOME}/DotNet/libs/iphone/Release-iphoneos/libUrho3D-Metal.a ${URHONET_HOME_ROOT}/template/libs/ios/urho3d/metal/release/libUrho3D.a
 
+if [ ! -e ${URHO3D_HOME}/DotNet/libs/iphone/Debug-iphoneos/libUrho3D-Metal.a ]; then
+  echo "Debug-iphoneos/libUrho3D-Metal.a does not exist. Exiting with an error."
+  exit 1
+fi
 cp -f ${URHO3D_HOME}/DotNet/libs/iphone/Debug-iphoneos/libUrho3D-Metal.a ${URHONET_HOME_ROOT}/template/libs/ios/urho3d/metal/debug/libUrho3D.a
 rm -f ${URHONET_HOME_ROOT}/template/libs/ios/urho3d/metal/debug/libUrho3D.split.*
 split -b45M ${URHONET_HOME_ROOT}/template/libs/ios/urho3d/metal/debug/libUrho3D.a ${URHONET_HOME_ROOT}/template/libs/ios/urho3d/metal/debug/libUrho3D.split.

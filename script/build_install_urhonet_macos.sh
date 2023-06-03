@@ -54,9 +54,21 @@ if [ $exit_status -ne 0 ]; then
   exit 1 
 fi
 
+# Check if the file doesn't exist
+if [ ! -e ${URHO3D_HOME}/DotNet/UrhoDotNet/desktop/UrhoDotNet.dll ]; then
+  echo "UrhoDotNet.dll does not exist. Exiting with an error."
+  exit 1
+fi
+
 mkdir -p ${URHONET_HOME_ROOT}/template/libs/dotnet/urho/desktop
 cp -f ${URHO3D_HOME}/DotNet/UrhoDotNet/desktop/UrhoDotNet.dll ${URHONET_HOME_ROOT}/template/libs/dotnet/urho/desktop
 cp -f ${URHO3D_HOME}/DotNet/UrhoDotNet/desktop/UrhoDotNet.xml ${URHONET_HOME_ROOT}/template/libs/dotnet/urho/desktop
+
+# Check if the file doesn't exist
+if [ ! -e ${URHO3D_HOME}/DotNet/libs/macos/Release/libUrho3D.dylib ]; then
+  echo "UrhoDotNet.dll does not exist. Exiting with an error."
+  exit 1
+fi
 
 mkdir -p ${URHONET_HOME_ROOT}/template/libs/macos
 cp -f ${URHO3D_HOME}/DotNet/libs/macos/Release/libUrho3D.dylib  ${URHONET_HOME_ROOT}/template/libs/macos

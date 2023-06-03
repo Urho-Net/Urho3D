@@ -25,4 +25,11 @@ fi
 ./script/cmake_linux_dotnet_so.sh build-dotnet-lib
 cd build-dotnet-lib/
 make -j4 
+
+# Check if the file doesn't exist
+if [ ! -e lib/libUrho3D.so ]; then
+  echo "libUrho3D.so does not exist. Exiting with an error."
+  exit 1
+fi
+
 cp -L lib/libUrho3D.so  ${URHONET_HOME_ROOT}/template/libs/linux

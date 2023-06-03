@@ -45,6 +45,31 @@ if ($LASTEXITCODE -ne 0) {
 Set-Location $URHO3D_HOME
 
 
+$sourceFiles = @(
+    "$URHO3D_HOME\DotNet\UrhoDotNet\mobile\android\UrhoDotNet.dll",
+    "$URHO3D_HOME\DotNet\UrhoDotNet\mobile\android\Mono.Android.dll",
+    "$URHO3D_HOME\DotNet\libs\android\net6.0-Release\arm64-v8a\libUrho3D.so",
+    "$URHO3D_HOME\DotNet\libs\android\net6.0-Release\armeabi-v7a\libUrho3D.so",
+    "$URHO3D_HOME\DotNet\libs\android\net6.0-Release\x86\libUrho3D.so",
+    "$URHO3D_HOME\DotNet\libs\android\net6.0-Release\x86_64\libUrho3D.so",
+    "$URHO3D_HOME\DotNet\libs\android\net6.0-Release\arm64-v8a\libMonoEmbedded.so",
+    "$URHO3D_HOME\DotNet\libs\android\net6.0-Release\armeabi-v7a\libMonoEmbedded.so",
+    "$URHO3D_HOME\DotNet\libs\android\net6.0-Release\x86\libMonoEmbedded.so",
+    "$URHO3D_HOME\DotNet\libs\android\net6.0-Release\x86_64\libMonoEmbedded.so",
+    "$URHO3D_HOME\android\urho3d-lib\build\intermediates\aar_main_jar\release\classes.jar"
+)
+
+# Check if source files exist
+$missingFiles = $sourceFiles | Where-Object { -not (Test-Path $_) }
+
+if ($missingFiles.Count -gt 0) {
+    Write-Host "The following source files do not exist:"
+    $missingFiles | ForEach-Object {
+        Write-Host $_
+    }
+    exit 1
+}
+
 New-Item -ItemType Directory -Force "$URHO3D_HOME\bin\Data\DotNet\android" | Out-Null
 
 

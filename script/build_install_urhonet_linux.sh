@@ -41,6 +41,12 @@ cd ${URHO3D_HOME}/DotNet/Bindings
 ./build-desktop-bindings.sh
 cd ${URHO3D_HOME}
 
+# Check if the file doesn't exist
+if [ ! -e ${URHO3D_HOME}/DotNet/UrhoDotNet/desktop/UrhoDotNet.dll ]; then
+  echo "UrhoDotNet.dll does not exist. Exiting with an error."
+  exit 1
+fi
+
 # copy the dotnet assembly to the Urho.Net folder
 cp   ${URHO3D_HOME}/DotNet/UrhoDotNet/desktop/UrhoDotNet.dll  ${URHONET_HOME_ROOT}/template/libs/dotnet/urho/desktop
 cp   ${URHO3D_HOME}/DotNet/UrhoDotNet/desktop/UrhoDotNet.xml   ${URHONET_HOME_ROOT}/template/libs/dotnet/urho/desktop
