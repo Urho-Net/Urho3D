@@ -4,10 +4,17 @@ $downloadUrl = "https://download.mono-project.com/archive/6.12.0/windows-install
 Invoke-WebRequest -Uri $downloadUrl -OutFile $installPath
 Start-Process -FilePath "msiexec.exe" -ArgumentList "/i", $installPath, "/quiet" -Wait
 
+$monoPath = "C:\Program Files\Mono"
+# Check if Mono directory exists
+if (Test-Path $monoPath) {
+    Write-Host "Mono is installed in $monoPath"
+} else {
+    Write-Host "Mono is not installed in $monoPath"
+    Exit 1  # Exit the script with an error code
+}
 
 # Configure Mono Environment
-$monoPath = (Get-Command mono).Source
-$env:PATH += ";$monoPath"
+$env:PATH += ";$monoPath\bin"
 $env:FrameworkPathOverride = "$monoPath\lib\mono\4.5"
 
 # Display Installation Directory
