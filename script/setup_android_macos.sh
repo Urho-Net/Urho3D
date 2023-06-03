@@ -16,9 +16,13 @@ mv $ANDROID_SDK_ROOT/cmdline-tools/cmdline-tools $ANDROID_SDK_ROOT/cmdline-tools
 
 # Install Java JDK
 echo "Installing Java JDK..."
+wget https://download.java.net/java/GA/jdk11/13/GPL/openjdk-11.0.1_osx-x64_bin.tar.gz
+tar xzf openjdk-11.0.1_osx-x64_bin.tar.gz -C $HOME
+rm openjdk-11.0.1_osx-x64_bin.tar.gz
+export JAVA_HOME=$HOME/jdk-11.0.1
 # brew install openjdk@8
-brew install --cask adoptopenjdk/openjdk/adoptopenjdk8
-export JAVA_HOME=/usr/local/opt/openjdk@8
+# brew install --cask adoptopenjdk/openjdk/adoptopenjdk8
+# export JAVA_HOME=/usr/local/opt/openjdk@8
 
 # Install Android NDK
 echo "Installing Android NDK..."
