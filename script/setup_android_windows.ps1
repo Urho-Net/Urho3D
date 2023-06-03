@@ -36,11 +36,11 @@ Start-Process -FilePath "$env:ANDROID_SDK_ROOT\cmdline-tools\tools\bin\accept_li
 
 # Install required Android packages
 Write-Host "Installing Android packages..."
-$env:ANDROID_SDK_ROOT\cmdline-tools\tools\bin\sdkmanager "platform-tools" "build-tools;30.0.3" "platforms;android-30"
+& $env:ANDROID_SDK_ROOT\cmdline-tools\tools\bin\sdkmanager "platform-tools" "build-tools;30.0.3" "platforms;android-30"
 
 # Display installed versions
 Write-Host "Installed versions:"
 java -version
 javac -version
-$env:ANDROID_SDK_ROOT\cmdline-tools\tools\bin\sdkmanager --version
-$env:ANDROID_NDK_HOME\ndk-build --version
+& $env:ANDROID_SDK_ROOT\cmdline-tools\tools\bin\sdkmanager --version
+& $env:ANDROID_NDK_HOME\ndk-build --version
