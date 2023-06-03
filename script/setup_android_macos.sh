@@ -4,6 +4,10 @@
 export ANDROID_SDK_ROOT=$HOME/android-sdk
 export ANDROID_NDK_ROOT=$HOME/android-ndk
 
+
+echo "$HOME"
+echo "$ANDROID_SDK_ROOT"
+
 # Install Android SDK
 echo "Installing Android SDK..."
 wget https://dl.google.com/android/repository/commandlinetools-mac-7583922_latest.zip
@@ -20,6 +24,8 @@ mkdir -p $ANDROID_NDK_ROOT
 wget https://dl.google.com/android/repository/android-ndk-r21e-darwin-x86_64.zip
 unzip android-ndk-r21e-darwin-x86_64.zip -d $ANDROID_NDK_ROOT
 rm android-ndk-r21e-darwin-x86_64.zip
+
+
 
 # Configure environment variables
 echo "Configuring environment variables..."
