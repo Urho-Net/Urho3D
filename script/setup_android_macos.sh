@@ -23,20 +23,20 @@ rm android-ndk-r21e-darwin-x86_64.zip
 
 # Configure environment variables
 echo "Configuring environment variables..."
-export PATH=$PATH:$ANDROID_SDK_ROOT/cmdline-tools/tools/bin:$ANDROID_SDK_ROOT/platform-tools
+export PATH=$PATH:$ANDROID_SDK_ROOT/cmdline-tools/bin:$ANDROID_SDK_ROOT/platform-tools
 export JAVA_HOME=/usr/local/opt/openjdk@8
 export ANDROID_NDK_HOME=$ANDROID_NDK_ROOT/android-ndk-r21e
 
 # Accept Android SDK licenses
-yes | $ANDROID_SDK_ROOT/cmdline-tools/tools/bin/sdkmanager --licenses
+yes | $ANDROID_SDK_ROOT/cmdline-tools/bin/sdkmanager --licenses
 
 # Install required Android packages
 echo "Installing Android packages..."
-$ANDROID_SDK_ROOT/cmdline-tools/tools/bin/sdkmanager "platform-tools" "build-tools;30.0.3" "platforms;android-30"
+$ANDROID_SDK_ROOT/cmdline-tools/bin/sdkmanager "platform-tools" "build-tools;30.0.3" "platforms;android-30"
 
 # Display installed versions
 echo "Installed versions:"
 java -version
 javac -version
-$ANDROID_SDK_ROOT/cmdline-tools/tools/bin/sdkmanager --version
+$ANDROID_SDK_ROOT/cmdline-tools/bin/sdkmanager --version
 $ANDROID_NDK_HOME/ndk-build --version

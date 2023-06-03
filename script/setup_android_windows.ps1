@@ -20,20 +20,20 @@ Remove-Item "android-ndk.zip"
 
 # Configure environment variables
 Write-Host "Configuring environment variables..."
-$env:Path += ";$env:ANDROID_SDK_ROOT\cmdline-tools\latest\bin;$env:ANDROID_SDK_ROOT\platform-tools"
+$env:Path += ";$env:ANDROID_SDK_ROOT\cmdline-tools\bin;$env:ANDROID_SDK_ROOT\platform-tools"
 $env:JAVA_HOME = "C:\Program Files\OpenJDK\jdk1.8.0_302"
 $env:ANDROID_NDK_HOME = "$env:USERPROFILE\android-ndk-r21e"
 
 # Accept Android SDK licenses
 Write-Host "Accepting Android SDK licenses..."
-& "$env:ANDROID_SDK_ROOT\cmdline-tools\latest\bin\sdkmanager.bat" --licenses --sdk_root="$env:ANDROID_SDK_ROOT"
+& "$env:ANDROID_SDK_ROOT\cmdline-tools\bin\sdkmanager.bat" --licenses --sdk_root="$env:ANDROID_SDK_ROOT"
 
 # Install required Android packages
 Write-Host "Installing Android packages..."
-& "$env:ANDROID_SDK_ROOT\cmdline-tools\latest\bin\sdkmanager.bat" "platform-tools" "build-tools;30.0.3" "platforms;android-30" --sdk_root="$env:ANDROID_SDK_ROOT"
+& "$env:ANDROID_SDK_ROOT\cmdline-tools\bin\sdkmanager.bat" "platform-tools" "build-tools;30.0.3" "platforms;android-30" --sdk_root="$env:ANDROID_SDK_ROOT"
 
 # Display installed versions
 Write-Host "Installed versions:"
 java -version
-$env:ANDROID_SDK_ROOT\cmdline-tools\latest\bin\sdkmanager.bat --version
+$env:ANDROID_SDK_ROOT\cmdline-tools\bin\sdkmanager.bat --version
 $env:ANDROID_NDK_HOME\ndk-build.cmd --version
