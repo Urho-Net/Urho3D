@@ -17,8 +17,5 @@ if (Test-Path $monoPath) {
 $env:PATH += ";$monoPath\bin"
 $env:FrameworkPathOverride = "$monoPath\lib\mono\4.5"
 
-$env:PATH
-Get-ChildItem -Path "$monoPath\bin" -Recurse
-
 # Display Installation Directory
 Write-Host "Mono installed at: $monoPath"
