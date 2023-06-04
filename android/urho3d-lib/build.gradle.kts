@@ -24,6 +24,7 @@ import org.gradle.internal.io.NullOutputStream
 import org.gradle.internal.os.OperatingSystem
 import java.time.Duration
 
+
 plugins {
     id("com.android.library")
     id("com.jfrog.bintray")
@@ -37,8 +38,6 @@ android {
     defaultConfig {
         minSdkVersion(21)
         targetSdkVersion(29)
-        versionCode = 1
-        versionName = project.version.toString()
         testInstrumentationRunner = "android.support.test.runner.AndroidJUnitRunner"
         externalNativeBuild {
             cmake {
