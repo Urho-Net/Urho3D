@@ -11,10 +11,6 @@ Expand-Archive -Path "commandlinetools.zip" -DestinationPath "$env:ANDROID_SDK_R
 Remove-Item "commandlinetools.zip"
 Move-Item "$env:ANDROID_SDK_ROOT\cmdline-tools\cmdline-tools" "$env:ANDROID_SDK_ROOT\cmdline-tools\tools"
 
-# Install Java JDK
-# Write-Host "Installing Java JDK..."
-# choco install -y openjdk8 --version=8.0.302.8
-
 # Install Android NDK
 Write-Host "Installing Android NDK..."
 Invoke-WebRequest -Uri "https://dl.google.com/android/repository/android-ndk-r21e-windows-x86_64.zip" -OutFile "android-ndk.zip"
@@ -24,7 +20,6 @@ Remove-Item "android-ndk.zip"
 # Configure environment variables
 Write-Host "Configuring environment variables..."
 $env:Path += ";$env:ANDROID_SDK_ROOT\cmdline-tools\tools\bin;$env:ANDROID_SDK_ROOT\platform-tools"
-# $env:JAVA_HOME = "C:\Program Files\AdoptOpenJDK\jdk-8.0.302.8-hotspot"
 $env:ANDROID_NDK_HOME = "$env:ANDROID_NDK_ROOT\android-ndk-r21e"
 
 # Accept Android SDK licenses

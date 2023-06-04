@@ -14,10 +14,6 @@ unzip commandlinetools-mac-7583922_latest.zip -d $ANDROID_SDK_ROOT/cmdline-tools
 rm commandlinetools-mac-7583922_latest.zip
 mv $ANDROID_SDK_ROOT/cmdline-tools/cmdline-tools $ANDROID_SDK_ROOT/cmdline-tools/tools
 
-# Install Java JDK
-echo "Installing Java JDK..."
-brew install openjdk@8
-
 # Install Android NDK
 echo "Installing Android NDK..."
 mkdir -p $ANDROID_NDK_ROOT
@@ -30,7 +26,6 @@ rm android-ndk-r21e-darwin-x86_64.zip
 # Configure environment variables
 echo "Configuring environment variables..."
 export PATH=$PATH:$ANDROID_SDK_ROOT/cmdline-tools/tools/bin:$ANDROID_SDK_ROOT/platform-tools
-export JAVA_HOME=/usr/local/opt/openjdk@8
 export ANDROID_NDK_HOME=$ANDROID_NDK_ROOT/android-ndk-r21e
 
 # Accept Android SDK licenses

@@ -13,11 +13,6 @@ unzip commandlinetools-linux-7583922_latest.zip -d $ANDROID_SDK_ROOT/cmdline-too
 rm commandlinetools-linux-7583922_latest.zip
 mv $ANDROID_SDK_ROOT/cmdline-tools/cmdline-tools $ANDROID_SDK_ROOT/cmdline-tools/tools
 
-# Install Java JDK
-echo "Installing Java JDK..."
-sudo apt-get update
-sudo apt-get install -y openjdk-8-jdk
-
 # Install Android NDK
 echo "Installing Android NDK..."
 mkdir -p $ANDROID_NDK_ROOT
@@ -28,7 +23,6 @@ rm android-ndk-r21e-linux-x86_64.zip
 # Configure environment variables
 echo "Configuring environment variables..."
 export PATH=$PATH:$ANDROID_SDK_ROOT/cmdline-tools/tools/bin:$ANDROID_SDK_ROOT/platform-tools
-export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
 export ANDROID_NDK_HOME=$ANDROID_NDK_ROOT/android-ndk-r21e
 
 # Accept Android SDK licenses
