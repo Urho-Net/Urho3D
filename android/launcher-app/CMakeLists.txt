@@ -29,7 +29,6 @@ project (Urho3D-Launcher)
 # Set CMake modules search path
 set (CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/../../cmake/Modules)
 
-message("Android launcher-app CMAKE_CURRENT_SOURCE_DIR: ${CMAKE_CURRENT_SOURCE_DIR}")
 
 # Include UrhoCommon.cmake module after setting project name
 include (UrhoCommon)
