@@ -31,9 +31,14 @@ Copy-Item   build-vs2019-dotnet-dll\bin\Urho3D.dll  -Destination  $URHONET_HOME_
 
 # compiling the dotnet assembly
 cd $URHO3D_HOME/DotNet/Bindings
-./build-desktop-bindings.bat
+& ".\build-desktop-bindings.ps1"
 cd $URHO3D_HOME
 
+# Check if the file doesn't exist
+if (-not (Test-Path -Path $URHO3D_HOME/DotNet/UrhoDotNet/desktop/UrhoDotNet.dll)) {
+  Write-Host "desktop/UrhoDotNet.dll does not exist. Exiting with an error."
+  exit 1
+}
 # # copy the dotnet assembly to the Urho.Net folder
 Copy-Item   $URHO3D_HOME/DotNet/UrhoDotNet/desktop/UrhoDotNet.dll -Destination  $URHONET_HOME_ROOT/template/libs/dotnet/urho/desktop
 Copy-Item   $URHO3D_HOME/DotNet/UrhoDotNet/desktop/UrhoDotNet.xml -Destination  $URHONET_HOME_ROOT/template/libs/dotnet/urho/desktop
