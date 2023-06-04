@@ -48,6 +48,11 @@ else
     cd $URHO3D_HOME
 fi
 
+if [ ! -e ${URHO3D_HOME}/DotNet/UrhoDotNet/mobile/ios/UrhoDotNet.dll ]; then
+  echo "ios/UrhoDotNet.dll does not exist. Exiting with an error."
+  exit 1
+fi
+
 ./script/build_ios_dotnet_libs.sh
 exit_status=$?
 if [ $exit_status -ne 0 ]; then
