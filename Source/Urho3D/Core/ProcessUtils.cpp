@@ -30,7 +30,7 @@
 #include <fcntl.h>
 
 #ifdef __APPLE__
-#include "TargetConditionals.h"
+#include <TargetConditionals.h>
 #endif
 
 #if defined(IOS)
