@@ -28,6 +28,7 @@ else
 	alias aliassedinplace='sed -i""'
 fi
 
+
 cd ${URHO3D_HOME}
 
 # Only on Mac
