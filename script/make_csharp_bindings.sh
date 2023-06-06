@@ -39,6 +39,12 @@ rm -rf ${URHO3D_HOME}/DotNet/Bindings/Portable/Generated
 
 ${CUSTOM_CLANG} -cc1 -stdlib=libc++ -std=c++0x -emit-pch -DURHO3D_OPENGL -o DotNet/Bindings/Urho.pch DotNet/Bindings/Native/all-urho.cpp  -Ibuild-xcode/include  -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include -Ibuild-xcode/include/Urho3D/ThirdParty -Ibuild-xcode/include/Urho3D/ThirdParty/Bullet -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks/OpenGL.framework
 
+if [ ! -e DotNet/Bindings/Urho.pch ]; then
+  echo "DotNet/Bindings/Urho.pch does not exist. Exiting with an error."
+  exit 1
+fi
+
+
 cd tools/SharpieBinder 
 $(echo "${MONO64} ${URHO3D_HOME}/tools/Nuget.exe restore SharpieBinder.sln")
 ${XBUILD} SharpieBinder.csproj 
@@ -84,6 +90,20 @@ cd ${URHO3D_HOME}/DotNet/AndroidEnvironment
 ./build-android-runtime-environment.sh
 
 cd ${URHO3D_HOME}
+
+files=("DotNet/UrhoDotNet/desktop/UrhoDotNet.dll" 
+		"DotNet/UrhoDotNet/mobile/android/UrhoDotNet.dll" 
+		"DotNet/UrhoDotNet/mobile/android/Mono.Android.dll"
+		"DotNet/UrhoDotNet/mobile/ios/UrhoDotNet.dll" 
+		"DotNet/UrhoDotNet/web/UrhoDotNet.dll"
+		"${URHO3D_HOME}/DotNet/Bindings/Portable/Generated/binding.cpp")
+
+for file in "${files[@]}"; do
+  if [[ ! -e "$file" ]]; then
+    echo "Error: $file does not exist"
+    exit 1
+  fi
+done
 
 # copy the native binding file to the right Source folder
 cp -f ${URHO3D_HOME}/DotNet/Bindings/Portable/Generated/binding.cpp ${URHO3D_HOME}/Source/Urho3D/DotNet
