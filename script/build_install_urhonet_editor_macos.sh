@@ -41,18 +41,28 @@ fi
 
 cd ${URHO3D_HOME}
 
+rm -f ${URHO3D_HOME}/DotNet/UrhoDotNet/editor/UrhoDotNet.dll
+
 ./script/make_csharp_editor_bindings.sh
 exit_status=$?
 if [ $exit_status -ne 0 ]; then
 echo "An error occurred while executing make_csharp_editor_bindings.sh Exiting."
 exit 1 
 fi
+
+# Check if the file doesn't exist
+if [ ! -e ${URHO3D_HOME}/DotNet/UrhoDotNet/editor/UrhoDotNet.dll ]; then
+  echo "UrhoDotNet.dll does not exist. Exiting with an error."
+  exit 1
+fi
+
 ./script/build_xcode_dotnet_editor_dylib.sh 
 exit_status=$?
 if [ $exit_status -ne 0 ]; then
 echo "An error occurred while executing build_xcode_dotnet_editor_dylib.sh  Exiting."
 exit 1 
 fi
+
 
 mkdir -p ${URHONET_HOME_ROOT}/template/libs/dotnet/urho/desktop
 cp -f ${URHO3D_HOME}/DotNet/UrhoDotNet/editor/UrhoDotNet.dll ${URHONET_HOME_ROOT}/template/libs/dotnet/urho/desktop

@@ -539,6 +539,7 @@ namespace Urho
 #if __EDITOR__
                 Urho.Application.ThrowUnhandledException(
                      new Exception(errorText + " . You can omit this exception by subscribing to Urho.Application.UnhandledException event and set Handled property to True.\nApplicationOptions: " + Application.CurrentOptions));
+                throw new InvalidOperationException(errorText);
 #else
                 throw new InvalidOperationException(errorText);
 #endif
