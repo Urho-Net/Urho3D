@@ -32786,6 +32786,20 @@ KinematicCharacterController_DrawDebugGeometry (Urho3D::KinematicCharacterContro
 }
 
 
+DllExport void
+KinematicCharacterController_SetPosition (Urho3D::KinematicCharacterController *_target, const class Urho3D::Vector3 & position)
+{
+	_target->SetPosition (position);
+}
+
+
+DllExport void
+KinematicCharacterController_SetRotation (Urho3D::KinematicCharacterController *_target, const class Urho3D::Quaternion & rotation)
+{
+	_target->SetRotation (rotation);
+}
+
+
 DllExport int
 PhysicsWorld_GetType (Urho3D::PhysicsWorld *_target)
 {

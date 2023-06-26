@@ -79,6 +79,7 @@ KinematicCharacterController::KinematicCharacterController(Context* context)
     , colShapeOffset_(Vector3::ZERO)
     , reapplyAttributes_(false)
 {
+    isInit_ = false;
     kinematicController_.Reset(nullptr);
     physicsWorld_.Reset(nullptr);
     pairCachingGhostObject_.Reset(newPairCachingGhostObj());
@@ -143,11 +144,10 @@ void KinematicCharacterController::OnSceneSet(Scene* scene)
         if (scene == node_)
             URHO3D_LOGWARNING(GetTypeName() + " should not be created to the root scene node");
 
-        physicsWorld_ = scene->GetComponent<PhysicsWorld>();
+        physicsWorld_ = scene->GetOrCreateComponent<PhysicsWorld>();
 
         if (physicsWorld_)
         {
-            AddKinematicToWorld();
             SubscribeToEvent(physicsWorld_, E_PHYSICSPOSTSTEP,
                              URHO3D_HANDLER(KinematicCharacterController, HandlePhysicsPostStep));
         }
@@ -162,10 +162,45 @@ void KinematicCharacterController::OnSceneSet(Scene* scene)
     }
 }
 
+void KinematicCharacterController::OnMarkedDirty(Node* node)
+{
+
+    if (!physicsWorld_ || !isInit_ || node_ == nullptr)
+    {
+        return;
+    }
+
+    // Physics operations are not safe from worker threads
+    Scene* scene = GetScene();
+    if (scene && scene->IsThreadedUpdate())
+    {
+        scene->DelayedMarkedDirty(this);
+        return;
+    }
+
+    // Check if Node position was changed by the user 
+    Vector3 nodePosition = node_->GetWorldPosition();
+    if (!nodePosition.Equals(lastNodePosition_))
+    {
+        SetPosition(nodePosition + colShapeOffset_*node_->GetScale());
+    }
+}
+
 void KinematicCharacterController::HandlePhysicsPostStep(StringHash eventType, VariantMap& eventData)
 {
-    if (node_ != nullptr)
-        node_->SetWorldPosition(GetPosition());
+    if (!isInit_)
+    {
+        isInit_ = true;
+        //Add it a t a later stage , because it's causing the application to crash during scene loading.
+        AddKinematicToWorld();
+    }
+
+    if (node_ != nullptr && pairCachingGhostObject_.NotNull() && isInit_)
+    {
+        btTransform t = pairCachingGhostObject_->getWorldTransform();
+        lastNodePosition_ = ((ToVector3(t.getOrigin()) - colShapeOffset_*node_->GetScale()));
+        node_->SetWorldPosition(lastNodePosition_);
+    }
 }
 
 void KinematicCharacterController::AddKinematicToWorld()
@@ -217,7 +252,7 @@ void KinematicCharacterController::ApplySettings(bool reapply)
             phyicsWorld->addCollisionObject(pairCachingGhostObject_.Get(), colLayer_, colMask_);
         }
 
-        SetTransform(node_->GetWorldPosition(), node_->GetWorldRotation());
+        SetTransform(node_->GetWorldPosition()+ colShapeOffset_*node_->GetScale(), node_->GetWorldRotation());
     }
 }
 
@@ -274,23 +309,35 @@ void KinematicCharacterController::SetCollisionLayerAndMask(unsigned int layer, 
     }
 }
 
+
+void KinematicCharacterController::SetTransform(const Vector3& position, const Quaternion& rotation)
+{
+    if (!node_ || !physicsWorld_)
+        return;
+
+    if (pairCachingGhostObject_.NotNull())
+    {
+        btTransform worldTrans;
+        worldTrans.setIdentity();
+        worldTrans.setRotation(ToBtQuaternion(rotation));
+        worldTrans.setOrigin(ToBtVector3(position));
+        lastNodePosition_ = (position - colShapeOffset_*node_->GetScale());
+        lastNodeRotation_ = rotation;
+        pairCachingGhostObject_->setWorldTransform(worldTrans);
+    }
+}
+
+
 Vector3 KinematicCharacterController::GetPosition() const
 {
+    Vector3 position = Vector3::ZERO;
+
     if (pairCachingGhostObject_.NotNull())
     {
         btTransform t = pairCachingGhostObject_->getWorldTransform();
-        if (node_ != nullptr)
-        {
-              return ((ToVector3(t.getOrigin()) - colShapeOffset_*node_->GetScale()));
-        }
-        else
-        {
-            return ToVector3(t.getOrigin()) - colShapeOffset_;
-        }
-       
+        position = ToVector3(t.getOrigin());
     }
-    else
-        return Vector3::ZERO;
+    return position;
 }
 
 Quaternion KinematicCharacterController::GetRotation() const
@@ -304,14 +351,24 @@ Quaternion KinematicCharacterController::GetRotation() const
         return Quaternion::IDENTITY;
 }
 
-void KinematicCharacterController::SetTransform(const Vector3& position, const Quaternion& rotation)
+void KinematicCharacterController::SetPosition(const Vector3& position)
 {
     if (pairCachingGhostObject_.NotNull())
     {
-        btTransform worldTrans;
-        worldTrans.setIdentity();
-        worldTrans.setRotation(ToBtQuaternion(rotation));
+        btTransform& worldTrans = pairCachingGhostObject_->getWorldTransform();
         worldTrans.setOrigin(ToBtVector3(position));
+        lastNodePosition_ = (position - colShapeOffset_ * node_->GetScale());
+        pairCachingGhostObject_->setWorldTransform(worldTrans);
+    }
+}
+
+void KinematicCharacterController::SetRotation(const Quaternion& rotation)
+{
+    if (pairCachingGhostObject_.NotNull())
+    {
+        btTransform& worldTrans = pairCachingGhostObject_->getWorldTransform();
+        worldTrans.setRotation(ToBtQuaternion(rotation));
+        lastNodeRotation_ = rotation;
         pairCachingGhostObject_->setWorldTransform(worldTrans);
     }
 }

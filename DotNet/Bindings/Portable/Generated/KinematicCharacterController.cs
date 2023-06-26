@@ -590,6 +590,32 @@ KinematicCharacterController_GetLinearVelocity
 			KinematicCharacterController_DrawDebugGeometry (handle);
 		}
 
+		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+		internal static extern void KinematicCharacterController_SetPosition (IntPtr handle, ref Urho.Vector3 position);
+
+		/// <summary>
+		/// Set  position in world space.
+		/// 
+		/// </summary>
+		public void SetPosition (Urho.Vector3 position)
+		{
+			Runtime.ValidateRefCounted (this);
+			KinematicCharacterController_SetPosition (handle, ref position);
+		}
+
+		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+		internal static extern void KinematicCharacterController_SetRotation (IntPtr handle, ref Urho.Quaternion rotation);
+
+		/// <summary>
+		/// Set rotation in world space.
+		/// 
+		/// </summary>
+		public void SetRotation (Urho.Quaternion rotation)
+		{
+			Runtime.ValidateRefCounted (this);
+			KinematicCharacterController_SetRotation (handle, ref rotation);
+		}
+
 		public override StringHash Type {
 			get {
 				return UrhoGetType ();
