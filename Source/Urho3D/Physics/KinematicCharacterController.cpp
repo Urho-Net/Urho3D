@@ -145,9 +145,25 @@ void KinematicCharacterController::OnSceneSet(Scene* scene)
             URHO3D_LOGWARNING(GetTypeName() + " should not be created to the root scene node");
 
         physicsWorld_ = scene->GetOrCreateComponent<PhysicsWorld>();
-
         if (physicsWorld_)
         {
+
+            CollisionShape* colShape = GetComponent<CollisionShape>();
+            if (colShape)
+            {
+                // assert(colShape && "missing Collision Shape");
+
+                pairCachingGhostObject_->setCollisionShape(colShape->GetCollisionShape());
+                colShapeOffset_ = colShape->GetPosition();
+                Vector3 colShapeSize = colShape->GetSize();
+
+                kinematicController_.Reset(newKinematicCharCtrl(
+                    pairCachingGhostObject_.Get(), dynamic_cast<btConvexShape*>(colShape->GetCollisionShape()),
+                    stepHeight_, ToBtVector3(Vector3::UP)));
+                // // apply default settings
+                ApplySettings();
+            }
+
             SubscribeToEvent(physicsWorld_, E_PHYSICSPOSTSTEP,
                              URHO3D_HANDLER(KinematicCharacterController, HandlePhysicsPostStep));
         }
@@ -164,7 +180,7 @@ void KinematicCharacterController::OnSceneSet(Scene* scene)
 
 void KinematicCharacterController::OnMarkedDirty(Node* node)
 {
-
+    
     if (!physicsWorld_ || !isInit_ || node_ == nullptr)
     {
         return;
@@ -188,9 +204,15 @@ void KinematicCharacterController::OnMarkedDirty(Node* node)
 
 void KinematicCharacterController::HandlePhysicsPostStep(StringHash eventType, VariantMap& eventData)
 {
+    if (!physicsWorld_ || node_ == nullptr)
+    {
+        return;
+    }
+
     if (!isInit_)
     {
         isInit_ = true;
+        kinematicController_.Reset();
         //Add it a t a later stage , because it's causing the application to crash during scene loading.
         AddKinematicToWorld();
     }
@@ -207,27 +229,24 @@ void KinematicCharacterController::AddKinematicToWorld()
 {
     if (physicsWorld_.Get() != nullptr)
     {
-        if (kinematicController_.Null())
+        CollisionShape* colShape = GetComponent<CollisionShape>();
+        if (colShape)
         {
-            CollisionShape* colShape = GetComponent<CollisionShape>();
-            if (colShape)
-            {
-                // assert(colShape && "missing Collision Shape");
+            // assert(colShape && "missing Collision Shape");
 
-                pairCachingGhostObject_->setCollisionShape(colShape->GetCollisionShape());
-                colShapeOffset_ = colShape->GetPosition();
-                Vector3 colShapeSize = colShape->GetSize();
+            pairCachingGhostObject_->setCollisionShape(colShape->GetCollisionShape());
+            colShapeOffset_ = colShape->GetPosition();
+            Vector3 colShapeSize = colShape->GetSize();
 
-                kinematicController_.Reset(newKinematicCharCtrl(
-                    pairCachingGhostObject_.Get(), dynamic_cast<btConvexShape*>(colShape->GetCollisionShape()),
-                    stepHeight_, ToBtVector3(Vector3::UP)));
-                // // apply default settings
-                ApplySettings();
+            kinematicController_.Reset(newKinematicCharCtrl(pairCachingGhostObject_.Get(),
+                                                            dynamic_cast<btConvexShape*>(colShape->GetCollisionShape()),
+                                                            stepHeight_, ToBtVector3(Vector3::UP)));
+            // // apply default settings
+            ApplySettings();
 
-                btDiscreteDynamicsWorld* phyicsWorld = physicsWorld_->GetWorld();
-                phyicsWorld->addCollisionObject(pairCachingGhostObject_.Get(), colLayer_, colMask_);
-                phyicsWorld->addAction(kinematicController_.Get());
-            }
+            btDiscreteDynamicsWorld* phyicsWorld = physicsWorld_->GetWorld();
+            phyicsWorld->addCollisionObject(pairCachingGhostObject_.Get(), colLayer_, colMask_);
+            phyicsWorld->addAction(kinematicController_.Get());
         }
     }
 }
