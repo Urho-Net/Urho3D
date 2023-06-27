@@ -88,3 +88,9 @@ runtime/docs/design/mono/wasm-aot.md
 comment for debug purpose 'cmakedefine DISABLE_ASSERT_MESSAGES 1'
 
 
+Apple code sign
+----------------------------------------------------------------------------------------------
+security find-identity -v -p codesigning
+codesign --force --timestamp --sign <name of certificate> <binary you want to sign>
+
+Verify : codesign -vvvv 

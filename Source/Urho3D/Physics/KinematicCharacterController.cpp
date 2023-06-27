@@ -245,7 +245,9 @@ void KinematicCharacterController::AddKinematicToWorld()
             ApplySettings();
 
             btDiscreteDynamicsWorld* phyicsWorld = physicsWorld_->GetWorld();
+            phyicsWorld->removeCollisionObject(pairCachingGhostObject_.Get());
             phyicsWorld->addCollisionObject(pairCachingGhostObject_.Get(), colLayer_, colMask_);
+            phyicsWorld->removeAction(kinematicController_.Get());
             phyicsWorld->addAction(kinematicController_.Get());
         }
     }
