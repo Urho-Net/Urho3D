@@ -67,7 +67,7 @@ extern const char* PHYSICS_CATEGORY;
 KinematicCharacterController::KinematicCharacterController(Context* context)
     : Component(context)
     , colLayer_(1)
-    , colMask_(0xffff)
+    , colMask_(M_MAX_UNSIGNED)
     , gravity_(KINEMATIC_GRAVITY)
     , stepHeight_(STEP_HEIGHT)
     , maxJumpHeight_(JUMP_HEIGHT)
@@ -94,7 +94,7 @@ void KinematicCharacterController::RegisterObject(Context* context)
 
     URHO3D_ATTRIBUTE("Gravity", Vector3, gravity_, KINEMATIC_GRAVITY, AM_DEFAULT);
     URHO3D_ATTRIBUTE("Collision Layer", int, colLayer_, 1, AM_DEFAULT);
-    URHO3D_ATTRIBUTE("Collision Mask", int, colMask_, 0xffff, AM_DEFAULT);
+    URHO3D_ATTRIBUTE("Collision Mask", int, colMask_, M_MAX_UNSIGNED, AM_DEFAULT);
     URHO3D_ATTRIBUTE("Linear Damping", float, linearDamping_, DEFAULT_DAMPING, AM_DEFAULT);
     URHO3D_ATTRIBUTE("Angular Damping", float, angularDamping_, DEFAULT_DAMPING, AM_DEFAULT);
     URHO3D_ATTRIBUTE("Step Height", float, stepHeight_, STEP_HEIGHT, AM_DEFAULT);
@@ -213,7 +213,7 @@ void KinematicCharacterController::HandlePhysicsPostStep(StringHash eventType, V
     {
         isInit_ = true;
         kinematicController_.Reset();
-        //Add it a t a later stage , because it's causing the application to crash during scene loading.
+        //Add it at a later stage , because it's causing the application to crash during scene loading.
         AddKinematicToWorld();
     }
 
@@ -268,9 +268,7 @@ void KinematicCharacterController::ApplySettings(bool reapply)
 
         if (reapply && pairCachingGhostObject_)
         {
-            btDiscreteDynamicsWorld* phyicsWorld = physicsWorld_->GetWorld();
-            phyicsWorld->removeCollisionObject(pairCachingGhostObject_.Get());
-            phyicsWorld->addCollisionObject(pairCachingGhostObject_.Get(), colLayer_, colMask_);
+            isInit_ = false;
         }
 
         SetTransform(node_->GetWorldPosition()+ colShapeOffset_*node_->GetScale(), node_->GetWorldRotation());
