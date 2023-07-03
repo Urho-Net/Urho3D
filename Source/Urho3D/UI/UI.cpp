@@ -80,6 +80,7 @@ StringHash VAR_ORIGIN("Origin");
 const StringHash VAR_ORIGINAL_PARENT("OriginalParent");
 const StringHash VAR_ORIGINAL_CHILD_INDEX("OriginalChildIndex");
 const StringHash VAR_PARENT_CHANGED("ParentChanged");
+const StringHash VAR_NANOVG_ELEMENT("VAR_NANOVG_ELEMENT");
 
 const float DEFAULT_DOUBLECLICK_INTERVAL = 0.5f;
 const float DEFAULT_DRAGBEGIN_INTERVAL = 0.5f;
@@ -237,8 +238,10 @@ bool UI::SetModalElement(UIElement* modalElement, bool enable)
     if (!modalElement)
         return false;
 
-    // Currently only allow modal window
-    if (modalElement->GetType() != Window::GetTypeStatic())
+     bool isNVGElement = modalElement->GetVar(VAR_NANOVG_ELEMENT).GetBool();
+
+    // Currently only allow modal window or nanovg elements
+    if (modalElement->GetType() != Window::GetTypeStatic() && isNVGElement == false)
         return false;
 
     assert(rootModalElement_);
