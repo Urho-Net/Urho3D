@@ -436,7 +436,10 @@ if(USE_GCC OR USE_CLANG)
   if(HAVE_GCC_WDECLARATION_AFTER_STATEMENT)
     check_c_compiler_flag(-Werror=declaration-after-statement HAVE_GCC_WERROR_DECLARATION_AFTER_STATEMENT)
     # Urho3D - bug fix - SDL does not build cleanly for Android platform with this flag on, make a tweak here rather than changing on their code
-    if(HAVE_GCC_WERROR_DECLARATION_AFTER_STATEMENT AND NOT ANDROID)
+    # On latest Apple OS , it is also causing compilation erros 
+    # The entire SDL code , also on the latest branch , has a  bunch of declarions after statements
+    # I am not sure why this line is even needed  
+    if(HAVE_GCC_WERROR_DECLARATION_AFTER_STATEMENT AND NOT ANDROID AND NOT APPLE)
       list(APPEND EXTRA_CFLAGS "-Werror=declaration-after-statement")
     endif()
     list(APPEND EXTRA_CFLAGS "-Wdeclaration-after-statement")
