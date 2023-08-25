@@ -176,11 +176,7 @@ bool TmxTileLayer2D::Load(const XMLElement& element, const TileMapInfo2D& info)
 
         return true;
     }
-    else
-    {
-        URHO3D_LOGERROR("decompression supported only for base64 encoding");
-        return false;
-    }
+
 
     tiles_.Resize((unsigned)(width_ * height_));
     if (encoding == XML)
