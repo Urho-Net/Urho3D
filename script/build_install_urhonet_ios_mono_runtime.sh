@@ -28,14 +28,20 @@ fi
 
 cd ${URHO3D_HOME}
 
-if [ ! -d runtime ]; then
+if [ -d runtime ]; then
+    cd runtime
+    git restore .
+    ./build.sh --clean
+    git checkout main
+    git pull origin
+else
     git clone --recursive https://github.com/dotnet/runtime.git
+    cd runtime
 fi
 
-cd runtime
-git checkout v6.0.11
-sed -i "" "s*--minimize**g" "eng/native/functions.cmake"
+git checkout v6.0.21
 
+sed -i "" "s*--minimize**g" "eng/native/functions.cmake"
 ./build.sh mono+libs  -os iOS -arch arm64  -c Release
 
 cp -rf artifacts/bin/mono/iOS.arm64.Release/*.a  ${URHONET_HOME_ROOT}/template/libs/ios/

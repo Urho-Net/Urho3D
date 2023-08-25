@@ -50,12 +50,19 @@ fi
 
 cd ${URHO3D_HOME}
 
-if [ ! -d runtime ]; then
+
+if [ -d runtime ]; then
+    cd runtime
+    git restore .
+    ./build.sh --clean
+    git checkout main
+    git pull origin
+else
     git clone --recursive https://github.com/dotnet/runtime.git
+    cd runtime
 fi
 
-cd runtime
-git checkout v6.0.11
+git checkout v6.0.21
 
 ./build.sh mono+libs -os Android -arch arm64 -c Release 
 ./build.sh mono+libs -os Android -arch arm -c Release
