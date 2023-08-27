@@ -490,6 +490,14 @@ bool Texture2D::Create()
 #if !defined(URHO3D_GLES2)
     glTexParameteri(target_, GL_TEXTURE_BASE_LEVEL, 0);
     glTexParameteri(target_, GL_TEXTURE_MAX_LEVEL, levels_ - 1);
+#else
+    // Don't generate mimpas for npot textures on GLES2 
+    if (!IsPowerOfTwo(width_) || !IsPowerOfTwo(height_))
+    {
+        levels_ = 1;
+        addressModes_[COORD_U] = ADDRESS_CLAMP;
+        addressModes_[COORD_V] = ADDRESS_CLAMP;
+    }
 #endif
 
     // Set initial parameters, then unbind the texture
