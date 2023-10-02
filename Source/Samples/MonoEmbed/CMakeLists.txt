@@ -34,8 +34,8 @@ set (LIBS
 endif()
 
 if(ANDROID)
-set (INCLUDE_DIRS ${INCLUDE_DIRS} ../../../DotNet/libs/android/net6.0-Release/${ANDROID_ABI}/include/mono-2.0)
-set (MONO_LIBPATH  ../../../DotNet/libs/android/net6.0-Release/${ANDROID_ABI}) 
+set (INCLUDE_DIRS ${INCLUDE_DIRS} ../../../DotNet/libs/android/net8.0-Release/${ANDROID_ABI}/include/mono-2.0)
+set (MONO_LIBPATH  ../../../DotNet/libs/android/net8.0-Release/${ANDROID_ABI}) 
 set (LIBS 
 libSystem.IO.Compression.Native.so			
 libmono-component-debugger.so			
@@ -44,6 +44,7 @@ libSystem.Native.so
 libmono-component-diagnostics_tracing.so
 libSystem.Security.Cryptography.Native.Android.so	
 libmono-component-hot_reload.so
+libmono-component-marshal-ilgen.so
 )
 file (GLOB ANDROID_FILES android/*.*)
 endif()

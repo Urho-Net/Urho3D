@@ -121,14 +121,8 @@ Thumbs.db
 CMakeDoxyFile.in
 CMakeDoxygenDefaults.cmake
 
-DotNet/libs/android/net6.0-Release/arm64-v8a/libMonoEmbedded.so
-DotNet/libs/android/net6.0-Release/arm64-v8a/libUrho3D.so
-DotNet/libs/android/net6.0-Release/armeabi-v7a/libMonoEmbedded.so
-DotNet/libs/android/net6.0-Release/armeabi-v7a/libUrho3D.so
-DotNet/libs/android/net6.0-Release/x86/libMonoEmbedded.so
-DotNet/libs/android/net6.0-Release/x86/libUrho3D.so
-DotNet/libs/android/net6.0-Release/x86_64/libMonoEmbedded.so
-DotNet/libs/android/net6.0-Release/x86_64/libUrho3D.so
+DotNet/libs/android/net6.0-Release/*
+DotNet/libs/android/net8.0-Release/*
 DotNet/libs/wasm/MonoEmbedded.js
 DotNet/libs/wasm/MonoEmbedded.wasm
 

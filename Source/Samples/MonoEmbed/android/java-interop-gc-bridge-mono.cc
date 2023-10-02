@@ -24,6 +24,13 @@
 	#include <android/log.h>
 #endif  /* !defined (ANDROID) */
 
+#define MONO_API_FUNCTION(ret,name,args) MONO_API ret name args;
+#include <mono/metadata/details/appdomain-functions.h>
+#include <mono/metadata/details/loader-functions.h>
+#include <mono/metadata/details/image-functions.h>
+#include <mono/metadata/details/metadata-functions.h>
+
+
 #if defined (ANDROID) || defined (XAMARIN_ANDROID_DYLIB_MONO)
 // using namespace xamarin::android;
 #endif

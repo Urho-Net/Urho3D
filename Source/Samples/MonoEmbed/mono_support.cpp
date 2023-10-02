@@ -23,6 +23,8 @@
 #include <mono/jit/jit.h>
 #endif
 
+
+
 #include <mono/metadata/assembly.h>
 #include <mono/metadata/environment.h>
 #include <mono/metadata/mono-config.h>
@@ -31,7 +33,15 @@
 #include <mono/utils/mono-publib.h>
 #include <mono/jit/mono-private-unstable.h>
 #include <mono/utils/mono-dl-fallback.h>
+#include <mono/jit/jit.h>
+#define MONO_API_FUNCTION(ret,name,args) MONO_API ret name args;
+#include <mono/metadata/details/appdomain-functions.h>
+#include <mono/metadata/details/loader-functions.h>
+#include <mono/metadata/details/image-functions.h>
+#include <mono/metadata/details/metadata-functions.h>
 #include <stdlib.h>
+
+
 
 #include "../Container/Str.h"
 #include "../Core/Context.h"

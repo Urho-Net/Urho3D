@@ -34,13 +34,22 @@
 #include <mono/jit/jit.h>
 #endif
 
+
+
 #include <mono/metadata/environment.h>
 #include <mono/utils/mono-publib.h>
 #include <mono/metadata/mono-config.h>
 #include <mono/metadata/assembly.h>
 #include <mono/metadata/mono-debug.h>
 #include <mono/utils/mono-logger.h>
+#include <mono/jit/jit.h>
+#define MONO_API_FUNCTION(ret,name,args) MONO_API ret name args;
+#include <mono/metadata/details/appdomain-functions.h>
+#include <mono/metadata/details/loader-functions.h>
+#include <mono/metadata/details/image-functions.h>
+#include <mono/metadata/details/metadata-functions.h>
 #include <stdlib.h>
+
 
 #ifdef __cplusplus
 extern "C" {
@@ -52,22 +61,24 @@ namespace support {
 
 void initialize()
 {
-        mono_dllmap_insert(NULL, "java-interop", "java_interop_jvm_list", "MonoEmbedded", "java_interop_jvm_list");
-        mono_dllmap_insert(NULL, "__Internal", "monodroid_get_system_property", "MonoEmbedded", "monodroid_get_system_property");
-        mono_dllmap_insert(NULL, "__Internal", "monodroid_free", "MonoEmbedded", "monodroid_free");
-        mono_dllmap_insert(NULL, "__Internal", "_monodroid_timezone_get_default_id", "MonoEmbedded", "_monodroid_timezone_get_default_id");
-        mono_dllmap_insert(NULL, "__Internal", "_monodroid_getifaddrs", "MonoEmbedded", "_monodroid_getifaddrs");
-        mono_dllmap_insert(NULL, "__Internal", "_monodroid_freeifaddrs", "MonoEmbedded", "_monodroid_freeifaddrs");
-        mono_dllmap_insert(NULL, "__Internal", "_mono_android_init_cert_store", "MonoEmbedded", "_mono_android_init_cert_store");
-        mono_dllmap_insert(NULL, "__Internal", "_mono_android_cert_store_lookup", "MonoEmbedded", "_mono_android_cert_store_lookup");
+        // TBD ELI ,mono_dllmap_insert support removed in .NET8 , for now under comment all bellow , should I enable it back ?
+
+        // mono_dllmap_insert(NULL, "java-interop", "java_interop_jvm_list", "MonoEmbedded", "java_interop_jvm_list");
+        // mono_dllmap_insert(NULL, "__Internal", "monodroid_get_system_property", "MonoEmbedded", "monodroid_get_system_property");
+        // mono_dllmap_insert(NULL, "__Internal", "monodroid_free", "MonoEmbedded", "monodroid_free");
+        // mono_dllmap_insert(NULL, "__Internal", "_monodroid_timezone_get_default_id", "MonoEmbedded", "_monodroid_timezone_get_default_id");
+        // mono_dllmap_insert(NULL, "__Internal", "_monodroid_getifaddrs", "MonoEmbedded", "_monodroid_getifaddrs");
+        // mono_dllmap_insert(NULL, "__Internal", "_monodroid_freeifaddrs", "MonoEmbedded", "_monodroid_freeifaddrs");
+        // mono_dllmap_insert(NULL, "__Internal", "_mono_android_init_cert_store", "MonoEmbedded", "_mono_android_init_cert_store");
+        // mono_dllmap_insert(NULL, "__Internal", "_mono_android_cert_store_lookup", "MonoEmbedded", "_mono_android_cert_store_lookup");
         
 
 
-        mono_dllmap_insert(NULL, "System.Native", NULL, "mono-native", NULL);
-        mono_dllmap_insert(NULL, "System.Net.Security.Native", NULL, "mono-native", NULL);
+        // mono_dllmap_insert(NULL, "System.Native", NULL, "mono-native", NULL);
+        // mono_dllmap_insert(NULL, "System.Net.Security.Native", NULL, "mono-native", NULL);
         
-        mono_dllmap_insert(NULL, "MonoPosixHelper", NULL, "MonoPosixHelper", NULL);
-        mono_dllmap_insert(NULL, "libmono-btls-shared", NULL, "mono-btls-shared", NULL);
+        // mono_dllmap_insert(NULL, "MonoPosixHelper", NULL, "MonoPosixHelper", NULL);
+        // mono_dllmap_insert(NULL, "libmono-btls-shared", NULL, "mono-btls-shared", NULL);
         
     
 }

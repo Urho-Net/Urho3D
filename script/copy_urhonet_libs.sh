@@ -63,12 +63,12 @@ cp -f ${URHO3D_HOME}/DotNet/libs/windows/release/Urho3D.dll  ${URHONET_HOME_ROOT
 mkdir -p ${URHONET_HOME_ROOT}/template/libs/linux
 cp -f ${URHO3D_HOME}/DotNet/libs/linux/release/libUrho3D.so  ${URHONET_HOME_ROOT}/template/libs/linux
 
-cp -f ${URHO3D_HOME}/DotNet/libs/android/net6.0-Release/arm64-v8a/libUrho3D.so     ${URHONET_HOME_ROOT}/template/libs/android/arm64-v8a
-cp -f ${URHO3D_HOME}/DotNet/libs/android/net6.0-Release/armeabi-v7a/libUrho3D.so    ${URHONET_HOME_ROOT}/template/libs/android/armeabi-v7a
-cp -f ${URHO3D_HOME}/DotNet/libs/android/net6.0-Release/x86/libUrho3D.so     ${URHONET_HOME_ROOT}/template/libs/android/x86
-cp -f ${URHO3D_HOME}/DotNet/libs/android/net6.0-Release/x86_64/libUrho3D.so     ${URHONET_HOME_ROOT}/template/libs/android/x86_64
+cp -f ${URHO3D_HOME}/DotNet/libs/android/net8.0-Release/arm64-v8a/libUrho3D.so     ${URHONET_HOME_ROOT}/template/libs/android/arm64-v8a
+cp -f ${URHO3D_HOME}/DotNet/libs/android/net8.0-Release/armeabi-v7a/libUrho3D.so    ${URHONET_HOME_ROOT}/template/libs/android/armeabi-v7a
+cp -f ${URHO3D_HOME}/DotNet/libs/android/net8.0-Release/x86/libUrho3D.so     ${URHONET_HOME_ROOT}/template/libs/android/x86
+cp -f ${URHO3D_HOME}/DotNet/libs/android/net8.0-Release/x86_64/libUrho3D.so     ${URHONET_HOME_ROOT}/template/libs/android/x86_64
 
-cp -f ${URHO3D_HOME}/DotNet/libs/android/net6.0-Release/arm64-v8a/libMonoEmbedded.so     ${URHONET_HOME_ROOT}/template/libs/android/arm64-v8a
-cp -f ${URHO3D_HOME}/DotNet/libs/android/net6.0-Release/armeabi-v7a/libMonoEmbedded.so     ${URHONET_HOME_ROOT}/template/libs/android/armeabi-v7a
-cp -f ${URHO3D_HOME}/DotNet/libs/android/net6.0-Release/x86/libMonoEmbedded.so     ${URHONET_HOME_ROOT}/template/libs/android/x86
-cp -f ${URHO3D_HOME}/DotNet/libs/android/net6.0-Release/x86_64/libMonoEmbedded.so    ${URHONET_HOME_ROOT}/template/libs/android/x86_64
+cp -f ${URHO3D_HOME}/DotNet/libs/android/net8.0-Release/arm64-v8a/libMonoEmbedded.so     ${URHONET_HOME_ROOT}/template/libs/android/arm64-v8a
+cp -f ${URHO3D_HOME}/DotNet/libs/android/net8.0-Release/armeabi-v7a/libMonoEmbedded.so     ${URHONET_HOME_ROOT}/template/libs/android/armeabi-v7a
+cp -f ${URHO3D_HOME}/DotNet/libs/android/net8.0-Release/x86/libMonoEmbedded.so     ${URHONET_HOME_ROOT}/template/libs/android/x86
+cp -f ${URHO3D_HOME}/DotNet/libs/android/net8.0-Release/x86_64/libMonoEmbedded.so    ${URHONET_HOME_ROOT}/template/libs/android/x86_64
