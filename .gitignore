@@ -143,3 +143,6 @@ runtime
 build-dotnet-lib
 
 DotNet/Bindings/Projects/UrhoProjects/UrhoDotNet/obj/*
+DotNet/Bindings/Projects/UrhoProjects/UrhoDotNet/bin/*
+DotNet/Bindings/Projects/UrhoProjects/EditorUrhoDotNet/obj/*
+DotNet/Bindings/Projects/UrhoProjects/EditorUrhoDotNet/bin/*
