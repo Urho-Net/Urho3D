@@ -2,6 +2,8 @@
 using System.Runtime.InteropServices;
 using Urho.IO;
 using Urho.Resources;
+using File = Urho.IO.File;
+using FileMode = Urho.IO.FileMode;
 
 namespace Urho
 {

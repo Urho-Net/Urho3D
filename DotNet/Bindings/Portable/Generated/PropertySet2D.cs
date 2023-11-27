@@ -11,6 +11,7 @@ using Urho.Resources;
 using Urho.IO;
 using Urho.Navigation;
 using Urho.Network;
+using File = Urho.IO.File;
 
 namespace Urho.Urho2D
 {

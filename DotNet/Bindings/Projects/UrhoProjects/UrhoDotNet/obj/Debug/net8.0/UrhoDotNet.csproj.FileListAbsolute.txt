@@ -1,0 +1,13 @@
+/Users/elialoni/Urho.Net/Source/DotNet/Bindings/UrhoDotNet/UrhoDotNet/UrhoDotNet/bin/Debug/net8.0/UrhoDotNet.xml
+/Users/elialoni/Urho.Net/Source/DotNet/Bindings/UrhoDotNet/UrhoDotNet/UrhoDotNet/bin/Debug/net8.0/UrhoDotNet.deps.json
+/Users/elialoni/Urho.Net/Source/DotNet/Bindings/UrhoDotNet/UrhoDotNet/UrhoDotNet/bin/Debug/net8.0/UrhoDotNet.dll
+/Users/elialoni/Urho.Net/Source/DotNet/Bindings/UrhoDotNet/UrhoDotNet/UrhoDotNet/bin/Debug/net8.0/UrhoDotNet.pdb
+/Users/elialoni/Urho.Net/Source/DotNet/Bindings/UrhoDotNet/UrhoDotNet/UrhoDotNet/obj/Debug/net8.0/UrhoDotNet.GeneratedMSBuildEditorConfig.editorconfig
+/Users/elialoni/Urho.Net/Source/DotNet/Bindings/UrhoDotNet/UrhoDotNet/UrhoDotNet/obj/Debug/net8.0/UrhoDotNet.AssemblyInfoInputs.cache
+/Users/elialoni/Urho.Net/Source/DotNet/Bindings/UrhoDotNet/UrhoDotNet/UrhoDotNet/obj/Debug/net8.0/UrhoDotNet.AssemblyInfo.cs
+/Users/elialoni/Urho.Net/Source/DotNet/Bindings/UrhoDotNet/UrhoDotNet/UrhoDotNet/obj/Debug/net8.0/UrhoDotNet.csproj.CoreCompileInputs.cache
+/Users/elialoni/Urho.Net/Source/DotNet/Bindings/UrhoDotNet/UrhoDotNet/UrhoDotNet/obj/Debug/net8.0/UrhoDotNet.sourcelink.json
+/Users/elialoni/Urho.Net/Source/DotNet/Bindings/UrhoDotNet/UrhoDotNet/UrhoDotNet/obj/Debug/net8.0/UrhoDotNet.dll
+/Users/elialoni/Urho.Net/Source/DotNet/Bindings/UrhoDotNet/UrhoDotNet/UrhoDotNet/obj/Debug/net8.0/refint/UrhoDotNet.dll
+/Users/elialoni/Urho.Net/Source/DotNet/Bindings/UrhoDotNet/UrhoDotNet/UrhoDotNet/obj/Debug/net8.0/UrhoDotNet.pdb
+/Users/elialoni/Urho.Net/Source/DotNet/Bindings/UrhoDotNet/UrhoDotNet/UrhoDotNet/obj/Debug/net8.0/ref/UrhoDotNet.dll
