@@ -116,6 +116,7 @@ configure*
 *.bak
 Thumbs.db
 .directory
+.vs
 
 # Doxygen mess from absence of 'dot' dependency
 CMakeDoxyFile.in
