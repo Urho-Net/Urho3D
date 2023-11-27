@@ -18,7 +18,7 @@
     <OutputPath>..\..\..\..\UrhoDotNet\desktop</OutputPath>
     <DefineConstants>TRACE;NET45;HAVE_REFLECTION_EMIT;HAVE_LINQ;FEATURE_JNIOBJECTREFERENCE_INTPTRS;INTEROP;FEATURE_JNIENVIRONMENT_JI_PINVOKES;RELEASE;NET;NET8_0;NETCOREAPP</DefineConstants>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>..\..\..\..\Assemblies\desktop\UrhoDotNet.xml</DocumentationFile>
+    <DocumentationFile>..\..\..\..\UrhoDotNet\desktop\UrhoDotNet.xml</DocumentationFile>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
   </PropertyGroup>
   <ItemGroup>

@@ -141,3 +141,5 @@ bin/Data/DotNet
 template/*
 runtime
 build-dotnet-lib
+
+DotNet/Bindings/Projects/UrhoProjects/UrhoDotNet/obj/*
