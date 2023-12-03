@@ -152,6 +152,8 @@ if(URHO3D_AUTOMATION)
     add_subdirectory (ThirdParty/robot)
 endif()
 
+add_subdirectory (ThirdParty/qoi)
+
 # Urho3D game engine library
 add_subdirectory (Urho3D)
 

@@ -9,12 +9,14 @@
 #include <stdlib.h>
 
 #ifndef _WINDOWS
+#include <net/if.h>
+#include <netdb.h>
 #include <sys/ioctl.h>
 #include <sys/socket.h>
 #include <sys/types.h>
-#include <net/if.h>
-#include <netdb.h>
 #endif
+
+#include "qoi.h"
 
 using namespace Urho3D;
 
@@ -116,7 +118,7 @@ extern "C"
     }
 
 #ifdef __EMSCRIPTEN__
-    DllExport Variant * urho_map_get_Variant(VariantMap& map, int hash)
+    DllExport Variant* urho_map_get_Variant(VariantMap& map, int hash)
     {
         StringHash h(hash);
         return &map[h];
@@ -130,7 +132,7 @@ extern "C"
 #endif
 
 #ifdef __EMSCRIPTEN__
-    DllExport Interop::Vector3 * urho_map_get_Vector3(VariantMap& map, int hash)
+    DllExport Interop::Vector3* urho_map_get_Vector3(VariantMap& map, int hash)
     {
         StringHash h(hash);
         return ((Interop::Vector3*)&(map[h].GetVector3()));
@@ -144,7 +146,7 @@ extern "C"
 #endif
 
 #ifdef __EMSCRIPTEN__
-    DllExport Interop::IntVector2 * urho_map_get_IntVector2(VariantMap& map, int hash)
+    DllExport Interop::IntVector2* urho_map_get_IntVector2(VariantMap& map, int hash)
     {
         StringHash h(hash);
         return ((Interop::IntVector2*)&(map[h].GetIntVector2()));
@@ -156,7 +158,6 @@ extern "C"
         return *((Interop::IntVector2*)&(map[h].GetIntVector2()));
     }
 #endif
-
 
     DllExport int urho_map_get_bool(VariantMap& map, int hash)
     {
@@ -424,7 +425,7 @@ extern "C"
     }
 
 #ifdef __EMSCRIPTEN__
-    DllExport Interop::Color * Material_GetShaderParameterColor(Urho3D::Material* _target, const char* paramName)
+    DllExport Interop::Color* Material_GetShaderParameterColor(Urho3D::Material* _target, const char* paramName)
     {
         return ((Interop::Color*)&(_target->GetShaderParameter(Urho3D::String(paramName)).GetColor()));
     }
@@ -487,7 +488,6 @@ extern "C"
         _target->SetViewOverrideFlags(ViewOverrideFlags(flags));
     }
 
-
     DllExport unsigned int VertexBuffer_GetElementMask(Urho3D::VertexBuffer* _target)
     {
         unsigned int mask = _target->GetElementMask();
@@ -504,10 +504,7 @@ extern "C"
          */
     }
 
-    DllExport const char* Variant_GetTypeName(Variant& v) 
-    {
-        return stringdup(v.GetTypeName().CString());
-    }
+    DllExport const char* Variant_GetTypeName(Variant& v) { return stringdup(v.GetTypeName().CString()); }
 
     DllExport Variant Variant_CreateInt(int i)
     {
@@ -602,7 +599,6 @@ extern "C"
         return stringdup(urhoString.CString());
     }
 
-
     DllExport void Variant_CreateBuffer(void* data, int size, Variant& v) { v = VectorBuffer(data, size); }
 
     DllExport unsigned char* Variant_GetBuffer(Variant& v, int* count)
@@ -613,17 +609,13 @@ extern "C"
     }
 
     static VariantMap Variant_GetVariantMap_VariantMap;
-    DllExport const VariantMap * Variant_GetVariantMap(Variant& variant)
+    DllExport const VariantMap* Variant_GetVariantMap(Variant& variant)
     {
         Variant_GetVariantMap_VariantMap = variant.GetVariantMap();
         return &Variant_GetVariantMap_VariantMap;
     }
 
-    
-    DllExport bool Variant_EqualityOperator(Variant& variant1 ,Variant& variant2 )
-    {
-        return variant1 == variant2;
-    }
+    DllExport bool Variant_EqualityOperator(Variant& variant1, Variant& variant2) { return variant1 == variant2; }
 
     DllExport void urho_map_get_value(VariantMap& nativeInstance, int key, Variant& value)
     {
@@ -645,24 +637,21 @@ extern "C"
         nativeInstance[StringHash(key)] = *value;
     }
 
-    DllExport unsigned urho_map_get_keys_size(VariantMap& nativeInstance)
-    {
-        return nativeInstance.Keys().Size();
-    }
+    DllExport unsigned urho_map_get_keys_size(VariantMap& nativeInstance) { return nativeInstance.Keys().Size(); }
 
-    DllExport void urho_map_keys_get_keys(VariantMap& nativeInstance,unsigned int *buffer)
-    {   
+    DllExport void urho_map_keys_get_keys(VariantMap& nativeInstance, unsigned int* buffer)
+    {
         Vector<StringHash> keys = nativeInstance.Keys();
-        for(unsigned i = 0 ; i< keys.Size();i++)
+        for (unsigned i = 0; i < keys.Size(); i++)
         {
-            buffer[i] =  keys[i].ToHash();
+            buffer[i] = keys[i].ToHash();
         }
     }
 
-    DllExport unsigned urho_map_keys_get_key(VariantMap& nativeInstance,int index)
+    DllExport unsigned urho_map_keys_get_key(VariantMap& nativeInstance, int index)
     {
-       unsigned value =  nativeInstance.Keys()[index].Value();
-       return value;
+        unsigned value = nativeInstance.Keys()[index].Value();
+        return value;
     }
 
     static char conversionNumbersBuffer[CONVERSION_BUFFER_LENGTH];
@@ -682,9 +671,9 @@ extern "C"
 
     /*DYNAMIC*/
 
-    DllExport Variant * Dynamic_CreateFromType(VariantType type, const char* value)
+    DllExport Variant* Dynamic_CreateFromType(VariantType type, const char* value)
     {
-        Variant * v = new Variant(type, value);
+        Variant* v = new Variant(type, value);
         return v;
     }
 
@@ -806,7 +795,7 @@ extern "C"
     }
 
 #ifdef __EMSCRIPTEN__
-    DllExport Interop::Matrix3  * Dynamic_GetMatrix3(Variant* v) { return ((Interop::Matrix3*)&(v->GetMatrix3())); }
+    DllExport Interop::Matrix3* Dynamic_GetMatrix3(Variant* v) { return ((Interop::Matrix3*)&(v->GetMatrix3())); }
 #else
     DllExport Interop::Matrix3 Dynamic_GetMatrix3(Variant* v) { return *((Interop::Matrix3*)&(v->GetMatrix3())); }
 #endif
@@ -819,7 +808,7 @@ extern "C"
     }
 
 #ifdef __EMSCRIPTEN__
-    DllExport Interop::Matrix4 *  Dynamic_GetMatrix4(Variant* v) { return ((Interop::Matrix4*)&(v->GetMatrix4())); }
+    DllExport Interop::Matrix4* Dynamic_GetMatrix4(Variant* v) { return ((Interop::Matrix4*)&(v->GetMatrix4())); }
 #else
     DllExport Interop::Matrix4 Dynamic_GetMatrix4(Variant* v) { return *((Interop::Matrix4*)&(v->GetMatrix4())); }
 #endif
@@ -832,9 +821,15 @@ extern "C"
     }
 
 #ifdef __EMSCRIPTEN__
-    DllExport Interop::Matrix3x4  * Dynamic_GetMatrix3x4(Variant* v){return ((Interop::Matrix3x4*)&(v->GetMatrix3x4()));}
+    DllExport Interop::Matrix3x4* Dynamic_GetMatrix3x4(Variant* v)
+    {
+        return ((Interop::Matrix3x4*)&(v->GetMatrix3x4()));
+    }
 #else
-    DllExport Interop::Matrix3x4 Dynamic_GetMatrix3x4(Variant* v){return *((Interop::Matrix3x4*)&(v->GetMatrix3x4()));}
+    DllExport Interop::Matrix3x4 Dynamic_GetMatrix3x4(Variant* v)
+    {
+        return *((Interop::Matrix3x4*)&(v->GetMatrix3x4()));
+    }
 #endif
 
     DllExport Variant* Dynamic_CreateString(const char* value)
@@ -862,22 +857,15 @@ extern "C"
         return pod.Buffer();
     }
 
-    
-    DllExport Variant* Dynamic_CreateResourceRef(int type ,const char* name)
+    DllExport Variant* Dynamic_CreateResourceRef(int type, const char* name)
     {
-        Variant* v = new Variant(ResourceRef(StringHash(type),name));
+        Variant* v = new Variant(ResourceRef(StringHash(type), name));
         return v;
     }
 
-    DllExport ResourceRef *  Dynamic_GetResourceRef(Variant* v)
-    {
-        return ((ResourceRef*)&(v->GetResourceRef()));
-    }
+    DllExport ResourceRef* Dynamic_GetResourceRef(Variant* v) { return ((ResourceRef*)&(v->GetResourceRef())); }
 
-    DllExport void Dynamic_GetRetVariant(Variant* v , Variant* var)
-    {
-        *var = *v;
-    }
+    DllExport void Dynamic_GetRetVariant(Variant* v, Variant* var) { *var = *v; }
 
     DllExport Variant* Dynamic_CreateResourceRefList(int type, const Vector<String>* stringVector)
     {
@@ -901,7 +889,7 @@ extern "C"
         return v;
     }
 
-    DllExport void Dynamic_VariantVector_AddVariant(Variant* v, Variant& value , int index)
+    DllExport void Dynamic_VariantVector_AddVariant(Variant* v, Variant& value, int index)
     {
         VariantVector variantVector = v->GetVariantVector();
         variantVector[index] = value;
@@ -953,11 +941,10 @@ extern "C"
         *rotation = *((Interop::Quaternion*)&(_rot));
     }
 
-
 #ifdef __EMSCRIPTEN__
-    DllExport Variant * Node_GetVar(Urho3D::Node* _target, int key) 
-    { 
-        return (Urho3D::Variant *)(&_target->GetVar(Urho3D::StringHash(key))); 
+    DllExport Variant* Node_GetVar(Urho3D::Node* _target, int key)
+    {
+        return (Urho3D::Variant*)(&_target->GetVar(Urho3D::StringHash(key)));
     }
 #else
     DllExport Variant Node_GetVar(Urho3D::Node* _target, int key) { return _target->GetVar(Urho3D::StringHash(key)); }
@@ -965,7 +952,7 @@ extern "C"
 
 #ifdef __EMSCRIPTEN_
     static matrix3x4 Matrix3x4_Create_matrix3x4;
-    DllExport Interop::Matrix3x4 *  Matrix3x4_Create(Vector3& translation, Quaternion& rotation, Vector3& scale)
+    DllExport Interop::Matrix3x4* Matrix3x4_Create(Vector3& translation, Quaternion& rotation, Vector3& scale)
     {
         Matrix3x4_Create_matrix3x4 = Matrix3x4(translation, rotation, scale);
         return ((Interop::Matrix3x4*)&(Matrix3x4_Create_matrix3x4));
@@ -980,7 +967,7 @@ extern "C"
 
 #ifdef __EMSCRIPTEN_
     static matrix3x4 Matrix3x4_Multiply_matrix3x4;
-    DllExport Interop::Matrix3x4 *  Matrix3x4_Multiply(Matrix3x4& left, Matrix3x4& right)
+    DllExport Interop::Matrix3x4* Matrix3x4_Multiply(Matrix3x4& left, Matrix3x4& right)
     {
         Matrix3x4_Multiply_matrix3x4 = left * right;
         return ((Interop::Matrix3x4*)&(Matrix3x4_Multiply_matrix3x4));
@@ -1044,20 +1031,19 @@ extern "C"
         return t;
     }
 
-
     static Vector<String> resultFilesInResourceDirs;
-   
-    DllExport int
-    ResourceCache_GetFilesInResourceDirs (Urho3D::ResourceCache *_target, const char* name, const char* filter, bool recursive)
+
+    DllExport int ResourceCache_GetFilesInResourceDirs(Urho3D::ResourceCache* _target, const char* name,
+                                                       const char* filter, bool recursive)
     {
         resultFilesInResourceDirs.Clear();
-        _target->GetFilesInResourceDirs(resultFilesInResourceDirs,name,  filter,  recursive);
+        _target->GetFilesInResourceDirs(resultFilesInResourceDirs, name, filter, recursive);
         return resultFilesInResourceDirs.Size();
     }
 
-    DllExport const char* ResourceCache_GetFromResultFileInResourceDirs(Urho3D::ResourceCache *_target,int index)
+    DllExport const char* ResourceCache_GetFromResultFileInResourceDirs(Urho3D::ResourceCache* _target, int index)
     {
-        if(index >=0 && index < resultFilesInResourceDirs.Size())
+        if (index >= 0 && index < resultFilesInResourceDirs.Size())
         {
             return stringdup(resultFilesInResourceDirs[index].CString());
         }
@@ -1067,511 +1053,462 @@ extern "C"
         }
     }
 
-    DllExport void ResourceCache_ClearVectorResultFilesInResourceDirs(Urho3D::ResourceCache *_target)
+    DllExport void ResourceCache_ClearVectorResultFilesInResourceDirs(Urho3D::ResourceCache* _target)
     {
         resultFilesInResourceDirs.Clear();
     }
 
-
-DllExport int
-ResourceCache_GetResourceDirsCount (Urho3D::ResourceCache *_target)
-{
-    Vector<String> resourceDirs = _target->GetResourceDirs();
-    return resourceDirs.Size();
-}
-
-DllExport const char* ResourceCache_GetResourceDir(Urho3D::ResourceCache *_target,int index)
-{
-    Vector<String> resourceDirs = _target->GetResourceDirs();
-    if(index >=0 && index < resourceDirs.Size())
+    DllExport int ResourceCache_GetResourceDirsCount(Urho3D::ResourceCache* _target)
     {
-        return stringdup(resourceDirs[index].CString());
-    }
-    else
-    {
-        return stringdup("");
-    }
-}
-    
-DllExport void *
-DbConnection_GetSQLite3Implementation (Urho3D::DbConnection *_target)
-{
-    const sqlite3*  sqlConnection = _target->GetConnectionImpl();
-    return (void*)sqlConnection;
-}
-
-DllExport void *
-sqlite3_connection_prepare(sqlite3* connectionImpl_,const char *  sqlQuery)
-{
-   
-    if(connectionImpl_ == nullptr) return nullptr;
-    
-    sqlite3_stmt* pStmt = nullptr;
-    const char* zLeftover = nullptr;
-    String trimmedSqlStr = String(sqlQuery).Trimmed();
-    
-    int rc = sqlite3_prepare_v2(connectionImpl_, trimmedSqlStr.CString(), -1, &pStmt, &zLeftover);
-    if (rc != SQLITE_OK)
-    {
-        URHO3D_LOGERRORF("Could not execute: %s", sqlite3_errmsg(connectionImpl_));
-        pStmt = nullptr;
-        return nullptr;
-    }
-    
-    if (*zLeftover)
-    {
-        URHO3D_LOGERROR("Could not execute: only one SQL statement is allowed");
-        sqlite3_finalize(pStmt);
-        return nullptr;
-    }
-    
-    return pStmt;
-    
-}
-
-DllExport int
-sqlite3_connection_changes(sqlite3* connectionImpl_)
-{
-    if(connectionImpl_ == nullptr) return -1;
-    
-    return sqlite3_changes(connectionImpl_);
-}
-
-DllExport int
-sqlite3_connection_finalize(sqlite3_stmt *pStmt)
-{
-    if(pStmt == nullptr) return -1;
-    return  sqlite3_finalize(pStmt);
-}
-
-DllExport int
-sqlite3_connection_column_count( sqlite3_stmt* pStmt )
-{
-    if(pStmt == nullptr) return -1;
-    return (int)sqlite3_column_count(pStmt);
-}
-
-DllExport const char*
-sqlite3_connection_column_name(sqlite3_stmt* pStmt, int index)
-{
-    if(pStmt == nullptr) return nullptr;
-    return stringdup(sqlite3_column_name(pStmt, index));
-}
-
-DllExport int
-sqlite3_connection_column_step(sqlite3_stmt* pStmt)
-{
-    return sqlite3_step(pStmt);
-}
-
-DllExport int
-sqlite3_connection_column_type(sqlite3_stmt* pStmt, int index)
-{
-    if(pStmt == nullptr) return -1;
-    return sqlite3_column_type(pStmt, index);
-}
-
-DllExport int
-sqlite3_connection_column_int(sqlite3_stmt* pStmt, int index)
-{
-    if(pStmt == nullptr) return -1;
-    return sqlite3_column_int(pStmt, index);
-}
-
-DllExport double
-sqlite3_connection_column_double(sqlite3_stmt* pStmt, int index)
-{
-    if(pStmt == nullptr) return -1;
-    return sqlite3_column_double(pStmt, index);
-}
-
-DllExport const char*
-sqlite3_connection_column_decltype(sqlite3_stmt* pStmt, int index)
-{
-    if(pStmt == nullptr) return nullptr;
-    return stringdup(sqlite3_column_decltype(pStmt, index));
-}
-
-
-DllExport const char*
-sqlite3_connection_column_text(sqlite3_stmt* pStmt, int index)
-{
-    if(pStmt == nullptr) return nullptr;
-    return stringdup((const char*)sqlite3_column_text(pStmt, index));
-}
-
-DllExport void delete_vector3_pointer(const class Urho3D::Vector3 *  vector3_ptr)
-{
-    if (vector3_ptr != nullptr)
-    {
-        delete[] vector3_ptr;
-    }
-}
-
-DllExport Urho3D::Model *
-Model_Clone_EmptyName (Urho3D::Model *_target)
-{
-	auto copy = _target->Clone();
-	auto plain = copy.Get();
-	copy.Detach();
-	delete copy;
-	return plain;
-}
-
-DllExport bool
-Serializable_SetAttribute_Variant (Urho3D::Serializable *_target, const char * name, Variant * v)
-{
-    if(v != NULL)
-	    return _target->SetAttribute (name, *v);
-    else
-        return false;
-}
-
-DllExport bool Serializable_SetAttribute_Variant2 (Urho3D::Serializable *_target, const char * name, Variant & v)
-{
-	return _target->SetAttribute (name, v);
-}
-
-DllExport bool Serializable_SetAttribute_Variant3 (Urho3D::Serializable *_target, unsigned index, Variant & v)
-{
-	return _target->SetAttribute (index, v);
-}
-
-DllExport bool
-Serializable_SetAttribute_Variant4 (Urho3D::Serializable *_target, unsigned index, Variant * v)
-{
-    if(v != NULL)
-    {
-	    return _target->SetAttribute (index, *v);
-    }
-    else
-        return false;
-}
-
-DllExport const Vector<AttributeInfo>* 
-Serializable_GetAttributes(Urho3D::Serializable* serializable)
-{
-    return serializable->GetAttributes();
-}
-
-
-DllExport const char* Variant_GetResourceRefName(Variant& variant)
-{
-    return stringdup(variant.GetResourceRef().name_.CString());
-}
-
-DllExport unsigned int Variant_GetResourceRefType(Variant& variant)
-{
-    return variant.GetResourceRef().type_.Value();
-}
-
-DllExport void Variant_GetRetVariant(Variant* v, Variant* var) { *var = *v; }
-
-DllExport const Variant * Variant_VariantVector_GetVariant(Variant& variant, int index)
-{
-    return &(variant.GetVariantVector()[index]);
-}
-
-DllExport  int
-Variant_VariantVector_GetSize(Variant& variant)
-{
-    return variant.GetVariantVector().Size();
-}
-
-DllExport const char* Variant_StringVector_GetString(Variant& variant, int index)
-{
-    return stringdup(variant.GetStringVector()[index].CString());
-}
-
-DllExport  int
-Variant_StringVector_GetSize(Variant& variant)
-{
-    return variant.GetStringVector().Size();
-}
-
-DllExport  int
-Variant_ResourceRefList_GetType(Variant& variant)
-{
-    return variant.GetResourceRefList().type_.Value();
-}
-
-DllExport  int
-Variant_ResourceRefList_Names_GetSize(Variant& variant)
-{
-    return variant.GetResourceRefList().names_.Size();
-}
-
-
-DllExport  const char* 
-Variant_ResourceRefList_Names_GetNameAt(Variant& variant, int index)
-{
-    return stringdup(variant.GetResourceRefList().names_[index].CString());
-}
-
-
-DllExport void
-UIElement_SetVar_IntPtr (Urho3D::UIElement *_target, int key, const void * value)
-{
-	_target->SetVar (Urho3D::StringHash(key), *((Variant *)value));
-}
-
-DllExport const PODVector<unsigned>&
-ListView_GetSelections (Urho3D::ListView *_target)
-{
-	return _target->GetSelections ();
-}
-
-DllExport void ListView_SetSelections(Urho3D::ListView* _target, unsigned* data, int size)
-{
-    PODVector<unsigned> selections;
-    for (int i = 0; i < size; i++)
-    {
-        selections.Push(data[i]);
+        Vector<String> resourceDirs = _target->GetResourceDirs();
+        return resourceDirs.Size();
     }
 
-    _target->SetSelections(selections);
-}
-
-
-DllExport const Vector<AttributeInfo>*
-Context_GetAttributes (Urho3D::Context * context , int type)
-{
-    StringHash attrType(type);
-    return context->GetAttributes(attrType);
-}
-
-DllExport int
-AttributeVector_GetSize(const Vector<AttributeInfo>* attributes)
-{
-    return attributes->Size();
-}
-
-DllExport const AttributeInfo *
-AttributeVector_Attribute_GetHandle(const Vector<AttributeInfo>* attributes, unsigned int index)
-{
-    return &attributes->At(index);
-}
-
-DllExport VariantType
-AttributeVector_Attribute_GetType(const Vector<AttributeInfo>* attributes, unsigned int index)
-{
-    return attributes->At(index).type_;
-}
-
-DllExport const char* 
-AttributeVector_Attribute_GetName(const Vector<AttributeInfo>* attributes, unsigned int index)
-{
-    return attributes->At(index).name_.CString();
-}
-
-DllExport const Variant 
-AttributeVector_Attribute_GetDefaultValue(const Vector<AttributeInfo>* attributes, unsigned int index)
-{
-    return (attributes->At(index).defaultValue_);
-}
-
-DllExport unsigned int
-AttributeVector_Attribute_GetMode(const Vector<AttributeInfo>* attributes, unsigned int index)
-{
-    return attributes->At(index).mode_;
-}
-
-DllExport void AttributeVector_Attribute_GetEnumNames(const Vector<AttributeInfo>* attributes,int index , Vector<String>* stringVector)
-{
-    const char** enumNamePtrs = attributes->At(index).enumNames_;
-
-    while (enumNamePtrs && *enumNamePtrs)
-        stringVector->Push(*enumNamePtrs++);
-
-}
-
-
-static AttributeInfo  attributes_attributeInfo ;
-DllExport AttributeInfo*
-Attributes_GetAttribute(const Vector<AttributeInfo>* attributes, int index)
-{
-    attributes_attributeInfo = attributes->At(index);
-    return &attributes_attributeInfo;
-}
-
-
-DllExport VariantType
-AttributeInfo_GetType(AttributeInfo * attributeInfo)
-{
-    return attributeInfo->type_;
-}
-
-DllExport const char* AttributeInfo_GetName(AttributeInfo * attributeInfo)
-{
-    return stringdup(attributeInfo->name_.CString());
-}
-
-
-static Variant UIElement_GetTags_Variant;
-DllExport Variant *
-UIElement_GetTags(UIElement * target)
-{
-    UIElement_GetTags_Variant = target->GetTags();
-    return &UIElement_GetTags_Variant;
-}
-
-DllExport const VariantMap*
-UIElement_GetVars(UIElement * target)
-{
-    return &target->GetVars();
-
-}
-
-static Variant Node_GetTags_Variant;
-DllExport Variant *
-Node_GetTags(Node * target)
-{
-    Node_GetTags_Variant = target->GetTags();
-    return &Node_GetTags_Variant;
-}
-
-
-DllExport const VariantMap*
-Node_GetVars(Node * target)
-{
-    return &target->GetVars();
-}
-
-DllExport bool File_WriteLine(File * file , const char * line)
-{
-    return file->WriteLine(line);
-}
-
-DllExport const char *  File_ReadLine(File * file)
-{
-    String str = file->ReadLine();
-    return stringdup(str.CString());
-}
-
-DllExport Vector<String>* StringVector_Create()
-{
-    Vector<String>* stringVector = new Vector<String>();
-    stringVector->Empty();
-    return  stringVector;
-}
-
-DllExport int
-StringVector_GetSize(const Vector<String>* stringVector)
-{
-    if(stringVector != NULL )
+    DllExport const char* ResourceCache_GetResourceDir(Urho3D::ResourceCache* _target, int index)
     {
-        return stringVector->Size();
-    }
-    else{
-        return 0;
-    }
-}
-
-
-DllExport const char*
-StringVector_GetString(const Vector<String>* stringVector, int index)
-{
-    if(stringVector != NULL && index >=0 && index < stringVector->Size())
-    {
-        return stringVector->At(index).CString();
-    }
-    else return nullptr;
-}
-
-DllExport bool
-StringVector_SetString(Vector<String>* stringVector, int index,const char * str)
-{
-    bool result = false;
-    if(stringVector != NULL && index >=0 && index < stringVector->Size())
-    {
-        stringVector->At(index) = str;
-        result = true;
-    }
-    return result;
-}
-
-DllExport void StringVector_AddString(Vector<String>* stringVector, const char* str)
-{
-    if (stringVector != NULL)
-    {
-        stringVector->Push(str);
-    }
-}
-
-DllExport void StringVector_Empty(const Vector<String>* stringVector) { stringVector->Empty(); }
-
-DllExport void StringVector_Delete(const Vector<String>* stringVector) { delete stringVector; }
-
-DllExport void FileSelector_SetFilters(FileSelector* fileSelector, const Vector<String>* filters,
-                                       unsigned int defaultIndex)
-{
-    fileSelector->SetFilters(*filters, defaultIndex);
-}
-
-DllExport Skeleton* Model_GetSkeleton(Model* model) { return &model->GetSkeleton(); }
-
-
-DllExport void AnimationTrack_PushAnimationKeyFrame(AnimationTrack* animationTrack ,const AnimationKeyFrame& animationKeyFrame )
-{
-    animationTrack->keyFrames_.Push(animationKeyFrame);
-}
-
-DllExport bool Quaternion_FromLookRotation(Vector3& direction,  Vector3& up, Interop::Quaternion* rotation_out)
-{
-    Quaternion rotation;
-    bool status = rotation.FromLookRotation(direction, up);
-    *rotation_out =  *((Interop::Quaternion*)&(rotation));
-    return status;
-}
-
-/* elix22 , for some reason couldn't find it in .NET  NetworkInterface*/
-DllExport const char* Network_GetInterfaceBroadcastAddress(const char* name)
-{
-    char host[128] = {0};
-// TBD elix22 for Windows
-#ifndef _WINDOWS
-    int sock;
-    struct ifreq ifreq;
-    sock = socket(AF_INET, SOCK_DGRAM, 0);
-    if (sock >= 0)
-    {
-        memset(&ifreq, 0, sizeof ifreq);
-        strncpy(ifreq.ifr_name, name, IFNAMSIZ);
-
-        if (ioctl(sock, SIOCGIFBRDADDR, &ifreq) == 0)
+        Vector<String> resourceDirs = _target->GetResourceDirs();
+        if (index >= 0 && index < resourceDirs.Size())
         {
-            getnameinfo(&ifreq.ifr_broadaddr, sizeof(ifreq.ifr_broadaddr), host, sizeof(host), 0, 0, NI_NUMERICHOST);
+            return stringdup(resourceDirs[index].CString());
+        }
+        else
+        {
+            return stringdup("");
+        }
+    }
+
+    DllExport void* DbConnection_GetSQLite3Implementation(Urho3D::DbConnection* _target)
+    {
+        const sqlite3* sqlConnection = _target->GetConnectionImpl();
+        return (void*)sqlConnection;
+    }
+
+    DllExport void* sqlite3_connection_prepare(sqlite3* connectionImpl_, const char* sqlQuery)
+    {
+
+        if (connectionImpl_ == nullptr)
+            return nullptr;
+
+        sqlite3_stmt* pStmt = nullptr;
+        const char* zLeftover = nullptr;
+        String trimmedSqlStr = String(sqlQuery).Trimmed();
+
+        int rc = sqlite3_prepare_v2(connectionImpl_, trimmedSqlStr.CString(), -1, &pStmt, &zLeftover);
+        if (rc != SQLITE_OK)
+        {
+            URHO3D_LOGERRORF("Could not execute: %s", sqlite3_errmsg(connectionImpl_));
+            pStmt = nullptr;
+            return nullptr;
         }
 
-        close(sock);
+        if (*zLeftover)
+        {
+            URHO3D_LOGERROR("Could not execute: only one SQL statement is allowed");
+            sqlite3_finalize(pStmt);
+            return nullptr;
+        }
+
+        return pStmt;
     }
+
+    DllExport int sqlite3_connection_changes(sqlite3* connectionImpl_)
+    {
+        if (connectionImpl_ == nullptr)
+            return -1;
+
+        return sqlite3_changes(connectionImpl_);
+    }
+
+    DllExport int sqlite3_connection_finalize(sqlite3_stmt* pStmt)
+    {
+        if (pStmt == nullptr)
+            return -1;
+        return sqlite3_finalize(pStmt);
+    }
+
+    DllExport int sqlite3_connection_column_count(sqlite3_stmt* pStmt)
+    {
+        if (pStmt == nullptr)
+            return -1;
+        return (int)sqlite3_column_count(pStmt);
+    }
+
+    DllExport const char* sqlite3_connection_column_name(sqlite3_stmt* pStmt, int index)
+    {
+        if (pStmt == nullptr)
+            return nullptr;
+        return stringdup(sqlite3_column_name(pStmt, index));
+    }
+
+    DllExport int sqlite3_connection_column_step(sqlite3_stmt* pStmt) { return sqlite3_step(pStmt); }
+
+    DllExport int sqlite3_connection_column_type(sqlite3_stmt* pStmt, int index)
+    {
+        if (pStmt == nullptr)
+            return -1;
+        return sqlite3_column_type(pStmt, index);
+    }
+
+    DllExport int sqlite3_connection_column_int(sqlite3_stmt* pStmt, int index)
+    {
+        if (pStmt == nullptr)
+            return -1;
+        return sqlite3_column_int(pStmt, index);
+    }
+
+    DllExport double sqlite3_connection_column_double(sqlite3_stmt* pStmt, int index)
+    {
+        if (pStmt == nullptr)
+            return -1;
+        return sqlite3_column_double(pStmt, index);
+    }
+
+    DllExport const char* sqlite3_connection_column_decltype(sqlite3_stmt* pStmt, int index)
+    {
+        if (pStmt == nullptr)
+            return nullptr;
+        return stringdup(sqlite3_column_decltype(pStmt, index));
+    }
+
+    DllExport const char* sqlite3_connection_column_text(sqlite3_stmt* pStmt, int index)
+    {
+        if (pStmt == nullptr)
+            return nullptr;
+        return stringdup((const char*)sqlite3_column_text(pStmt, index));
+    }
+
+    DllExport void delete_vector3_pointer(const class Urho3D::Vector3* vector3_ptr)
+    {
+        if (vector3_ptr != nullptr)
+        {
+            delete[] vector3_ptr;
+        }
+    }
+
+    DllExport Urho3D::Model* Model_Clone_EmptyName(Urho3D::Model* _target)
+    {
+        auto copy = _target->Clone();
+        auto plain = copy.Get();
+        copy.Detach();
+        delete copy;
+        return plain;
+    }
+
+    DllExport bool Serializable_SetAttribute_Variant(Urho3D::Serializable* _target, const char* name, Variant* v)
+    {
+        if (v != NULL)
+            return _target->SetAttribute(name, *v);
+        else
+            return false;
+    }
+
+    DllExport bool Serializable_SetAttribute_Variant2(Urho3D::Serializable* _target, const char* name, Variant& v)
+    {
+        return _target->SetAttribute(name, v);
+    }
+
+    DllExport bool Serializable_SetAttribute_Variant3(Urho3D::Serializable* _target, unsigned index, Variant& v)
+    {
+        return _target->SetAttribute(index, v);
+    }
+
+    DllExport bool Serializable_SetAttribute_Variant4(Urho3D::Serializable* _target, unsigned index, Variant* v)
+    {
+        if (v != NULL)
+        {
+            return _target->SetAttribute(index, *v);
+        }
+        else
+            return false;
+    }
+
+    DllExport const Vector<AttributeInfo>* Serializable_GetAttributes(Urho3D::Serializable* serializable)
+    {
+        return serializable->GetAttributes();
+    }
+
+    DllExport const char* Variant_GetResourceRefName(Variant& variant)
+    {
+        return stringdup(variant.GetResourceRef().name_.CString());
+    }
+
+    DllExport unsigned int Variant_GetResourceRefType(Variant& variant)
+    {
+        return variant.GetResourceRef().type_.Value();
+    }
+
+    DllExport void Variant_GetRetVariant(Variant* v, Variant* var) { *var = *v; }
+
+    DllExport const Variant* Variant_VariantVector_GetVariant(Variant& variant, int index)
+    {
+        return &(variant.GetVariantVector()[index]);
+    }
+
+    DllExport int Variant_VariantVector_GetSize(Variant& variant) { return variant.GetVariantVector().Size(); }
+
+    DllExport const char* Variant_StringVector_GetString(Variant& variant, int index)
+    {
+        return stringdup(variant.GetStringVector()[index].CString());
+    }
+
+    DllExport int Variant_StringVector_GetSize(Variant& variant) { return variant.GetStringVector().Size(); }
+
+    DllExport int Variant_ResourceRefList_GetType(Variant& variant)
+    {
+        return variant.GetResourceRefList().type_.Value();
+    }
+
+    DllExport int Variant_ResourceRefList_Names_GetSize(Variant& variant)
+    {
+        return variant.GetResourceRefList().names_.Size();
+    }
+
+    DllExport const char* Variant_ResourceRefList_Names_GetNameAt(Variant& variant, int index)
+    {
+        return stringdup(variant.GetResourceRefList().names_[index].CString());
+    }
+
+    DllExport void UIElement_SetVar_IntPtr(Urho3D::UIElement* _target, int key, const void* value)
+    {
+        _target->SetVar(Urho3D::StringHash(key), *((Variant*)value));
+    }
+
+    DllExport const PODVector<unsigned>& ListView_GetSelections(Urho3D::ListView* _target)
+    {
+        return _target->GetSelections();
+    }
+
+    DllExport void ListView_SetSelections(Urho3D::ListView* _target, unsigned* data, int size)
+    {
+        PODVector<unsigned> selections;
+        for (int i = 0; i < size; i++)
+        {
+            selections.Push(data[i]);
+        }
+
+        _target->SetSelections(selections);
+    }
+
+    DllExport const Vector<AttributeInfo>* Context_GetAttributes(Urho3D::Context* context, int type)
+    {
+        StringHash attrType(type);
+        return context->GetAttributes(attrType);
+    }
+
+    DllExport int AttributeVector_GetSize(const Vector<AttributeInfo>* attributes) { return attributes->Size(); }
+
+    DllExport const AttributeInfo* AttributeVector_Attribute_GetHandle(const Vector<AttributeInfo>* attributes,
+                                                                       unsigned int index)
+    {
+        return &attributes->At(index);
+    }
+
+    DllExport VariantType AttributeVector_Attribute_GetType(const Vector<AttributeInfo>* attributes, unsigned int index)
+    {
+        return attributes->At(index).type_;
+    }
+
+    DllExport const char* AttributeVector_Attribute_GetName(const Vector<AttributeInfo>* attributes, unsigned int index)
+    {
+        return attributes->At(index).name_.CString();
+    }
+
+    DllExport const Variant AttributeVector_Attribute_GetDefaultValue(const Vector<AttributeInfo>* attributes,
+                                                                      unsigned int index)
+    {
+        return (attributes->At(index).defaultValue_);
+    }
+
+    DllExport unsigned int AttributeVector_Attribute_GetMode(const Vector<AttributeInfo>* attributes,
+                                                             unsigned int index)
+    {
+        return attributes->At(index).mode_;
+    }
+
+    DllExport void AttributeVector_Attribute_GetEnumNames(const Vector<AttributeInfo>* attributes, int index,
+                                                          Vector<String>* stringVector)
+    {
+        const char** enumNamePtrs = attributes->At(index).enumNames_;
+
+        while (enumNamePtrs && *enumNamePtrs)
+            stringVector->Push(*enumNamePtrs++);
+    }
+
+    static AttributeInfo attributes_attributeInfo;
+    DllExport AttributeInfo* Attributes_GetAttribute(const Vector<AttributeInfo>* attributes, int index)
+    {
+        attributes_attributeInfo = attributes->At(index);
+        return &attributes_attributeInfo;
+    }
+
+    DllExport VariantType AttributeInfo_GetType(AttributeInfo* attributeInfo) { return attributeInfo->type_; }
+
+    DllExport const char* AttributeInfo_GetName(AttributeInfo* attributeInfo)
+    {
+        return stringdup(attributeInfo->name_.CString());
+    }
+
+    static Variant UIElement_GetTags_Variant;
+    DllExport Variant* UIElement_GetTags(UIElement* target)
+    {
+        UIElement_GetTags_Variant = target->GetTags();
+        return &UIElement_GetTags_Variant;
+    }
+
+    DllExport const VariantMap* UIElement_GetVars(UIElement* target) { return &target->GetVars(); }
+
+    static Variant Node_GetTags_Variant;
+    DllExport Variant* Node_GetTags(Node* target)
+    {
+        Node_GetTags_Variant = target->GetTags();
+        return &Node_GetTags_Variant;
+    }
+
+    DllExport const VariantMap* Node_GetVars(Node* target) { return &target->GetVars(); }
+
+    DllExport bool File_WriteLine(File* file, const char* line) { return file->WriteLine(line); }
+
+    DllExport const char* File_ReadLine(File* file)
+    {
+        String str = file->ReadLine();
+        return stringdup(str.CString());
+    }
+
+    DllExport Vector<String>* StringVector_Create()
+    {
+        Vector<String>* stringVector = new Vector<String>();
+        stringVector->Empty();
+        return stringVector;
+    }
+
+    DllExport int StringVector_GetSize(const Vector<String>* stringVector)
+    {
+        if (stringVector != NULL)
+        {
+            return stringVector->Size();
+        }
+        else
+        {
+            return 0;
+        }
+    }
+
+    DllExport const char* StringVector_GetString(const Vector<String>* stringVector, int index)
+    {
+        if (stringVector != NULL && index >= 0 && index < stringVector->Size())
+        {
+            return stringVector->At(index).CString();
+        }
+        else
+            return nullptr;
+    }
+
+    DllExport bool StringVector_SetString(Vector<String>* stringVector, int index, const char* str)
+    {
+        bool result = false;
+        if (stringVector != NULL && index >= 0 && index < stringVector->Size())
+        {
+            stringVector->At(index) = str;
+            result = true;
+        }
+        return result;
+    }
+
+    DllExport void StringVector_AddString(Vector<String>* stringVector, const char* str)
+    {
+        if (stringVector != NULL)
+        {
+            stringVector->Push(str);
+        }
+    }
+
+    DllExport void StringVector_Empty(const Vector<String>* stringVector) { stringVector->Empty(); }
+
+    DllExport void StringVector_Delete(const Vector<String>* stringVector) { delete stringVector; }
+
+    DllExport void FileSelector_SetFilters(FileSelector* fileSelector, const Vector<String>* filters,
+                                           unsigned int defaultIndex)
+    {
+        fileSelector->SetFilters(*filters, defaultIndex);
+    }
+
+    DllExport Skeleton* Model_GetSkeleton(Model* model) { return &model->GetSkeleton(); }
+
+    DllExport void AnimationTrack_PushAnimationKeyFrame(AnimationTrack* animationTrack,
+                                                        const AnimationKeyFrame& animationKeyFrame)
+    {
+        animationTrack->keyFrames_.Push(animationKeyFrame);
+    }
+
+    DllExport bool Quaternion_FromLookRotation(Vector3& direction, Vector3& up, Interop::Quaternion* rotation_out)
+    {
+        Quaternion rotation;
+        bool status = rotation.FromLookRotation(direction, up);
+        *rotation_out = *((Interop::Quaternion*)&(rotation));
+        return status;
+    }
+
+    /* elix22 , for some reason couldn't find it in .NET  NetworkInterface*/
+    DllExport const char* Network_GetInterfaceBroadcastAddress(const char* name)
+    {
+        char host[128] = {0};
+// TBD elix22 for Windows
+#ifndef _WINDOWS
+        int sock;
+        struct ifreq ifreq;
+        sock = socket(AF_INET, SOCK_DGRAM, 0);
+        if (sock >= 0)
+        {
+            memset(&ifreq, 0, sizeof ifreq);
+            strncpy(ifreq.ifr_name, name, IFNAMSIZ);
+
+            if (ioctl(sock, SIOCGIFBRDADDR, &ifreq) == 0)
+            {
+                getnameinfo(&ifreq.ifr_broadaddr, sizeof(ifreq.ifr_broadaddr), host, sizeof(host), 0, 0,
+                            NI_NUMERICHOST);
+            }
+
+            close(sock);
+        }
 #endif
 
-    return stringdup(host);
-}
+        return stringdup(host);
+    }
+
+    DllExport unsigned Material_GetShaderParameterKeysSize(Urho3D::Material* _target)
+    {
+        return _target->GetShaderParametersKeysSize();
+    }
+
+    DllExport void Material_GetShaderParameterGetKeys(Urho3D::Material* _target, unsigned int* buffer)
+    {
+
+        _target->GetShaderParametersKeys(buffer);
+    }
+
+    DllExport const MaterialShaderParameter* Material_GetMaterialShaderParameterPtr(Urho3D::Material* _target, int key)
+    {
+        StringHash h(key);
+
+        return _target->GetMaterialShaderParameterPtr(h);
+    }
+
+    DllExport void Drawable2D_SetSourceBatchesVertices(Drawable2D* _target, Vertex2D* vertex2DArraysPointer, int count)
+    {
+        _target->SetSourceBatches(vertex2DArraysPointer, count);
+    }
 
 
-DllExport unsigned Material_GetShaderParameterKeysSize(Urho3D::Material* _target)
-{
-    return _target->GetShaderParametersKeysSize();
-}
 
-DllExport void Material_GetShaderParameterGetKeys(Urho3D::Material* _target, unsigned int* buffer)
-{
+    DllExport int QoiEncode(const unsigned char *data, const qoi_desc desc,unsigned char *out_bytes)
+    {
+        return qoi_encode_ext(data,desc,out_bytes);
+    }
 
-    _target->GetShaderParametersKeys(buffer);
-}
+    DllExport int QoiDecode(const unsigned char *data, int size, qoi_desc *desc,unsigned char *out_pixels)
+    {
+        return qoi_decode_ext(data,size,desc,out_pixels);
+    }
 
-DllExport const MaterialShaderParameter* Material_GetMaterialShaderParameterPtr(Urho3D::Material* _target, int key)
-{
-    StringHash h(key);
-
-    return   _target->GetMaterialShaderParameterPtr(h);
-}
-
-DllExport void Drawable2D_SetSourceBatchesVertices(Drawable2D * _target, Vertex2D* vertex2DArraysPointer , int count)
-{
-    _target->SetSourceBatches(vertex2DArraysPointer , count);
-}
-
+   
 }
