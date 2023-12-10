@@ -398,6 +398,12 @@ extern "C"
 
     DllExport unsigned File_GetSize(File* target) { return target->GetSize(); }
 
+    DllExport int File_IsEof(File* target) { return target->IsEof() == true ? 1 : 0; }
+
+    DllExport unsigned File_SeekRelative(File* target, int delta) { return target->SeekRelative(delta); }
+
+    DllExport unsigned File_Tell(File* target) { return target->Tell(); }
+
     DllExport Interop::Vector3* Frustum_GetVertices(Frustum* frustum, int* count)
     {
         int size = NUM_FRUSTUM_VERTICES;

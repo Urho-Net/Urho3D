@@ -153,6 +153,7 @@ if(URHO3D_AUTOMATION)
 endif()
 
 add_subdirectory (ThirdParty/qoi)
+add_subdirectory (ThirdParty/pl_mpeg)
 
 # Urho3D game engine library
 add_subdirectory (Urho3D)
