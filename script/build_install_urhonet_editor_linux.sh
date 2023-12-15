@@ -1,5 +1,18 @@
+script_path=$(readlink -f "$0")
+scriptDir=$(dirname "$script_path")
+URHO3D_HOME=${scriptDir}/..
+
+configureFile=${scriptDir}/../../configure.sh
+if [ -e "$configureFile" ]; then
+    cd ${scriptDir}/../../
+    echo "configure.sh found , calling it !"
+    ./configure.sh
+fi
+
+
 URHONET_HOME_ROOT=$(cat ~/.urhonet_config/urhonethome)
-URHO3D_HOME=$(pwd)
+URHO3D_HOME=${scriptDir}/../
+
 
 if [ ! -d "$URHONET_HOME_ROOT" ]; then
     echo  "Urho.Net is not configured , please  run configure.sh (configure.bat on Windows) from the Urho.Net installation folder  "
@@ -21,6 +34,7 @@ else
 	alias aliassedinplace='sed -i""'
 fi
 
+cd ${URHO3D_HOME}
 ./script/build_install_linux_dotnet_editor_so.sh
 
 cd ${URHO3D_HOME}/DotNet/Bindings
