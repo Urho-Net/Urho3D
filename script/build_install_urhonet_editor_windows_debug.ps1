@@ -1,4 +1,13 @@
-$URHO3D_HOME=pwd
+$scriptDir = Split-Path -Parent $MyInvocation.MyCommand.Path
+$URHO3D_HOME=$scriptDir+"/../"
+
+$configureFile = $scriptDir+"/../../configure.bat"
+if (Test-Path -Path $configureFile -PathType Leaf) {
+    Write-Host "found configure.bat , calling it!"
+    & $configureFile
+}
+
+
 $URHONET_HOME_ROOT = cat $HOME/.urhonet_config/urhonethome
 if (Test-Path -Path $URHONET_HOME_ROOT) 
 {
@@ -9,6 +18,8 @@ else
     echo  "Urho.Net is not configured , please  run configure.sh (configure.bat on Windows) from the Urho.Net installation folder  "
     exit -1
 }
+
+cd $URHO3D_HOME
 
 # building the Native part an copy it to the Urho.Net folder
 script/cmake_vs2019_dotnet_editor_dll.bat build-vs2019-dotnet-editor-dll

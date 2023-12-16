@@ -491,7 +491,7 @@ plm_buffer_t *plm_buffer_create_with_filename(const char *filename);
 // to let plmpeg call fclose() on the handle when plm_destroy() is called.
 
 #ifdef USE_URHO_FILE
-plm_buffer_t *plm_buffer_create_with_file(Urho3D::File *fh, int close_when_done);
+DllExport plm_buffer_t *plm_buffer_create_with_file(Urho3D::File *fh, int close_when_done);
 #else
 plm_buffer_t *plm_buffer_create_with_file(FILE *fh, int close_when_done);
 #endif
@@ -502,13 +502,13 @@ plm_buffer_t *plm_buffer_create_with_file(FILE *fh, int close_when_done);
 // free_when_done to let plmpeg call free() on the pointer when plm_destroy() 
 // is called.
 
-plm_buffer_t *plm_buffer_create_with_memory(uint8_t *bytes, size_t length, int free_when_done);
+DllExport plm_buffer_t *plm_buffer_create_with_memory(uint8_t *bytes, size_t length, int free_when_done);
 
 
 // Create an empty buffer with an initial capacity. The buffer will grow
 // as needed. Data that has already been read, will be discarded.
 
-plm_buffer_t *plm_buffer_create_with_capacity(size_t capacity);
+DllExport plm_buffer_t *plm_buffer_create_with_capacity(size_t capacity);
 
 
 // Create an empty buffer with an initial capacity. The buffer will grow
@@ -521,7 +521,7 @@ plm_buffer_t *plm_buffer_create_for_appending(size_t initial_capacity);
 
 // Destroy a buffer instance and free all data
 
-void plm_buffer_destroy(plm_buffer_t *self);
+DllExport void plm_buffer_destroy(plm_buffer_t *self);
 
 
 // Copy data into the buffer. If the data to be written is larger than the 
@@ -530,7 +530,7 @@ void plm_buffer_destroy(plm_buffer_t *self);
 // passed in length, except when the buffer was created _with_memory() for
 // which _write() is forbidden.
 
-size_t plm_buffer_write(plm_buffer_t *self, uint8_t *bytes, size_t length);
+DllExport size_t plm_buffer_write(plm_buffer_t *self, uint8_t *bytes, size_t length);
 
 
 // Mark the current byte length as the end of this buffer and signal that no 
@@ -538,36 +538,36 @@ size_t plm_buffer_write(plm_buffer_t *self, uint8_t *bytes, size_t length);
 // just after the last plm_buffer_write().
 // For _with_capacity buffers, this is cleared on a plm_buffer_rewind().
 
-void plm_buffer_signal_end(plm_buffer_t *self);
+DllExport void plm_buffer_signal_end(plm_buffer_t *self);
 
 
 // Set a callback that is called whenever the buffer needs more data
 
-void plm_buffer_set_load_callback(plm_buffer_t *self, plm_buffer_load_callback fp, void *user);
+DllExport void plm_buffer_set_load_callback(plm_buffer_t *self, plm_buffer_load_callback fp, void *user);
 
 
 // Rewind the buffer back to the beginning. When loading from a file handle,
 // this also seeks to the beginning of the file.
 
-void plm_buffer_rewind(plm_buffer_t *self);
+DllExport void plm_buffer_rewind(plm_buffer_t *self);
 
 
 // Get the total size. For files, this returns the file size. For all other 
 // types it returns the number of bytes currently in the buffer.
 
-size_t plm_buffer_get_size(plm_buffer_t *self);
+DllExport size_t plm_buffer_get_size(plm_buffer_t *self);
 
 
 // Get the number of remaining (yet unread) bytes in the buffer. This can be
 // useful to throttle writing.
 
-size_t plm_buffer_get_remaining(plm_buffer_t *self);
+DllExport size_t plm_buffer_get_remaining(plm_buffer_t *self);
 
 
 // Get whether the read position of the buffer is at the end and no more data 
 // is expected.
 
-int plm_buffer_has_ended(plm_buffer_t *self);
+DllExport int plm_buffer_has_ended(plm_buffer_t *self);
 
 
 
