@@ -378,7 +378,6 @@ if (URHO3D_LUA)
 endif ()
 if (URHO3D_ANGLE_METAL)
      list (APPEND INCLUDE_DIRS ${THIRD_PARTY_INCLUDE_DIR}/angle)
-     set(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} -Wl,--allow-multiple-definition")
 endif ()
 if (URHO3D_OPENGL)
     list (APPEND INCLUDE_DIRS ${THIRD_PARTY_INCLUDE_DIR}/nanovg)
@@ -684,8 +683,12 @@ endif ()
 # Define post build steps
 if (URHO3D_LIB_TYPE STREQUAL SHARED AND ARM)
     # Strip the output shared library for embedded ARM platforms (we don't do this for Android anymore, assuming Android plugin will take care of it)
-    add_custom_command (TARGET ${TARGET_NAME} POST_BUILD COMMAND ${CMAKE_STRIP} $<TARGET_FILE:${TARGET_NAME}>
-        COMMENT "Stripping Urho3D shared library")
+    if (APPLE AND NOT IOS AND NOT TVOS)
+        # do nothing on Apple silicon
+    else()
+        add_custom_command (TARGET ${TARGET_NAME} POST_BUILD COMMAND ${CMAKE_STRIP} $<TARGET_FILE:${TARGET_NAME}>
+            COMMENT "Stripping Urho3D shared library")
+    endif ()
 endif ()
 if (URHO3D_SCP_TO_TARGET)
     # Ensure SCP is the last command
