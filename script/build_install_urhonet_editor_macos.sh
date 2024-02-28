@@ -43,12 +43,26 @@ cd ${URHO3D_HOME}
 
 rm -f ${URHO3D_HOME}/DotNet/UrhoDotNet/editor/UrhoDotNet.dll
 
-./script/make_csharp_editor_bindings.sh
-exit_status=$?
-if [ $exit_status -ne 0 ]; then
-echo "An error occurred while executing make_csharp_editor_bindings.sh Exiting."
-exit 1 
+input1=$1
+if [[ $input1 == "generate-bindings" ]]; then
+    ./script/make_csharp_editor_bindings.sh
+    exit_status=$?
+    if [ $exit_status -ne 0 ]; then
+    echo "An error occurred while executing make_csharp_editor_bindings.sh Exiting."
+    exit 1 
+    fi
+else 
+    # compiling only the UrhoNet  assembly
+    cd $URHO3D_HOME/DotNet/Bindings
+    ./build-editor-bindings.sh 
+    exit_status=$?
+    if [ $exit_status -ne 0 ]; then
+        echo "An error occurred while executing build-desktop-bindings.sh Exiting."
+        exit 1 
+    fi
+    cd $URHO3D_HOME
 fi
+
 
 # Check if the file doesn't exist
 if [ ! -e ${URHO3D_HOME}/DotNet/UrhoDotNet/editor/UrhoDotNet.dll ]; then
