@@ -154,7 +154,7 @@ endif ()
 if (NOT URHO3D_DOTNET)
     list (APPEND EXCLUDED_SOURCE_DIRS DotNet)
 endif ()
-if (APPLE AND NOT ARM)
+if (APPLE AND NOT IOS AND NOT TVOS) # Include also on Apple Silicon
     set (GLOB_OBJC_PATTERN *.m)     # Should only pick up MacFileWatcher.m for macOS platform at the moment
 endif ()
 string (REPLACE ";" "/[^;]+;" EXCLUDE_PATTERNS "${EXCLUDED_SOURCE_DIRS};")

@@ -29,6 +29,10 @@
 #include "SDL_cocoavulkan.h"
 #include "SDL_assert.h"
 
+#if SDL_VIDEO_OPENGL_EGL
+#include "SDL_cocoaopengles.h"
+#endif
+
 /* Initialization/Query functions */
 static int Cocoa_VideoInit(_THIS);
 static void Cocoa_VideoQuit(_THIS);

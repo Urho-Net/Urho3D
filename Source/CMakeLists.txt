@@ -139,6 +139,10 @@ if(URHO3D_ANGLE_METAL)
     add_subdirectory (ThirdParty/angle)
 endif()
 
+if (APPLE AND ARM AND NOT IOS AND NOT TVOS)
+    add_subdirectory (ThirdParty/LibCpuId)
+endif ()
+
 if(URHO3D_OPENGL)
     add_subdirectory (ThirdParty/nanovg)
 if(ANDROID OR IOS OR TVOS OR WEB OR RPI4)
