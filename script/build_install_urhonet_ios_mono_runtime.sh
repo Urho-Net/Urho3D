@@ -39,15 +39,19 @@ else
     cd runtime
 fi
 
-git checkout v6.0.21
+# Branch v6 fails to compile mono-aot-cross on apple silicon  
+# So using .NET7 runtime for iOS , assuming .NET6 apps will run without any issues
+git checkout v7.0.16
 
 sed -i "" "s*--minimize**g" "eng/native/functions.cmake"
 ./build.sh mono+libs  -os iOS -arch arm64  -c Release
 
+echo "Host processor = $(uname -m)"
+ARCHITECTURE=$(uname -m)
 cp -rf artifacts/bin/mono/iOS.arm64.Release/*.a  ${URHONET_HOME_ROOT}/template/libs/ios/
-cp -rf artifacts/bin/native/net6.0-iOS-Release-arm64/*.a ${URHONET_HOME_ROOT}/template/libs/ios/
-cp -rf artifacts/bin/runtime/net6.0-iOS-Release-arm64/*.dll ${URHONET_HOME_ROOT}/template/libs/dotnet/bcl/ios/
+cp -rf artifacts/bin/native/net7.0-iOS-Release-arm64/*.a ${URHONET_HOME_ROOT}/template/libs/ios/
+cp -rf artifacts/bin/runtime/net7.0-iOS-Release-arm64/*.dll ${URHONET_HOME_ROOT}/template/libs/dotnet/bcl/ios/
 cp -f artifacts/bin/mono/iOS.arm64.Release/System.Private.CoreLib.dll ${URHONET_HOME_ROOT}/template/libs/dotnet/bcl/ios/System.Private.CoreLib.dll
-cp -f artifacts/bin/mono/iOS.arm64.Release/cross/ios-arm64/mono-aot-cross  ${URHONET_HOME_ROOT}/tools/aotcompiler/ios/macos/ios-arm64/aarch64-apple-darwin-mono-sgen
+cp -f artifacts/bin/mono/iOS.arm64.Release/cross/ios-arm64/mono-aot-cross  ${URHONET_HOME_ROOT}/tools/aotcompiler/ios/macos/${ARCHITECTURE}/mono-aot-cross
 
 cd ${URHONET_HOME_ROOT}
