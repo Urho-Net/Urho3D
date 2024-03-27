@@ -77,6 +77,10 @@
 #include "../Automation/Automation.h"
 #endif
 
+#if defined(URHO3D_XAMARIN)
+#include "../Engine/Application.h"
+#endif
+
 #include "../DebugNew.h"
 
 

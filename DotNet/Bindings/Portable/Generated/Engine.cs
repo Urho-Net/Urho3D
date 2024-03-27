@@ -378,6 +378,15 @@ namespace Urho
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+		internal static extern void Engine_SetExiting (IntPtr handle, bool val);
+
+		private void SetExiting (bool val)
+		{
+			Runtime.ValidateRefCounted (this);
+			Engine_SetExiting (handle, val);
+		}
+
+		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
 		internal static extern bool Engine_IsHeadless (IntPtr handle);
 
 		/// <summary>
@@ -578,6 +587,9 @@ namespace Urho
 		public bool Exiting {
 			get {
 				return IsExiting ();
+			}
+			set {
+				SetExiting (value);
 			}
 		}
 

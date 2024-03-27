@@ -6455,6 +6455,13 @@ Engine_IsExiting (Urho3D::Engine *_target)
 }
 
 
+DllExport void
+Engine_SetExiting (Urho3D::Engine *_target, bool val)
+{
+	_target->SetExiting (val);
+}
+
+
 DllExport int
 Engine_IsHeadless (Urho3D::Engine *_target)
 {

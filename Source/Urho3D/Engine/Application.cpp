@@ -47,6 +47,8 @@ void RunFrame(void* data)
 }
 #endif
 
+Application * Application::CurrentApplication = nullptr;
+
 Application::Application(Context* context) :
     Object(context),
     exitCode_(EXIT_SUCCESS)
@@ -56,6 +58,7 @@ Application::Application(Context* context) :
     // Create the Engine, but do not initialize it yet. Subsystems except Graphics & Renderer are registered at this point
     engine_ = new Engine(context);
 
+    CurrentApplication = this;
     // Subscribe to log messages so that can show errors if ErrorExit() is called with empty message
     SubscribeToEvent(E_LOGMESSAGE, URHO3D_HANDLER(Application, HandleLogMessage));
 }

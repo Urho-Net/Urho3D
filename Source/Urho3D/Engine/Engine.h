@@ -115,6 +115,7 @@ public:
     /// Return whether exit has been requested.
     /// @property
     bool IsExiting() const { return exiting_; }
+    void SetExiting(bool val){  exiting_ = val; }
 
     /// Return whether the engine has been created in headless mode.
     /// @property
