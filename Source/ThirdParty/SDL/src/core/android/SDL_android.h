@@ -108,7 +108,7 @@ int Android_JNI_SetupThread(void);
 int Android_JNI_SendMessage(int command, int param);
 
 /* Init */
-JNIEXPORT void JNICALL SDL_Android_Init(JNIEnv* mEnv, jclass cls);
+JNIEXPORT void JNICALL SDL_Android_Init(JNIEnv* mEnv, jclass cls, jstring filesDir);
 
 /* MessageBox */
 #include "SDL_messagebox.h"

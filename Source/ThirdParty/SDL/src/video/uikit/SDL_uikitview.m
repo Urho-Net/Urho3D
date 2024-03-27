@@ -125,8 +125,17 @@ extern int SDL_AppleTVRemoteOpenedAsJoystick;
          * explicitly re-set it to make sure the view is properly attached to
          * the window. Just adding the sub-view if the root view controller is
          * already correct causes orientation issues on iOS 7 and below. */
-        data.uiwindow.rootViewController = nil;
-        data.uiwindow.rootViewController = data.viewcontroller;
+#ifdef URHO3D_XAMARIN
+// TBD ELI , needs more work in case of Metal backend ?
+        if (urhoPlaceholderView != NULL){
+            [urhoPlaceholderView addSubview:self];
+        } 
+        else 
+#endif
+        {
+            data.uiwindow.rootViewController = nil;
+            data.uiwindow.rootViewController = data.viewcontroller;
+        }
 
 #ifdef __IPHONEOS__
 #if !TARGET_OS_TV

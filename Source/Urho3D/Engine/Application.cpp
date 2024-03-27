@@ -90,7 +90,7 @@ int Application::Run()
         // support calling the Stop() function, as the application will never stop manually
 #else
 #if defined(IOS) || defined(TVOS)
-#if defined(URHO3D_DOTNET)
+#if defined(URHO3D_DOTNET) && !defined(URHO3D_XAMARIN)
         while (!engine_->IsExiting())
             SDL_iPhoneRunFrameCallback(&RunFrame, engine_);
 #else

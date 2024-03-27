@@ -17,7 +17,6 @@ using Urho.Resources;
 using Urho.Actions;
 using Urho.Gui;
 using System.Threading;
-using Urho.UIActions;
 
 namespace Urho
 {
@@ -67,8 +66,8 @@ namespace Urho
             private set { currentContext = value; }
         }
 
-        public static WeakReference CurrentSurface { get; internal set; }
-        public static WeakReference CurrentWindow { get; internal set; }
+        public static WeakReference CurrentSurface { get;  set; }
+        public static WeakReference CurrentWindow { get;  set; }
 
         // see Drawable2D.h:66
         public const float PixelSize = 0.01f;
@@ -103,7 +102,9 @@ namespace Urho
 
         internal static ApplicationOptions CurrentOptions => current?.Options;
 
-        internal object UrhoSurface { get; set; }
+        public object UrhoSurface { get; set; }
+
+        bool subscribedToEvents = false;
 
         /// <summary>
         /// Application options
@@ -169,7 +170,6 @@ namespace Urho
             var timeStep = args.TimeStep;
             Update?.Invoke(args);
             ActionManager.Update(timeStep);
-            UIActionManager.Update(timeStep);
             OnUpdate(timeStep);
 
             MainLoopDispatcher.HandleUpdate(timeStep);
@@ -206,72 +206,90 @@ namespace Urho
 
         [MonoPInvokeCallback(typeof(ActionIntPtr))]
         static void ProxyStop(IntPtr h)
-        {
-            isExiting = true;
-            if (CancelActiveActionsOnStop)
-            {
-                Current.ActionManager.CancelActiveActions();
-                Current.UIActionManager.CancelActiveActions();
-            }
-            LogSharp.Debug("ProxyStop");
-            UrhoPlatformInitializer.Initialized = false;
-            var context = Current?.Context;
-            var app = GetApp(h);
-            if (app != null)
-            {
-                app.IsClosed = true;
-                app.Stop();
-            }
+		{
+			isExiting = true;
+			if (CancelActiveActionsOnStop)
+				Current.ActionManager.CancelActiveActions();
+			LogSharp.Debug("ProxyStop");
+			UrhoPlatformInitializer.Initialized = false;
+			var context = Current.Context;
+			var app = GetApp(h);
+			app.IsClosed = true;
+			app.Stop();
 
-            LogSharp.Debug("ProxyStop: Runtime.Cleanup");
-            Runtime.Cleanup(Platform != Platforms.Android);
-            LogSharp.Debug("ProxyStop: Disposing context");
-            Current = null;
+			LogSharp.Debug("ProxyStop: Runtime.Cleanup");
+			Runtime.Cleanup(Platform != Platforms.Android);
+			LogSharp.Debug("ProxyStop: Disposing context");
+			Current = null;
 
-            Stopped?.Invoke();
-            LogSharp.Debug("ProxyStop: end");
-            exitTask?.TrySetResult(true);
-        }
+			Stopped?.Invoke();
+			LogSharp.Debug("ProxyStop: end");
+			exitTask?.TrySetResult(true);
+		}
 
         void SubscribeToAppEvents()
         {
-            Engine.SubscribeToUpdate(HandleUpdate);
-            Time.FrameStarted += Time_FrameStarted;
-            Time.FrameEnded += Time_FrameEnded;
+            if (subscribedToEvents == false)
+            {
+                subscribedToEvents = true;
+                Engine.Update += HandleUpdate;
+                Time.FrameStarted += Time_FrameStarted;
+                Time.FrameEnded += Time_FrameEnded;
+            }
+        }
+
+        public void UnSubscribeFomAppEvents()
+        {
+            if (subscribedToEvents == true)
+            {
+                subscribedToEvents = false;
+                Engine.Update -= HandleUpdate;
+                Time.FrameStarted -= Time_FrameStarted;
+                Time.FrameEnded -= Time_FrameEnded;
+            }
         }
 
         SemaphoreSlim stopSemaphore = new SemaphoreSlim(1);
 
 
-        internal static void WaitStart()
+        public static void WaitStart()
         {
             waitFrameEndTaskSource = new TaskCompletionSource<bool>();
             waitFrameEndTaskSource.Task.Wait(3000);
         }
 
-        internal static async Task StopCurrent()
+        public static async Task StopCurrent()
         {
             if (current == null || !current.IsActive)
                 return;
 
+#if __ANDROID__
+            Current.UnSubscribeFomAppEvents();
+			Org.Libsdl.App.SDLActivity.OnDestroy();
+			return;
+#endif
             // TBD ELI , removed Current.Input.Enabled = false;
             isExiting = true;
+#if __IOS__
+            iOS.UrhoSurface.StopRendering(current);
+            Current.Engine.Exiting = true;
+            await Task.Delay(50);
+#endif
+
 
 #if WINDOWS_UWP && !UWP_HOLO
 			UWP.UrhoSurface.StopRendering().Wait();
 #endif
-            LogSharp.Debug($"StopCurrent: Current.IsFrameRendering={Current.IsFrameRendering}");
             if (Current.IsFrameRendering)// && !Current.Engine.PauseMinimized)
             {
                 waitFrameEndTaskSource = new TaskCompletionSource<bool>();
                 await waitFrameEndTaskSource.Task;
-                LogSharp.Debug($"StopCurrent: waitFrameEndTaskSource awaited");
                 waitFrameEndTaskSource = null;
             }
-            LogSharp.Debug($"StopCurrent: Engine.Exit");
-
+          
+            Current.UnSubscribeFomAppEvents();
+            await Task.Delay(50);
             Current.Engine.Exit();
-
 
             if (Current.Options.DelayedStart)
                 ProxyStop(Current.Handle);
@@ -323,14 +341,14 @@ namespace Urho
 #endif
 
         public event Action Paused;
-        internal static void HandlePause()
+        public static void HandlePause()
         {
             if (HasCurrent)
                 Current.Paused?.Invoke();
         }
 
         public event Action Resumed;
-        internal static void HandleResume()
+        public  static void HandleResume()
         {
             if (HasCurrent)
                 Current.Resumed?.Invoke();
@@ -345,18 +363,6 @@ namespace Urho
                 if (actionManager == null)
                     actionManager = new ActionManager();
                 return actionManager;
-            }
-        }
-
-        UIActionManager uiActionManager;
-        public UIActionManager UIActionManager
-        {
-            get
-            {
-                Runtime.Validate(typeof(Application));
-                if (uiActionManager == null)
-                    uiActionManager = new UIActionManager();
-                return uiActionManager;
             }
         }
 

@@ -26,7 +26,7 @@ namespace Urho
 #elif WINDOWS_UWP
 			UWP.UwpUrhoInitializer.OnInited();
 #elif NETCOREAPP2_1
-			NetCore.NetCoreUrhoInitializer.OnInited();
+			// TBD ELI NetCore.NetCoreUrhoInitializer.OnInited();
 #elif __WEB__
 			Web.WebPlatformInitializer.OnInited();
 #else

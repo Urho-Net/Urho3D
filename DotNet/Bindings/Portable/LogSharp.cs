@@ -16,7 +16,9 @@ namespace Urho
 			if (level < LogLevel)
 				return;
 #if __ANDROID__
-			Urho.IO.Log.Write(Urho.LogLevel.Warning,str);
+			//TBD ELI causing exception during exit
+			//Urho.IO.Log.Write(Urho.LogLevel.Warning,str);
+			System.Console.WriteLine($"{level}: {str}");
 #else
 			System.Console.WriteLine($"{level}: {str}");
 #endif

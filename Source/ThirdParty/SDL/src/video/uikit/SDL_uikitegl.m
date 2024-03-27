@@ -103,12 +103,43 @@ UIKIT_GLES_SetupWindow(_THIS, SDL_Window * window)
     /* Create the GLES window surface */
 #ifdef URHO3D_ANGLE_METAL
     windowdata.metalLayer  = [[CAMetalLayer alloc] init];
-    [windowdata.uiwindow.layer addSublayer:windowdata.metalLayer];
-    windowdata.metalLayer.frame = windowdata.uiwindow.layer.bounds;
-    windowdata.metalLayer.contentsScale = windowdata.uiwindow.layer.contentsScale;
-    windowdata.metalLayer.drawableSize =
+    
+#ifdef URHO3D_XAMARIN
+    if(urhoPlaceholderWindow != NULL)
+    {
+        [urhoPlaceholderWindow.layer addSublayer:windowdata.metalLayer];
+    }
+    else
+#endif
+    {
+        [windowdata.uiwindow.layer addSublayer:windowdata.metalLayer];
+    }
+
+#ifdef URHO3D_XAMARIN
+    if (urhoPlaceholderView != NULL)
+    {
+        CGRect globalFrame = [urhoPlaceholderView convertRect:urhoPlaceholderView.bounds toView:nil];
+        if (CGRectIsNull(globalFrame)) {
+            windowdata.metalLayer.frame = urhoPlaceholderView.frame;
+        }
+        else
+        {
+            windowdata.metalLayer.frame = globalFrame;
+        }
+        windowdata.metalLayer.contentsScale = windowdata.uiwindow.layer.contentsScale;
+        windowdata.metalLayer.drawableSize =
         CGSizeMake(windowdata.metalLayer.bounds.size.width * windowdata.metalLayer.contentsScale,
                    windowdata.metalLayer.bounds.size.height * windowdata.metalLayer.contentsScale);
+    }
+    else
+#endif
+    {
+        windowdata.metalLayer.frame = windowdata.uiwindow.layer.bounds;
+        windowdata.metalLayer.contentsScale = windowdata.uiwindow.layer.contentsScale;
+        windowdata.metalLayer.drawableSize =
+        CGSizeMake(windowdata.metalLayer.bounds.size.width * windowdata.metalLayer.contentsScale,
+                   windowdata.metalLayer.bounds.size.height * windowdata.metalLayer.contentsScale);
+    }
     windowdata.egl_surface = SDL_EGL_CreateSurface(_this, (__bridge NativeWindowType)windowdata.metalLayer);
 #else
     windowdata.egl_surface = SDL_EGL_CreateSurface(_this, (__bridge NativeWindowType)windowdata.uiwindow);
@@ -117,8 +148,12 @@ UIKIT_GLES_SetupWindow(_THIS, SDL_Window * window)
     if (windowdata.egl_surface == EGL_NO_SURFACE) {
         return SDL_SetError("Could not create GLES window surface");
     }
-
-    return UIKIT_GLES_MakeCurrent(_this, current_win, current_ctx);    
+    
+#if  defined(URHO3D_XAMARIN) && defined(URHO3D_ANGLE_METAL)
+    return 0;
+#else
+    return UIKIT_GLES_MakeCurrent(_this, current_win, current_ctx);
+#endif
 }}
 
 void UIKIT_GLES_GetDrawableSize(_THIS, SDL_Window * window,

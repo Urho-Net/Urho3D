@@ -283,7 +283,7 @@ namespace Urho
         /// <summary>
         /// Save all in-memory touch gestures. Return true if successful.
         /// </summary>
-        public bool SaveGestures(File dest)
+        public bool SaveGestures(Urho.IO.File dest)
         {
             Runtime.ValidateRefCounted(this);
             return Input_SaveGestures_File(handle, (object)dest == null ? IntPtr.Zero : dest.Handle);
@@ -307,7 +307,7 @@ namespace Urho
         /// <summary>
         /// Save a specific in-memory touch gesture to a file. Return true if successful.
         /// </summary>
-        public bool SaveGesture(File dest, uint gestureID)
+        public bool SaveGesture(Urho.IO.File dest, uint gestureID)
         {
             Runtime.ValidateRefCounted(this);
             return Input_SaveGesture_File(handle, (object)dest == null ? IntPtr.Zero : dest.Handle, gestureID);
@@ -331,7 +331,7 @@ namespace Urho
         /// <summary>
         /// Load touch gestures from a file. Return number of loaded gestures, or 0 on failure.
         /// </summary>
-        public uint LoadGestures(File source)
+        public uint LoadGestures(Urho.IO.File source)
         {
             Runtime.ValidateRefCounted(this);
             return Input_LoadGestures_File(handle, (object)source == null ? IntPtr.Zero : source.Handle);

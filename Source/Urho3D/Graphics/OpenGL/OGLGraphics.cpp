@@ -463,8 +463,10 @@ bool Graphics::SetScreenMode(int width, int height, const ScreenModeParams& para
         const int y = reposition ? display_rect.y : position_.y_;
 
         unsigned flags = SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN;
-        if (newParams.fullscreen_)
-            flags |= SDL_WINDOW_FULLSCREEN;
+#if !(defined(URHO3D_XAMARIN) && (defined(IOS) || defined(TVOS)))
+       if (newParams.fullscreen_)
+           flags |= SDL_WINDOW_FULLSCREEN;
+#endif
         if (newParams.borderless_)
             flags |= SDL_WINDOW_BORDERLESS;
         if (newParams.resizable_)

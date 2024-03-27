@@ -29,7 +29,7 @@ namespace Urho.SharpReality
 			var staticModel = CursorModelNode.CreateComponent<StaticModel>();
 			staticModel.Model = CoreAssets.Models.Torus;
 			Material mat = new Material();
-			mat.SetTechnique(0, CoreAssets.Techniques.NoTextureOverlay, 1, 1);
+			mat.SetTechnique(0, CoreAssets.Techniques.NoTextureOverlay, Urho.MaterialQuality.Medium, 1);
 			mat.SetShaderParameter("MatDiffColor", Color.Cyan);
 			RunIdleAnimation();
 			staticModel.SetMaterial(mat);

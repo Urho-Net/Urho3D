@@ -49,14 +49,6 @@ class MainActivity : UrhoActivity() {
         val regex = Regex("^(?:Urho3D|.+_shared)\$")
         libraryNames.retainAll { regex.matches(it) }
 
-        // Parse the argument string
-        val argumentString = intent.getStringExtra(argument)
-        if (argumentString != null) arguments = argumentString.split(':')
-        else throw IllegalArgumentException("The MainActivity requires an argument to start")
-
-        // Must add the chosen sample library to the last of the list
-        libraryNames.add(arguments[0])
-
         super.onLoadLibrary(libraryNames)
     }
 

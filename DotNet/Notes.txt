@@ -94,3 +94,21 @@ security find-identity -v -p codesigning
 codesign --force --timestamp --sign <name of certificate> <binary you want to sign>
 
 Verify : codesign -vvvv 
+
+
+Xamarin iOS integration notes
+------------------------------------------------------------------
+To be added to info.plist , Bluetooth permissions otherwise the application will crash , I guess I am going to disable BT HID on the SDL side.
+
+	<key>NSBluetoothAlwaysUsageDescription</key>
+	<string>Our app uses bluetooth to find, connect and transfer data between different devices</string>
+	<key>NSBluetoothPeripheralUsageDescription</key>
+	<string>Our app uses bluetooth to find, connect and transfer data between different devices</string>
+
+
+To be added to the Xamarin project :
+- Reference to to UrhoDotNet.dll  assembly , specifficaly built for Xamarin.iOS
+- Link to to libUrho3D.a 
+For example on Visual Studio for Mac  , adding the line in Project properties -> IOS -> Build -> IPhone -> Additional arguments
+gcc_flags "-L${ProjectDir} -L/Users/elialoni/Development/Urho3D-Dotnet/Xamarin/libs/iphone/Debug-iphoneos -lUrho3D-GLES -lc++ -framework AudioToolbox  -framework AVFoundation -framework CoreAudio -framework CoreBluetooth -framework CoreGraphics -framework CoreMotion -framework Foundation  -framework GameController -framework QuartzCore -framework OpenGLES -framework UIKit -framework Security -framework GSS -framework CFNetwork  -framework SystemConfiguration -force_load /Users/elialoni/Development/Urho3D-Dotnet/Xamarin/libs/iphone/Debug-iphoneos/libUrho3D-GLES.a"
+

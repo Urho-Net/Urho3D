@@ -731,6 +731,88 @@ JNIEXPORT int JNICALL SDL_JAVA_INTERFACE(nativeRunMain)(JNIEnv *env, jclass cls,
     return status;
 }
 
+/* This prototype is needed to prevent a warning about the missing prototype for global function below */
+JNIEXPORT int JNICALL SDL_JAVA_INTERFACE(nativeInit)(JNIEnv* env, jclass cls, jobject array, jstring filesDir);
+
+/* Start up the SDL app */
+JNIEXPORT int JNICALL SDL_JAVA_INTERFACE(nativeInit)(JNIEnv* env, jclass cls, jobject array, jstring filesDir)
+{
+    int i;
+    int argc;
+    int status;
+    int len;
+    char** argv;
+
+    __android_log_print(ANDROID_LOG_VERBOSE, "SDL", "nativeInit() enter");
+
+    Android_JNI_SetupThread();
+
+    // Copy the files dir
+    const char *str;
+    str = (*env)->GetStringUTFChars(env, filesDir, 0);
+    if (str)
+    {
+        if (mFilesDir)
+            free(mFilesDir);
+
+        size_t length = strlen(str) + 1;
+        mFilesDir = (char*)malloc(length);
+        memcpy(mFilesDir, str, length);
+        (*env)->ReleaseStringUTFChars(env, filesDir, str);
+    }
+
+    if (mActivityClass)
+    {
+        (*env)->DeleteGlobalRef(env, mActivityClass);
+        mActivityClass = NULL;
+    }
+    
+    mActivityClass = (jclass)((*env)->NewGlobalRef(env, cls));
+    
+
+    SDL_SetMainReady();
+
+    /* Prepare the arguments. */
+
+    len = (*env)->GetArrayLength(env, array);
+    argv = SDL_stack_alloc(char*, len + 1);
+    argc = 0;
+    // Urho3D: avoid hard-coding the "app_process" as the first argument
+    for (i = 0; i < len; ++i) {
+        const char* utf;
+        char* arg = NULL;
+        jstring string = (*env)->GetObjectArrayElement(env, array, i);
+        if (string) {
+            utf = (*env)->GetStringUTFChars(env, string, 0);
+            if (utf) {
+                arg = SDL_strdup(utf);
+                (*env)->ReleaseStringUTFChars(env, string, utf);
+            }
+            (*env)->DeleteLocalRef(env, string);
+        }
+        if (!arg) {
+            arg = SDL_strdup("");
+        }
+        argv[argc++] = arg;
+    }
+    argv[argc] = NULL;
+
+    /* Run the application. */
+
+    status = SDL_main(argc, argv);
+
+    /* Release the arguments. */
+
+    for (i = 0; i < argc; ++i) {
+        SDL_free(argv[i]);
+    }
+    SDL_stack_free(argv);
+    /* Do not issue an exit or the whole application will terminate instead of just the SDL thread */
+    /* exit(status); */
+    __android_log_print(ANDROID_LOG_VERBOSE, "SDL", "nativeInit() exit");
+    return status;
+}
+
 /* Drop file */
 JNIEXPORT void JNICALL SDL_JAVA_INTERFACE(onNativeDropFile)(
                                     JNIEnv *env, jclass jcls,
@@ -909,6 +991,7 @@ JNIEXPORT void JNICALL SDL_JAVA_INTERFACE(onNativeSurfaceCreated)(JNIEnv *env, j
 
     if (Android_Window)
     {
+        __android_log_print(ANDROID_LOG_ERROR, "SDL", "onNativeSurfaceCreated");
         SDL_WindowData *data = (SDL_WindowData *) Android_Window->driverdata;
 
         data->native_window = Android_JNI_GetNativeWindow();
@@ -927,11 +1010,17 @@ JNIEXPORT void JNICALL SDL_JAVA_INTERFACE(onNativeSurfaceChanged)(JNIEnv *env, j
 
     if (Android_Window)
     {
+        __android_log_print(ANDROID_LOG_ERROR, "SDL", "onNativeSurfaceChanged");
         SDL_VideoDevice *_this = SDL_GetVideoDevice();
         SDL_WindowData  *data  = (SDL_WindowData *) Android_Window->driverdata;
 
         /* If the surface has been previously destroyed by onNativeSurfaceDestroyed, recreate it here */
         if (data->egl_surface == EGL_NO_SURFACE) {
+            if(data->native_window) 
+            {
+                 ANativeWindow_release(data->native_window);
+            }
+            data->native_window = Android_JNI_GetNativeWindow();
             data->egl_surface = SDL_EGL_CreateSurface(_this, (NativeWindowType) data->native_window);
         }
 
@@ -948,6 +1037,8 @@ JNIEXPORT void JNICALL SDL_JAVA_INTERFACE(onNativeSurfaceDestroyed)(JNIEnv *env,
 
     if (Android_Window)
     {
+        __android_log_print(ANDROID_LOG_ERROR, "SDL", "onNativeSurfaceDestroyed");
+
         SDL_VideoDevice *_this = SDL_GetVideoDevice();
         SDL_WindowData  *data  = (SDL_WindowData *) Android_Window->driverdata;
 
@@ -1064,7 +1155,7 @@ JNIEXPORT void JNICALL SDL_JAVA_INTERFACE(nativeSendQuit)(
                                     JNIEnv *env, jclass cls)
 {
     // Urho3D: added log print
-    __android_log_print(ANDROID_LOG_VERBOSE, "SDL", "nativeQuit()");
+    __android_log_print(ANDROID_LOG_VERBOSE, "SDL", "nativeSendQuit()");
     // Urho3D: Free the memory that we allocate during init
     if (mFilesDir) {
         free(mFilesDir);
@@ -1092,7 +1183,8 @@ JNIEXPORT void JNICALL SDL_JAVA_INTERFACE(nativeQuit)(
                                     JNIEnv *env, jclass cls)
 {
     const char *str;
-
+    __android_log_print(ANDROID_LOG_VERBOSE, "SDL", "nativeQuit enter");
+  
     if (Android_ActivityMutex) {
         SDL_DestroyMutex(Android_ActivityMutex);
         Android_ActivityMutex = NULL;
@@ -1107,6 +1199,7 @@ JNIEXPORT void JNICALL SDL_JAVA_INTERFACE(nativeQuit)(
         SDL_DestroySemaphore(Android_ResumeSem);
         Android_ResumeSem = NULL;
     }
+
 
     str = SDL_GetError();
     if (str && str[0]) {
@@ -1125,6 +1218,7 @@ JNIEXPORT void JNICALL SDL_JAVA_INTERFACE(nativePause)(
     __android_log_print(ANDROID_LOG_VERBOSE, "SDL", "nativePause()");
 
     if (Android_Window) {
+        SDL_SendWindowEvent(Android_Window, SDL_WINDOWEVENT_FOCUS_LOST, 0, 0);
         SDL_SendWindowEvent(Android_Window, SDL_WINDOWEVENT_MINIMIZED, 0, 0);
         SDL_SendAppEvent(SDL_APP_WILLENTERBACKGROUND);
         SDL_SendAppEvent(SDL_APP_DIDENTERBACKGROUND);
@@ -1150,6 +1244,7 @@ JNIEXPORT void JNICALL SDL_JAVA_INTERFACE(nativeResume)(
     if (Android_Window) {
         SDL_SendAppEvent(SDL_APP_WILLENTERFOREGROUND);
         SDL_SendAppEvent(SDL_APP_DIDENTERFOREGROUND);
+        SDL_SendWindowEvent(Android_Window, SDL_WINDOWEVENT_FOCUS_GAINED, 0, 0);
         SDL_SendWindowEvent(Android_Window, SDL_WINDOWEVENT_RESTORED, 0, 0);
     }
 

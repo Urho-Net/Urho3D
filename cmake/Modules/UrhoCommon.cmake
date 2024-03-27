@@ -178,6 +178,7 @@ option (URHO3D_DOTNET "Enable DotNet support" FALSE)
 option (URHO3D_DOTNET_ASSIMP "Enable Assimp support on Desktop if DotNet enabled" FALSE)
 option (URHO3D_DOTNET_EDITOR "Enable Editor support on Desktop if DotNet enabled" FALSE)
 option (URHO3D_AUTOMATION "Enable automation tool on desktop only" FALSE)
+option (URHO3D_XAMARIN "Enable .NET Xamarin support" FALSE)
 
 
 if(URHO3D_DOTNET AND EMSCRIPTEN)
@@ -493,7 +494,8 @@ if (URHO3D_CLANG_TOOLS)
             URHO3D_DOTNET
             URHO3D_DOTNET_ASSIMP
             URHO3D_DOTNET_EDITOR
-            URHO3D_AUTOMATION)
+            URHO3D_AUTOMATION
+            URHO3D_XAMARIN)
         set (${OPT} 1)
     endforeach ()
     foreach (OPT URHO3D_TESTING URHO3D_LUAJIT URHO3D_DATABASE_ODBC)
@@ -560,7 +562,8 @@ foreach (OPT
         URHO3D_DOTNET
         URHO3D_DOTNET_ASSIMP
         URHO3D_DOTNET_EDITOR
-        URHO3D_AUTOMATION)
+        URHO3D_AUTOMATION
+        URHO3D_XAMARIN)
     if (${OPT})
         add_definitions (-D${OPT})
     endif ()

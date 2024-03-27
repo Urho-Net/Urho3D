@@ -13,7 +13,7 @@ namespace Urho.SharpReality
 			var geom = node.CreateComponent<CustomGeometry>();
 			geom.BeginGeometry(0, PrimitiveType.LineList);
 			var material = new Material();
-			material.SetTechnique(0, CoreAssets.Techniques.NoTextureUnlitVCol, 1, 1);
+			material.SetTechnique(0, CoreAssets.Techniques.NoTextureUnlitVCol, Urho.MaterialQuality.Medium, 1);
 			geom.SetMaterial(material);
 
 			var halfSize = horizontalSize / 2;

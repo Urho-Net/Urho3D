@@ -30,6 +30,11 @@
 #include "../SDL_egl_c.h"
 #endif
 
+#ifdef URHO3D_XAMARIN
+   UIView *urhoPlaceholderView;
+   UIWindow *urhoPlaceholderWindow;
+#endif
+
 extern int UIKit_CreateWindow(_THIS, SDL_Window * window);
 extern void UIKit_SetWindowTitle(_THIS, SDL_Window * window);
 extern void UIKit_ShowWindow(_THIS, SDL_Window * window);

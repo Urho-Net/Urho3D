@@ -61,7 +61,9 @@
 
    See src/video/uikit/SDL_uikitappdelegate.m for more details.
  */
+#if !defined(URHO3D_XAMARIN)
 #define SDL_MAIN_NEEDED
+#endif
 
 #elif defined(__ANDROID__)
 /* On Android SDL provides a Java class in SDLActivity.java that is the

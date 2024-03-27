@@ -664,9 +664,24 @@ void Engine::SetNextTimeStep(float seconds)
 
 void Engine::Exit()
 {
-#if defined(IOS) || defined(TVOS)
+#if (defined(IOS) || defined(TVOS))
     // On iOS/tvOS it's not legal for the application to exit on its own, instead it will be minimized with the home key
+    #if defined(URHO3D_XAMARIN)
+        if(Application::CurrentApplication != nullptr)
+        {
+            Application::CurrentApplication->Stop();
+            Application::CurrentApplication = nullptr;
+        }
+        DoExit();
+    #endif
 #else
+    #if defined(__ANDROID__) && defined(URHO3D_XAMARIN)
+        if(Application::CurrentApplication != nullptr)
+        {
+            Application::CurrentApplication->Stop();
+            Application::CurrentApplication = nullptr;
+        }
+    #endif
     DoExit();
 #endif
 }
@@ -1054,7 +1069,9 @@ void Engine::DoExit()
 {
 #if defined(URHO3D_ANGLE_METAL)
         exiting_ = true;
+    #if !defined(URHO3D_XAMARIN)
         Time::Sleep(250);
+    #endif
 #endif
     auto* graphics = GetSubsystem<Graphics>();
     if (graphics)
@@ -1063,6 +1080,9 @@ void Engine::DoExit()
     exiting_ = true;
 #if defined(__EMSCRIPTEN__) && defined(URHO3D_TESTING)
     emscripten_force_exit(EXIT_SUCCESS);    // Some how this is required to signal emrun to stop
+#endif
+#if defined(URHO3D_XAMARIN)
+    context_->ReleaseRef();
 #endif
 }
 

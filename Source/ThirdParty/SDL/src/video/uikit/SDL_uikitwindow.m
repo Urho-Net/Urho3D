@@ -174,9 +174,15 @@ UIKit_CreateWindow(_THIS, SDL_Window *window)
         SDL_assert(_this->windows == window);
 
         /* We currently only handle a single window per display on iOS */
+#ifdef URHO3D_XAMARIN
+        if (window->next != NULL && urhoPlaceholderWindow == NULL) {
+            return SDL_SetError("Only one window allowed per display.");
+        }
+#else
         if (window->next != NULL) {
             return SDL_SetError("Only one window allowed per display.");
         }
+#endif
 
         /* If monitor has a resolution of 0x0 (hasn't been explicitly set by the
          * user, so it's in standby), try to force the display to a resolution
@@ -219,7 +225,17 @@ UIKit_CreateWindow(_THIS, SDL_Window *window)
 
         /* ignore the size user requested, and make a fullscreen window */
         /* !!! FIXME: can we have a smaller view? */
+#ifdef URHO3D_XAMARIN
+        UIWindow *uiwindow;
+        if (!urhoPlaceholderWindow){
+            uiwindow = [SDL_uikitwindow alloc];
+            uiwindow = [uiwindow initWithFrame:[data.uiscreen bounds]];
+        } else {
+            uiwindow = urhoPlaceholderWindow;
+        }
+#else
         UIWindow *uiwindow = [[SDL_uikitwindow alloc] initWithFrame:data.uiscreen.bounds];
+#endif
 
 #ifdef URHO3D_ANGLE_METAL        
         if((window->flags & SDL_WINDOW_ALLOW_HIGHDPI))
@@ -521,16 +537,23 @@ UIKit_StopRenderLoop(SDL_Window * window)
         if (window->driverdata != NULL) {
             SDL_WindowData *data = (SDL_WindowData *) CFBridgingRelease(window->driverdata);
             [data.viewcontroller stopAnimation];
+#if defined(URHO3D_ANGLE_METAL) && defined(URHO3D_XAMARIN)
+            if (data.metalLayer != nil)
+            {
+                data.metalLayer.hidden = YES;
+                [data.metalLayer removeFromSuperlayer];
+            }
+#endif
         }
     }
 }
 
 void SDL_SetExternalViewPlaceholder(UIView* view, UIWindow* window){
-    /* TBD ELI 
+#ifdef URHO3D_XAMARIN
     urhoPlaceholderView = view;
     urhoPlaceholderWindow = window;
-     */
     //TODO: cleanup?
+#endif
 }
 #endif
 

@@ -50,7 +50,8 @@ android {
                             "URHO3D_ANGELSCRIPT",
                             "URHO3D_GLES3",
                             "URHO3D_LUA",
-                            "URHO3D_DOTNET"
+                            "URHO3D_DOTNET",
+                            "URHO3D_XAMARIN"
                         )
                             .filter { project.hasProperty(it) }
                             .map { "-D$it=${project.property(it)}" }

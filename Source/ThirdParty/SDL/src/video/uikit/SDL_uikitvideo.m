@@ -212,6 +212,10 @@ UIKit_IsSystemVersionAtLeast(double version)
 CGRect
 UIKit_ComputeViewFrame(SDL_Window *window, UIScreen *screen)
 {
+#ifdef URHO3D_XAMARIN
+    if (urhoPlaceholderView != NULL)
+        return urhoPlaceholderView.frame;
+#endif
 #ifdef URHO3D_ANGLE_METAL
     SDL_WindowData *windowdata = (__bridge SDL_WindowData *)window->driverdata;
 #endif

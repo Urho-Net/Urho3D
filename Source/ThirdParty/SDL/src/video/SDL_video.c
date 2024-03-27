@@ -2890,7 +2890,10 @@ SDL_VideoQuit(void)
     }
     SDL_free(_this->clipboard_text);
     _this->clipboard_text = NULL;
+    // TBD ELI , needs investigation why it is causing exception on iOS
+#ifndef URHO3D_XAMARIN
     _this->free(_this);
+#endif
     _this = NULL;
 }
 

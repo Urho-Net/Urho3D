@@ -64,13 +64,16 @@ const char* SDL_IOS_GetDocumentsDir()
 }
 #endif
 
-/* TBD ELI 
-#if defined(ANDROID) || defined(IOS)
-// Entry point for SDL (Android)
-int RunApplication()
-{
-	return sdlCallback(NULL);
-}
-URHO3D_DEFINE_MAIN(RunApplication());
+#if defined(URHO3D_XAMARIN)
+	#if defined(ANDROID) || defined(IOS)
+		// Entry point for SDL (Android)
+		int RunApplication()
+		{
+			if (sdlCallback != nullptr)
+				return sdlCallback(NULL);
+			
+			return 0;
+		}
+		URHO3D_DEFINE_MAIN(RunApplication());
+	#endif
 #endif
- */
