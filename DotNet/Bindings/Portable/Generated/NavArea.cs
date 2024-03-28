@@ -12,6 +12,8 @@ using Urho.IO;
 using Urho.Navigation;
 using Urho.Network;
 using File = Urho.IO.File;
+using ListView = Urho.Gui.ListView;
+using Button = Urho.Gui.Button;
 
 namespace Urho.Navigation
 {

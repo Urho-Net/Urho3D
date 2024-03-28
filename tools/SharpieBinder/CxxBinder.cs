@@ -173,6 +173,7 @@ namespace SharpieBinder
             syntaxTree.Members.Add(new UsingDeclaration() { Import = new SimpleType("Urho.Network") });
             syntaxTree.Members.Add(new UsingDeclaration() { Import = new SimpleType("File = Urho.IO.File") });
             syntaxTree.Members.Add(new UsingDeclaration() { Import = new SimpleType("ListView = Urho.Gui.ListView") });
+            syntaxTree.Members.Add(new UsingDeclaration() { Import = new SimpleType("Button = Urho.Gui.Button") });
 
             var ns = new NamespaceDeclaration(hostns);
             syntaxTree.Members.Add(ns);
