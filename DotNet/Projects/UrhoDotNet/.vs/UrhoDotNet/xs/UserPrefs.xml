@@ -1,0 +1,52 @@
+﻿<Properties StartupConfiguration="{1ED06B89-C861-45F1-8128-8DA50C65DE3A}|Default">
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.ItemProperties.UrhoXamarinFormsAndroid PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints />
+  <MonoDevelop.Ide.ItemProperties.UrhoXamarinAndroid PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.ItemProperties.Urho.Droid.SdlBinding PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="../../Bindings/iOS/UrhoSurface.cs">
+    <Files>
+      <File FileName="../../Bindings/Portable/Generated/UI.cs" />
+      <File FileName="../../Bindings/Portable/Input.cs" />
+      <File FileName="../../Newtonsoft.Json/JsonSerializerSettings.cs" />
+      <File FileName="../../Newtonsoft.Json/Utilities/LinqBridge.cs" />
+      <File FileName="../../Newtonsoft.Json/Serialization/ErrorEventArgs.cs" />
+      <File FileName="../../Bindings/Portable/Scene.cs" />
+      <File FileName="../../Bindings/Portable/Generated/Animatable.cs" />
+      <File FileName="../../Bindings/Portable/UrhoPlatformInitializer.cs" />
+      <File FileName="../../Bindings/Android/Metadata.xml" />
+      <File FileName="../../Bindings/Portable/SharpReality/SpatialCursor.cs" />
+      <File FileName="../../Bindings/Portable/SharpReality/DebugGrid.cs" />
+      <File FileName="../../Bindings/Android/DroidPlatformInitializer.cs" />
+      <File FileName="../../Bindings/Forms.Droid/AndroidSurfaceRenderer.cs" />
+      <File FileName="../../Bindings/Forms/UrhoSurface.cs" />
+      <File FileName="UrhoXamarinForms/UrhoXamarinForms.csproj" />
+      <File FileName="../../Bindings/Forms.iOS/IosSurfaceRenderer.cs" />
+      <File FileName="../../Bindings/iOS/UrhoSurface.cs" Line="95" Column="4" />
+      <File FileName="../../Bindings/Portable/Application.cs" />
+      <File FileName="../../Bindings/Portable/Runtime/Runtime.cs" />
+      <File FileName="../../Bindings/Portable/LogSharp.cs" />
+      <File FileName="../../Bindings/Portable/Generated/Object.Events.cs" />
+      <File FileName="../../Bindings/Portable/External/Vector4.cs" />
+      <File FileName="../../Bindings/Android/UrhoSurface.cs" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="UrhoDotNet" expanded="True">
+            <Node name="UrhoXamarinAndroid">
+              <Node name="Portable" expanded="True">
+                <Node name="Generated" expanded="True" />
+              </Node>
+            </Node>
+            <Node name="UrhoXamarinIOS" expanded="True">
+              <Node name="iOS" expanded="True" />
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MultiItemStartupConfigurations />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+</Properties>

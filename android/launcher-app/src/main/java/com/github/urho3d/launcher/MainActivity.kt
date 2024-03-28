@@ -21,7 +21,7 @@
 //
 
 package com.github.urho3d.launcher
-
+import android.app.Activity
 import org.libsdl.app.SDLActivity
 import com.github.urho3d.UrhoActivity
 
@@ -32,9 +32,9 @@ class MainActivity : UrhoActivity() {
 
         
         @JvmStatic
-        fun GetSingelton() : MainActivity
+        fun GetSingelton() : Activity
         {
-            return SDLActivity.mSingleton as MainActivity
+            return SDLActivity.mSingleton as Activity
         }
     }
 

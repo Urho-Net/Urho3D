@@ -50,7 +50,7 @@ public class SDLActivity {
     public static boolean mSeparateMouseAndTouch;
 
     // Main components
-    protected static Activity mSingleton;
+    public static Activity mSingleton;
     protected static SDLSurface mSurface;
     protected static View mTextEdit;
     protected static ViewGroup mLayout;

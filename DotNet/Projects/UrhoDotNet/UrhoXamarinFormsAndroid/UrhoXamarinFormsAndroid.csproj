@@ -1,0 +1,2387 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{1ED06B89-C861-45F1-8128-8DA50C65DE3A}</ProjectGuid>
+    <ProjectTypeGuids>{EFBA0AD7-5A72-4C68-AF49-83D382785DCF};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <TemplateGuid>{9ef11e43-1701-4396-8835-8392d57abb70}</TemplateGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>UrhoXamarinFormsAndroid</RootNamespace>
+    <AssemblyName>Urho.Xamarin.Forms</AssemblyName>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>True</Deterministic>
+    <AndroidResgenFile>Resources\Resource.designer.cs</AndroidResgenFile>
+    <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
+    <TargetFrameworkVersion>v13.0</TargetFrameworkVersion>
+    <AndroidUseAapt2>true</AndroidUseAapt2>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>portable</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;__ANDROID__;HAVE_REFLECTION_EMIT;HAVE_LINQ;FEATURE_JNIOBJECTREFERENCE_INTPTRS;INTEROP;FEATURE_JNIENVIRONMENT_JI_PINVOKES</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <LangVersion>10.0</LangVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>portable</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE;__ANDROID__;HAVE_REFLECTION_EMIT;HAVE_LINQ;FEATURE_JNIOBJECTREFERENCE_INTPTRS;INTEROP;FEATURE_JNIENVIRONMENT_JI_PINVOKES</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <LangVersion>10.0</LangVersion>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Mono.Android" />
+    <Reference Include="mscorlib" />
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Resources\Resource.designer.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="..\..\..\Bindings\Portable\Scancode.cs">
+      <Link>Portable\Scancode.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\UI.cs">
+      <Link>Portable\UI.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\FileSelector.cs">
+      <Link>Portable\FileSelector.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Skeleton.cs">
+      <Link>Portable\Skeleton.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\WirePlane.cs">
+      <Link>Portable\WirePlane.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Key.cs">
+      <Link>Portable\Key.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\VGElement.cs">
+      <Link>Portable\VGElement.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\XmlElement.cs">
+      <Link>Portable\XmlElement.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\StaticSprite2D.cs">
+      <Link>Portable\StaticSprite2D.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Timer.cs">
+      <Link>Portable\Timer.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\ApplicationOptions.cs">
+      <Link>Portable\ApplicationOptions.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\BufferedSoundStream.cs">
+      <Link>Portable\BufferedSoundStream.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\StringVector.cs">
+      <Link>Portable\StringVector.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\IAbstractFile.cs">
+      <Link>Portable\IAbstractFile.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\DBSQLite.cs">
+      <Link>Portable\DBSQLite.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\PodVector.cs">
+      <Link>Portable\PodVector.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Serializable.cs">
+      <Link>Portable\Serializable.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\RenderPath.cs">
+      <Link>Portable\RenderPath.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Polyhedron.cs">
+      <Link>Portable\Polyhedron.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Scene.cs">
+      <Link>Portable\Scene.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\AsyncLoader.cs">
+      <Link>Portable\AsyncLoader.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Collision.cs">
+      <Link>Portable\Collision.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\VertexBuffer.cs">
+      <Link>Portable\VertexBuffer.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\ListView.cs">
+      <Link>Portable\ListView.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Consts.cs">
+      <Link>Portable\Consts.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\UIElement.cs">
+      <Link>Portable\UIElement.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\NavigationMesh.cs">
+      <Link>Portable\NavigationMesh.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\ResourceCache.cs">
+      <Link>Portable\ResourceCache.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\GPUObject.cs">
+      <Link>Portable\GPUObject.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\KinematicCharacterController.cs">
+      <Link>Portable\KinematicCharacterController.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\MarshalHelper.cs">
+      <Link>Portable\MarshalHelper.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\StaticModel.cs">
+      <Link>Portable\StaticModel.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\IndexBuffer.cs">
+      <Link>Portable\IndexBuffer.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\BillboardSet.cs">
+      <Link>Portable\BillboardSet.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\UrhoMap.cs">
+      <Link>Portable\UrhoMap.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Graphics.cs">
+      <Link>Portable\Graphics.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\UrhoConsole.cs">
+      <Link>Portable\UrhoConsole.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\RefCount.cs">
+      <Link>Portable\RefCount.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\ResourceRefList.cs">
+      <Link>Portable\ResourceRefList.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Controls.cs">
+      <Link>Portable\Controls.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Enums.cs">
+      <Link>Portable\Enums.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\MonoDebugHud.cs">
+      <Link>Portable\MonoDebugHud.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\LogicComponent.cs">
+      <Link>Portable\LogicComponent.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Material.cs">
+      <Link>Portable\Material.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\CoreData.cs">
+      <Link>Portable\CoreData.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\UrhoPlatformInitializer.cs">
+      <Link>Portable\UrhoPlatformInitializer.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Log.cs">
+      <Link>Portable\Log.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\DbConnection.cs">
+      <Link>Portable\DbConnection.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\SimpleApplication.cs">
+      <Link>Portable\SimpleApplication.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Object.cs">
+      <Link>Portable\Object.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\StringHash.cs">
+      <Link>Portable\StringHash.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Randoms.cs">
+      <Link>Portable\Randoms.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Drawable2D.cs">
+      <Link>Portable\Drawable2D.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\VGFrameBuffer.cs">
+      <Link>Portable\VGFrameBuffer.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Node.cs">
+      <Link>Portable\Node.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\String.cs">
+      <Link>Portable\String.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Texture2D.cs">
+      <Link>Portable\Texture2D.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\UrhoObject.cs">
+      <Link>Portable\UrhoObject.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\PhysicsWorld2D.cs">
+      <Link>Portable\PhysicsWorld2D.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Profiler.cs">
+      <Link>Portable\Profiler.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Component.cs">
+      <Link>Portable\Component.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\SDL.cs">
+      <Link>Portable\SDL.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\ScriptInstance.cs">
+      <Link>Portable\ScriptInstance.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\VGTextRowBuffer.cs">
+      <Link>Portable\VGTextRowBuffer.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Variant.cs">
+      <Link>Portable\Variant.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Image.cs">
+      <Link>Portable\Image.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Frustum.cs">
+      <Link>Portable\Frustum.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\LogSharp.cs">
+      <Link>Portable\LogSharp.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Application.cs">
+      <Link>Portable\Application.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Octree.cs">
+      <Link>Portable\Octree.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Animation.cs">
+      <Link>Portable\Animation.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Model.cs">
+      <Link>Portable\Model.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Dynamic.cs">
+      <Link>Portable\Dynamic.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Structs.cs">
+      <Link>Portable\Structs.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Connection.cs">
+      <Link>Portable\Connection.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\UIComponent.cs">
+      <Link>Portable\UIComponent.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Viewport.cs">
+      <Link>Portable\Viewport.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Stubs.cs">
+      <Link>Portable\Stubs.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\File.cs">
+      <Link>Portable\File.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Camera.cs">
+      <Link>Portable\Camera.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Utils.cs">
+      <Link>Portable\Utils.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Context.cs">
+      <Link>Portable\Context.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\VGComponent.cs">
+      <Link>Portable\VGComponent.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\AttributeInfo.cs">
+      <Link>Portable\AttributeInfo.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\MemoryBuffer.cs">
+      <Link>Portable\MemoryBuffer.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\DynamicMap.cs">
+      <Link>Portable\DynamicMap.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Input.cs">
+      <Link>Portable\Input.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\RefCounted.cs">
+      <Link>Portable\RefCounted.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Network.cs">
+      <Link>Portable\Network.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\ListBasedUpdateSynchronizationContext.cs">
+      <Link>Portable\ListBasedUpdateSynchronizationContext.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\EventReceiverGroup.cs">
+      <Link>Portable\Generated\EventReceiverGroup.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\UI.cs">
+      <Link>Portable\Generated\UI.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\Renderer.cs">
+      <Link>Portable\Generated\Renderer.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\DBAPI.cs">
+      <Link>Portable\Generated\DBAPI.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\FileSelector.cs">
+      <Link>Portable\Generated\FileSelector.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\RigidBody.cs">
+      <Link>Portable\Generated\RigidBody.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\IKConstraint.cs">
+      <Link>Portable\Generated\IKConstraint.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\Skeleton.cs">
+      <Link>Portable\Generated\Skeleton.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\LightType.cs">
+      <Link>Portable\Generated\LightType.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\LegacyVertexElement.cs">
+      <Link>Portable\Generated\LegacyVertexElement.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\TmxImageLayer2D.cs">
+      <Link>Portable\Generated\TmxImageLayer2D.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\AreaAllocator.cs">
+      <Link>Portable\Generated\AreaAllocator.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\SoundSource3D.cs">
+      <Link>Portable\Generated\SoundSource3D.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\ConstraintWeld2D.cs">
+      <Link>Portable\Generated\ConstraintWeld2D.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\ValueAnimationInfo.cs">
+      <Link>Portable\Generated\ValueAnimationInfo.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\PackageFile.cs">
+      <Link>Portable\Generated\PackageFile.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\VGElement.cs">
+      <Link>Portable\Generated\VGElement.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\XmlElement.cs">
+      <Link>Portable\Generated\XmlElement.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\StaticSprite2D.cs">
+      <Link>Portable\Generated\StaticSprite2D.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\PListFile.cs">
+      <Link>Portable\Generated\PListFile.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\ShaderVariation.cs">
+      <Link>Portable\Generated\ShaderVariation.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\CollisionChain2D.cs">
+      <Link>Portable\Generated\CollisionChain2D.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\RenderSurfaceUpdateMode.cs">
+      <Link>Portable\Generated\RenderSurfaceUpdateMode.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\UpdateGeometryType.cs">
+      <Link>Portable\Generated\UpdateGeometryType.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\TextureCube.cs">
+      <Link>Portable\Generated\TextureCube.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\HorizontalAlignment.cs">
+      <Link>Portable\Generated\HorizontalAlignment.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\FileSystem.cs">
+      <Link>Portable\Generated\FileSystem.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\LineEdit.cs">
+      <Link>Portable\Generated\LineEdit.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\BufferedSoundStream.cs">
+      <Link>Portable\Generated\BufferedSoundStream.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\Automation.cs">
+      <Link>Portable\Generated\Automation.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\ConstraintMouse2D.cs">
+      <Link>Portable\Generated\ConstraintMouse2D.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\MouseButton.cs">
+      <Link>Portable\Generated\MouseButton.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\Database.cs">
+      <Link>Portable\Generated\Database.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\Drawable.cs">
+      <Link>Portable\Generated\Drawable.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\FillMode.cs">
+      <Link>Portable\Generated\FillMode.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\ParticleEffect.cs">
+      <Link>Portable\Generated\ParticleEffect.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\VertexLightVSVariation.cs">
+      <Link>Portable\Generated\VertexLightVSVariation.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\ConstraintWheel2D.cs">
+      <Link>Portable\Generated\ConstraintWheel2D.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\TextureUnit.cs">
+      <Link>Portable\Generated\TextureUnit.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\CustomGeometry.cs">
+      <Link>Portable\Generated\CustomGeometry.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\ObserverPositionSendMode.cs">
+      <Link>Portable\Generated\ObserverPositionSendMode.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\AsyncLoadState.cs">
+      <Link>Portable\Generated\AsyncLoadState.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\HierarchyContainer.cs">
+      <Link>Portable\Generated\HierarchyContainer.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\SpriteSheet2D.cs">
+      <Link>Portable\Generated\SpriteSheet2D.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\CollisionPolygon2D.cs">
+      <Link>Portable\Generated\CollisionPolygon2D.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\TextureUsage.cs">
+      <Link>Portable\Generated\TextureUsage.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\Resource.cs">
+      <Link>Portable\Generated\Resource.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\Constraint2D.cs">
+      <Link>Portable\Generated\Constraint2D.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\CubeMapLayout.cs">
+      <Link>Portable\Generated\CubeMapLayout.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\Serializable.cs">
+      <Link>Portable\Generated\Serializable.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\VGCanvas.cs">
+      <Link>Portable\Generated\VGCanvas.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\Terrain.cs">
+      <Link>Portable\Generated\Terrain.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\InterpMethod.cs">
+      <Link>Portable\Generated\InterpMethod.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\RenderPath.cs">
+      <Link>Portable\Generated\RenderPath.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\Polyhedron.cs">
+      <Link>Portable\Generated\Polyhedron.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\TransformSpace.cs">
+      <Link>Portable\Generated\TransformSpace.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\AttributeAnimationInfo.cs">
+      <Link>Portable\Generated\AttributeAnimationInfo.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\TextureFilterMode.cs">
+      <Link>Portable\Generated\TextureFilterMode.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\Scene.cs">
+      <Link>Portable\Generated\Scene.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\VGTextRow.cs">
+      <Link>Portable\Generated\VGTextRow.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\ResourceRouter.cs">
+      <Link>Portable\Generated\ResourceRouter.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\ShadowQuality.cs">
+      <Link>Portable\Generated\ShadowQuality.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\InterpolationMode.cs">
+      <Link>Portable\Generated\InterpolationMode.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\EmitterType2D.cs">
+      <Link>Portable\Generated\EmitterType2D.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\Renderer2D.cs">
+      <Link>Portable\Generated\Renderer2D.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\Font.cs">
+      <Link>Portable\Generated\Font.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\ToolTip.cs">
+      <Link>Portable\Generated\ToolTip.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\ValueAnimation.cs">
+      <Link>Portable\Generated\ValueAnimation.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\VertexBuffer.cs">
+      <Link>Portable\Generated\VertexBuffer.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\ListView.cs">
+      <Link>Portable\Generated\ListView.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\TmxLayer2D.cs">
+      <Link>Portable\Generated\TmxLayer2D.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\CrowdAgent.cs">
+      <Link>Portable\Generated\CrowdAgent.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\AutoRemoveMode.cs">
+      <Link>Portable\Generated\AutoRemoveMode.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\ConstraintMotor2D.cs">
+      <Link>Portable\Generated\ConstraintMotor2D.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\NavigationPushiness.cs">
+      <Link>Portable\Generated\NavigationPushiness.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\NavigationQuality.cs">
+      <Link>Portable\Generated\NavigationQuality.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\ShaderPrecache.cs">
+      <Link>Portable\Generated\ShaderPrecache.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\UIElement.cs">
+      <Link>Portable\Generated\UIElement.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\NavigationMesh.cs">
+      <Link>Portable\Generated\NavigationMesh.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\SoundStream.cs">
+      <Link>Portable\Generated\SoundStream.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\ResourceCache.cs">
+      <Link>Portable\Generated\ResourceCache.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\PassLightingMode.cs">
+      <Link>Portable\Generated\PassLightingMode.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\GPUObject.cs">
+      <Link>Portable\Generated\GPUObject.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\SceneResolver.cs">
+      <Link>Portable\Generated\SceneResolver.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\KinematicCharacterController.cs">
+      <Link>Portable\Generated\KinematicCharacterController.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\View3D.cs">
+      <Link>Portable\Generated\View3D.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\LoopMode.cs">
+      <Link>Portable\Generated\LoopMode.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\Constraint.cs">
+      <Link>Portable\Generated\Constraint.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\BorderImage.cs">
+      <Link>Portable\Generated\BorderImage.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\WorkQueue.cs">
+      <Link>Portable\Generated\WorkQueue.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\HttpRequestState.cs">
+      <Link>Portable\Generated\HttpRequestState.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\StaticModel.cs">
+      <Link>Portable\Generated\StaticModel.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\Skybox.cs">
+      <Link>Portable\Generated\Skybox.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\LightPSVariation.cs">
+      <Link>Portable\Generated\LightPSVariation.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\HatPosition.cs">
+      <Link>Portable\Generated\HatPosition.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\CollisionBox2D.cs">
+      <Link>Portable\Generated\CollisionBox2D.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\TextureCoordinate.cs">
+      <Link>Portable\Generated\TextureCoordinate.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\IndexBuffer.cs">
+      <Link>Portable\Generated\IndexBuffer.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\BillboardSet.cs">
+      <Link>Portable\Generated\BillboardSet.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\PListValueType.cs">
+      <Link>Portable\Generated\PListValueType.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\CurveType.cs">
+      <Link>Portable\Generated\CurveType.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\TileMapLayer2D.cs">
+      <Link>Portable\Generated\TileMapLayer2D.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\MouseMode.cs">
+      <Link>Portable\Generated\MouseMode.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\Qualifier.cs">
+      <Link>Portable\Generated\Qualifier.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\VectorGraphics.cs">
+      <Link>Portable\Generated\VectorGraphics.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\PhysicsWorld.cs">
+      <Link>Portable\Generated\PhysicsWorld.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\Time.cs">
+      <Link>Portable\Generated\Time.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\JsonBuilder.cs">
+      <Link>Portable\Generated\JsonBuilder.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\Sound.cs">
+      <Link>Portable\Generated\Sound.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\Graphics.cs">
+      <Link>Portable\Generated\Graphics.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\UrhoConsole.cs">
+      <Link>Portable\Generated\UrhoConsole.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\DropDownList.cs">
+      <Link>Portable\Generated\DropDownList.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\RayQueryLevel.cs">
+      <Link>Portable\Generated\RayQueryLevel.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\EmitterType.cs">
+      <Link>Portable\Generated\EmitterType.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\CrowdManager.cs">
+      <Link>Portable\Generated\CrowdManager.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\Navigable.cs">
+      <Link>Portable\Generated\Navigable.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\AnimationController.cs">
+      <Link>Portable\Generated\AnimationController.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\DebugHud.cs">
+      <Link>Portable\Generated\DebugHud.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\ObjectType.cs">
+      <Link>Portable\Generated\ObjectType.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\TriangleMeshData.cs">
+      <Link>Portable\Generated\TriangleMeshData.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\IKSolverFeature.cs">
+      <Link>Portable\Generated\IKSolverFeature.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\LayoutMode.cs">
+      <Link>Portable\Generated\LayoutMode.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\ConstraintType.cs">
+      <Link>Portable\Generated\ConstraintType.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\AnimationState.cs">
+      <Link>Portable\Generated\AnimationState.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\RaycastVehicle.cs">
+      <Link>Portable\Generated\RaycastVehicle.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\VertexMask.cs">
+      <Link>Portable\Generated\VertexMask.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\FrustumPlane.cs">
+      <Link>Portable\Generated\FrustumPlane.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\TrailType.cs">
+      <Link>Portable\Generated\TrailType.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\ConstraintFriction2D.cs">
+      <Link>Portable\Generated\ConstraintFriction2D.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\Spline.cs">
+      <Link>Portable\Generated\Spline.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\ParticleEmitter2D.cs">
+      <Link>Portable\Generated\ParticleEmitter2D.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\XmlFile.cs">
+      <Link>Portable\Generated\XmlFile.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\LogicComponent.cs">
+      <Link>Portable\Generated\LogicComponent.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\Material.cs">
+      <Link>Portable\Generated\Material.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\Shader.cs">
+      <Link>Portable\Generated\Shader.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\FontFace.cs">
+      <Link>Portable\Generated\FontFace.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\RenderTargetSizeMode.cs">
+      <Link>Portable\Generated\RenderTargetSizeMode.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\RigidBody2D.cs">
+      <Link>Portable\Generated\RigidBody2D.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\NavArea.cs">
+      <Link>Portable\Generated\NavArea.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\UpdateEvent.cs">
+      <Link>Portable\Generated\UpdateEvent.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\Pass.cs">
+      <Link>Portable\Generated\Pass.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\LightVSVariation.cs">
+      <Link>Portable\Generated\LightVSVariation.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\MessageBox.cs">
+      <Link>Portable\Generated\MessageBox.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\UISelectable.cs">
+      <Link>Portable\Generated\UISelectable.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\FontFaceBitmap.cs">
+      <Link>Portable\Generated\FontFaceBitmap.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\PacketType.cs">
+      <Link>Portable\Generated\PacketType.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\ParticleEffect2D.cs">
+      <Link>Portable\Generated\ParticleEffect2D.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\ResourceWithMetadata.cs">
+      <Link>Portable\Generated\ResourceWithMetadata.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\DebugRenderer.cs">
+      <Link>Portable\Generated\DebugRenderer.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\Orientation.cs">
+      <Link>Portable\Generated\Orientation.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\SplinePath.cs">
+      <Link>Portable\Generated\SplinePath.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\Window.cs">
+      <Link>Portable\Generated\Window.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\LockState.cs">
+      <Link>Portable\Generated\LockState.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\TextEffect.cs">
+      <Link>Portable\Generated\TextEffect.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\ParticleEmitter.cs">
+      <Link>Portable\Generated\ParticleEmitter.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\RenderSurface.cs">
+      <Link>Portable\Generated\RenderSurface.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\UIBatch.cs">
+      <Link>Portable\Generated\UIBatch.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\Log.cs">
+      <Link>Portable\Generated\Log.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\VerticalAlignment.cs">
+      <Link>Portable\Generated\VerticalAlignment.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\DbConnection.cs">
+      <Link>Portable\Generated\DbConnection.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\CullMode.cs">
+      <Link>Portable\Generated\CullMode.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\Light.cs">
+      <Link>Portable\Generated\Light.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\OggVorbisSoundStream.cs">
+      <Link>Portable\Generated\OggVorbisSoundStream.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\PropertySet2D.cs">
+      <Link>Portable\Generated\PropertySet2D.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\CollisionGeometryData.cs">
+      <Link>Portable\Generated\CollisionGeometryData.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\NavmeshPartitionType.cs">
+      <Link>Portable\Generated\NavmeshPartitionType.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\ControllerAxis.cs">
+      <Link>Portable\Generated\ControllerAxis.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\AnimationBlendMode.cs">
+      <Link>Portable\Generated\AnimationBlendMode.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\Texture3D.cs">
+      <Link>Portable\Generated\Texture3D.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\CollisionEdge2D.cs">
+      <Link>Portable\Generated\CollisionEdge2D.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\AnimationChannel.cs">
+      <Link>Portable\Generated\AnimationChannel.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\AnimatedModel.cs">
+      <Link>Portable\Generated\AnimatedModel.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\ConstantBuffer.cs">
+      <Link>Portable\Generated\ConstantBuffer.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\DecalSet.cs">
+      <Link>Portable\Generated\DecalSet.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\ShaderType.cs">
+      <Link>Portable\Generated\ShaderType.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\FocusMode.cs">
+      <Link>Portable\Generated\FocusMode.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\Audio.cs">
+      <Link>Portable\Generated\Audio.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\Text3D.cs">
+      <Link>Portable\Generated\Text3D.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\Drawable2D.cs">
+      <Link>Portable\Generated\Drawable2D.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\TraversalMode.cs">
+      <Link>Portable\Generated\TraversalMode.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\FaceCameraMode.cs">
+      <Link>Portable\Generated\FaceCameraMode.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\VGFrameBuffer.cs">
+      <Link>Portable\Generated\VGFrameBuffer.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\Node.cs">
+      <Link>Portable\Generated\Node.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\Texture2D.cs">
+      <Link>Portable\Generated\Texture2D.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\FontHintLevel.cs">
+      <Link>Portable\Generated\FontHintLevel.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\JsonValueType.cs">
+      <Link>Portable\Generated\JsonValueType.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\Intersection.cs">
+      <Link>Portable\Generated\Intersection.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\BlendMode.cs">
+      <Link>Portable\Generated\BlendMode.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\UrhoObject.cs">
+      <Link>Portable\Generated\UrhoObject.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\CollisionShape2D.cs">
+      <Link>Portable\Generated\CollisionShape2D.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\TileMapObject2D.cs">
+      <Link>Portable\Generated\TileMapObject2D.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\CompareMode.cs">
+      <Link>Portable\Generated\CompareMode.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\CursorShape.cs">
+      <Link>Portable\Generated\CursorShape.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\PhysicsWorld2D.cs">
+      <Link>Portable\Generated\PhysicsWorld2D.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\ObjectFactory.cs">
+      <Link>Portable\Generated\ObjectFactory.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\DynamicNavigationMesh.cs">
+      <Link>Portable\Generated\DynamicNavigationMesh.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\Orientation2D.cs">
+      <Link>Portable\Generated\Orientation2D.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\IKSolverAlgorithm.cs">
+      <Link>Portable\Generated\IKSolverAlgorithm.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\AnimationSet2D.cs">
+      <Link>Portable\Generated\AnimationSet2D.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\TerrainPatch.cs">
+      <Link>Portable\Generated\TerrainPatch.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\AttributeAccessor.cs">
+      <Link>Portable\Generated\AttributeAccessor.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\Profiler.cs">
+      <Link>Portable\Generated\Profiler.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\CollisionEventMode.cs">
+      <Link>Portable\Generated\CollisionEventMode.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\Component.cs">
+      <Link>Portable\Generated\Component.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\OcclusionBuffer.cs">
+      <Link>Portable\Generated\OcclusionBuffer.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\CompressedFormat.cs">
+      <Link>Portable\Generated\CompressedFormat.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\ConstraintGear2D.cs">
+      <Link>Portable\Generated\ConstraintGear2D.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\WindowDragMode.cs">
+      <Link>Portable\Generated\WindowDragMode.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\Texture2DArray.cs">
+      <Link>Portable\Generated\Texture2DArray.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\IKEffectorFeature.cs">
+      <Link>Portable\Generated\IKEffectorFeature.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\SoundSource.cs">
+      <Link>Portable\Generated\SoundSource.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\VGTextRowBuffer.cs">
+      <Link>Portable\Generated\VGTextRowBuffer.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\CreateMode.cs">
+      <Link>Portable\Generated\CreateMode.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\UnknownComponent.cs">
+      <Link>Portable\Generated\UnknownComponent.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\ConvexData.cs">
+      <Link>Portable\Generated\ConvexData.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\ConstraintPrismatic2D.cs">
+      <Link>Portable\Generated\ConstraintPrismatic2D.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\Tile2D.cs">
+      <Link>Portable\Generated\Tile2D.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\DragAndDropMode.cs">
+      <Link>Portable\Generated\DragAndDropMode.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\Sphere.cs">
+      <Link>Portable\Generated\Sphere.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\Sprite2D.cs">
+      <Link>Portable\Generated\Sprite2D.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\SmoothingType.cs">
+      <Link>Portable\Generated\SmoothingType.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\Image.cs">
+      <Link>Portable\Generated\Image.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\ShapeType.cs">
+      <Link>Portable\Generated\ShapeType.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\Frustum.cs">
+      <Link>Portable\Generated\Frustum.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\Cursor.cs">
+      <Link>Portable\Generated\Cursor.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\TileMapLayerType2D.cs">
+      <Link>Portable\Generated\TileMapLayerType2D.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\CrowdAgentRequestedTarget.cs">
+      <Link>Portable\Generated\CrowdAgentRequestedTarget.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\TextureAddressMode.cs">
+      <Link>Portable\Generated\TextureAddressMode.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\GImpactMeshData.cs">
+      <Link>Portable\Generated\GImpactMeshData.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\FileWatcher.cs">
+      <Link>Portable\Generated\FileWatcher.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\HttpRequest.cs">
+      <Link>Portable\Generated\HttpRequest.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\CheckBox.cs">
+      <Link>Portable\Generated\CheckBox.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\ConstraintPulley2D.cs">
+      <Link>Portable\Generated\ConstraintPulley2D.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\StencilOp.cs">
+      <Link>Portable\Generated\StencilOp.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\NavigationPathPointFlag.cs">
+      <Link>Portable\Generated\NavigationPathPointFlag.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\AttributeMode.cs">
+      <Link>Portable\Generated\AttributeMode.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\BoneCollisionShape.cs">
+      <Link>Portable\Generated\BoneCollisionShape.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\GeometryType.cs">
+      <Link>Portable\Generated\GeometryType.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\LoadMode.cs">
+      <Link>Portable\Generated\LoadMode.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\SmoothedTransform.cs">
+      <Link>Portable\Generated\SmoothedTransform.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\TmxObjectGroup2D.cs">
+      <Link>Portable\Generated\TmxObjectGroup2D.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\ScrollBar.cs">
+      <Link>Portable\Generated\ScrollBar.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\AnimatedSprite2D.cs">
+      <Link>Portable\Generated\AnimatedSprite2D.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\VertexElementSemantic.cs">
+      <Link>Portable\Generated\VertexElementSemantic.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\Object.Events.cs">
+      <Link>Portable\Generated\Object.Events.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\Application.cs">
+      <Link>Portable\Generated\Application.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\Octree.cs">
+      <Link>Portable\Generated\Octree.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\RenderCommandSortMode.cs">
+      <Link>Portable\Generated\RenderCommandSortMode.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\Localization.cs">
+      <Link>Portable\Generated\Localization.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\ShaderProgram.cs">
+      <Link>Portable\Generated\ShaderProgram.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\ShaderParameterAnimationInfo.cs">
+      <Link>Portable\Generated\ShaderParameterAnimationInfo.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\Animation.cs">
+      <Link>Portable\Generated\Animation.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\Model.cs">
+      <Link>Portable\Generated\Model.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\IKEffector.cs">
+      <Link>Portable\Generated\IKEffector.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\ShaderParameterGroup.cs">
+      <Link>Portable\Generated\ShaderParameterGroup.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\CrowdAgentState.cs">
+      <Link>Portable\Generated\CrowdAgentState.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\Connection.cs">
+      <Link>Portable\Generated\Connection.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\ConstraintRevolute2D.cs">
+      <Link>Portable\Generated\ConstraintRevolute2D.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\Slider.cs">
+      <Link>Portable\Generated\Slider.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\LoopMode2D.cs">
+      <Link>Portable\Generated\LoopMode2D.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\VertexElementType.cs">
+      <Link>Portable\Generated\VertexElementType.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\Menu.cs">
+      <Link>Portable\Generated\Menu.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\UIComponent.cs">
+      <Link>Portable\Generated\UIComponent.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\Sprite.cs">
+      <Link>Portable\Generated\Sprite.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\Viewport.cs">
+      <Link>Portable\Generated\Viewport.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\DeferredLightPSVariation.cs">
+      <Link>Portable\Generated\DeferredLightPSVariation.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\CubeMapFace.cs">
+      <Link>Portable\Generated\CubeMapFace.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\ControllerButton.cs">
+      <Link>Portable\Generated\ControllerButton.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\RibbonTrail.cs">
+      <Link>Portable\Generated\RibbonTrail.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\View.cs">
+      <Link>Portable\Generated\View.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\CrowdAgentTargetState.cs">
+      <Link>Portable\Generated\CrowdAgentTargetState.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\MaterialQuality.cs">
+      <Link>Portable\Generated\MaterialQuality.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\Button.cs">
+      <Link>Portable\Generated\Button.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\Engine.cs">
+      <Link>Portable\Generated\Engine.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\BodyType2D.cs">
+      <Link>Portable\Generated\BodyType2D.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\File.cs">
+      <Link>Portable\Generated\File.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\TileMapObjectType2D.cs">
+      <Link>Portable\Generated\TileMapObjectType2D.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\Camera.cs">
+      <Link>Portable\Generated\Camera.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\JsonFile.cs">
+      <Link>Portable\Generated\JsonFile.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\Corner.cs">
+      <Link>Portable\Generated\Corner.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\Obstacle.cs">
+      <Link>Portable\Generated\Obstacle.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\PrimitiveType.cs">
+      <Link>Portable\Generated\PrimitiveType.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\JsonNumberType.cs">
+      <Link>Portable\Generated\JsonNumberType.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\TmxTileLayer2D.cs">
+      <Link>Portable\Generated\TmxTileLayer2D.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\Context.cs">
+      <Link>Portable\Generated\Context.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\ObjectAnimation.cs">
+      <Link>Portable\Generated\ObjectAnimation.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\ScrollView.cs">
+      <Link>Portable\Generated\ScrollView.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\StaticModelGroup.cs">
+      <Link>Portable\Generated\StaticModelGroup.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\ConstraintRope2D.cs">
+      <Link>Portable\Generated\ConstraintRope2D.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\Animatable.cs">
+      <Link>Portable\Generated\Animatable.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\VGComponent.cs">
+      <Link>Portable\Generated\VGComponent.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\FileMode.cs">
+      <Link>Portable\Generated\FileMode.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\CollisionCircle2D.cs">
+      <Link>Portable\Generated\CollisionCircle2D.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\CustomRaycastVehicle.cs">
+      <Link>Portable\Generated\CustomRaycastVehicle.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\HighlightMode.cs">
+      <Link>Portable\Generated\HighlightMode.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\DeferredLightVSVariation.cs">
+      <Link>Portable\Generated\DeferredLightVSVariation.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\NetworkPriority.cs">
+      <Link>Portable\Generated\NetworkPriority.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\SoundListener.cs">
+      <Link>Portable\Generated\SoundListener.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\WrapMode.cs">
+      <Link>Portable\Generated\WrapMode.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\Zone.cs">
+      <Link>Portable\Generated\Zone.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\Texture.cs">
+      <Link>Portable\Generated\Texture.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\Geometry.cs">
+      <Link>Portable\Generated\Geometry.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\FontType.cs">
+      <Link>Portable\Generated\FontType.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\Text.cs">
+      <Link>Portable\Generated\Text.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\OffMeshConnection.cs">
+      <Link>Portable\Generated\OffMeshConnection.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\ConstraintDistance2D.cs">
+      <Link>Portable\Generated\ConstraintDistance2D.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\RenderCommandType.cs">
+      <Link>Portable\Generated\RenderCommandType.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\TmxFile2D.cs">
+      <Link>Portable\Generated\TmxFile2D.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\VariantType.cs">
+      <Link>Portable\Generated\VariantType.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\Plugin.cs">
+      <Link>Portable\Generated\Plugin.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\CollisionShape.cs">
+      <Link>Portable\Generated\CollisionShape.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\Technique.cs">
+      <Link>Portable\Generated\Technique.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\RefCounted.cs">
+      <Link>Portable\Generated\RefCounted.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\Network.cs">
+      <Link>Portable\Generated\Network.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\IKSolver.cs">
+      <Link>Portable\Generated\IKSolver.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\ViewOverride.cs">
+      <Link>Portable\Generated\ViewOverride.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\ResourceRequest.cs">
+      <Link>Portable\Generated\ResourceRequest.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\HeightfieldData.cs">
+      <Link>Portable\Generated\HeightfieldData.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\FontFaceFreeType.cs">
+      <Link>Portable\Generated\FontFaceFreeType.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\TileMap2D.cs">
+      <Link>Portable\Generated\TileMap2D.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Generated\ClearTarget.cs">
+      <Link>Portable\Generated\ClearTarget.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Runtime\UrhoEventAdapter.cs">
+      <Link>Portable\Runtime\UrhoEventAdapter.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Runtime\ReferenceHolder.cs">
+      <Link>Portable\Runtime\ReferenceHolder.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Runtime\Runtime.cs">
+      <Link>Portable\Runtime\Runtime.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Runtime\IComponentSerializer.cs">
+      <Link>Portable\Runtime\IComponentSerializer.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Runtime\Vectors.cs">
+      <Link>Portable\Runtime\Vectors.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Runtime\IntPtrEqualityComparer.cs">
+      <Link>Portable\Runtime\IntPtrEqualityComparer.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Runtime\RefCountedCache.cs">
+      <Link>Portable\Runtime\RefCountedCache.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Runtime\MonoPInvokeCallbackAttribute.cs">
+      <Link>Portable\Runtime\MonoPInvokeCallbackAttribute.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Runtime\Subscription.cs">
+      <Link>Portable\Runtime\Subscription.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Runtime\ResourceRefAttribute.cs">
+      <Link>Portable\Runtime\ResourceRefAttribute.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Runtime\SerializationHelper.cs">
+      <Link>Portable\Runtime\SerializationHelper.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Runtime\MainLoopDispatcher.cs">
+      <Link>Portable\Runtime\MainLoopDispatcher.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Runtime\PreserveAttribute.cs">
+      <Link>Portable\Runtime\PreserveAttribute.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Runtime\SerializeFieldAttribute.cs">
+      <Link>Portable\Runtime\SerializeFieldAttribute.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Shapes\Box.cs">
+      <Link>Portable\Shapes\Box.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Shapes\Pyramid.cs">
+      <Link>Portable\Shapes\Pyramid.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Shapes\Torus.cs">
+      <Link>Portable\Shapes\Torus.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Shapes\Cylinder.cs">
+      <Link>Portable\Shapes\Cylinder.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Shapes\Sphere.cs">
+      <Link>Portable\Shapes\Sphere.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Shapes\Plane.cs">
+      <Link>Portable\Shapes\Plane.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Shapes\Cone.cs">
+      <Link>Portable\Shapes\Cone.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Shapes\Shape.cs">
+      <Link>Portable\Shapes\Shape.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Math\SplineMath.cs">
+      <Link>Portable\Math\SplineMath.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Math\EaseMath.cs">
+      <Link>Portable\Math\EaseMath.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Actions\AsyncCompletionCallFunc.cs">
+      <Link>Portable\Actions\AsyncCompletionCallFunc.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Actions\Node.cs">
+      <Link>Portable\Actions\Node.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Actions\ActionManager.cs">
+      <Link>Portable\Actions\ActionManager.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Actions\Ease\EaseBounceInOut.cs">
+      <Link>Portable\Actions\Ease\EaseBounceInOut.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Actions\Ease\EaseCustom.cs">
+      <Link>Portable\Actions\Ease\EaseCustom.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Actions\Ease\EaseRateAction.cs">
+      <Link>Portable\Actions\Ease\EaseRateAction.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Actions\Ease\EaseElastic.cs">
+      <Link>Portable\Actions\Ease\EaseElastic.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Actions\Ease\EaseSineOut.cs">
+      <Link>Portable\Actions\Ease\EaseSineOut.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Actions\Ease\EaseSineInOut.cs">
+      <Link>Portable\Actions\Ease\EaseSineInOut.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Actions\Ease\EaseBounceOut.cs">
+      <Link>Portable\Actions\Ease\EaseBounceOut.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Actions\Ease\EaseBackIn.cs">
+      <Link>Portable\Actions\Ease\EaseBackIn.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Actions\Ease\EaseBackInOut.cs">
+      <Link>Portable\Actions\Ease\EaseBackInOut.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Actions\Ease\EaseInOut.cs">
+      <Link>Portable\Actions\Ease\EaseInOut.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Actions\Ease\EaseExponentialOut.cs">
+      <Link>Portable\Actions\Ease\EaseExponentialOut.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Actions\Ease\ActionEase.cs">
+      <Link>Portable\Actions\Ease\ActionEase.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Actions\Ease\EaseIn.cs">
+      <Link>Portable\Actions\Ease\EaseIn.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Actions\Ease\EaseExponentialIn.cs">
+      <Link>Portable\Actions\Ease\EaseExponentialIn.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Actions\Ease\EaseBounceIn.cs">
+      <Link>Portable\Actions\Ease\EaseBounceIn.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Actions\Ease\EaseOut.cs">
+      <Link>Portable\Actions\Ease\EaseOut.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Actions\Ease\EaseBackOut.cs">
+      <Link>Portable\Actions\Ease\EaseBackOut.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Actions\Ease\EaseElasticIn.cs">
+      <Link>Portable\Actions\Ease\EaseElasticIn.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Actions\Ease\EaseElasticOut.cs">
+      <Link>Portable\Actions\Ease\EaseElasticOut.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Actions\Ease\EaseExponentialInOut.cs">
+      <Link>Portable\Actions\Ease\EaseExponentialInOut.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Actions\Ease\EaseElasticInOut.cs">
+      <Link>Portable\Actions\Ease\EaseElasticInOut.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Actions\Ease\EaseSineIn.cs">
+      <Link>Portable\Actions\Ease\EaseSineIn.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Actions\Intervals\Sequence.cs">
+      <Link>Portable\Actions\Intervals\Sequence.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Actions\Intervals\RotateAroundBy.cs">
+      <Link>Portable\Actions\Intervals\RotateAroundBy.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Actions\Intervals\RepeatForever.cs">
+      <Link>Portable\Actions\Intervals\RepeatForever.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Actions\Intervals\MoveTo.cs">
+      <Link>Portable\Actions\Intervals\MoveTo.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Actions\Intervals\BezierBy.cs">
+      <Link>Portable\Actions\Intervals\BezierBy.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Actions\Intervals\RotateBy.cs">
+      <Link>Portable\Actions\Intervals\RotateBy.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Actions\Intervals\TintBy.cs">
+      <Link>Portable\Actions\Intervals\TintBy.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Actions\Intervals\Blink.cs">
+      <Link>Portable\Actions\Intervals\Blink.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Actions\Intervals\FadeIn.cs">
+      <Link>Portable\Actions\Intervals\FadeIn.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Actions\Intervals\ScaleTo.cs">
+      <Link>Portable\Actions\Intervals\ScaleTo.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Actions\Intervals\GenericShaderParameterFromTo.cs">
+      <Link>Portable\Actions\Intervals\GenericShaderParameterFromTo.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Actions\Intervals\ActionTween.cs">
+      <Link>Portable\Actions\Intervals\ActionTween.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Actions\Intervals\BezierTo.cs">
+      <Link>Portable\Actions\Intervals\BezierTo.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Actions\Intervals\RotateTo.cs">
+      <Link>Portable\Actions\Intervals\RotateTo.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Actions\Intervals\MoveBy.cs">
+      <Link>Portable\Actions\Intervals\MoveBy.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Actions\Intervals\TargetedAction.cs">
+      <Link>Portable\Actions\Intervals\TargetedAction.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Actions\Intervals\ScaleBy.cs">
+      <Link>Portable\Actions\Intervals\ScaleBy.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Actions\Intervals\TintTo.cs">
+      <Link>Portable\Actions\Intervals\TintTo.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Actions\Intervals\Parallel.cs">
+      <Link>Portable\Actions\Intervals\Parallel.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Actions\Intervals\DelayTime.cs">
+      <Link>Portable\Actions\Intervals\DelayTime.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Actions\Intervals\ReverseTime.cs">
+      <Link>Portable\Actions\Intervals\ReverseTime.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Actions\Intervals\CustomAction.cs">
+      <Link>Portable\Actions\Intervals\CustomAction.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Actions\Intervals\JumpTo.cs">
+      <Link>Portable\Actions\Intervals\JumpTo.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Actions\Intervals\FadeOut.cs">
+      <Link>Portable\Actions\Intervals\FadeOut.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Actions\Intervals\FadeTo.cs">
+      <Link>Portable\Actions\Intervals\FadeTo.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Actions\Intervals\Repeat.cs">
+      <Link>Portable\Actions\Intervals\Repeat.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Actions\Intervals\JumpBy.cs">
+      <Link>Portable\Actions\Intervals\JumpBy.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Actions\Intervals\Spawn.cs">
+      <Link>Portable\Actions\Intervals\Spawn.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Actions\Intervals\ExtraAction.cs">
+      <Link>Portable\Actions\Intervals\ExtraAction.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Actions\Instants\Place.cs">
+      <Link>Portable\Actions\Instants\Place.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Actions\Instants\Show.cs">
+      <Link>Portable\Actions\Instants\Show.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Actions\Instants\ToggleVisibility.cs">
+      <Link>Portable\Actions\Instants\ToggleVisibility.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Actions\Instants\RemoveSelf.cs">
+      <Link>Portable\Actions\Instants\RemoveSelf.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Actions\Instants\ActionInstant.cs">
+      <Link>Portable\Actions\Instants\ActionInstant.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Actions\Instants\Hide.cs">
+      <Link>Portable\Actions\Instants\Hide.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Actions\Instants\Callfunc\CallFunc.cs">
+      <Link>Portable\Actions\Instants\Callfunc\CallFunc.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Actions\Instants\Callfunc\TaskSourceAction.cs">
+      <Link>Portable\Actions\Instants\Callfunc\TaskSourceAction.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Actions\Instants\Callfunc\CallFuncND.cs">
+      <Link>Portable\Actions\Instants\Callfunc\CallFuncND.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Actions\Instants\Callfunc\CallFuncO.cs">
+      <Link>Portable\Actions\Instants\Callfunc\CallFuncO.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Actions\Instants\Callfunc\CallFuncN.cs">
+      <Link>Portable\Actions\Instants\Callfunc\CallFuncN.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Actions\Base\Speed.cs">
+      <Link>Portable\Actions\Base\Speed.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Actions\Base\Action.cs">
+      <Link>Portable\Actions\Base\Action.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Actions\Base\FiniteTimeAction.cs">
+      <Link>Portable\Actions\Base\FiniteTimeAction.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\Actions\Base\AmplitudeAction.cs">
+      <Link>Portable\Actions\Base\AmplitudeAction.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\External\IntVector3.cs">
+      <Link>Portable\External\IntVector3.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\External\Matrix2x4.cs">
+      <Link>Portable\External\Matrix2x4.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\External\Matrix3.cs">
+      <Link>Portable\External\Matrix3.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\External\Quaternion.cs">
+      <Link>Portable\External\Quaternion.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\External\Vector2.cs">
+      <Link>Portable\External\Vector2.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\External\Vector3.cs">
+      <Link>Portable\External\Vector3.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\External\IntVector2.cs">
+      <Link>Portable\External\IntVector2.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\External\MathHelper.cs">
+      <Link>Portable\External\MathHelper.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\External\Matrix2.cs">
+      <Link>Portable\External\Matrix2.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\External\Matrix4x2.cs">
+      <Link>Portable\External\Matrix4x2.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\External\Matrix4x3.cs">
+      <Link>Portable\External\Matrix4x3.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\External\Plane.cs">
+      <Link>Portable\External\Plane.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\External\Vector4.cs">
+      <Link>Portable\External\Vector4.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\External\Matrix3x2.cs">
+      <Link>Portable\External\Matrix3x2.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\External\Matrix2x3.cs">
+      <Link>Portable\External\Matrix2x3.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\External\Matrix4.cs">
+      <Link>Portable\External\Matrix4.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Android\DroidPlatformInitializer.cs">
+      <Link>Android\DroidPlatformInitializer.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Android\FullscreenUrhoActivity.cs">
+      <Link>Android\FullscreenUrhoActivity.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Android\UrhoSurface.cs">
+      <Link>Android\UrhoSurface.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Forms.Droid\AndroidSurfaceRenderer.cs">
+      <Link>Forms.Droid\AndroidSurfaceRenderer.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Forms\UrhoSurface.cs">
+      <Link>Forms\UrhoSurface.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Newtonsoft.Json\ConstructorHandling.cs">
+      <Link>Newtonsoft.Json\ConstructorHandling.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Newtonsoft.Json\JsonRequiredAttribute.cs">
+      <Link>Newtonsoft.Json\JsonRequiredAttribute.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Newtonsoft.Json\JsonConverterAttribute.cs">
+      <Link>Newtonsoft.Json\JsonConverterAttribute.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Newtonsoft.Json\DefaultJsonNameTable.cs">
+      <Link>Newtonsoft.Json\DefaultJsonNameTable.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Newtonsoft.Json\JsonConverter.cs">
+      <Link>Newtonsoft.Json\JsonConverter.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Newtonsoft.Json\JsonPosition.cs">
+      <Link>Newtonsoft.Json\JsonPosition.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Newtonsoft.Json\Required.cs">
+      <Link>Newtonsoft.Json\Required.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Newtonsoft.Json\WriteState.cs">
+      <Link>Newtonsoft.Json\WriteState.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Newtonsoft.Json\IArrayPool.cs">
+      <Link>Newtonsoft.Json\IArrayPool.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Newtonsoft.Json\JsonConverterCollection.cs">
+      <Link>Newtonsoft.Json\JsonConverterCollection.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Newtonsoft.Json\FloatParseHandling.cs">
+      <Link>Newtonsoft.Json\FloatParseHandling.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Newtonsoft.Json\NullValueHandling.cs">
+      <Link>Newtonsoft.Json\NullValueHandling.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Newtonsoft.Json\Formatting.cs">
+      <Link>Newtonsoft.Json\Formatting.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Newtonsoft.Json\FormatterAssemblyStyle.cs">
+      <Link>Newtonsoft.Json\FormatterAssemblyStyle.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Newtonsoft.Json\IJsonLineInfo.cs">
+      <Link>Newtonsoft.Json\IJsonLineInfo.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Newtonsoft.Json\JsonSerializerSettings.cs">
+      <Link>Newtonsoft.Json\JsonSerializerSettings.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Newtonsoft.Json\JsonExtensionDataAttribute.cs">
+      <Link>Newtonsoft.Json\JsonExtensionDataAttribute.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Newtonsoft.Json\JsonTextReader.Async.cs">
+      <Link>Newtonsoft.Json\JsonTextReader.Async.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Newtonsoft.Json\JsonToken.cs">
+      <Link>Newtonsoft.Json\JsonToken.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Newtonsoft.Json\JsonWriter.Async.cs">
+      <Link>Newtonsoft.Json\JsonWriter.Async.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Newtonsoft.Json\JsonTextReader.cs">
+      <Link>Newtonsoft.Json\JsonTextReader.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Newtonsoft.Json\TypeNameHandling.cs">
+      <Link>Newtonsoft.Json\TypeNameHandling.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Newtonsoft.Json\DateTimeZoneHandling.cs">
+      <Link>Newtonsoft.Json\DateTimeZoneHandling.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Newtonsoft.Json\JsonArrayAttribute.cs">
+      <Link>Newtonsoft.Json\JsonArrayAttribute.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Newtonsoft.Json\TraceLevel.cs">
+      <Link>Newtonsoft.Json\TraceLevel.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Newtonsoft.Json\JsonReader.Async.cs">
+      <Link>Newtonsoft.Json\JsonReader.Async.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Newtonsoft.Json\MemberSerialization.cs">
+      <Link>Newtonsoft.Json\MemberSerialization.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Newtonsoft.Json\JsonTextWriter.cs">
+      <Link>Newtonsoft.Json\JsonTextWriter.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Newtonsoft.Json\ReferenceLoopHandling.cs">
+      <Link>Newtonsoft.Json\ReferenceLoopHandling.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Newtonsoft.Json\JsonException.cs">
+      <Link>Newtonsoft.Json\JsonException.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Newtonsoft.Json\JsonContainerAttribute.cs">
+      <Link>Newtonsoft.Json\JsonContainerAttribute.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Newtonsoft.Json\TypeNameAssemblyFormatHandling.cs">
+      <Link>Newtonsoft.Json\TypeNameAssemblyFormatHandling.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Newtonsoft.Json\JsonTextWriter.Async.cs">
+      <Link>Newtonsoft.Json\JsonTextWriter.Async.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Newtonsoft.Json\DateFormatHandling.cs">
+      <Link>Newtonsoft.Json\DateFormatHandling.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Newtonsoft.Json\JsonReaderException.cs">
+      <Link>Newtonsoft.Json\JsonReaderException.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Newtonsoft.Json\MetadataPropertyHandling.cs">
+      <Link>Newtonsoft.Json\MetadataPropertyHandling.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Newtonsoft.Json\DefaultValueHandling.cs">
+      <Link>Newtonsoft.Json\DefaultValueHandling.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Newtonsoft.Json\JsonConvert.cs">
+      <Link>Newtonsoft.Json\JsonConvert.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Newtonsoft.Json\ObjectCreationHandling.cs">
+      <Link>Newtonsoft.Json\ObjectCreationHandling.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Newtonsoft.Json\JsonNameTable.cs">
+      <Link>Newtonsoft.Json\JsonNameTable.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Newtonsoft.Json\SerializationBinder.cs">
+      <Link>Newtonsoft.Json\SerializationBinder.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Newtonsoft.Json\JsonPropertyAttribute.cs">
+      <Link>Newtonsoft.Json\JsonPropertyAttribute.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Newtonsoft.Json\JsonSerializer.cs">
+      <Link>Newtonsoft.Json\JsonSerializer.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Newtonsoft.Json\FloatFormatHandling.cs">
+      <Link>Newtonsoft.Json\FloatFormatHandling.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Newtonsoft.Json\MissingMemberHandling.cs">
+      <Link>Newtonsoft.Json\MissingMemberHandling.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Newtonsoft.Json\StringEscapeHandling.cs">
+      <Link>Newtonsoft.Json\StringEscapeHandling.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Newtonsoft.Json\DateParseHandling.cs">
+      <Link>Newtonsoft.Json\DateParseHandling.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Newtonsoft.Json\JsonWriterException.cs">
+      <Link>Newtonsoft.Json\JsonWriterException.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Newtonsoft.Json\JsonObjectAttribute.cs">
+      <Link>Newtonsoft.Json\JsonObjectAttribute.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Newtonsoft.Json\JsonWriter.cs">
+      <Link>Newtonsoft.Json\JsonWriter.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Newtonsoft.Json\JsonDictionaryAttribute.cs">
+      <Link>Newtonsoft.Json\JsonDictionaryAttribute.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Newtonsoft.Json\JsonSerializationException.cs">
+      <Link>Newtonsoft.Json\JsonSerializationException.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Newtonsoft.Json\JsonReader.cs">
+      <Link>Newtonsoft.Json\JsonReader.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Newtonsoft.Json\PreserveReferencesHandling.cs">
+      <Link>Newtonsoft.Json\PreserveReferencesHandling.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Newtonsoft.Json\JsonIgnoreAttribute.cs">
+      <Link>Newtonsoft.Json\JsonIgnoreAttribute.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Newtonsoft.Json\JsonConstructorAttribute.cs">
+      <Link>Newtonsoft.Json\JsonConstructorAttribute.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Newtonsoft.Json\JsonValidatingReader.cs">
+      <Link>Newtonsoft.Json\JsonValidatingReader.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Newtonsoft.Json\Bson\BsonBinaryWriter.cs">
+      <Link>Newtonsoft.Json\Bson\BsonBinaryWriter.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Newtonsoft.Json\Bson\BsonBinaryType.cs">
+      <Link>Newtonsoft.Json\Bson\BsonBinaryType.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Newtonsoft.Json\Bson\BsonObjectId.cs">
+      <Link>Newtonsoft.Json\Bson\BsonObjectId.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Newtonsoft.Json\Bson\BsonReader.cs">
+      <Link>Newtonsoft.Json\Bson\BsonReader.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Newtonsoft.Json\Bson\BsonToken.cs">
+      <Link>Newtonsoft.Json\Bson\BsonToken.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Newtonsoft.Json\Bson\BsonWriter.cs">
+      <Link>Newtonsoft.Json\Bson\BsonWriter.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Newtonsoft.Json\Bson\BsonType.cs">
+      <Link>Newtonsoft.Json\Bson\BsonType.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Newtonsoft.Json\Serialization\IAttributeProvider.cs">
+      <Link>Newtonsoft.Json\Serialization\IAttributeProvider.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Newtonsoft.Json\Serialization\JsonLinqContract.cs">
+      <Link>Newtonsoft.Json\Serialization\JsonLinqContract.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Newtonsoft.Json\Serialization\IValueProvider.cs">
+      <Link>Newtonsoft.Json\Serialization\IValueProvider.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Newtonsoft.Json\Serialization\ReflectionAttributeProvider.cs">
+      <Link>Newtonsoft.Json\Serialization\ReflectionAttributeProvider.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Newtonsoft.Json\Serialization\JsonPrimitiveContract.cs">
+      <Link>Newtonsoft.Json\Serialization\JsonPrimitiveContract.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Newtonsoft.Json\Serialization\JsonSerializerProxy.cs">
+      <Link>Newtonsoft.Json\Serialization\JsonSerializerProxy.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Newtonsoft.Json\Serialization\ErrorContext.cs">
+      <Link>Newtonsoft.Json\Serialization\ErrorContext.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Newtonsoft.Json\Serialization\JsonPropertyCollection.cs">
+      <Link>Newtonsoft.Json\Serialization\JsonPropertyCollection.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Newtonsoft.Json\Serialization\JsonStringContract.cs">
+      <Link>Newtonsoft.Json\Serialization\JsonStringContract.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Newtonsoft.Json\Serialization\SnakeCaseNamingStrategy.cs">
+      <Link>Newtonsoft.Json\Serialization\SnakeCaseNamingStrategy.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Newtonsoft.Json\Serialization\OnErrorAttribute.cs">
+      <Link>Newtonsoft.Json\Serialization\OnErrorAttribute.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Newtonsoft.Json\Serialization\ExpressionValueProvider.cs">
+      <Link>Newtonsoft.Json\Serialization\ExpressionValueProvider.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Newtonsoft.Json\Serialization\JsonDynamicContract.cs">
+      <Link>Newtonsoft.Json\Serialization\JsonDynamicContract.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Newtonsoft.Json\Serialization\JsonSerializerInternalWriter.cs">
+      <Link>Newtonsoft.Json\Serialization\JsonSerializerInternalWriter.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Newtonsoft.Json\Serialization\FormatterConverter.cs">
+      <Link>Newtonsoft.Json\Serialization\FormatterConverter.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Newtonsoft.Json\Serialization\DiagnosticsTraceWriter.cs">
+      <Link>Newtonsoft.Json\Serialization\DiagnosticsTraceWriter.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Newtonsoft.Json\Serialization\NamingStrategy.cs">
+      <Link>Newtonsoft.Json\Serialization\NamingStrategy.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Newtonsoft.Json\Serialization\ReflectionValueProvider.cs">
+      <Link>Newtonsoft.Json\Serialization\ReflectionValueProvider.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Newtonsoft.Json\Serialization\DefaultSerializationBinder.cs">
+      <Link>Newtonsoft.Json\Serialization\DefaultSerializationBinder.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Newtonsoft.Json\Serialization\CamelCasePropertyNamesContractResolver.cs">
+      <Link>Newtonsoft.Json\Serialization\CamelCasePropertyNamesContractResolver.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Newtonsoft.Json\Serialization\JsonSerializerInternalBase.cs">
+      <Link>Newtonsoft.Json\Serialization\JsonSerializerInternalBase.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Newtonsoft.Json\Serialization\SerializationBinderAdapter.cs">
+      <Link>Newtonsoft.Json\Serialization\SerializationBinderAdapter.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Newtonsoft.Json\Serialization\JsonDictionaryContract.cs">
+      <Link>Newtonsoft.Json\Serialization\JsonDictionaryContract.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Newtonsoft.Json\Serialization\JsonContract.cs">
+      <Link>Newtonsoft.Json\Serialization\JsonContract.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Newtonsoft.Json\Serialization\IContractResolver.cs">
+      <Link>Newtonsoft.Json\Serialization\IContractResolver.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Newtonsoft.Json\Serialization\ISerializationBinder.cs">
+      <Link>Newtonsoft.Json\Serialization\ISerializationBinder.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Newtonsoft.Json\Serialization\JsonObjectContract.cs">
+      <Link>Newtonsoft.Json\Serialization\JsonObjectContract.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Newtonsoft.Json\Serialization\JsonSerializerInternalReader.cs">
+      <Link>Newtonsoft.Json\Serialization\JsonSerializerInternalReader.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Newtonsoft.Json\Serialization\IReferenceResolver.cs">
+      <Link>Newtonsoft.Json\Serialization\IReferenceResolver.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Newtonsoft.Json\Serialization\JsonISerializableContract.cs">
+      <Link>Newtonsoft.Json\Serialization\JsonISerializableContract.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Newtonsoft.Json\Serialization\ITraceWriter.cs">
+      <Link>Newtonsoft.Json\Serialization\ITraceWriter.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Newtonsoft.Json\Serialization\DefaultNamingStrategy.cs">
+      <Link>Newtonsoft.Json\Serialization\DefaultNamingStrategy.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Newtonsoft.Json\Serialization\MemoryTraceWriter.cs">
+      <Link>Newtonsoft.Json\Serialization\MemoryTraceWriter.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Newtonsoft.Json\Serialization\TraceJsonWriter.cs">
+      <Link>Newtonsoft.Json\Serialization\TraceJsonWriter.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Newtonsoft.Json\Serialization\DefaultReferenceResolver.cs">
+      <Link>Newtonsoft.Json\Serialization\DefaultReferenceResolver.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Newtonsoft.Json\Serialization\JsonProperty.cs">
+      <Link>Newtonsoft.Json\Serialization\JsonProperty.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Newtonsoft.Json\Serialization\KebabCaseNamingStrategy.cs">
+      <Link>Newtonsoft.Json\Serialization\KebabCaseNamingStrategy.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Newtonsoft.Json\Serialization\DynamicValueProvider.cs">
+      <Link>Newtonsoft.Json\Serialization\DynamicValueProvider.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Newtonsoft.Json\Serialization\JsonContainerContract.cs">
+      <Link>Newtonsoft.Json\Serialization\JsonContainerContract.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Newtonsoft.Json\Serialization\TraceJsonReader.cs">
+      <Link>Newtonsoft.Json\Serialization\TraceJsonReader.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Newtonsoft.Json\Serialization\ErrorEventArgs.cs">
+      <Link>Newtonsoft.Json\Serialization\ErrorEventArgs.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Newtonsoft.Json\Serialization\JsonFormatterConverter.cs">
+      <Link>Newtonsoft.Json\Serialization\JsonFormatterConverter.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Newtonsoft.Json\Serialization\CachedAttributeGetter.cs">
+      <Link>Newtonsoft.Json\Serialization\CachedAttributeGetter.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Newtonsoft.Json\Serialization\JsonArrayContract.cs">
+      <Link>Newtonsoft.Json\Serialization\JsonArrayContract.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Newtonsoft.Json\Serialization\JsonTypeReflector.cs">
+      <Link>Newtonsoft.Json\Serialization\JsonTypeReflector.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Newtonsoft.Json\Serialization\DefaultContractResolver.cs">
+      <Link>Newtonsoft.Json\Serialization\DefaultContractResolver.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Newtonsoft.Json\Serialization\ObjectConstructor.cs">
+      <Link>Newtonsoft.Json\Serialization\ObjectConstructor.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Newtonsoft.Json\Serialization\CamelCaseNamingStrategy.cs">
+      <Link>Newtonsoft.Json\Serialization\CamelCaseNamingStrategy.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Newtonsoft.Json\Converters\DataTableConverter.cs">
+      <Link>Newtonsoft.Json\Converters\DataTableConverter.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Newtonsoft.Json\Converters\StringEnumConverter.cs">
+      <Link>Newtonsoft.Json\Converters\StringEnumConverter.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Newtonsoft.Json\Converters\EntityKeyMemberConverter.cs">
+      <Link>Newtonsoft.Json\Converters\EntityKeyMemberConverter.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Newtonsoft.Json\Converters\DateTimeConverterBase.cs">
+      <Link>Newtonsoft.Json\Converters\DateTimeConverterBase.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Newtonsoft.Json\Converters\ExpandoObjectConverter.cs">
+      <Link>Newtonsoft.Json\Converters\ExpandoObjectConverter.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Newtonsoft.Json\Converters\JavaScriptDateTimeConverter.cs">
+      <Link>Newtonsoft.Json\Converters\JavaScriptDateTimeConverter.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Newtonsoft.Json\Converters\IsoDateTimeConverter.cs">
+      <Link>Newtonsoft.Json\Converters\IsoDateTimeConverter.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Newtonsoft.Json\Converters\DataSetConverter.cs">
+      <Link>Newtonsoft.Json\Converters\DataSetConverter.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Newtonsoft.Json\Converters\BinaryConverter.cs">
+      <Link>Newtonsoft.Json\Converters\BinaryConverter.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Newtonsoft.Json\Converters\KeyValuePairConverter.cs">
+      <Link>Newtonsoft.Json\Converters\KeyValuePairConverter.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Newtonsoft.Json\Converters\XmlNodeConverter.cs">
+      <Link>Newtonsoft.Json\Converters\XmlNodeConverter.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Newtonsoft.Json\Converters\DiscriminatedUnionConverter.cs">
+      <Link>Newtonsoft.Json\Converters\DiscriminatedUnionConverter.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Newtonsoft.Json\Converters\RegexConverter.cs">
+      <Link>Newtonsoft.Json\Converters\RegexConverter.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Newtonsoft.Json\Converters\VersionConverter.cs">
+      <Link>Newtonsoft.Json\Converters\VersionConverter.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Newtonsoft.Json\Converters\UnixDateTimeConverter.cs">
+      <Link>Newtonsoft.Json\Converters\UnixDateTimeConverter.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Newtonsoft.Json\Converters\CustomCreationConverter.cs">
+      <Link>Newtonsoft.Json\Converters\CustomCreationConverter.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Newtonsoft.Json\Converters\BsonObjectIdConverter.cs">
+      <Link>Newtonsoft.Json\Converters\BsonObjectIdConverter.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Newtonsoft.Json\Linq\JArray.cs">
+      <Link>Newtonsoft.Json\Linq\JArray.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Newtonsoft.Json\Linq\MergeNullValueHandling.cs">
+      <Link>Newtonsoft.Json\Linq\MergeNullValueHandling.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Newtonsoft.Json\Linq\MergeArrayHandling.cs">
+      <Link>Newtonsoft.Json\Linq\MergeArrayHandling.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Newtonsoft.Json\Linq\JValue.cs">
+      <Link>Newtonsoft.Json\Linq\JValue.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Newtonsoft.Json\Linq\JPropertyDescriptor.cs">
+      <Link>Newtonsoft.Json\Linq\JPropertyDescriptor.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Newtonsoft.Json\Linq\JArray.Async.cs">
+      <Link>Newtonsoft.Json\Linq\JArray.Async.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Newtonsoft.Json\Linq\JTokenReader.cs">
+      <Link>Newtonsoft.Json\Linq\JTokenReader.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Newtonsoft.Json\Linq\JsonMergeSettings.cs">
+      <Link>Newtonsoft.Json\Linq\JsonMergeSettings.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Newtonsoft.Json\Linq\IJEnumerable.cs">
+      <Link>Newtonsoft.Json\Linq\IJEnumerable.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Newtonsoft.Json\Linq\JTokenWriter.cs">
+      <Link>Newtonsoft.Json\Linq\JTokenWriter.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Newtonsoft.Json\Linq\JRaw.Async.cs">
+      <Link>Newtonsoft.Json\Linq\JRaw.Async.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Newtonsoft.Json\Linq\JRaw.cs">
+      <Link>Newtonsoft.Json\Linq\JRaw.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Newtonsoft.Json\Linq\JContainer.cs">
+      <Link>Newtonsoft.Json\Linq\JContainer.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Newtonsoft.Json\Linq\JTokenWriter.Async.cs">
+      <Link>Newtonsoft.Json\Linq\JTokenWriter.Async.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Newtonsoft.Json\Linq\JProperty.Async.cs">
+      <Link>Newtonsoft.Json\Linq\JProperty.Async.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Newtonsoft.Json\Linq\CommentHandling.cs">
+      <Link>Newtonsoft.Json\Linq\CommentHandling.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Newtonsoft.Json\Linq\JPropertyKeyedCollection.cs">
+      <Link>Newtonsoft.Json\Linq\JPropertyKeyedCollection.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Newtonsoft.Json\Linq\JValue.Async.cs">
+      <Link>Newtonsoft.Json\Linq\JValue.Async.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Newtonsoft.Json\Linq\JContainer.Async.cs">
+      <Link>Newtonsoft.Json\Linq\JContainer.Async.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Newtonsoft.Json\Linq\DuplicatePropertyNameHandling.cs">
+      <Link>Newtonsoft.Json\Linq\DuplicatePropertyNameHandling.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Newtonsoft.Json\Linq\JConstructor.cs">
+      <Link>Newtonsoft.Json\Linq\JConstructor.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Newtonsoft.Json\Linq\LineInfoHandling.cs">
+      <Link>Newtonsoft.Json\Linq\LineInfoHandling.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Newtonsoft.Json\Linq\JsonSelectSettings.cs">
+      <Link>Newtonsoft.Json\Linq\JsonSelectSettings.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Newtonsoft.Json\Linq\JObject.Async.cs">
+      <Link>Newtonsoft.Json\Linq\JObject.Async.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Newtonsoft.Json\Linq\JConstructor.Async.cs">
+      <Link>Newtonsoft.Json\Linq\JConstructor.Async.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Newtonsoft.Json\Linq\JTokenEqualityComparer.cs">
+      <Link>Newtonsoft.Json\Linq\JTokenEqualityComparer.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Newtonsoft.Json\Linq\Extensions.cs">
+      <Link>Newtonsoft.Json\Linq\Extensions.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Newtonsoft.Json\Linq\JProperty.cs">
+      <Link>Newtonsoft.Json\Linq\JProperty.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Newtonsoft.Json\Linq\JsonLoadSettings.cs">
+      <Link>Newtonsoft.Json\Linq\JsonLoadSettings.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Newtonsoft.Json\Linq\JObject.cs">
+      <Link>Newtonsoft.Json\Linq\JObject.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Newtonsoft.Json\Linq\JEnumerable.cs">
+      <Link>Newtonsoft.Json\Linq\JEnumerable.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Newtonsoft.Json\Linq\JToken.Async.cs">
+      <Link>Newtonsoft.Json\Linq\JToken.Async.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Newtonsoft.Json\Linq\JToken.cs">
+      <Link>Newtonsoft.Json\Linq\JToken.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Newtonsoft.Json\Linq\JTokenType.cs">
+      <Link>Newtonsoft.Json\Linq\JTokenType.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Newtonsoft.Json\Linq\JsonPath\FieldMultipleFilter.cs">
+      <Link>Newtonsoft.Json\Linq\JsonPath\FieldMultipleFilter.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Newtonsoft.Json\Linq\JsonPath\QueryExpression.cs">
+      <Link>Newtonsoft.Json\Linq\JsonPath\QueryExpression.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Newtonsoft.Json\Linq\JsonPath\QueryScanFilter.cs">
+      <Link>Newtonsoft.Json\Linq\JsonPath\QueryScanFilter.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Newtonsoft.Json\Linq\JsonPath\ScanMultipleFilter.cs">
+      <Link>Newtonsoft.Json\Linq\JsonPath\ScanMultipleFilter.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Newtonsoft.Json\Linq\JsonPath\ArraySliceFilter.cs">
+      <Link>Newtonsoft.Json\Linq\JsonPath\ArraySliceFilter.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Newtonsoft.Json\Linq\JsonPath\RootFilter.cs">
+      <Link>Newtonsoft.Json\Linq\JsonPath\RootFilter.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Newtonsoft.Json\Linq\JsonPath\FieldFilter.cs">
+      <Link>Newtonsoft.Json\Linq\JsonPath\FieldFilter.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Newtonsoft.Json\Linq\JsonPath\JPath.cs">
+      <Link>Newtonsoft.Json\Linq\JsonPath\JPath.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Newtonsoft.Json\Linq\JsonPath\ScanFilter.cs">
+      <Link>Newtonsoft.Json\Linq\JsonPath\ScanFilter.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Newtonsoft.Json\Linq\JsonPath\ArrayMultipleIndexFilter.cs">
+      <Link>Newtonsoft.Json\Linq\JsonPath\ArrayMultipleIndexFilter.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Newtonsoft.Json\Linq\JsonPath\PathFilter.cs">
+      <Link>Newtonsoft.Json\Linq\JsonPath\PathFilter.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Newtonsoft.Json\Linq\JsonPath\QueryFilter.cs">
+      <Link>Newtonsoft.Json\Linq\JsonPath\QueryFilter.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Newtonsoft.Json\Linq\JsonPath\ArrayIndexFilter.cs">
+      <Link>Newtonsoft.Json\Linq\JsonPath\ArrayIndexFilter.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Newtonsoft.Json\Utilities\FSharpUtils.cs">
+      <Link>Newtonsoft.Json\Utilities\FSharpUtils.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Newtonsoft.Json\Utilities\DynamicProxy.cs">
+      <Link>Newtonsoft.Json\Utilities\DynamicProxy.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Newtonsoft.Json\Utilities\StringUtils.cs">
+      <Link>Newtonsoft.Json\Utilities\StringUtils.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Newtonsoft.Json\Utilities\MiscellaneousUtils.cs">
+      <Link>Newtonsoft.Json\Utilities\MiscellaneousUtils.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Newtonsoft.Json\Utilities\JavaScriptUtils.cs">
+      <Link>Newtonsoft.Json\Utilities\JavaScriptUtils.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Newtonsoft.Json\Utilities\TypeExtensions.cs">
+      <Link>Newtonsoft.Json\Utilities\TypeExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Newtonsoft.Json\Utilities\ILGeneratorExtensions.cs">
+      <Link>Newtonsoft.Json\Utilities\ILGeneratorExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Newtonsoft.Json\Utilities\ReflectionUtils.cs">
+      <Link>Newtonsoft.Json\Utilities\ReflectionUtils.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Newtonsoft.Json\Utilities\CollectionWrapper.cs">
+      <Link>Newtonsoft.Json\Utilities\CollectionWrapper.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Newtonsoft.Json\Utilities\AsyncUtils.cs">
+      <Link>Newtonsoft.Json\Utilities\AsyncUtils.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Newtonsoft.Json\Utilities\ThreadSafeStore.cs">
+      <Link>Newtonsoft.Json\Utilities\ThreadSafeStore.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Newtonsoft.Json\Utilities\Base64Encoder.cs">
+      <Link>Newtonsoft.Json\Utilities\Base64Encoder.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Newtonsoft.Json\Utilities\MethodCall.cs">
+      <Link>Newtonsoft.Json\Utilities\MethodCall.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Newtonsoft.Json\Utilities\ReflectionObject.cs">
+      <Link>Newtonsoft.Json\Utilities\ReflectionObject.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Newtonsoft.Json\Utilities\DateTimeParser.cs">
+      <Link>Newtonsoft.Json\Utilities\DateTimeParser.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Newtonsoft.Json\Utilities\ValidationUtils.cs">
+      <Link>Newtonsoft.Json\Utilities\ValidationUtils.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Newtonsoft.Json\Utilities\DateTimeUtils.cs">
+      <Link>Newtonsoft.Json\Utilities\DateTimeUtils.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Newtonsoft.Json\Utilities\EnumInfo.cs">
+      <Link>Newtonsoft.Json\Utilities\EnumInfo.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Newtonsoft.Json\Utilities\StringBuffer.cs">
+      <Link>Newtonsoft.Json\Utilities\StringBuffer.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Newtonsoft.Json\Utilities\DynamicProxyMetaObject.cs">
+      <Link>Newtonsoft.Json\Utilities\DynamicProxyMetaObject.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Newtonsoft.Json\Utilities\LinqBridge.cs">
+      <Link>Newtonsoft.Json\Utilities\LinqBridge.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Newtonsoft.Json\Utilities\MathUtils.cs">
+      <Link>Newtonsoft.Json\Utilities\MathUtils.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Newtonsoft.Json\Utilities\ConvertUtils.cs">
+      <Link>Newtonsoft.Json\Utilities\ConvertUtils.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Newtonsoft.Json\Utilities\JsonTokenUtils.cs">
+      <Link>Newtonsoft.Json\Utilities\JsonTokenUtils.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Newtonsoft.Json\Utilities\ReflectionDelegateFactory.cs">
+      <Link>Newtonsoft.Json\Utilities\ReflectionDelegateFactory.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Newtonsoft.Json\Utilities\CollectionUtils.cs">
+      <Link>Newtonsoft.Json\Utilities\CollectionUtils.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Newtonsoft.Json\Utilities\NullableAttributes.cs">
+      <Link>Newtonsoft.Json\Utilities\NullableAttributes.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Newtonsoft.Json\Utilities\DictionaryWrapper.cs">
+      <Link>Newtonsoft.Json\Utilities\DictionaryWrapper.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Newtonsoft.Json\Utilities\StructMultiKey.cs">
+      <Link>Newtonsoft.Json\Utilities\StructMultiKey.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Newtonsoft.Json\Utilities\DynamicUtils.cs">
+      <Link>Newtonsoft.Json\Utilities\DynamicUtils.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Newtonsoft.Json\Utilities\MethodBinder.cs">
+      <Link>Newtonsoft.Json\Utilities\MethodBinder.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Newtonsoft.Json\Utilities\LateBoundReflectionDelegateFactory.cs">
+      <Link>Newtonsoft.Json\Utilities\LateBoundReflectionDelegateFactory.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Newtonsoft.Json\Utilities\StringReference.cs">
+      <Link>Newtonsoft.Json\Utilities\StringReference.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Newtonsoft.Json\Utilities\ImmutableCollectionsUtils.cs">
+      <Link>Newtonsoft.Json\Utilities\ImmutableCollectionsUtils.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Newtonsoft.Json\Utilities\ExpressionReflectionDelegateFactory.cs">
+      <Link>Newtonsoft.Json\Utilities\ExpressionReflectionDelegateFactory.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Newtonsoft.Json\Utilities\BidirectionalDictionary.cs">
+      <Link>Newtonsoft.Json\Utilities\BidirectionalDictionary.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Newtonsoft.Json\Utilities\EnumUtils.cs">
+      <Link>Newtonsoft.Json\Utilities\EnumUtils.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Newtonsoft.Json\Utilities\DynamicReflectionDelegateFactory.cs">
+      <Link>Newtonsoft.Json\Utilities\DynamicReflectionDelegateFactory.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Newtonsoft.Json\Schema\ValidationEventHandler.cs">
+      <Link>Newtonsoft.Json\Schema\ValidationEventHandler.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Newtonsoft.Json\Schema\JsonSchemaModel.cs">
+      <Link>Newtonsoft.Json\Schema\JsonSchemaModel.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Newtonsoft.Json\Schema\JsonSchemaType.cs">
+      <Link>Newtonsoft.Json\Schema\JsonSchemaType.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Newtonsoft.Json\Schema\JsonSchemaGenerator.cs">
+      <Link>Newtonsoft.Json\Schema\JsonSchemaGenerator.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Newtonsoft.Json\Schema\JsonSchemaWriter.cs">
+      <Link>Newtonsoft.Json\Schema\JsonSchemaWriter.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Newtonsoft.Json\Schema\ValidationEventArgs.cs">
+      <Link>Newtonsoft.Json\Schema\ValidationEventArgs.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Newtonsoft.Json\Schema\JsonSchemaResolver.cs">
+      <Link>Newtonsoft.Json\Schema\JsonSchemaResolver.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Newtonsoft.Json\Schema\JsonSchema.cs">
+      <Link>Newtonsoft.Json\Schema\JsonSchema.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Newtonsoft.Json\Schema\JsonSchemaBuilder.cs">
+      <Link>Newtonsoft.Json\Schema\JsonSchemaBuilder.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Newtonsoft.Json\Schema\JsonSchemaConstants.cs">
+      <Link>Newtonsoft.Json\Schema\JsonSchemaConstants.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Newtonsoft.Json\Schema\JsonSchemaNodeCollection.cs">
+      <Link>Newtonsoft.Json\Schema\JsonSchemaNodeCollection.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Newtonsoft.Json\Schema\UndefinedSchemaIdHandling.cs">
+      <Link>Newtonsoft.Json\Schema\UndefinedSchemaIdHandling.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Newtonsoft.Json\Schema\Extensions.cs">
+      <Link>Newtonsoft.Json\Schema\Extensions.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Newtonsoft.Json\Schema\JsonSchemaModelBuilder.cs">
+      <Link>Newtonsoft.Json\Schema\JsonSchemaModelBuilder.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Newtonsoft.Json\Schema\JsonSchemaException.cs">
+      <Link>Newtonsoft.Json\Schema\JsonSchemaException.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Newtonsoft.Json\Schema\JsonSchemaNode.cs">
+      <Link>Newtonsoft.Json\Schema\JsonSchemaNode.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Newtonsoft.Json\Properties\AssemblyInfo.cs">
+      <Link>Newtonsoft.Json\Properties\AssemblyInfo.cs</Link>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\AboutResources.txt" />
+    <None Include="..\..\..\Bindings\Portable\Generated\binding.cpp">
+      <Link>Portable\Generated\binding.cpp</Link>
+    </None>
+    <None Include="..\..\..\Bindings\Portable\Generated\events.cpp">
+      <Link>Portable\Generated\events.cpp</Link>
+    </None>
+    <None Include="..\..\..\Bindings\Portable\External\README.md">
+      <Link>Portable\External\README.md</Link>
+    </None>
+    <None Include="..\..\..\Bindings\Android\Metadata.xml">
+      <Link>Android\Metadata.xml</Link>
+    </None>
+    <None Include="..\..\..\Newtonsoft.Json\Newtonsoft.Json.csproj">
+      <Link>Newtonsoft.Json\Newtonsoft.Json.csproj</Link>
+    </None>
+    <None Include="..\..\..\Newtonsoft.Json\LICENSE.md">
+      <Link>Newtonsoft.Json\LICENSE.md</Link>
+    </None>
+    <None Include="..\..\..\Newtonsoft.Json\packageIcon.png">
+      <Link>Newtonsoft.Json\packageIcon.png</Link>
+    </None>
+    <None Include="..\..\..\Newtonsoft.Json\Dynamic.snk">
+      <Link>Newtonsoft.Json\Dynamic.snk</Link>
+    </None>
+    <None Include="..\..\..\Newtonsoft.Json\README.md">
+      <Link>Newtonsoft.Json\README.md</Link>
+    </None>
+    <None Include="..\..\..\Newtonsoft.Json\ISSUE_TEMPLATE.md">
+      <Link>Newtonsoft.Json\ISSUE_TEMPLATE.md</Link>
+    </None>
+    <None Include="..\..\..\Newtonsoft.Json\Newtonsoft.Json.ruleset">
+      <Link>Newtonsoft.Json\Newtonsoft.Json.ruleset</Link>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Xamarin.AndroidX.AppCompat" Version="1.5.1.1" />
+    <PackageReference Include="Xamarin.Forms">
+      <Version>5.0.0.2545</Version>
+    </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\values\strings.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Resources\drawable\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Bindings\Android\Urho.Droid.SdlBinding\Urho.Droid.SdlBinding.csproj">
+      <Project>{68A19C58-7EBA-4AF4-BE15-F5D7A13B6C97}</Project>
+      <Name>Urho.Droid.SdlBinding</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

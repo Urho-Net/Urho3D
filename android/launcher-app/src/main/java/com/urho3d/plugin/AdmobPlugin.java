@@ -61,7 +61,7 @@ import com.google.android.gms.ads.RequestConfiguration;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 
-import com.github.urho3d.UrhoActivity;
+import android.app.Activity;
 import com.github.urho3d.launcher.MainActivity;
 
 
@@ -78,7 +78,7 @@ public class AdmobPlugin
 
     boolean isInitialized = false;
 
-    private  UrhoActivity urhoActivity;
+    private  Activity urhoActivity;
 
     public static native void OnNativePluginEvent(String json);
 
