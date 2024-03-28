@@ -13,6 +13,8 @@ using Urho.Navigation;
 using Urho.Network;
 using File = Urho.IO.File;
 
+using Button = Urho.Gui.Button;
+
 namespace Urho
 {
 	/// <summary>

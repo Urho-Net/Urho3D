@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+    <PropertyGroup>
+        <TargetFramework>net8.0-android</TargetFramework>
+        <SupportedOSPlatformVersion>21</SupportedOSPlatformVersion>
+        <Nullable>enable</Nullable>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <AssemblyName>Urho.Droid.SdlBinding</AssemblyName>
+        <RootNamespace>Urho.Droid.SdlBinding</RootNamespace>
+    </PropertyGroup>
+    <ItemGroup>
+      <AndroidLibrary Include="..\..\..\..\android\urho3d-lib\build\outputs\aar\urho3d-lib-release.aar">
+        <Link>urho3d-lib-release.aar</Link>
+      </AndroidLibrary>
+    </ItemGroup>
+</Project>
