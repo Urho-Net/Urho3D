@@ -33,6 +33,180 @@
     <Compile Include="..\..\..\Bindings\Portable\Skeleton.cs">
       <Link>Portable\Skeleton.cs</Link>
     </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\UIActions\AsyncCompletionCallFunc.cs">
+      <Link>Portable\UIActions\AsyncCompletionCallFunc.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\UIActions\Base\Action.cs">
+      <Link>Portable\UIActions\Base\Action.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\UIActions\Base\AmplitudeAction.cs">
+      <Link>Portable\UIActions\Base\AmplitudeAction.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\UIActions\Base\FiniteTimeAction.cs">
+      <Link>Portable\UIActions\Base\FiniteTimeAction.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\UIActions\Base\Speed.cs">
+      <Link>Portable\UIActions\Base\Speed.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\UIActions\Ease\ActionEase.cs">
+      <Link>Portable\UIActions\Ease\ActionEase.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\UIActions\Ease\EaseBackIn.cs">
+      <Link>Portable\UIActions\Ease\EaseBackIn.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\UIActions\Ease\EaseBackInOut.cs">
+      <Link>Portable\UIActions\Ease\EaseBackInOut.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\UIActions\Ease\EaseBackOut.cs">
+      <Link>Portable\UIActions\Ease\EaseBackOut.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\UIActions\Ease\EaseBounceIn.cs">
+      <Link>Portable\UIActions\Ease\EaseBounceIn.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\UIActions\Ease\EaseBounceInOut.cs">
+      <Link>Portable\UIActions\Ease\EaseBounceInOut.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\UIActions\Ease\EaseBounceOut.cs">
+      <Link>Portable\UIActions\Ease\EaseBounceOut.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\UIActions\Ease\EaseCustom.cs">
+      <Link>Portable\UIActions\Ease\EaseCustom.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\UIActions\Ease\EaseElastic.cs">
+      <Link>Portable\UIActions\Ease\EaseElastic.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\UIActions\Ease\EaseElasticIn.cs">
+      <Link>Portable\UIActions\Ease\EaseElasticIn.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\UIActions\Ease\EaseElasticInOut.cs">
+      <Link>Portable\UIActions\Ease\EaseElasticInOut.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\UIActions\Ease\EaseElasticOut.cs">
+      <Link>Portable\UIActions\Ease\EaseElasticOut.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\UIActions\Ease\EaseExponentialIn.cs">
+      <Link>Portable\UIActions\Ease\EaseExponentialIn.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\UIActions\Ease\EaseExponentialInOut.cs">
+      <Link>Portable\UIActions\Ease\EaseExponentialInOut.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\UIActions\Ease\EaseExponentialOut.cs">
+      <Link>Portable\UIActions\Ease\EaseExponentialOut.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\UIActions\Ease\EaseIn.cs">
+      <Link>Portable\UIActions\Ease\EaseIn.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\UIActions\Ease\EaseInOut.cs">
+      <Link>Portable\UIActions\Ease\EaseInOut.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\UIActions\Ease\EaseOut.cs">
+      <Link>Portable\UIActions\Ease\EaseOut.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\UIActions\Ease\EaseRateAction.cs">
+      <Link>Portable\UIActions\Ease\EaseRateAction.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\UIActions\Ease\EaseSineIn.cs">
+      <Link>Portable\UIActions\Ease\EaseSineIn.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\UIActions\Ease\EaseSineInOut.cs">
+      <Link>Portable\UIActions\Ease\EaseSineInOut.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\UIActions\Ease\EaseSineOut.cs">
+      <Link>Portable\UIActions\Ease\EaseSineOut.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\UIActions\Extenations.cs">
+      <Link>Portable\UIActions\Extenations.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\UIActions\Instants\ActionInstant.cs">
+      <Link>Portable\UIActions\Instants\ActionInstant.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\UIActions\Instants\Callfunc\CallFunc.cs">
+      <Link>Portable\UIActions\Instants\Callfunc\CallFunc.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\UIActions\Instants\Callfunc\CallFuncN.cs">
+      <Link>Portable\UIActions\Instants\Callfunc\CallFuncN.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\UIActions\Instants\Callfunc\CallFuncND.cs">
+      <Link>Portable\UIActions\Instants\Callfunc\CallFuncND.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\UIActions\Instants\Callfunc\CallFuncO.cs">
+      <Link>Portable\UIActions\Instants\Callfunc\CallFuncO.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\UIActions\Instants\Callfunc\TaskSourceAction.cs">
+      <Link>Portable\UIActions\Instants\Callfunc\TaskSourceAction.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\UIActions\Instants\Hide.cs">
+      <Link>Portable\UIActions\Instants\Hide.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\UIActions\Instants\Place.cs">
+      <Link>Portable\UIActions\Instants\Place.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\UIActions\Instants\RemoveSelf.cs">
+      <Link>Portable\UIActions\Instants\RemoveSelf.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\UIActions\Instants\Show.cs">
+      <Link>Portable\UIActions\Instants\Show.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\UIActions\Instants\ToggleVisibility.cs">
+      <Link>Portable\UIActions\Instants\ToggleVisibility.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\UIActions\Intervals\ActionTween.cs">
+      <Link>Portable\UIActions\Intervals\ActionTween.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\UIActions\Intervals\BezierBy.cs">
+      <Link>Portable\UIActions\Intervals\BezierBy.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\UIActions\Intervals\BezierTo.cs">
+      <Link>Portable\UIActions\Intervals\BezierTo.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\UIActions\Intervals\CustomAction.cs">
+      <Link>Portable\UIActions\Intervals\CustomAction.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\UIActions\Intervals\DelayTime.cs">
+      <Link>Portable\UIActions\Intervals\DelayTime.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\UIActions\Intervals\ExtraAction.cs">
+      <Link>Portable\UIActions\Intervals\ExtraAction.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\UIActions\Intervals\JumpBy.cs">
+      <Link>Portable\UIActions\Intervals\JumpBy.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\UIActions\Intervals\JumpTo.cs">
+      <Link>Portable\UIActions\Intervals\JumpTo.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\UIActions\Intervals\MoveBy.cs">
+      <Link>Portable\UIActions\Intervals\MoveBy.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\UIActions\Intervals\MoveTo.cs">
+      <Link>Portable\UIActions\Intervals\MoveTo.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\UIActions\Intervals\Parallel.cs">
+      <Link>Portable\UIActions\Intervals\Parallel.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\UIActions\Intervals\Repeat.cs">
+      <Link>Portable\UIActions\Intervals\Repeat.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\UIActions\Intervals\RepeatForever.cs">
+      <Link>Portable\UIActions\Intervals\RepeatForever.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\UIActions\Intervals\ReverseTime.cs">
+      <Link>Portable\UIActions\Intervals\ReverseTime.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\UIActions\Intervals\Sequence.cs">
+      <Link>Portable\UIActions\Intervals\Sequence.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\UIActions\Intervals\Spawn.cs">
+      <Link>Portable\UIActions\Intervals\Spawn.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\UIActions\Intervals\TargetedAction.cs">
+      <Link>Portable\UIActions\Intervals\TargetedAction.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\UIActions\UIActionManager.cs">
+      <Link>Portable\UIActions\UIActionManager.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Bindings\Portable\UIActions\UIElement.cs">
+      <Link>Portable\UIActions\UIElement.cs</Link>
+    </Compile>
     <Compile Include="..\..\..\Bindings\Portable\WirePlane.cs">
       <Link>Portable\WirePlane.cs</Link>
     </Compile>
