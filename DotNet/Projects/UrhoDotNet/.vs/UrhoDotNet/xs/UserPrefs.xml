@@ -24,20 +24,26 @@
       <File FileName="../../Bindings/Forms/UrhoSurface.cs" />
       <File FileName="UrhoXamarinForms/UrhoXamarinForms.csproj" />
       <File FileName="../../Bindings/Forms.iOS/IosSurfaceRenderer.cs" />
-      <File FileName="../../Bindings/iOS/UrhoSurface.cs" Line="87" Column="20" />
+      <File FileName="../../Bindings/iOS/UrhoSurface.cs" />
       <File FileName="../../Bindings/Portable/Application.cs" />
       <File FileName="../../Bindings/Portable/Runtime/Runtime.cs" />
       <File FileName="../../Bindings/Portable/LogSharp.cs" />
       <File FileName="../../Bindings/Portable/Generated/Object.Events.cs" />
       <File FileName="../../Bindings/Portable/External/Vector4.cs" />
       <File FileName="../../Bindings/Android/UrhoSurface.cs" />
-      <File FileName="UrhoDotNet/UrhoDotNet.csproj" Line="7" Column="29" />
+      <File FileName="UrhoDotNet/UrhoDotNet.csproj" Line="19" Column="34" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
-          <Node name="UrhoDotNet" expanded="True">
-            <Node name="UrhoDotNet" selected="True" />
+          <Node name="UrhoDotNet">
+            <Node name="UrhoDotNet" expanded="True">
+              <Node name="Portable" expanded="True">
+                <Node name="Generated" expanded="True">
+                  <Node name="Text3D.cs" selected="True" />
+                </Node>
+              </Node>
+            </Node>
           </Node>
         </State>
       </Pad>

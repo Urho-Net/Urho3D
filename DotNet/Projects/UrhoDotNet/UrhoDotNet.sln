@@ -17,6 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UrhoXamarinForms", "UrhoXam
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UrhoXamarinFormsIOS", "UrhoXamarinFormsIOS\UrhoXamarinFormsIOS.csproj", "{DBBE797F-395F-4008-BB1F-653A1FD1EBCF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UrhoDotNetIOS", "UrhoDotNetIOS\UrhoDotNetIOS.csproj", "{41F6CA73-EAE8-4184-92C4-C5FD80B780D6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +53,10 @@ Global
 		{DBBE797F-395F-4008-BB1F-653A1FD1EBCF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DBBE797F-395F-4008-BB1F-653A1FD1EBCF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DBBE797F-395F-4008-BB1F-653A1FD1EBCF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{41F6CA73-EAE8-4184-92C4-C5FD80B780D6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{41F6CA73-EAE8-4184-92C4-C5FD80B780D6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{41F6CA73-EAE8-4184-92C4-C5FD80B780D6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{41F6CA73-EAE8-4184-92C4-C5FD80B780D6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
