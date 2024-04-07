@@ -38,10 +38,14 @@ namespace Urho.Network {
 
 		public bool Connect (string address, short port, Scene scene)
 		{
+#if __WEB__
+			return false;
+#else
 			Runtime.ValidateRefCounted(this);
 			if (address == null)
 				throw new ArgumentNullException ("address");
 			return Network_Connect (handle, address, port, scene?.Handle ?? IntPtr.Zero) != 0;
+#endif
 		}
 
 		public void Broadcast (int msgID, bool reliable, bool inOrder, byte[] data, uint contentID = 0)

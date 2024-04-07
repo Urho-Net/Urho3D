@@ -46,11 +46,67 @@ enum HttpRequestState
 class URHO3D_API HttpRequest : public RefCounted, public Deserializer, public Thread
 {
 public:
-    /// Construct with parameters.
+
+/// Construct with parameters.
     HttpRequest(const String& url, const String& verb, const Vector<String>& headers, const String& postData);
     /// Destruct. Release the connection object.
     ~HttpRequest() override;
 
+#ifdef __EMSCRIPTEN__
+    /// Process the connection in the worker thread until closed.
+    void ThreadFunction() override
+    {
+
+    }
+
+    /// Read response data from the HTTP connection and return number of bytes actually read. While the connection is open, will block while trying to read the specified size. To avoid blocking, only read up to as many bytes as GetAvailableSize() returns.
+    unsigned Read(void* dest, unsigned size) override
+    {
+        return 0;
+    }
+    /// Set position from the beginning of the stream. Not supported.
+    unsigned Seek(unsigned position) override
+    {
+        return 0;
+    }
+    /// Return whether all response data has been read.
+    bool IsEof() const override
+    {
+        return true;
+    }
+
+    /// Return URL used in the request.
+    /// @property{get_url}
+    const String& GetURL() const { return url_; }
+
+    /// Return verb used in the request. Default GET if empty verb specified on construction.
+    /// @property
+    const String& GetVerb() const { return verb_; }
+
+    /// Return error. Only non-empty in the error state.
+    /// @property
+    String GetError() const
+    {
+        return "";
+    }
+    /// Return connection state.
+    /// @property
+    HttpRequestState GetState() const
+    {
+        return HTTP_ERROR;
+    }
+    /// Return amount of bytes in the read buffer.
+    /// @property
+    unsigned GetAvailableSize() const
+    {
+        return 0;
+    }
+
+    /// Return whether connection is in the open state.
+    /// @property
+    bool IsOpen() const { return GetState() == HTTP_OPEN; }
+
+#else
     /// Process the connection in the worker thread until closed.
     void ThreadFunction() override;
 
@@ -82,7 +138,8 @@ public:
     /// Return whether connection is in the open state.
     /// @property
     bool IsOpen() const { return GetState() == HTTP_OPEN; }
-
+#endif
+    
 private:
     /// Check for available read data in buffer and whether end has been reached. Must only be called when the mutex is held by the main thread.
     Pair<unsigned, bool> CheckAvailableSizeAndEof() const;

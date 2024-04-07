@@ -29982,7 +29982,12 @@ Network_GetTypeNameStatic ()
 DllExport void *
 Network_Network (Urho3D::Context * context)
 {
+#if !defined(__EMSCRIPTEN__)
 	return WeakPtr<Network>(new Network(context));
+#else
+	return nullptr;
+#endif
+	
 }
 
 
@@ -30206,7 +30211,12 @@ NetworkPriority_GetTypeNameStatic ()
 DllExport void *
 NetworkPriority_NetworkPriority (Urho3D::Context * context)
 {
+#if !defined(__EMSCRIPTEN__)
 	return WeakPtr<NetworkPriority>(new NetworkPriority(context));
+	
+#else
+	return nullptr;
+#endif
 }
 
 

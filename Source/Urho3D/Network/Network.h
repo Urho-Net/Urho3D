@@ -40,11 +40,112 @@ class URHO3D_API Network : public Object
     URHO3D_OBJECT(Network, Object);
 
 public:
-    /// Construct.
+  /// Construct.
     explicit Network(Context* context);
     /// Destruct.
     ~Network() override;
 
+#ifdef __EMSCRIPTEN__
+    /// Handle an inbound message.
+    void HandleMessage(const SLNet::AddressOrGUID& source, int packetID, int msgID, const char* data, size_t numBytes){}
+    /// Handle a new client connection.
+    void NewConnectionEstablished(const SLNet::AddressOrGUID& connection){}
+    /// Handle a client disconnection.
+    void ClientDisconnected(const SLNet::AddressOrGUID& connection){}
+
+    /// Set the data that will be used for a reply to attempts at host discovery on LAN/subnet.
+    void SetDiscoveryBeacon(const VariantMap& data){}
+    /// Scan the LAN/subnet for available hosts.
+    void DiscoverHosts(unsigned port){}
+    /// Set password for the client/server communcation.
+    void SetPassword(const String& password){}
+    /// Set NAT server information.
+    void SetNATServerInfo(const String& address, unsigned short port){}
+    /// Connect to a server using UDP protocol. Return true if connection process successfully started.
+    bool Connect(const String& address, unsigned short port, Scene* scene, const VariantMap& identity = Variant::emptyVariantMap){}
+    /// Disconnect the connection to the server. If wait time is non-zero, will block while waiting for disconnect to finish.
+    void Disconnect(int waitMSec = 0){}
+    /// Start a server on a port using UDP protocol. Return true if successful.
+    bool StartServer(unsigned short port, unsigned int maxConnections = 128){}
+    /// Stop the server.
+    void StopServer(){}
+    /// Start NAT punchtrough client to allow remote connections.
+    void StartNATClient(){}
+    /// Get local server GUID.
+    /// @property{get_guid}
+    const String& GetGUID() const { return guid_; }
+    /// Attempt to connect to NAT server.
+    void AttemptNATPunchtrough(const String& guid, Scene* scene, const VariantMap& identity = Variant::emptyVariantMap){}
+    /// Broadcast a message with content ID to all client connections.
+    void BroadcastMessage(int msgID, bool reliable, bool inOrder, const VectorBuffer& msg, unsigned contentID = 0){}
+    /// Broadcast a message with content ID to all client connections.
+    void BroadcastMessage(int msgID, bool reliable, bool inOrder, const unsigned char* data, unsigned numBytes, unsigned contentID = 0){}
+    /// Broadcast a remote event to all client connections.
+    void BroadcastRemoteEvent(StringHash eventType, bool inOrder, const VariantMap& eventData = Variant::emptyVariantMap){}
+    /// Broadcast a remote event to all client connections in a specific scene.
+    void BroadcastRemoteEvent(Scene* scene, StringHash eventType, bool inOrder, const VariantMap& eventData = Variant::emptyVariantMap){}
+    /// Broadcast a remote event with the specified node as a sender. Is sent to all client connections in the node's scene.
+    void BroadcastRemoteEvent(Node* node, StringHash eventType, bool inOrder, const VariantMap& eventData = Variant::emptyVariantMap){}
+    /// Set network update FPS.
+    /// @property
+    void SetUpdateFps(int fps){}
+    /// Set simulated latency in milliseconds. This adds a fixed delay before sending each packet.
+    /// @property
+    void SetSimulatedLatency(int ms){}
+    /// Set simulated packet loss probability between 0.0 - 1.0.
+    /// @property
+    void SetSimulatedPacketLoss(float probability){}
+    /// Register a remote event as allowed to be received. There is also a fixed blacklist of events that can not be allowed in any case, such as ConsoleCommand.
+    void RegisterRemoteEvent(StringHash eventType){}
+    /// Unregister a remote event as allowed to received.
+    void UnregisterRemoteEvent(StringHash eventType){}
+    /// Unregister all remote events.
+    void UnregisterAllRemoteEvents(){}
+    /// Set the package download cache directory.
+    /// @property
+    void SetPackageCacheDir(const String& path){}
+    /// Trigger all client connections in the specified scene to download a package file from the server. Can be used to download additional resource packages when clients are already joined in the scene. The package must have been added as a requirement to the scene, or else the eventual download will fail.
+    void SendPackageToClients(Scene* scene, PackageFile* package){}
+    /// Perform an HTTP request to the specified URL. Empty verb defaults to a GET request. Return a request object which can be used to read the response data.
+    SharedPtr<HttpRequest> MakeHttpRequest(const String& url, const String& verb = String::EMPTY, const Vector<String>& headers = Vector<String>(), const String& postData = String::EMPTY);
+    /// Ban specific IP addresses.
+    void BanAddress(const String& address){}
+    /// Return network update FPS.
+    /// @property
+    int GetUpdateFps() const { return updateFps_; }
+
+    /// Return simulated latency in milliseconds.
+    /// @property
+    int GetSimulatedLatency() const { return simulatedLatency_; }
+
+    /// Return simulated packet loss probability.
+    /// @property
+    float GetSimulatedPacketLoss() const { return simulatedPacketLoss_; }
+
+    /// Return a client or server connection by RakNet connection address, or null if none exist.
+    Connection* GetConnection(const SLNet::AddressOrGUID& connection) const{return nullptr;}
+    /// Return the connection to the server. Null if not connected.
+    /// @property
+    Connection* GetServerConnection() const{return nullptr;}
+    /// Return all client connections.
+    /// @property
+    Vector<SharedPtr<Connection> > GetClientConnections() const;
+    /// Return whether the server is running.
+    /// @property
+    bool IsServerRunning() const{return false;}
+    /// Return whether a remote event is allowed to be received.
+    bool CheckRemoteEvent(StringHash eventType) const{return false;}
+
+    /// Return the package download cache directory.
+    /// @property
+    const String& GetPackageCacheDir() const { return packageCacheDir_; }
+
+    /// Process incoming messages from connections. Called by HandleBeginFrame.
+    void Update(float timeStep){}
+    /// Send outgoing messages after frame logic. Called by HandleRenderUpdate.
+    void PostUpdate(float timeStep){}
+
+#else
     /// Handle an inbound message.
     void HandleMessage(const SLNet::AddressOrGUID& source, int packetID, int msgID, const char* data, size_t numBytes);
     /// Handle a new client connection.
@@ -144,6 +245,11 @@ public:
     /// Send outgoing messages after frame logic. Called by HandleRenderUpdate.
     void PostUpdate(float timeStep);
 
+    /// Register Network library objects.
+/// @nobind
+void URHO3D_API RegisterNetworkLibrary(Context* context);
+#endif
+  
 private:
     /// Handle begin frame event.
     void HandleBeginFrame(StringHash eventType, VariantMap& eventData);
@@ -204,8 +310,6 @@ private:
     String guid_;
 };
 
-/// Register Network library objects.
-/// @nobind
-void URHO3D_API RegisterNetworkLibrary(Context* context);
+
 
 }

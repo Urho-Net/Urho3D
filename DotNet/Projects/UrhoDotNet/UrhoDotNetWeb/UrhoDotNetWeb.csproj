@@ -1,32 +1,24 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
     <PropertyGroup>
-        <TargetFramework>net8.0-android</TargetFramework>
-        <SupportedOSPlatformVersion>21</SupportedOSPlatformVersion>
-        <Nullable>enable</Nullable>
+        <TargetFramework>net8.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
         <AssemblyName>UrhoDotNet</AssemblyName>
         <RootNamespace>UrhoDotNet</RootNamespace>
     </PropertyGroup>
+
     <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
-      <DefineConstants>TRACE;HAVE_REFLECTION_EMIT;HAVE_LINQ;FEATURE_JNIOBJECTREFERENCE_INTPTRS;INTEROP;FEATURE_JNIENVIRONMENT_JI_PINVOKES; __ANDROID__</DefineConstants>
-      <AndroidSupportedAbis>armeabi-v7a;x86;arm64-v8a;x86_64</AndroidSupportedAbis>
+      <DefineConstants>TRACE;__WEB__;HAVE_REFLECTION_EMIT;HAVE_LINQ;FEATURE_JNIOBJECTREFERENCE_INTPTRS;INTEROP;FEATURE_JNIENVIRONMENT_JI_PINVOKES</DefineConstants>
       <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     </PropertyGroup>
+
     <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
-      <AndroidSupportedAbis>armeabi-v7a;x86;arm64-v8a;x86_64</AndroidSupportedAbis>
-      <DefineConstants>TRACE;HAVE_REFLECTION_EMIT;HAVE_LINQ;FEATURE_JNIOBJECTREFERENCE_INTPTRS;INTEROP;FEATURE_JNIENVIRONMENT_JI_PINVOKES; __ANDROID__</DefineConstants>
+      <DefineConstants>TRACE;__WEB__;HAVE_REFLECTION_EMIT;HAVE_LINQ;FEATURE_JNIOBJECTREFERENCE_INTPTRS;INTEROP;FEATURE_JNIENVIRONMENT_JI_PINVOKES</DefineConstants>
       <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     </PropertyGroup>
+
     <ItemGroup>
-      <Compile Include="..\..\..\Bindings\Android\DroidPlatformInitializer.cs">
-        <Link>Android\DroidPlatformInitializer.cs</Link>
-      </Compile>
-      <Compile Include="..\..\..\Bindings\Android\FullscreenUrhoActivity.cs">
-        <Link>Android\FullscreenUrhoActivity.cs</Link>
-      </Compile>
-      <Compile Include="..\..\..\Bindings\Android\UrhoSurface.cs">
-        <Link>Android\UrhoSurface.cs</Link>
-      </Compile>
       <Compile Include="..\..\..\Bindings\Portable\Actions\ActionManager.cs">
         <Link>Portable\Actions\ActionManager.cs</Link>
       </Compile>
@@ -1761,6 +1753,9 @@
       <Compile Include="..\..\..\Bindings\Portable\XmlElement.cs">
         <Link>Portable\XmlElement.cs</Link>
       </Compile>
+      <Compile Include="..\..\..\Bindings\Web\WebPlatformInitializer.cs">
+        <Link>Web\WebPlatformInitializer.cs</Link>
+      </Compile>
       <Compile Include="..\..\..\Newtonsoft.Json\Bson\BsonBinaryType.cs">
         <Link>Newtonsoft.Json\Bson\BsonBinaryType.cs</Link>
       </Compile>
@@ -2455,6 +2450,7 @@
         <Link>Newtonsoft.Json\WriteState.cs</Link>
       </Compile>
     </ItemGroup>
+
     <ItemGroup>
       <ClCompile Include="..\..\..\Bindings\Portable\Generated\binding.cpp">
         <Link>Portable\Generated\binding.cpp</Link>
@@ -2463,10 +2459,8 @@
         <Link>Portable\Generated\events.cpp</Link>
       </ClCompile>
     </ItemGroup>
+
     <ItemGroup>
-      <Content Include="..\..\..\Bindings\Android\Metadata.xml">
-        <Link>Android\Metadata.xml</Link>
-      </Content>
       <Content Include="..\..\..\Bindings\Portable\External\README.md">
         <Link>Portable\External\README.md</Link>
       </Content>
@@ -2492,7 +2486,5 @@
         <Link>Newtonsoft.Json\README.md</Link>
       </Content>
     </ItemGroup>
-    <ItemGroup>
-      <ProjectReference Include="..\Urho.Android.SdlBinding\Urho.Android.SdlBinding.csproj" />
-    </ItemGroup>
+
 </Project>

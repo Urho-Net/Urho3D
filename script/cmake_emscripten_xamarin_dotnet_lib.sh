@@ -26,6 +26,7 @@
 # emsdk activate 3.1.34 
 # source ./emsdk_env.sh
 # export EMSCRIPTEN=~/emsdk/upstream/emscripten
+# -D CMAKE_BUILD_TYPE=Debug
 
 $(dirname $0)/cmake_generic.sh "$@" -D WEB=1 -D URHO3D_DATABASE_SQLITE=1 -D URHO3D_DOTNET=1 -D URHO3D_DOTNET_LIB=1 -D URHO3D_LUA=0 -D URHO3D_ANGELSCRIPT=0 -D URHO3D_SAMPLES=0 -D URHO3D_PCH=0
 

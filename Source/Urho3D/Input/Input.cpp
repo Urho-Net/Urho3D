@@ -151,6 +151,7 @@ EmscriptenInput::EmscriptenInput(Input* inputInst) :
 {
     auto* vInputInst = (void*)inputInst;
 
+#if !defined(URHO3D_DOTNET)
     // Handle pointer lock
     emscripten_set_pointerlockchange_callback(NULL, vInputInst, false, EmscriptenInput::HandlePointerLockChange);
 
@@ -161,7 +162,7 @@ EmscriptenInput::EmscriptenInput(Input* inputInst) :
     // Handle focus changes
     emscripten_set_focusout_callback(NULL, vInputInst, false, EmscriptenInput::HandleFocusChange);
     emscripten_set_focus_callback(NULL, vInputInst, false, EmscriptenInput::HandleFocusChange);
-
+#endif
     // Handle SDL events
     SDL_AddEventWatch(EmscriptenInput::HandleSDLEvents, vInputInst);
 }

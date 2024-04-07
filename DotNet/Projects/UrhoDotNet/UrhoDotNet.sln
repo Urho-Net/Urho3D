@@ -23,6 +23,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UrhoDotNetAndroid", "UrhoDo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Urho.Android.SdlBinding", "Urho.Android.SdlBinding\Urho.Android.SdlBinding.csproj", "{02F899CD-1F7E-4ABA-AEB3-106ADED13D89}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UrhoDotNetWeb", "UrhoDotNetWeb\UrhoDotNetWeb.csproj", "{DF0D8BEF-5495-410F-A15F-072F3776D0CE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -69,6 +71,10 @@ Global
 		{02F899CD-1F7E-4ABA-AEB3-106ADED13D89}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{02F899CD-1F7E-4ABA-AEB3-106ADED13D89}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{02F899CD-1F7E-4ABA-AEB3-106ADED13D89}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DF0D8BEF-5495-410F-A15F-072F3776D0CE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DF0D8BEF-5495-410F-A15F-072F3776D0CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DF0D8BEF-5495-410F-A15F-072F3776D0CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DF0D8BEF-5495-410F-A15F-072F3776D0CE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

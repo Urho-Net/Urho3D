@@ -1503,30 +1503,6 @@
       <Compile Include="..\..\..\Bindings\Portable\Shapes\Torus.cs">
         <Link>Portable\Shapes\Torus.cs</Link>
       </Compile>
-      <Compile Include="..\..\..\Bindings\Portable\SharpReality\DebugGrid.cs">
-        <Link>Portable\SharpReality\DebugGrid.cs</Link>
-      </Compile>
-      <Compile Include="..\..\..\Bindings\Portable\SharpReality\PlaneFinding.cs">
-        <Link>Portable\SharpReality\PlaneFinding.cs</Link>
-      </Compile>
-      <Compile Include="..\..\..\Bindings\Portable\SharpReality\SpatialCursor.cs">
-        <Link>Portable\SharpReality\SpatialCursor.cs</Link>
-      </Compile>
-      <Compile Include="..\..\..\Bindings\Portable\SharpReality\SpatialMeshInfo.cs">
-        <Link>Portable\SharpReality\SpatialMeshInfo.cs</Link>
-      </Compile>
-      <Compile Include="..\..\..\Bindings\Portable\SharpReality\SpatialVertex.cs">
-        <Link>Portable\SharpReality\SpatialVertex.cs</Link>
-      </Compile>
-      <Compile Include="..\..\..\Bindings\Portable\SharpReality\StereoApplication.cs">
-        <Link>Portable\SharpReality\StereoApplication.cs</Link>
-      </Compile>
-      <Compile Include="..\..\..\Bindings\Portable\SharpReality\TransparentPlaneWithShadows.cs">
-        <Link>Portable\SharpReality\TransparentPlaneWithShadows.cs</Link>
-      </Compile>
-      <Compile Include="..\..\..\Bindings\Portable\SharpReality\YuvVideo.cs">
-        <Link>Portable\SharpReality\YuvVideo.cs</Link>
-      </Compile>
       <Compile Include="..\..\..\Bindings\Portable\SimpleApplication.cs">
         <Link>Portable\SimpleApplication.cs</Link>
       </Compile>

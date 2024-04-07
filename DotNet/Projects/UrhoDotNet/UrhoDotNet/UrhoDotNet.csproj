@@ -8,7 +8,7 @@
   </PropertyGroup>
 
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DefineConstants>TRACE;HAVE_REFLECTION_EMIT;HAVE_LINQ;FEATURE_JNIOBJECTREFERENCE_INTPTRS;INTEROP;FEATURE_JNIENVIRONMENT_JI_PINVOKES;NET6_0;DEBUG;NET;NET8_0;NETCOREAPP</DefineConstants>
+    <DefineConstants>TRACE45;HAVE_REFLECTION_EMIT;HAVE_LINQ;FEATURE_JNIOBJECTREFERENCE_INTPTRS;INTEROP;FEATURE_JNIENVIRONMENT_JI_PINVOKES</DefineConstants>
     <WarningLevel>4</WarningLevel>
     <DocumentationFile>bin\Debug\net8.0\UrhoDotNet.xml</DocumentationFile>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
@@ -16,11 +16,14 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <DebugSymbols>true</DebugSymbols>
-    <DefineConstants>TRACE;NET6_0;HAVE_REFLECTION_EMIT;HAVE_LINQ;FEATURE_JNIOBJECTREFERENCE_INTPTRS;INTEROP;FEATURE_JNIENVIRONMENT_JI_PINVOKES;RELEASE;NET;NET8_0;NETCOREAPP</DefineConstants>
+    <DefineConstants>TRACE;NET45;HAVE_REFLECTION_EMIT;HAVE_LINQ;FEATURE_JNIOBJECTREFERENCE_INTPTRS;INTEROP;FEATURE_JNIENVIRONMENT_JI_PINVOKES</DefineConstants>
     <WarningLevel>4</WarningLevel>
     <DocumentationFile>bin\Release\net8.0\UrhoDotNet.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="..\..\..\Bindings\Desktop\DesktopUrhoInitializer.cs">
+      <Link>Desktop\DesktopUrhoInitializer.cs</Link>
+    </Compile>
     <Compile Include="..\..\..\Bindings\Portable\Scancode.cs">
       <Link>Portable\Scancode.cs</Link>
     </Compile>

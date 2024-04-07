@@ -247,14 +247,23 @@ extern "C"
     DllExport int Controls_IsDown(Urho3D::Controls* _target, unsigned int button) { return _target->IsDown(button); }
 
 #if !defined(UWP)
+#ifdef __EMSCRIPTEN__
+	DllExport int 
+	Network_Connect(Network *net, const char *ptr, short port, Scene *scene)
+	{
+		return 0;
+	}
+    DllExport const Controls* Connection_GetControls(Connection* conn) { return nullptr; }
+    DllExport void Connection_SetControls(Connection* conn, Controls* ctl) {  }
+#else
     DllExport int Network_Connect(Network* net, const char* ptr, short port, Scene* scene)
     {
         String s(ptr);
         return net->Connect(s, port, scene) ? 1 : 0;
     }
-
     DllExport const Controls* Connection_GetControls(Connection* conn) { return &conn->GetControls(); }
     DllExport void Connection_SetControls(Connection* conn, Controls* ctl) { conn->SetControls(*ctl); }
+#endif
 #endif
 
     DllExport Controls* Controls_Create() { return new Controls(); }
@@ -906,17 +915,26 @@ extern "C"
 
     DllExport void Connection_SendRemoteEvent(Connection* conn, int eventType, bool inOrder, VariantMap& eventData)
     {
+#ifndef __EMSCRIPTEN__
         conn->SendRemoteEvent(StringHash(eventType), inOrder, eventData);
+#endif
     }
 
     DllExport void Connection_SendRemoteEvent2(Connection* conn, Node* node, int eventType, bool inOrder,
                                                VariantMap& eventData)
     {
+#ifndef __EMSCRIPTEN__
         conn->SendRemoteEvent(node, StringHash(eventType), inOrder, eventData);
+#endif
     }
 
     DllExport void* Network_GetClientConnections(Network* network, int* count)
     {
+
+#ifdef __EMSCRIPTEN__
+         *count = 0;
+         return nullptr;
+#else
         const Vector<SharedPtr<Connection>>& dest = network->GetClientConnections();
         *count = 0;
 
@@ -931,6 +949,7 @@ extern "C"
             t[i] = dest[i];
         }
         return t;
+#endif
     }
 
     DllExport void VoidPtr_Free(void* ptr) { free(ptr); }
