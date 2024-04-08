@@ -161,7 +161,8 @@ namespace Urho
 
                 Type type = mInfo.FieldType;
                 string key = mInfo.Name;
-
+                // TBD ELI , Well not surprising  , crashing on  .NET 8.X AOT WASM , for now disabling , will enable it on .NET 9.X
+#if !__WEB__
                 string blob = GetVar(key);
                 if (blob != string.Empty)
                 {
@@ -179,6 +180,7 @@ namespace Urho
                     }
                 }
                 else
+#endif
                 {
                     if (deserializer != null)
                     {

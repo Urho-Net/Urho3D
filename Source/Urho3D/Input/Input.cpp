@@ -169,9 +169,12 @@ EmscriptenInput::EmscriptenInput(Input* inputInst) :
 
 void EmscriptenInput::RequestPointerLock(MouseMode mode, bool suppressEvent)
 {
+// TBD ELI , for now disabling for URHO3D_DOTNET, crashing on AOT mode  needs some investigation 
+#if !defined(URHO3D_DOTNET)
     requestedMouseMode_ = mode;
     suppressMouseModeEvent_ = suppressEvent;
     emscripten_request_pointerlock(NULL, true);
+#endif
 }
 
 void EmscriptenInput::ExitPointerLock(bool suppressEvent)
