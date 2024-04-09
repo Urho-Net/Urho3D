@@ -277,6 +277,12 @@ public:
     void SetPacketSizeLimit(int limit){}
 
 #else
+
+    /// Construct with context, RakNet connection address and Raknet peer pointer.
+    Connection(Context* context, bool isClient, const SLNet::AddressOrGUID& address, SLNet::RakPeerInterface* peer);
+    /// Destruct.
+    ~Connection() override;
+    
     /// Get packet type based on the message parameters
     PacketType GetPacketType(bool reliable, bool inOrder);
     /// Send a message.

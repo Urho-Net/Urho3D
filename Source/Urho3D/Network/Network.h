@@ -245,9 +245,7 @@ public:
     /// Send outgoing messages after frame logic. Called by HandleRenderUpdate.
     void PostUpdate(float timeStep);
 
-    /// Register Network library objects.
-/// @nobind
-void URHO3D_API RegisterNetworkLibrary(Context* context);
+
 #endif
   
 private:
@@ -310,6 +308,7 @@ private:
     String guid_;
 };
 
-
-
+/// Register Network library objects.
+/// @nobind
+void URHO3D_API RegisterNetworkLibrary(Context* context);
 }
