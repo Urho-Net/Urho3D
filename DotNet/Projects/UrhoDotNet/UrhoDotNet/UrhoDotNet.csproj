@@ -5,10 +5,14 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <AssemblyName>UrhoDotNet</AssemblyName>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <PublishTrimmed>true</PublishTrimmed>
+    <TrimMode>full</TrimMode>
+    <IsAotCompatible>true</IsAotCompatible>
   </PropertyGroup>
 
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DefineConstants>TRACE45;HAVE_REFLECTION_EMIT;HAVE_LINQ;FEATURE_JNIOBJECTREFERENCE_INTPTRS;INTEROP;FEATURE_JNIENVIRONMENT_JI_PINVOKES</DefineConstants>
+    <DefineConstants>TRACE;NET45;HAVE_REFLECTION_EMIT;HAVE_LINQ;FEATURE_JNIOBJECTREFERENCE_INTPTRS;INTEROP;FEATURE_JNIENVIRONMENT_JI_PINVOKES</DefineConstants>
     <WarningLevel>4</WarningLevel>
     <DocumentationFile>bin\Debug\net8.0\UrhoDotNet.xml</DocumentationFile>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>

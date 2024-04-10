@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Text;
+using Urho.IO;
 
 namespace Urho
 {
@@ -170,14 +171,15 @@ namespace Urho
 			var urhoDllFolder = System.IO.Path.GetDirectoryName(typeof(SimpleApplication).Assembly.Location);
 			var possibleCoreDataDirectories = new[]
 				{
+					System.AppContext.BaseDirectory,
+					System.IO.Path.Combine(System.AppContext.BaseDirectory, ".."),
 					Environment.CurrentDirectory,
-					System.IO.Path.Combine(urhoDllFolder, "../../native"), //in case if Urho.dll is loaded from the nuget directory directly (see UrhoSharp.targets)
+					System.IO.Path.Combine(Environment.CurrentDirectory, ".."),
 					urhoDllFolder,
 				};
 			if (ResourcePrefixPaths?.Length > 0)
 				possibleCoreDataDirectories = ResourcePrefixPaths.Concat(possibleCoreDataDirectories).Distinct().ToArray();
 			resourcePrefixPaths = possibleCoreDataDirectories;
-
 #endif
 
 			if (resourcePrefixPaths?.Length > 0)
