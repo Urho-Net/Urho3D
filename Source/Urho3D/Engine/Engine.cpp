@@ -63,8 +63,9 @@
 #include "../Urho2D/Urho2D.h"
 #endif
 
-#if defined(__EMSCRIPTEN__) && defined(URHO3D_TESTING)
+#if defined(__EMSCRIPTEN__)
 #include <emscripten/emscripten.h>
+#include <emscripten/bind.h>
 #endif
 
 #include "SDL/SDL_loadso.h"
@@ -80,6 +81,7 @@
 #if defined(URHO3D_XAMARIN)
 #include "../Engine/Application.h"
 #endif
+
 
 #include "../DebugNew.h"
 
@@ -384,7 +386,13 @@ bool Engine::Initialize(const VariantMap& parameters)
     frameTimer_.Reset();
 
     RegisterPlugins(context_);
-
+#ifdef __EMSCRIPTEN__
+    char * userAgent = emscripten_run_script_string("Module.GetUserAgent();");
+    if(userAgent != nullptr)
+    {
+        SDL_setenv("UserAgent", userAgent, 1);
+    }
+#endif
     URHO3D_LOGINFO("Initialized engine");
     initialized_ = true;
     return true;
