@@ -115,17 +115,28 @@ Cocoa_CreateDevice(int devindex)
     device->shape_driver.SetWindowShape = Cocoa_SetWindowShape;
     device->shape_driver.ResizeWindowShape = Cocoa_ResizeWindowShape;
 
-#if SDL_VIDEO_OPENGL_CGL
-    device->GL_LoadLibrary = Cocoa_GL_LoadLibrary;
-    device->GL_GetProcAddress = Cocoa_GL_GetProcAddress;
-    device->GL_UnloadLibrary = Cocoa_GL_UnloadLibrary;
-    device->GL_CreateContext = Cocoa_GL_CreateContext;
-    device->GL_MakeCurrent = Cocoa_GL_MakeCurrent;
-    device->GL_GetDrawableSize = Cocoa_GL_GetDrawableSize;
-    device->GL_SetSwapInterval = Cocoa_GL_SetSwapInterval;
-    device->GL_GetSwapInterval = Cocoa_GL_GetSwapInterval;
-    device->GL_SwapWindow = Cocoa_GL_SwapWindow;
-    device->GL_DeleteContext = Cocoa_GL_DeleteContext;
+#if URHO3D_ANGLE_METAL
+    device->GL_LoadLibrary = Cocoa_GLES_LoadLibrary;
+    device->GL_GetProcAddress = Cocoa_GLES_GetProcAddress;
+    device->GL_UnloadLibrary = Cocoa_GLES_UnloadLibrary;
+    device->GL_CreateContext = Cocoa_GLES_CreateContext;
+    device->GL_MakeCurrent = Cocoa_GLES_MakeCurrent;
+    device->GL_SetSwapInterval = Cocoa_GLES_SetSwapInterval;
+    device->GL_GetSwapInterval = Cocoa_GLES_GetSwapInterval;
+    device->GL_SwapWindow = Cocoa_GLES_SwapWindow;
+    device->GL_DeleteContext = Cocoa_GLES_DeleteContext;
+    device->GL_GetDrawableSize  = Cocoa_GLES_GetDrawableSize;
+#elif SDL_VIDEO_OPENGL_CGL
+   device->GL_LoadLibrary = Cocoa_GL_LoadLibrary;
+   device->GL_GetProcAddress = Cocoa_GL_GetProcAddress;
+   device->GL_UnloadLibrary = Cocoa_GL_UnloadLibrary;
+   device->GL_CreateContext = Cocoa_GL_CreateContext;
+   device->GL_MakeCurrent = Cocoa_GL_MakeCurrent;
+   device->GL_GetDrawableSize = Cocoa_GL_GetDrawableSize;
+   device->GL_SetSwapInterval = Cocoa_GL_SetSwapInterval;
+   device->GL_GetSwapInterval = Cocoa_GL_GetSwapInterval;
+   device->GL_SwapWindow = Cocoa_GL_SwapWindow;
+   device->GL_DeleteContext = Cocoa_GL_DeleteContext;
 #elif SDL_VIDEO_OPENGL_EGL
     device->GL_LoadLibrary = Cocoa_GLES_LoadLibrary;
     device->GL_GetProcAddress = Cocoa_GLES_GetProcAddress;
