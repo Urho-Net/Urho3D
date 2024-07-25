@@ -41,6 +41,7 @@ extern int Cocoa_GLES_SwapWindow(_THIS, SDL_Window * window);
 extern int Cocoa_GLES_MakeCurrent(_THIS, SDL_Window * window, SDL_GLContext context);
 extern void Cocoa_GLES_DeleteContext(_THIS, SDL_GLContext context);
 extern int Cocoa_GLES_SetupWindow(_THIS, SDL_Window * window);
+extern void Cocoa_GLES_GetDrawableSize(_THIS, SDL_Window * window,int * w, int * h);
 
 #endif /* SDL_VIDEO_OPENGL_EGL */
 
