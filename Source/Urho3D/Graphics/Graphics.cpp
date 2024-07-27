@@ -97,6 +97,50 @@ void Graphics::SetWindowPosition(int x, int y)
     SetWindowPosition(IntVector2(x, y));
 }
 
+void Graphics::SetWindowSize(const IntVector2& size)
+{
+    if (window_)
+    {
+        SDL_SetWindowSize(window_, size.x_, size.y_);
+        OnWindowResized();
+    }
+    else
+    {
+        width_ = size.x_;
+        height_ = size.y_;
+    }
+}
+
+void Graphics::SetWindowSize(int x, int y)
+{
+    SetWindowSize(IntVector2(x, y));
+}
+
+ void Graphics::SetWindowOpacity(float opacity)
+ {
+    if (window_)
+    {
+        SDL_SetWindowOpacity(window_,opacity);
+    }
+ }
+
+void Graphics::HideWindow()
+{
+    if (window_)
+    {
+        SDL_HideWindow(window_);
+    }
+}
+
+void Graphics::ShowWindow()
+{
+    if (window_)
+    {
+        SDL_ShowWindow(window_);
+    }
+}
+
+
 void Graphics::SetOrientations(const String& orientations)
 {
     orientations_ = orientations.Trimmed();

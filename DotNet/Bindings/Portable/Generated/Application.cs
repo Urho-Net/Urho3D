@@ -92,6 +92,33 @@ namespace Urho
 			Application_ErrorExit (handle, message);
 		}
 
+		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+		internal static extern bool Application_SetupAndStart (IntPtr handle);
+
+		public bool SetupAndStart ()
+		{
+			Runtime.ValidateRefCounted (this);
+			return Application_SetupAndStart (handle);
+		}
+
+		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+		internal static extern bool Application_RunOneFrame (IntPtr handle);
+
+		public bool RunOneFrame ()
+		{
+			Runtime.ValidateRefCounted (this);
+			return Application_RunOneFrame (handle);
+		}
+
+		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+		internal static extern void Application_Terminate (IntPtr handle);
+
+		public void Terminate ()
+		{
+			Runtime.ValidateRefCounted (this);
+			Application_Terminate (handle);
+		}
+
 		public override StringHash Type {
 			get {
 				return UrhoGetType ();

@@ -749,6 +749,40 @@ namespace Urho
             return Input_GetTouchEmulation(handle);
         }
 
+        [DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+		internal static extern void Input_SetInputUpdate (IntPtr handle, bool enable);
+
+		/// <summary>
+		/// 
+		/// </summary>
+		private void SetInputUpdate (bool enable)
+		{
+			Runtime.ValidateRefCounted (this);
+			Input_SetInputUpdate (handle, enable);
+		}
+
+        
+        [DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+		internal static extern bool Input_GetInputUpdate (IntPtr handle);
+
+		/// <summary>
+		/// 
+		/// </summary>
+		private bool GetInputUpdate ()
+		{
+			Runtime.ValidateRefCounted (this);
+			return Input_GetInputUpdate (handle);
+		}
+
+        public bool InputUpdate {
+			get {
+				return GetInputUpdate ();
+			}
+			set {
+				SetInputUpdate (value);
+			}
+		}
+
         [DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
         internal static extern bool Input_IsMouseVisible(IntPtr handle);
 

@@ -142,5 +142,62 @@ void Application::HandleLogMessage(StringHash eventType, VariantMap& eventData)
     }
 }
 
+bool Application::SetupAndStart()
+{
+#if !defined(IOS) && !defined(TVOS) && !defined(__EMSCRIPTEN__) && !defined(ANDROID) 
+#if !defined(__GNUC__) || __EXCEPTIONS
+    try
+    {
+#endif
+        Setup();
+        if (exitCode_)
+            return false;
+
+        if (!engine_->Initialize(engineParameters_))
+        {
+            ErrorExit();
+            return false;
+        }
+
+        Start();
+        return true;
+#if !defined(__GNUC__) || __EXCEPTIONS
+    }
+    catch (std::bad_alloc&)
+    {
+        ErrorDialog(GetTypeName(), "An out-of-memory error occurred. The application will now exit.");
+        return false;
+    }
+#endif
+#else
+    return false;
+#endif
+    return false;
+}
+
+bool Application::RunOneFrame()
+{
+    bool status = true;
+#if !defined(IOS) && !defined(TVOS) && !defined(__EMSCRIPTEN__) &&  !defined(ANDROID) 
+        if (!engine_->IsExiting())
+        {
+            engine_->RunFrame();
+        }
+        else{
+            status = false;
+        }
+#else
+    status = false;
+#endif
+    return status;
+}
+    
+void Application::Terminate()
+{
+#if !defined(IOS) && !defined(TVOS) && !defined(__EMSCRIPTEN__) && !defined(ANDROID) 
+     Stop();
+#endif
+}
+
 
 }

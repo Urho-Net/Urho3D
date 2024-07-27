@@ -159,6 +159,19 @@ public:
     void SetWindowPosition(const IntVector2& position);
     /// Set window position. Sets initial position if window is not created yet.
     void SetWindowPosition(int x, int y);
+
+    /// Set window size. .
+    /// @property
+    void SetWindowSize(const IntVector2& position);
+    /// Set window size.
+    void SetWindowSize(int x, int y);
+    /// Set window opacity.
+    void SetWindowOpacity(float opacity);
+    /// Hide window .
+    void HideWindow();
+    /// Show Window
+    void ShowWindow();
+    
     /// Set screen mode. Return true if successful.
     /// Don't use SetScreenMode if ToggleFullscreen is used directly or indirectly.
     bool SetScreenMode(int width, int height, const ScreenModeParams& params, bool maximize = false);

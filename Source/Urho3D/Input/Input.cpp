@@ -381,7 +381,8 @@ Input::Input(Context* context) :
     suppressNextMouseMove_(false),
     mouseMoveScaled_(false),
     initialized_(false),
-    mapCtrlQualifierToCommandKey_(false)
+    mapCtrlQualifierToCommandKey_(false),
+    inputUpdate_(true)
 {
     context_->RequireSDL(SDL_INIT_JOYSTICK | SDL_INIT_GAMECONTROLLER);
 
@@ -2555,9 +2556,12 @@ void Input::HandleScreenMode(StringHash eventType, VariantMap& eventData)
 void Input::HandleBeginFrame(StringHash eventType, VariantMap& eventData)
 {
     // Update input right at the beginning of the frame
-    SendEvent(E_INPUTBEGIN);
-    Update();
-    SendEvent(E_INPUTEND);
+    if(inputUpdate_)
+    {
+        SendEvent(E_INPUTBEGIN);
+        Update();
+        SendEvent(E_INPUTEND);
+    }
 }
 
 #ifdef __EMSCRIPTEN__
@@ -2795,6 +2799,9 @@ void Input::OnUserAction()
 #endif
 }
 
-
+void Input::SetInputUpdate(bool enable)
+{
+    inputUpdate_ = enable;
+}
 
 }

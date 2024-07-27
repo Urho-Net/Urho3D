@@ -337,6 +337,11 @@ public:
     /// @property
     bool GetTouchEmulation() const { return touchEmulation_; }
 
+    /// @property
+    void SetInputUpdate(bool enable);
+    /// @property
+    bool GetInputUpdate() const { return inputUpdate_; }
+
     /// Return whether the operating system mouse cursor is visible.
     /// @property
     bool IsMouseVisible() const { return mouseVisible_; }
@@ -508,6 +513,7 @@ private:
     bool emscriptenPointerLock_;
 #endif
     bool mapCtrlQualifierToCommandKey_;
+    bool inputUpdate_;
 };
 
 }

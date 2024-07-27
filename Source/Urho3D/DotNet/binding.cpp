@@ -6526,6 +6526,27 @@ Application_ErrorExit (Urho3D::Application *_target, const char * message)
 
 
 DllExport int
+Application_SetupAndStart (Urho3D::Application *_target)
+{
+	return _target->SetupAndStart ();
+}
+
+
+DllExport int
+Application_RunOneFrame (Urho3D::Application *_target)
+{
+	return _target->RunOneFrame ();
+}
+
+
+DllExport void
+Application_Terminate (Urho3D::Application *_target)
+{
+	_target->Terminate ();
+}
+
+
+DllExport int
 UrhoConsole_GetType (Urho3D::Console *_target)
 {
 	return (_target->GetType ()).Value ();
@@ -15577,6 +15598,41 @@ Graphics_SetWindowPosition0 (Urho3D::Graphics *_target, int x, int y)
 }
 
 
+DllExport void
+Graphics_SetWindowSize (Urho3D::Graphics *_target, const class Urho3D::IntVector2 & position)
+{
+	_target->SetWindowSize (position);
+}
+
+
+DllExport void
+Graphics_SetWindowSize1 (Urho3D::Graphics *_target, int x, int y)
+{
+	_target->SetWindowSize (x, y);
+}
+
+
+DllExport void
+Graphics_SetWindowOpacity (Urho3D::Graphics *_target, float opacity)
+{
+	_target->SetWindowOpacity (opacity);
+}
+
+
+DllExport void
+Graphics_HideWindow (Urho3D::Graphics *_target)
+{
+	_target->HideWindow ();
+}
+
+
+DllExport void
+Graphics_ShowWindow (Urho3D::Graphics *_target)
+{
+	_target->ShowWindow ();
+}
+
+
 DllExport int
 Graphics_SetScreenMode (Urho3D::Graphics *_target, int width, int height)
 {
@@ -15592,7 +15648,7 @@ Graphics_SetMode (Urho3D::Graphics *_target, int width, int height, bool fullscr
 
 
 DllExport int
-Graphics_SetMode1 (Urho3D::Graphics *_target, int width, int height)
+Graphics_SetMode2 (Urho3D::Graphics *_target, int width, int height)
 {
 	return _target->SetMode (width, height);
 }
@@ -15669,14 +15725,14 @@ Graphics_ResolveToTexture (Urho3D::Graphics *_target, Urho3D::Texture2D * destin
 
 
 DllExport int
-Graphics_ResolveToTexture2 (Urho3D::Graphics *_target, Urho3D::Texture2D * texture)
+Graphics_ResolveToTexture3 (Urho3D::Graphics *_target, Urho3D::Texture2D * texture)
 {
 	return _target->ResolveToTexture (texture);
 }
 
 
 DllExport int
-Graphics_ResolveToTexture3 (Urho3D::Graphics *_target, Urho3D::TextureCube * texture)
+Graphics_ResolveToTexture4 (Urho3D::Graphics *_target, Urho3D::TextureCube * texture)
 {
 	return _target->ResolveToTexture (texture);
 }
@@ -15690,14 +15746,14 @@ Graphics_Draw (Urho3D::Graphics *_target, enum Urho3D::PrimitiveType type, unsig
 
 
 DllExport void
-Graphics_Draw4 (Urho3D::Graphics *_target, enum Urho3D::PrimitiveType type, unsigned int indexStart, unsigned int indexCount, unsigned int minVertex, unsigned int vertexCount)
+Graphics_Draw5 (Urho3D::Graphics *_target, enum Urho3D::PrimitiveType type, unsigned int indexStart, unsigned int indexCount, unsigned int minVertex, unsigned int vertexCount)
 {
 	_target->Draw (type, indexStart, indexCount, minVertex, vertexCount);
 }
 
 
 DllExport void
-Graphics_Draw5 (Urho3D::Graphics *_target, enum Urho3D::PrimitiveType type, unsigned int indexStart, unsigned int indexCount, unsigned int baseVertexIndex, unsigned int minVertex, unsigned int vertexCount)
+Graphics_Draw6 (Urho3D::Graphics *_target, enum Urho3D::PrimitiveType type, unsigned int indexStart, unsigned int indexCount, unsigned int baseVertexIndex, unsigned int minVertex, unsigned int vertexCount)
 {
 	_target->Draw (type, indexStart, indexCount, baseVertexIndex, minVertex, vertexCount);
 }
@@ -15711,7 +15767,7 @@ Graphics_DrawInstanced (Urho3D::Graphics *_target, enum Urho3D::PrimitiveType ty
 
 
 DllExport void
-Graphics_DrawInstanced6 (Urho3D::Graphics *_target, enum Urho3D::PrimitiveType type, unsigned int indexStart, unsigned int indexCount, unsigned int baseVertexIndex, unsigned int minVertex, unsigned int vertexCount, unsigned int instanceCount)
+Graphics_DrawInstanced7 (Urho3D::Graphics *_target, enum Urho3D::PrimitiveType type, unsigned int indexStart, unsigned int indexCount, unsigned int baseVertexIndex, unsigned int minVertex, unsigned int vertexCount, unsigned int instanceCount)
 {
 	_target->DrawInstanced (type, indexStart, indexCount, baseVertexIndex, minVertex, vertexCount, instanceCount);
 }
@@ -15746,70 +15802,70 @@ Graphics_SetShaderParameter (Urho3D::Graphics *_target, int param, const float *
 
 
 DllExport void
-Graphics_SetShaderParameter7 (Urho3D::Graphics *_target, int param, float value)
+Graphics_SetShaderParameter8 (Urho3D::Graphics *_target, int param, float value)
 {
 	_target->SetShaderParameter (Urho3D::StringHash(param), value);
 }
 
 
 DllExport void
-Graphics_SetShaderParameter8 (Urho3D::Graphics *_target, int param, int value)
+Graphics_SetShaderParameter9 (Urho3D::Graphics *_target, int param, int value)
 {
 	_target->SetShaderParameter (Urho3D::StringHash(param), value);
 }
 
 
 DllExport void
-Graphics_SetShaderParameter9 (Urho3D::Graphics *_target, int param, bool value)
+Graphics_SetShaderParameter10 (Urho3D::Graphics *_target, int param, bool value)
 {
 	_target->SetShaderParameter (Urho3D::StringHash(param), value);
 }
 
 
 DllExport void
-Graphics_SetShaderParameter10 (Urho3D::Graphics *_target, int param, const class Urho3D::Color & color)
+Graphics_SetShaderParameter11 (Urho3D::Graphics *_target, int param, const class Urho3D::Color & color)
 {
 	_target->SetShaderParameter (Urho3D::StringHash(param), color);
 }
 
 
 DllExport void
-Graphics_SetShaderParameter11 (Urho3D::Graphics *_target, int param, const class Urho3D::Vector2 & vector)
+Graphics_SetShaderParameter12 (Urho3D::Graphics *_target, int param, const class Urho3D::Vector2 & vector)
 {
 	_target->SetShaderParameter (Urho3D::StringHash(param), vector);
 }
 
 
 DllExport void
-Graphics_SetShaderParameter12 (Urho3D::Graphics *_target, int param, const class Urho3D::Matrix3 & matrix)
+Graphics_SetShaderParameter13 (Urho3D::Graphics *_target, int param, const class Urho3D::Matrix3 & matrix)
 {
 	_target->SetShaderParameter (Urho3D::StringHash(param), matrix);
 }
 
 
 DllExport void
-Graphics_SetShaderParameter13 (Urho3D::Graphics *_target, int param, const class Urho3D::Vector3 & vector)
+Graphics_SetShaderParameter14 (Urho3D::Graphics *_target, int param, const class Urho3D::Vector3 & vector)
 {
 	_target->SetShaderParameter (Urho3D::StringHash(param), vector);
 }
 
 
 DllExport void
-Graphics_SetShaderParameter14 (Urho3D::Graphics *_target, int param, const class Urho3D::Matrix4 & matrix)
+Graphics_SetShaderParameter15 (Urho3D::Graphics *_target, int param, const class Urho3D::Matrix4 & matrix)
 {
 	_target->SetShaderParameter (Urho3D::StringHash(param), matrix);
 }
 
 
 DllExport void
-Graphics_SetShaderParameter15 (Urho3D::Graphics *_target, int param, const class Urho3D::Vector4 & vector)
+Graphics_SetShaderParameter16 (Urho3D::Graphics *_target, int param, const class Urho3D::Vector4 & vector)
 {
 	_target->SetShaderParameter (Urho3D::StringHash(param), vector);
 }
 
 
 DllExport void
-Graphics_SetShaderParameter16 (Urho3D::Graphics *_target, int param, const class Urho3D::Matrix3x4 & matrix)
+Graphics_SetShaderParameter17 (Urho3D::Graphics *_target, int param, const class Urho3D::Matrix3x4 & matrix)
 {
 	_target->SetShaderParameter (Urho3D::StringHash(param), matrix);
 }
@@ -15914,7 +15970,7 @@ Graphics_SetRenderTarget (Urho3D::Graphics *_target, unsigned int index, Urho3D:
 
 
 DllExport void
-Graphics_SetRenderTarget17 (Urho3D::Graphics *_target, unsigned int index, Urho3D::Texture2D * texture)
+Graphics_SetRenderTarget18 (Urho3D::Graphics *_target, unsigned int index, Urho3D::Texture2D * texture)
 {
 	_target->SetRenderTarget (index, texture);
 }
@@ -15928,7 +15984,7 @@ Graphics_SetDepthStencil (Urho3D::Graphics *_target, Urho3D::RenderSurface * dep
 
 
 DllExport void
-Graphics_SetDepthStencil18 (Urho3D::Graphics *_target, Urho3D::Texture2D * texture)
+Graphics_SetDepthStencil19 (Urho3D::Graphics *_target, Urho3D::Texture2D * texture)
 {
 	_target->SetDepthStencil (texture);
 }
@@ -16922,7 +16978,7 @@ Graphics_GetReadableDepthFormat ()
 
 
 DllExport unsigned int
-Graphics_GetFormat19 (const char * formatName)
+Graphics_GetFormat20 (const char * formatName)
 {
 	return Graphics::GetFormat (Urho3D::String(formatName));
 }
@@ -27568,6 +27624,20 @@ DllExport int
 Input_GetTouchEmulation (Urho3D::Input *_target)
 {
 	return _target->GetTouchEmulation ();
+}
+
+
+DllExport void
+Input_SetInputUpdate (Urho3D::Input *_target, bool enable)
+{
+	_target->SetInputUpdate (enable);
+}
+
+
+DllExport int
+Input_GetInputUpdate (Urho3D::Input *_target)
+{
+	return _target->GetInputUpdate ();
 }
 
 
