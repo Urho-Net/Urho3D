@@ -518,6 +518,15 @@ namespace Urho
         }
 
         [DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Input_SetKey (IntPtr handle, Key key, Scancode scancode, bool newState);
+        
+        public void SetKey(Key key, Scancode scancode, bool newState)
+        {
+            Runtime.ValidateRefCounted(this);
+            Input_SetKey (handle, key, scancode, newState);
+        }
+
+        [DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
         internal static extern bool Input_GetQualifierDown(IntPtr handle, Qualifier qualifier);
 
         /// <summary>
@@ -750,36 +759,36 @@ namespace Urho
         }
 
         [DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern void Input_SetInputUpdate (IntPtr handle, bool enable);
+		internal static extern void Input_SetExternalInput (IntPtr handle, bool enable);
 
 		/// <summary>
 		/// 
 		/// </summary>
-		private void SetInputUpdate (bool enable)
+		private void SetExternalInput (bool enable)
 		{
 			Runtime.ValidateRefCounted (this);
-			Input_SetInputUpdate (handle, enable);
+			Input_SetExternalInput (handle, enable);
 		}
 
         
         [DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern bool Input_GetInputUpdate (IntPtr handle);
+		internal static extern bool Input_GetExternalInput (IntPtr handle);
 
 		/// <summary>
 		/// 
 		/// </summary>
-		private bool GetInputUpdate ()
+		private bool GetExternalInput ()
 		{
 			Runtime.ValidateRefCounted (this);
-			return Input_GetInputUpdate (handle);
+			return Input_GetExternalInput (handle);
 		}
 
-        public bool InputUpdate {
+        public bool ExternalInput {
 			get {
-				return GetInputUpdate ();
+				return GetExternalInput ();
 			}
 			set {
-				SetInputUpdate (value);
+				SetExternalInput (value);
 			}
 		}
 
@@ -1187,6 +1196,16 @@ namespace Urho
         {
             Runtime.ValidateRefCounted(this);
             return Input_GetMouseButtonPress(handle, (int)button);
+        }
+
+
+        [DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Input_SetMouseButton(IntPtr handle, int button, bool newState, int clicks);
+
+        public void SetMouseButton(MouseButton button, bool newState, int clicks)
+        {
+            Runtime.ValidateRefCounted(this);
+            Input_SetMouseButton(handle, (int)button,newState,clicks);
         }
 
         // Dummy

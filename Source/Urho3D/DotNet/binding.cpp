@@ -27628,16 +27628,16 @@ Input_GetTouchEmulation (Urho3D::Input *_target)
 
 
 DllExport void
-Input_SetInputUpdate (Urho3D::Input *_target, bool enable)
+Input_SetExternalInput (Urho3D::Input *_target, bool enable)
 {
-	_target->SetInputUpdate (enable);
+	_target->SetExternalInput (enable);
 }
 
 
 DllExport int
-Input_GetInputUpdate (Urho3D::Input *_target)
+Input_GetExternalInput (Urho3D::Input *_target)
 {
-	return _target->GetInputUpdate ();
+	return _target->GetExternalInput ();
 }
 
 
@@ -27701,6 +27701,20 @@ DllExport int
 Input_IsMapCtrlQualifierToCommandKey (Urho3D::Input *_target)
 {
 	return _target->IsMapCtrlQualifierToCommandKey ();
+}
+
+
+DllExport void
+Input_SetMouseButton (Urho3D::Input *_target, enum Urho3D::MouseButton button, bool newState, int clicks)
+{
+	_target->SetMouseButton (button, newState, clicks);
+}
+
+
+DllExport void
+Input_SetKey (Urho3D::Input *_target, enum Urho3D::Key key, enum Urho3D::Scancode scancode, bool newState)
+{
+	_target->SetKey (key, scancode, newState);
 }
 
 

@@ -382,7 +382,7 @@ Input::Input(Context* context) :
     mouseMoveScaled_(false),
     initialized_(false),
     mapCtrlQualifierToCommandKey_(false),
-    inputUpdate_(true)
+    externalInput_(false)
 {
     context_->RequireSDL(SDL_INIT_JOYSTICK | SDL_INIT_GAMECONTROLLER);
 
@@ -421,9 +421,13 @@ void Input::Update()
 
     ResetInputAccumulation();
 
+
     SDL_Event evt;
-    while (SDL_PollEvent(&evt))
-        HandleSDLEvent(&evt);
+    if(!externalInput_)
+    {
+        while (SDL_PollEvent(&evt))
+            HandleSDLEvent(&evt);
+    }
 
     if (suppressNextMouseMove_ && (mouseMove_ != IntVector2::ZERO || mouseMoved))
         UnsuppressMouseMove();
@@ -506,7 +510,7 @@ void Input::Update()
 #endif
 
 #ifndef __EMSCRIPTEN__
-    if (!touchEmulation_ && (graphics_->GetExternalWindow() || ((!sdlMouseRelative_ && !mouseVisible_ && mouseMode_ != MM_FREE) && inputFocus_ && (flags & SDL_WINDOW_MOUSE_FOCUS))))
+    if (!touchEmulation_ && (graphics_->GetExternalWindow() || externalInput_ || ((!sdlMouseRelative_ && !mouseVisible_ && mouseMode_ != MM_FREE) && inputFocus_ && (flags & SDL_WINDOW_MOUSE_FOCUS))))
 #else
     if (!touchEmulation_ && !emscriptenPointerLock_ && (graphics_->GetExternalWindow() || (!mouseVisible_ && inputFocus_ && (flags & SDL_WINDOW_MOUSE_FOCUS))))
 #endif
@@ -516,7 +520,7 @@ void Input::Update()
         mouseMoveScaled_ = true; // Already in backbuffer scale, since GetMousePosition() operates in that
 
 #ifndef __EMSCRIPTEN__
-        if (graphics_->GetExternalWindow())
+        if (graphics_->GetExternalWindow() || externalInput_)
             lastMousePosition_ = mousePosition;
         else
         {
@@ -1906,6 +1910,7 @@ void Input::SetMousePosition(const IntVector2& position)
     SDL_WarpMouseInWindow(graphics_->GetWindow(), (int)(position.x_ / inputScale_.x_), (int)(position.y_ / inputScale_.y_));
 }
 
+
 void Input::CenterMousePosition()
 {
     const IntVector2 center(graphics_->GetWidth() / 2, graphics_->GetHeight() / 2);
@@ -2556,12 +2561,10 @@ void Input::HandleScreenMode(StringHash eventType, VariantMap& eventData)
 void Input::HandleBeginFrame(StringHash eventType, VariantMap& eventData)
 {
     // Update input right at the beginning of the frame
-    if(inputUpdate_)
-    {
-        SendEvent(E_INPUTBEGIN);
-        Update();
-        SendEvent(E_INPUTEND);
-    }
+    SendEvent(E_INPUTBEGIN);
+    Update();
+    SendEvent(E_INPUTEND);
+    
 }
 
 #ifdef __EMSCRIPTEN__
@@ -2799,9 +2802,9 @@ void Input::OnUserAction()
 #endif
 }
 
-void Input::SetInputUpdate(bool enable)
+void Input::SetExternalInput(bool enable)
 {
-    inputUpdate_ = enable;
+    externalInput_ = enable;
 }
 
 }

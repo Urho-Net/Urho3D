@@ -338,9 +338,9 @@ public:
     bool GetTouchEmulation() const { return touchEmulation_; }
 
     /// @property
-    void SetInputUpdate(bool enable);
+    void SetExternalInput(bool enable);
     /// @property
-    bool GetInputUpdate() const { return inputUpdate_; }
+    bool GetExternalInput() const { return externalInput_; }
 
     /// Return whether the operating system mouse cursor is visible.
     /// @property
@@ -369,6 +369,10 @@ public:
     /// OSX only , maps Ctrl Qualifier to Command key (click or tap).
     void MapCtrlQualifierToCommandKey(bool val){mapCtrlQualifierToCommandKey_ = val;}
     bool IsMapCtrlQualifierToCommandKey(){ return mapCtrlQualifierToCommandKey_ == true;}
+    /// Handle a mouse button change.
+    void SetMouseButton(MouseButton button, bool newState, int clicks);
+    /// Handle a key change.
+    void SetKey(Key key, Scancode scancode, bool newState);
 private:
     /// Initialize when screen mode initially set.
     void Initialize();
@@ -394,10 +398,6 @@ private:
     void PushTouchIndex(int touchID);
     /// Send an input focus or window minimization change event.
     void SendInputFocusEvent();
-    /// Handle a mouse button change.
-    void SetMouseButton(MouseButton button, bool newState, int clicks);
-    /// Handle a key change.
-    void SetKey(Key key, Scancode scancode, bool newState);
     /// Handle mouse wheel change.
     void SetMouseWheel(int delta);
     /// Handle mouse wheel change in both X and Y axis.
@@ -513,7 +513,7 @@ private:
     bool emscriptenPointerLock_;
 #endif
     bool mapCtrlQualifierToCommandKey_;
-    bool inputUpdate_;
+    bool externalInput_;
 };
 
 }
