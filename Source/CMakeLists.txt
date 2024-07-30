@@ -141,6 +141,9 @@ endif()
 
 if (APPLE AND ARM AND NOT IOS AND NOT TVOS)
     add_subdirectory (ThirdParty/LibCpuId)
+    if (URHO3D_OPENGL AND NOT URHO3D_ANGLE_METAL)
+        add_subdirectory (ThirdParty/GLEW)
+    endif ()
 endif ()
 
 if(URHO3D_OPENGL)
