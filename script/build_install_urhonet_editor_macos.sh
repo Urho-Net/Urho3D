@@ -27,6 +27,13 @@ else
     echo "URHONET_HOME_ROOT=${URHONET_HOME_ROOT}"
 fi
 
+if [ "$(uname -m)" = "arm64" ]; then
+    OS_ARCH="Arm64"
+else
+    OS_ARCH="X64"
+fi
+echo "OS_ARCH=${OS_ARCH}"
+
 unamestr=$(uname)
 # Switch-on alias expansion within the script 
 shopt -s expand_aliases
@@ -82,5 +89,6 @@ mkdir -p ${URHONET_HOME_ROOT}/template/libs/dotnet/urho/desktop
 cp -f ${URHO3D_HOME}/DotNet/UrhoDotNet/editor/UrhoDotNet.dll ${URHONET_HOME_ROOT}/template/libs/dotnet/urho/desktop
 cp -f ${URHO3D_HOME}/DotNet/UrhoDotNet/editor/UrhoDotNet.xml ${URHONET_HOME_ROOT}/template/libs/dotnet/urho/desktop
 
-mkdir -p ${URHONET_HOME_ROOT}/template/libs/macos
-cp -f ${URHO3D_HOME}/DotNet/libs/macos/Release/libUrho3D.dylib  ${URHONET_HOME_ROOT}/template/libs/macos
+
+mkdir -p ${URHONET_HOME_ROOT}/template/libs/macos/${OS_ARCH}
+cp -f ${URHO3D_HOME}/DotNet/libs/macos/Release/libUrho3D.dylib  ${URHONET_HOME_ROOT}/template/libs/macos/${OS_ARCH}

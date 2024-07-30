@@ -8,6 +8,12 @@ else
     echo "URHONET_HOME_ROOT=${URHONET_HOME_ROOT}"
 fi
 
+if [ "$(uname -m)" = "arm64" ]; then
+    OS_ARCH="Arm64"
+else
+    OS_ARCH="X64"
+fi
+echo "OS_ARCH=${OS_ARCH}"
 
 mkdir -p ${URHONET_HOME_ROOT}/template/libs/dotnet/urho/desktop
 cp -f ${URHO3D_HOME}/DotNet/UrhoDotNet/desktop/UrhoDotNet.dll ${URHONET_HOME_ROOT}/template/libs/dotnet/urho/desktop
@@ -54,8 +60,8 @@ cp -f ${URHO3D_HOME}/DotNet/libs/wasm/index.html  ${URHONET_HOME_ROOT}/template/
 cp -f ${URHO3D_HOME}/DotNet/libs/wasm/MonoEmbedded.js  ${URHONET_HOME_ROOT}/template/libs/web/MonoEmbedded.js
 cp -f ${URHO3D_HOME}/DotNet/libs/wasm/MonoEmbedded.wasm  ${URHONET_HOME_ROOT}/template/libs/web/MonoEmbedded.wasm
 
-mkdir -p ${URHONET_HOME_ROOT}/template/libs/macos
-cp -f ${URHO3D_HOME}/DotNet/libs/macos/Release/libUrho3D.dylib  ${URHONET_HOME_ROOT}/template/libs/macos
+mkdir -p ${URHONET_HOME_ROOT}/template/libs/macos/${OS_ARCH}
+cp -f ${URHO3D_HOME}/DotNet/libs/macos/Release/libUrho3D.dylib  ${URHONET_HOME_ROOT}/template/libs/macos/${OS_ARCH}
 
 mkdir -p ${URHONET_HOME_ROOT}/template/libs/windows
 cp -f ${URHO3D_HOME}/DotNet/libs/windows/release/Urho3D.dll  ${URHONET_HOME_ROOT}/template/libs/windows

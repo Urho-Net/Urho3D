@@ -25,6 +25,14 @@ else
     echo "URHONET_HOME_ROOT=${URHONET_HOME_ROOT}"
 fi
 
+if [ "$(uname -m)" = "arm64" ]; then
+    OS_ARCH="Arm64"
+else
+    OS_ARCH="X64"
+fi
+echo "OS_ARCH=${OS_ARCH}"
+
+
 cd ${URHO3D_HOME}
 
 input1=$1
@@ -70,5 +78,5 @@ if [ ! -e ${URHO3D_HOME}/DotNet/libs/macos/Release/libUrho3D.dylib ]; then
   exit 1
 fi
 
-mkdir -p ${URHONET_HOME_ROOT}/template/libs/macos
-cp -f ${URHO3D_HOME}/DotNet/libs/macos/Release/libUrho3D.dylib  ${URHONET_HOME_ROOT}/template/libs/macos
+mkdir -p ${URHONET_HOME_ROOT}/template/libs/macos/${OS_ARCH}
+cp -f ${URHO3D_HOME}/DotNet/libs/macos/Release/libUrho3D.dylib  ${URHONET_HOME_ROOT}/template/libs/macos/${OS_ARCH}
