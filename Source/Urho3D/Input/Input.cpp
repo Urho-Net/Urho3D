@@ -420,8 +420,7 @@ void Input::Update()
         mouseMoved = true;
 
     ResetInputAccumulation();
-
-
+     
     SDL_Event evt;
     if(!externalInput_)
     {
@@ -1622,8 +1621,12 @@ void Input::ResetJoysticks()
 void Input::ResetInputAccumulation()
 {
     // Reset input accumulation for this frame
-    keyPress_.Clear();
-    scancodePress_.Clear();
+    if (!externalInput_)
+    {
+        keyPress_.Clear();
+        scancodePress_.Clear();
+    }
+   
     mouseButtonPress_ = MOUSEB_NONE;
     mouseMove_ = IntVector2::ZERO;
     mouseMoveWheel_ = 0;
@@ -1845,7 +1848,10 @@ void Input::SetKey(Key key, Scancode scancode, bool newState)
     else
     {
         scancodeDown_.Erase(scancode);
-
+        if(externalInput_)
+        {
+            keyPress_.Erase(key);
+        }
         if (!keyDown_.Erase(key))
             return;
     }
