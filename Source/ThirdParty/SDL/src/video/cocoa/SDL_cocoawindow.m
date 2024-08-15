@@ -1919,10 +1919,12 @@ SDL_bool
 Cocoa_GetWindowWMInfo(_THIS, SDL_Window * window, SDL_SysWMinfo * info)
 {
     NSWindow *nswindow = ((SDL_WindowData *) window->driverdata)->nswindow;
+    NSView *nsview = ((SDL_WindowData *) window->driverdata)->sdlContentView;
 
     if (info->version.major <= SDL_MAJOR_VERSION) {
         info->subsystem = SDL_SYSWM_COCOA;
         info->info.cocoa.window = nswindow;
+        info->info.cocoa.view = nsview;
         return SDL_TRUE;
     } else {
         SDL_SetError("Application not compiled with SDL %d.%d",

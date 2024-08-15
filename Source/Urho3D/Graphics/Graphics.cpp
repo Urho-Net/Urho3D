@@ -56,6 +56,7 @@
 #include "../IO/Log.h"
 
 #include <SDL/SDL.h>
+#include <SDL/SDL_syswm.h>
 
 #include "../DebugNew.h"
 
@@ -116,6 +117,37 @@ void Graphics::SetWindowSize(int x, int y)
     SetWindowSize(IntVector2(x, y));
 }
 
+void Graphics::SetExternalWindowSize(int x, int y)
+{
+    SetExternalWindowSize(IntVector2(x, y));
+}
+
+void Graphics::SetExternalWindowSize(const IntVector2& size)
+{
+    if (window_)
+    {
+        int sdl_drawable_width, sdl_drawable_height;
+        SDL_GL_GetDrawableSize(window_, &sdl_drawable_width, &sdl_drawable_height);
+        int logicalWidth, logicalHeight;
+        SDL_GetWindowSize(window_, &logicalWidth, &logicalHeight);
+        bool ishiDPI = (sdl_drawable_width != logicalWidth) || (sdl_drawable_height != logicalHeight);
+
+        width_ = (ishiDPI) ? size.x_ * 2 : size.x_;
+        height_ = (ishiDPI) ? size.y_ * 2 : size.y_;
+
+        using namespace ScreenMode;
+
+        VariantMap& eventData = GetEventDataMap();
+        eventData[P_WIDTH] = width_;
+        eventData[P_HEIGHT] = height_;
+        eventData[P_FULLSCREEN] = screenParams_.fullscreen_;
+        eventData[P_RESIZABLE] = screenParams_.resizable_;
+        eventData[P_BORDERLESS] = screenParams_.borderless_;
+        eventData[P_HIGHDPI] = screenParams_.highDPI_;
+        SendEvent(E_SCREENMODE, eventData);
+    }
+}
+
  void Graphics::SetWindowOpacity(float opacity)
  {
     if (window_)
@@ -140,6 +172,41 @@ void Graphics::ShowWindow()
     }
 }
 
+void* Graphics::GetNativeWindowHandle()
+{
+    if (window_)
+    {
+        SDL_SysWMinfo wmInfo;
+        SDL_VERSION(&wmInfo.version);
+        SDL_GetWindowWMInfo(window_, &wmInfo);
+#if defined(SDL_VIDEO_DRIVER_WINDOWS)
+        return  wmInfo.info.win.window;
+#endif
+#if defined(SDL_VIDEO_DRIVER_WINRT)
+        return  wmInfo.info.winrt.window;
+#endif
+#if defined(SDL_VIDEO_DRIVER_X11)
+        return  wmInfo.info.x11.window;
+#endif
+#if defined(SDL_VIDEO_DRIVER_COCOA)
+        return  wmInfo.info.cocoa.view;
+#endif
+#if defined(SDL_VIDEO_DRIVER_UIKIT)
+        return  wmInfo.info.uikit.window;
+#endif
+#if defined(SDL_VIDEO_DRIVER_WAYLAND)
+        return  wmInfo.info.wl.surface;
+#endif
+#if defined(SDL_VIDEO_DRIVER_MIR) 
+        return  wmInfo.info.mir.surface;
+#endif
+#if defined(SDL_VIDEO_DRIVER_ANDROID)
+        return  wmInfo.info.android.window;
+#endif
+    }
+
+    return nullptr;
+}
 
 void Graphics::SetOrientations(const String& orientations)
 {

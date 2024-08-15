@@ -165,12 +165,19 @@ public:
     void SetWindowSize(const IntVector2& position);
     /// Set window size.
     void SetWindowSize(int x, int y);
+
+     /// Set external window size .i.e a window controled by external app such as Avalonia.
+    void SetExternalWindowSize(const IntVector2& position);
+       /// Set external window size .i.e a window controled by external app such as Avalonia.
+    void SetExternalWindowSize(int x, int y);
     /// Set window opacity.
     void SetWindowOpacity(float opacity);
     /// Hide window .
     void HideWindow();
     /// Show Window
     void ShowWindow();
+
+    void * GetNativeWindowHandle();
     
     /// Set screen mode. Return true if successful.
     /// Don't use SetScreenMode if ToggleFullscreen is used directly or indirectly.
