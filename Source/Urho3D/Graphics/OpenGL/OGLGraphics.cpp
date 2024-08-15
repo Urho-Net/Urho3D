@@ -475,6 +475,9 @@ bool Graphics::SetScreenMode(int width, int height, const ScreenModeParams& para
             flags |= SDL_WINDOW_ALLOW_HIGHDPI;
 #endif
 
+        if (newParams.hidden_)
+            flags |= SDL_WINDOW_HIDDEN;
+
         SDL_SetHint(SDL_HINT_ORIENTATIONS, orientations_.CString());
 
 #if  defined(URHO3D_ANGLE_METAL)

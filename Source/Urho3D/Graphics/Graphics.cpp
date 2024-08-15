@@ -268,6 +268,25 @@ bool Graphics::SetMode(int width, int height, bool fullscreen, bool borderless, 
     params.multiSample_ = multiSample;
     params.monitor_ = monitor;
     params.refreshRate_ = refreshRate;
+    params.hidden_ = false;
+
+    return SetDefaultWindowModes(width, height, params);
+}
+
+bool Graphics::SetMode(int width, int height, bool fullscreen, bool borderless, bool resizable,
+    bool highDPI, bool vsync, bool tripleBuffer,bool hidden, int multiSample, int monitor, int refreshRate)
+{
+    ScreenModeParams params;
+    params.fullscreen_ = fullscreen;
+    params.borderless_ = borderless;
+    params.resizable_ = resizable;
+    params.highDPI_ = highDPI;
+    params.vsync_ = vsync;
+    params.tripleBuffer_ = tripleBuffer;
+    params.multiSample_ = multiSample;
+    params.monitor_ = monitor;
+    params.refreshRate_ = refreshRate;
+    params.hidden_ = hidden;
 
     return SetDefaultWindowModes(width, height, params);
 }

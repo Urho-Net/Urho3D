@@ -99,6 +99,8 @@ struct ScreenModeParams
     int monitor_{};
     /// Refresh rate. 0 to pick automatically.
     int refreshRate_{};
+    /// Whether the window is hidden.
+    bool hidden_{};
 
     /// Compare contents except vsync flag.
     bool EqualsExceptVSync(const ScreenModeParams& rhs) const
@@ -111,7 +113,8 @@ struct ScreenModeParams
             && tripleBuffer_ == rhs.tripleBuffer_
             && multiSample_ == rhs.multiSample_
             && monitor_ == rhs.monitor_
-            && refreshRate_ == rhs.refreshRate_;
+            && refreshRate_ == rhs.refreshRate_
+            && hidden_ == rhs.hidden_;
     }
 
     /// Compare for equality with another parameter set.
@@ -193,6 +196,9 @@ public:
     /// Set default window modes. Deprecated. Return true if successful.
     bool SetMode(int width, int height, bool fullscreen, bool borderless, bool resizable,
         bool highDPI, bool vsync, bool tripleBuffer, int multiSample, int monitor, int refreshRate);
+        /// Set default window modes. Deprecated. Return true if successful.
+    bool SetMode(int width, int height, bool fullscreen, bool borderless, bool resizable,
+        bool highDPI, bool vsync, bool tripleBuffer,bool hidden, int multiSample, int monitor, int refreshRate);
     /// Set screen resolution only. Deprecated. Return true if successful.
     bool SetMode(int width, int height);
     /// Set whether the main window uses sRGB conversion on write.
