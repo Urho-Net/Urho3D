@@ -770,6 +770,19 @@ namespace Urho
 			Input_SetExternalInput (handle, enable);
 		}
 
+        [DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+		internal static extern void Input_SetInputScale (IntPtr handle, ref Urho.Vector2 scale);
+
+		/// <summary>
+		/// Only will viable in case of externalInput
+		/// 
+		/// </summary>
+		public void SetInputScale (Urho.Vector2 scale)
+		{
+			Runtime.ValidateRefCounted (this);
+			Input_SetInputScale (handle, ref scale);
+		}
+
         
         [DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
 		internal static extern bool Input_GetExternalInput (IntPtr handle);

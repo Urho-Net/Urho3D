@@ -1516,16 +1516,4 @@ extern "C"
         return qoi_decode_ext(data,size,desc,out_pixels);
     }
 
-
-DllExport void *
-Graphics_GetNativeWindowHandle (Urho3D::Graphics *_target)
-{
-	return _target->GetNativeWindowHandle();
-}
-
-DllExport void Graphics_SetExternalWindowSize(Urho3D::Graphics *_target , int width,int height)
-{
-    _target->SetExternalWindowSize(width, height);
-}
-
 }

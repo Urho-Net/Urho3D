@@ -299,6 +299,10 @@ public:
     /// @property
     Vector2 GetInputScale() const { return inputScale_; }
 
+    /// Only will viable in case of externalInput 
+    /// @property
+    void SetInputScale(const Vector2 & scale);
+
     /// Return number of active finger touches.
     /// @property
     unsigned GetNumTouches() const { return touches_.Size(); }

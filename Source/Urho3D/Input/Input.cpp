@@ -2813,4 +2813,23 @@ void Input::SetExternalInput(bool enable)
     externalInput_ = enable;
 }
 
+void Input::SetInputScale(const Vector2 & scale)
+{
+    if(externalInput_)
+    {
+        SDL_Window* window = graphics_->GetWindow();
+        if(window)
+        {
+            int sdl_drawable_width, sdl_drawable_height;
+            SDL_GL_GetDrawableSize(window, &sdl_drawable_width, &sdl_drawable_height);
+            int logicalWidth, logicalHeight;
+            SDL_GetWindowSize(window, &logicalWidth, &logicalHeight);
+            bool ishiDPI = (sdl_drawable_width != logicalWidth) || (sdl_drawable_height != logicalHeight);
+
+            int multiplyer = (ishiDPI)?2:1;
+            inputScale_ = multiplyer*scale;
+        }
+    }
+}
+
 }
