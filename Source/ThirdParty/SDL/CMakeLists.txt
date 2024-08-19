@@ -232,6 +232,10 @@ if(URHO3D_ANGLE_METAL)
   list (APPEND INCLUDE_DIRS ../angle/include)
 endif()
 
+if(URHO3D_DOTNET_LIB)
+  add_definitions(-D SDL_EXPORTS)
+endif()
+
 # All these ENABLED_BY_DEFAULT vars will default to ON if not specified, so
 #  you only need to have a platform override them if they are disabling.
 # Urho3D - bug fix - commented out double initialization of the OPT_DEF_ASM variable, it has been initialized properly in "Compiler info" section above
