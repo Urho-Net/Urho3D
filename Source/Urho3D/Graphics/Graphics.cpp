@@ -728,6 +728,11 @@ void Graphics::OnScreenModeChanged()
     SendEvent(E_SCREENMODE, eventData);
 }
 
+void Graphics::SetEmbeddedWindow(bool enable)
+{
+    isEmbeddedWindow_ = enable;
+}
+
 void RegisterGraphicsLibrary(Context* context)
 {
     Animation::RegisterObject(context);

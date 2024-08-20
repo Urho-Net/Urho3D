@@ -517,6 +517,7 @@ private:
     bool emscriptenPointerLock_;
 #endif
     bool mapCtrlQualifierToCommandKey_;
+    // Flag indicating that Input events are received from an external source and not from SDL
     bool externalInput_;
 };
 

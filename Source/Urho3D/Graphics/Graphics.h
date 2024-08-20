@@ -695,6 +695,13 @@ public:
     /// Return whether GL_APPLE_clip_distance is supported
     bool clipDistanceAPPLESupport() const { return clipDistanceAPPLESupport_; }
 
+    /// @property
+     /// Set whether Graphics is embedded inside another external Application
+    void SetEmbeddedWindow(bool enable);
+    /// @property
+    /// return whether Graphics is embedded inside another external Application
+    bool GetEmbeddedWindow() const { return isEmbeddedWindow_; }
+
     /// Return the API-specific alpha texture format.
     static unsigned GetAlphaFormat();
     /// Return the API-specific luminance texture format.
@@ -974,6 +981,8 @@ private:
     static const Vector2 pixelUVOffset;
     /// OpenGL3 support flag.
     static bool gl3Support;
+    // Flag indicating if Graphics is embedded inside another external Application
+    bool isEmbeddedWindow_{};
 };
 
 /// Register Graphics library objects.

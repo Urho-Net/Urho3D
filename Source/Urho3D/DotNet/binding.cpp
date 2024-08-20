@@ -16893,6 +16893,20 @@ Graphics_clipDistanceAPPLESupport (Urho3D::Graphics *_target)
 }
 
 
+DllExport void
+Graphics_SetEmbeddedWindow (Urho3D::Graphics *_target, bool enable)
+{
+	_target->SetEmbeddedWindow (enable);
+}
+
+
+DllExport int
+Graphics_GetEmbeddedWindow (Urho3D::Graphics *_target)
+{
+	return _target->GetEmbeddedWindow ();
+}
+
+
 DllExport unsigned int
 Graphics_GetAlphaFormat ()
 {

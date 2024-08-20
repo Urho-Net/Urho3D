@@ -509,7 +509,7 @@ void Input::Update()
 #endif
 
 #ifndef __EMSCRIPTEN__
-    if (!touchEmulation_ && (graphics_->GetExternalWindow() || externalInput_ || ((!sdlMouseRelative_ && !mouseVisible_ && mouseMode_ != MM_FREE) && inputFocus_ && (flags & SDL_WINDOW_MOUSE_FOCUS))))
+    if (!touchEmulation_ && (graphics_->GetExternalWindow() || graphics_->GetEmbeddedWindow() || externalInput_  || ((!sdlMouseRelative_ && !mouseVisible_ && mouseMode_ != MM_FREE) && inputFocus_ && (flags & SDL_WINDOW_MOUSE_FOCUS))))
 #else
     if (!touchEmulation_ && !emscriptenPointerLock_ && (graphics_->GetExternalWindow() || (!mouseVisible_ && inputFocus_ && (flags & SDL_WINDOW_MOUSE_FOCUS))))
 #endif
@@ -519,7 +519,7 @@ void Input::Update()
         mouseMoveScaled_ = true; // Already in backbuffer scale, since GetMousePosition() operates in that
 
 #ifndef __EMSCRIPTEN__
-        if (graphics_->GetExternalWindow() || externalInput_)
+        if (graphics_->GetExternalWindow() || graphics_->GetEmbeddedWindow() || externalInput_)
             lastMousePosition_ = mousePosition;
         else
         {
@@ -597,7 +597,7 @@ void Input::SetMouseVisible(bool enable, bool suppressEvent)
         if (initialized_)
         {
             // External windows can only support visible mouse cursor
-            if (graphics_->GetExternalWindow())
+            if (graphics_->GetExternalWindow() || graphics_->GetEmbeddedWindow())
             {
                 mouseVisible_ = true;
                 if (!suppressEvent)
@@ -1573,7 +1573,7 @@ void Input::Initialize()
     graphics_ = graphics;
 
     // In external window mode only visible mouse is supported
-    if (graphics_->GetExternalWindow())
+    if (graphics_->GetExternalWindow() || graphics_->GetEmbeddedWindow())
         mouseVisible_ = true;
 
     // Set the initial activation
@@ -2812,6 +2812,7 @@ void Input::SetExternalInput(bool enable)
 {
     externalInput_ = enable;
 }
+
 
 void Input::SetInputScale(const Vector2 & scale)
 {

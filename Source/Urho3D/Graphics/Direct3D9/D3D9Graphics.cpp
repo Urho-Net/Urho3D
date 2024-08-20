@@ -258,7 +258,8 @@ Graphics::Graphics(Context* context) :
     shaderPath_("Shaders/HLSL/"),
     shaderExtension_(".hlsl"),
     orientations_("LandscapeLeft LandscapeRight"),
-    apiName_("D3D9")
+    apiName_("D3D9"),
+    isEmbeddedWindow_(false)
 {
     SetTextureUnitMappings();
 

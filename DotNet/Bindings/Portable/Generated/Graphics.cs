@@ -2324,6 +2324,32 @@ Graphics_GetRenderTargetDimensions
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+		internal static extern void Graphics_SetEmbeddedWindow (IntPtr handle, bool enable);
+
+		/// <summary>
+		/// 
+		/// Set whether Graphics is embedded inside another external Application
+		/// </summary>
+		private void SetEmbeddedWindow (bool enable)
+		{
+			Runtime.ValidateRefCounted (this);
+			Graphics_SetEmbeddedWindow (handle, enable);
+		}
+
+		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+		internal static extern bool Graphics_GetEmbeddedWindow (IntPtr handle);
+
+		/// <summary>
+		/// 
+		/// return whether Graphics is embedded inside another external Application
+		/// </summary>
+		private bool GetEmbeddedWindow ()
+		{
+			Runtime.ValidateRefCounted (this);
+			return Graphics_GetEmbeddedWindow (handle);
+		}
+
+		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
 		internal static extern uint Graphics_GetAlphaFormat ();
 
 		/// <summary>
@@ -3352,6 +3378,22 @@ Graphics_GetPixelUVOffset
 		public string VersionString {
 			get {
 				return GetVersionString ();
+			}
+		}
+
+		/// <summary>
+		/// 
+		/// return whether Graphics is embedded inside another external Application
+		/// Or
+		/// 
+		/// Set whether Graphics is embedded inside another external Application
+		/// </summary>
+		public bool EmbeddedWindow {
+			get {
+				return GetEmbeddedWindow ();
+			}
+			set {
+				SetEmbeddedWindow (value);
 			}
 		}
 
