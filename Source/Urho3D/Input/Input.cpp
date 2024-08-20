@@ -1647,7 +1647,10 @@ void Input::ResetInputAccumulation()
 
 void Input::GainFocus()
 {
-    ResetState();
+    if (!graphics_->GetEmbeddedWindow())
+    {
+        ResetState();
+    }
 
     inputFocus_ = true;
     focusedThisFrame_ = false;
@@ -1670,7 +1673,10 @@ void Input::GainFocus()
 
 void Input::LoseFocus()
 {
-    ResetState();
+    if (!graphics_->GetEmbeddedWindow())
+    {
+        ResetState();
+    }
 
     inputFocus_ = false;
     focusedThisFrame_ = false;
