@@ -62,7 +62,7 @@
 #include "../UI/Window.h"
 #include "../UI/View3D.h"
 #include "../UI/UIComponent.h"
-
+#include "../UI/ImGuiElement.h"
 #include <cassert>
 #include <SDL/SDL.h>
 
@@ -2241,6 +2241,7 @@ void RegisterUILibrary(Context* context)
     ProgressBar::RegisterObject(context);
     ToolTip::RegisterObject(context);
     UIComponent::RegisterObject(context);
+    ImGuiElement::RegisterObject(context);
 }
 
 }
