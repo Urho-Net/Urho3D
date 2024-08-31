@@ -61,6 +61,7 @@ void ImguiDemo::Start()
 {
     // Execute base class startup
     Sample::Start();
+    Graphics* graphics = GetSubsystem<Graphics>();
 
     // Enable OS cursor
     GetSubsystem<Input>()->SetMouseVisible(true);
@@ -86,6 +87,8 @@ void ImguiDemo::Start()
 
     // Set the mouse mode to use in the sample
     Sample::InitMouseMode(MM_FREE);
+    
+//    window_->SetPosition(graphics->GetWidth()/2 - window_->GetWidth()/2,graphics->GetHeight()/2 - window_->GetHeight()/2);
 }
 
 void ImguiDemo::InitControls()
@@ -115,7 +118,7 @@ void ImguiDemo::InitControls()
     imguiControl->SetMinHeight(500);
     imguiControl->SetFontSize(20); // that's the default , so only for educational purpose
     imguiControl->SetFontName("Data/Fonts/Anonymous Pro.ttf"); // that's the default , so only for educational purpose
-
+    imguiControl->SetDemoWindowVisible(true);
     // Apply previously set default style
     checkBox->SetStyleAuto();
     button->SetStyleAuto();
@@ -127,6 +130,7 @@ void ImguiDemo::InitControls()
 
 void ImguiDemo::InitWindow()
 {
+    
     // Create the Window and add it to the UI's root node
     window_ = new Window(context_);
     uiRoot_->AddChild(window_);
@@ -166,6 +170,7 @@ void ImguiDemo::InitWindow()
     list->SetSelectOnClickEnd(true);
     list->SetHighlightMode(HM_ALWAYS);
     list->SetMinHeight(200);
+    list->SetPriority(0);
 
     for (int i = 0; i < 32; i++)
     {
@@ -173,6 +178,7 @@ void ImguiDemo::InitWindow()
         text->SetStyleAuto();
         text->SetText(ToString("List item %d", i));
         text->SetName(ToString("Item %d", i));
+        text->SetPriority(0);
         list->AddItem(text);
     }
 

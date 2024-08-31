@@ -95,6 +95,25 @@ namespace Urho3D
         inline String GetFontName() const { return fontName_; }
         
         bool Begin(const char* name, bool* p_open, ImGuiWindowFlags flags);
+        
+        void HandleMouseButtonDown(StringHash eventType, VariantMap& eventData);
+        /// Handle mouse button up event.
+        void HandleMouseButtonUp(StringHash eventType, VariantMap& eventData);
+        /// Handle mouse move event.
+        void HandleMouseMove(StringHash eventType, VariantMap& eventData);
+        /// Handle mouse wheel event.
+        void HandleMouseWheel(StringHash eventType, VariantMap& eventData);
+        /// Handle touch begin event.
+        void HandleTouchBegin(StringHash eventType, VariantMap& eventData);
+        /// Handle touch end event.
+        void HandleTouchEnd(StringHash eventType, VariantMap& eventData);
+        /// Handle touch move event.
+        void HandleTouchMove(StringHash eventType, VariantMap& eventData);
+        /// Handle keypress event.
+        void HandleKeyDown(StringHash eventType, VariantMap& eventData);
+        void HandleKeyUp(StringHash eventType, VariantMap& eventData);
+        
+        
 
     protected:
         /// Alternatively to set the ImGuiRenderFunction pointer this method can be overriden for generating the UI.
@@ -102,6 +121,13 @@ namespace Urho3D
 
         /// Creates or acquires the font texture.
         void CreateFontTexture(bool force = false);
+        
+        void AddMousePosEvent();
+        void AddMouseButtonEvent(int mouse_button, bool down);
+        void AddTouchPosEvent(float x, float y);
+        void AddTouchButtonEvent(int mouse_button, bool down);
+        void AddKeyEvent(ImGuiKey imgui_key, bool down);
+        void UpdateQualifiers(QualifierFlags qualifiers);
 
     private:
         /// Rebuilds the font texture when necessary.
@@ -126,6 +152,11 @@ namespace Urho3D
         
         String imguiActiveWindowName_;
         String fontName_ = "Data/Fonts/Anonymous Pro.ttf";
+        
+        MouseButtonFlags mouseButtons_;
+        /// Last mouse button pressed.
+        /// Qualifier keys held down.
+        QualifierFlags qualifiers_;
     };
 
 }

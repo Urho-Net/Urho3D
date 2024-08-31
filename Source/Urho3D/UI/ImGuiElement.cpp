@@ -43,11 +43,135 @@ namespace Urho3D
     const char* IMGUI_FONT_TEXTURE = "IMGUI_FONT_TEXTURE";
     const intptr_t IMGUI_FONT_KEY = -1;
    
-
-    void AddTriangleToUIBatch(UIBatch& batch)
+static ImGuiKey SDL2KeyEventToImGuiKey(SDL_Keycode keycode, SDL_Scancode scancode)
+{
+    IM_UNUSED(scancode);
+    switch (keycode)
     {
-
+        case SDLK_TAB: return ImGuiKey_Tab;
+        case SDLK_LEFT: return ImGuiKey_LeftArrow;
+        case SDLK_RIGHT: return ImGuiKey_RightArrow;
+        case SDLK_UP: return ImGuiKey_UpArrow;
+        case SDLK_DOWN: return ImGuiKey_DownArrow;
+        case SDLK_PAGEUP: return ImGuiKey_PageUp;
+        case SDLK_PAGEDOWN: return ImGuiKey_PageDown;
+        case SDLK_HOME: return ImGuiKey_Home;
+        case SDLK_END: return ImGuiKey_End;
+        case SDLK_INSERT: return ImGuiKey_Insert;
+        case SDLK_DELETE: return ImGuiKey_Delete;
+        case SDLK_BACKSPACE: return ImGuiKey_Backspace;
+        case SDLK_SPACE: return ImGuiKey_Space;
+        case SDLK_RETURN: return ImGuiKey_Enter;
+        case SDLK_ESCAPE: return ImGuiKey_Escape;
+        case SDLK_QUOTE: return ImGuiKey_Apostrophe;
+        case SDLK_COMMA: return ImGuiKey_Comma;
+        case SDLK_MINUS: return ImGuiKey_Minus;
+        case SDLK_PERIOD: return ImGuiKey_Period;
+        case SDLK_SLASH: return ImGuiKey_Slash;
+        case SDLK_SEMICOLON: return ImGuiKey_Semicolon;
+        case SDLK_EQUALS: return ImGuiKey_Equal;
+        case SDLK_LEFTBRACKET: return ImGuiKey_LeftBracket;
+        case SDLK_BACKSLASH: return ImGuiKey_Backslash;
+        case SDLK_RIGHTBRACKET: return ImGuiKey_RightBracket;
+        case SDLK_BACKQUOTE: return ImGuiKey_GraveAccent;
+        case SDLK_CAPSLOCK: return ImGuiKey_CapsLock;
+        case SDLK_SCROLLLOCK: return ImGuiKey_ScrollLock;
+        case SDLK_NUMLOCKCLEAR: return ImGuiKey_NumLock;
+        case SDLK_PRINTSCREEN: return ImGuiKey_PrintScreen;
+        case SDLK_PAUSE: return ImGuiKey_Pause;
+        case SDLK_KP_0: return ImGuiKey_Keypad0;
+        case SDLK_KP_1: return ImGuiKey_Keypad1;
+        case SDLK_KP_2: return ImGuiKey_Keypad2;
+        case SDLK_KP_3: return ImGuiKey_Keypad3;
+        case SDLK_KP_4: return ImGuiKey_Keypad4;
+        case SDLK_KP_5: return ImGuiKey_Keypad5;
+        case SDLK_KP_6: return ImGuiKey_Keypad6;
+        case SDLK_KP_7: return ImGuiKey_Keypad7;
+        case SDLK_KP_8: return ImGuiKey_Keypad8;
+        case SDLK_KP_9: return ImGuiKey_Keypad9;
+        case SDLK_KP_PERIOD: return ImGuiKey_KeypadDecimal;
+        case SDLK_KP_DIVIDE: return ImGuiKey_KeypadDivide;
+        case SDLK_KP_MULTIPLY: return ImGuiKey_KeypadMultiply;
+        case SDLK_KP_MINUS: return ImGuiKey_KeypadSubtract;
+        case SDLK_KP_PLUS: return ImGuiKey_KeypadAdd;
+        case SDLK_KP_ENTER: return ImGuiKey_KeypadEnter;
+        case SDLK_KP_EQUALS: return ImGuiKey_KeypadEqual;
+        case SDLK_LCTRL: return ImGuiKey_LeftCtrl;
+        case SDLK_LSHIFT: return ImGuiKey_LeftShift;
+        case SDLK_LALT: return ImGuiKey_LeftAlt;
+        case SDLK_LGUI: return ImGuiKey_LeftSuper;
+        case SDLK_RCTRL: return ImGuiKey_RightCtrl;
+        case SDLK_RSHIFT: return ImGuiKey_RightShift;
+        case SDLK_RALT: return ImGuiKey_RightAlt;
+        case SDLK_RGUI: return ImGuiKey_RightSuper;
+        case SDLK_APPLICATION: return ImGuiKey_Menu;
+        case SDLK_0: return ImGuiKey_0;
+        case SDLK_1: return ImGuiKey_1;
+        case SDLK_2: return ImGuiKey_2;
+        case SDLK_3: return ImGuiKey_3;
+        case SDLK_4: return ImGuiKey_4;
+        case SDLK_5: return ImGuiKey_5;
+        case SDLK_6: return ImGuiKey_6;
+        case SDLK_7: return ImGuiKey_7;
+        case SDLK_8: return ImGuiKey_8;
+        case SDLK_9: return ImGuiKey_9;
+        case SDLK_a: return ImGuiKey_A;
+        case SDLK_b: return ImGuiKey_B;
+        case SDLK_c: return ImGuiKey_C;
+        case SDLK_d: return ImGuiKey_D;
+        case SDLK_e: return ImGuiKey_E;
+        case SDLK_f: return ImGuiKey_F;
+        case SDLK_g: return ImGuiKey_G;
+        case SDLK_h: return ImGuiKey_H;
+        case SDLK_i: return ImGuiKey_I;
+        case SDLK_j: return ImGuiKey_J;
+        case SDLK_k: return ImGuiKey_K;
+        case SDLK_l: return ImGuiKey_L;
+        case SDLK_m: return ImGuiKey_M;
+        case SDLK_n: return ImGuiKey_N;
+        case SDLK_o: return ImGuiKey_O;
+        case SDLK_p: return ImGuiKey_P;
+        case SDLK_q: return ImGuiKey_Q;
+        case SDLK_r: return ImGuiKey_R;
+        case SDLK_s: return ImGuiKey_S;
+        case SDLK_t: return ImGuiKey_T;
+        case SDLK_u: return ImGuiKey_U;
+        case SDLK_v: return ImGuiKey_V;
+        case SDLK_w: return ImGuiKey_W;
+        case SDLK_x: return ImGuiKey_X;
+        case SDLK_y: return ImGuiKey_Y;
+        case SDLK_z: return ImGuiKey_Z;
+        case SDLK_F1: return ImGuiKey_F1;
+        case SDLK_F2: return ImGuiKey_F2;
+        case SDLK_F3: return ImGuiKey_F3;
+        case SDLK_F4: return ImGuiKey_F4;
+        case SDLK_F5: return ImGuiKey_F5;
+        case SDLK_F6: return ImGuiKey_F6;
+        case SDLK_F7: return ImGuiKey_F7;
+        case SDLK_F8: return ImGuiKey_F8;
+        case SDLK_F9: return ImGuiKey_F9;
+        case SDLK_F10: return ImGuiKey_F10;
+        case SDLK_F11: return ImGuiKey_F11;
+        case SDLK_F12: return ImGuiKey_F12;
+        case SDLK_F13: return ImGuiKey_F13;
+        case SDLK_F14: return ImGuiKey_F14;
+        case SDLK_F15: return ImGuiKey_F15;
+        case SDLK_F16: return ImGuiKey_F16;
+        case SDLK_F17: return ImGuiKey_F17;
+        case SDLK_F18: return ImGuiKey_F18;
+        case SDLK_F19: return ImGuiKey_F19;
+        case SDLK_F20: return ImGuiKey_F20;
+        case SDLK_F21: return ImGuiKey_F21;
+        case SDLK_F22: return ImGuiKey_F22;
+        case SDLK_F23: return ImGuiKey_F23;
+        case SDLK_F24: return ImGuiKey_F24;
+        case SDLK_AC_BACK: return ImGuiKey_AppBack;
+        case SDLK_AC_FORWARD: return ImGuiKey_AppForward;
+        default: break;
     }
+    return ImGuiKey_None;
+}
+
 
     ImGuiElement::ImGuiElement(Context* context) :
         UIElement(context), 
@@ -65,28 +189,6 @@ namespace Urho3D
         io.IniFilename = nullptr; // Don't save ini file
         
         CreateFontTexture();
-
-        // Scancodes and key-codes mixed because SDL keys have massive values in many cases
-        io.KeyMap[ImGuiKey_Tab] = KEY_TAB;
-        io.KeyMap[ImGuiKey_LeftArrow] = SCANCODE_LEFT;
-        io.KeyMap[ImGuiKey_RightArrow] = SCANCODE_RIGHT;
-        io.KeyMap[ImGuiKey_UpArrow] = SCANCODE_UP;
-        io.KeyMap[ImGuiKey_DownArrow] = SCANCODE_DOWN;
-        io.KeyMap[ImGuiKey_PageUp] = SCANCODE_PAGEUP;
-        io.KeyMap[ImGuiKey_PageDown] = SCANCODE_PAGEDOWN;
-        io.KeyMap[ImGuiKey_Home] = SCANCODE_HOME;
-        io.KeyMap[ImGuiKey_End] = SCANCODE_END;
-        io.KeyMap[ImGuiKey_Insert] = SCANCODE_INSERT;
-        io.KeyMap[ImGuiKey_Delete] = KEY_DELETE;
-        io.KeyMap[ImGuiKey_Backspace] = KEY_BACKSPACE;
-        io.KeyMap[ImGuiKey_Enter] = KEY_RETURN;
-        io.KeyMap[ImGuiKey_Escape] = KEY_ESCAPE;
-        io.KeyMap[ImGuiKey_A] = KEY_A;
-        io.KeyMap[ImGuiKey_C] = KEY_C;
-        io.KeyMap[ImGuiKey_V] = KEY_V;
-        io.KeyMap[ImGuiKey_X] = KEY_X;
-        io.KeyMap[ImGuiKey_Y] = KEY_Y;
-        io.KeyMap[ImGuiKey_Z] = KEY_Z;
         
         // Render function is deliberately not set
         // Buffering the UIBatches and vertex-data was ridiculously slow
@@ -94,6 +196,15 @@ namespace Urho3D
         ImGui::StyleColorsDark(nullptr);
         
         SubscribeToEvent(E_DEVICERESET, URHO3D_HANDLER(ImGuiElement, HandleDeviceReset));
+        SubscribeToEvent(E_MOUSEBUTTONDOWN, URHO3D_HANDLER(ImGuiElement, HandleMouseButtonDown));
+        SubscribeToEvent(E_MOUSEBUTTONUP, URHO3D_HANDLER(ImGuiElement, HandleMouseButtonUp));
+        SubscribeToEvent(E_MOUSEMOVE, URHO3D_HANDLER(ImGuiElement, HandleMouseMove));
+        SubscribeToEvent(E_MOUSEWHEEL, URHO3D_HANDLER(ImGuiElement, HandleMouseWheel));
+        SubscribeToEvent(E_TOUCHBEGIN, URHO3D_HANDLER(ImGuiElement, HandleTouchBegin));
+        SubscribeToEvent(E_TOUCHEND, URHO3D_HANDLER(ImGuiElement, HandleTouchEnd));
+        SubscribeToEvent(E_TOUCHMOVE, URHO3D_HANDLER(ImGuiElement, HandleTouchMove));
+        SubscribeToEvent(E_KEYDOWN, URHO3D_HANDLER(ImGuiElement, HandleKeyDown));
+        SubscribeToEvent(E_KEYUP, URHO3D_HANDLER(ImGuiElement, HandleKeyUp));
     }
 
     ImGuiElement::~ImGuiElement()
@@ -109,6 +220,18 @@ namespace Urho3D
             ImGui::DestroyContext(imguiContext_);
             imguiContext_ = nullptr;
         }
+        
+        UnsubscribeFromEvent(E_DEVICERESET);
+        UnsubscribeFromEvent(E_MOUSEBUTTONDOWN);
+        UnsubscribeFromEvent(E_MOUSEBUTTONUP);
+        UnsubscribeFromEvent(E_MOUSEMOVE);
+        UnsubscribeFromEvent(E_MOUSEWHEEL);
+        UnsubscribeFromEvent(E_TOUCHBEGIN);
+        UnsubscribeFromEvent(E_TOUCHEND);
+        UnsubscribeFromEvent(E_TOUCHMOVE);
+        UnsubscribeFromEvent(E_KEYDOWN);
+        UnsubscribeFromEvent(E_KEYUP);
+        UnsubscribeFromEvent(E_TEXTINPUT);
     }
 
     void ImGuiElement::RegisterObject(Context* context)
@@ -174,67 +297,9 @@ namespace Urho3D
         
         
 
-        // Grab whoever is under the mouse so that regular UI elements will be respected
-        IntVector2 mousePos = input->GetMousePosition();
-        UIElement* mouseHitter = GetSubsystem<UI>()->GetElementAt(mousePos); 
-
-        // Process input, if allowed
-        // do nothing if the mouse is in a capturing state
-        // respect the Z-index precedent under the mouse
-        if (IsEnabled() && (input->GetMouseMode() == MM_FREE || input->GetMouseMode() == MM_ABSOLUTE) && (mouseHitter == nullptr || mouseHitter == this))
-        {
-            float uiSCale =  GetSubsystem<UI>()->GetScale();
-            
-            if (input->GetNumTouches())
-                mousePos = input->GetTouch(0)->position_;
-            io.MousePos = ImVec2(mousePos.x_/uiSCale, mousePos.y_/uiSCale);
-            io.MouseDown[0] = input->GetMouseButtonDown(MOUSEB_LEFT) || input->GetNumTouches();
-            io.MouseDown[1] = input->GetMouseButtonDown(MOUSEB_RIGHT);
-            io.MouseDown[2] = input->GetMouseButtonDown(MOUSEB_MIDDLE);
-            
-            // Is suppressing mouse wheel the correct thing to do? Mouse dampening?
-            // Wheel amounts vary considerably between mice, as much as an order of magnitude
-            int wheel = input->GetMouseMoveWheel();
-            io.MouseWheel = wheel > 0 ? 1 : (wheel < 0 ? -1 : 0);
-
-            // Modifier keys
-            io.KeyAlt = input->GetScancodeDown(SCANCODE_ALT);
-            io.KeyCtrl = input->GetScancodeDown(SCANCODE_CTRL);
-            io.KeyShift = input->GetScancodeDown(SCANCODE_SHIFT);
-
-            // We get text through the OnTextInput, SDL's keycodes are a complete mess so only dealing with these important keys
-            io.KeysDown[KEY_TAB] = input->GetKeyDown(KEY_TAB);
-            io.KeysDown[SCANCODE_LEFT] = input->GetScancodeDown(SCANCODE_LEFT);
-            io.KeysDown[SCANCODE_RIGHT] = input->GetScancodeDown(SCANCODE_RIGHT);
-            io.KeysDown[SCANCODE_UP] = input->GetScancodeDown(SCANCODE_UP);
-            io.KeysDown[SCANCODE_DOWN] = input->GetScancodeDown(SCANCODE_DOWN);
-            io.KeysDown[SCANCODE_PAGEUP] = input->GetScancodeDown(SCANCODE_PAGEUP);
-            io.KeysDown[SCANCODE_PAGEDOWN] = input->GetScancodeDown(SCANCODE_PAGEDOWN);
-            io.KeysDown[SCANCODE_HOME] = input->GetScancodeDown(SCANCODE_HOME);
-            io.KeysDown[SCANCODE_END] = input->GetScancodeDown(SCANCODE_END);
-            io.KeysDown[SCANCODE_INSERT] = input->GetScancodeDown(SCANCODE_INSERT);
-            io.KeysDown[KEY_DELETE] = input->GetKeyDown(KEY_DELETE);
-            io.KeysDown[KEY_BACKSPACE] = input->GetKeyDown(KEY_BACKSPACE);
-            io.KeysDown[KEY_RETURN] = input->GetKeyDown(KEY_RETURN);
-            io.KeysDown[KEY_ESCAPE] = input->GetKeyDown(KEY_ESCAPE);
-            io.KeysDown[KEY_A] = input->GetKeyDown(KEY_A);
-            io.KeysDown[KEY_C] = input->GetKeyDown(KEY_C);
-            io.KeysDown[KEY_V] = input->GetKeyDown(KEY_V);
-            io.KeysDown[KEY_X] = input->GetKeyDown(KEY_X);
-            io.KeysDown[KEY_Y] = input->GetKeyDown(KEY_Y);
-            io.KeysDown[KEY_Z] = input->GetKeyDown(KEY_Z);
-
-            if (!lastText_.Empty())
-                io.AddInputCharactersUTF8(lastText_.CString());
-        }
-        else
-        {
-            io.MousePos = ImVec2(-FLT_MAX, -FLT_MAX);
-            io.MouseWheel = false;
-            io.MouseDown[0] = io.MouseDown[1] = io.MouseDown[2] = false;
-            for (int i = 0; i < 512; ++i)
-                io.KeysDown[i] = false;
-        }
+        if (!lastText_.Empty())
+            io.AddInputCharactersUTF8(lastText_.CString());
+        
 
         lastText_ = String::EMPTY;
 
@@ -263,19 +328,200 @@ namespace Urho3D
 
         ImGui::Render();
 
-        if (io.WantTextInput || io.WantCaptureKeyboard || io.WantCaptureMouse)
+        if (io.WantTextInput)
         {
             if (!HasFocus())
                 SetFocus(true);
-            if (io.WantTextInput && GetSubsystem<UI>()->GetUseScreenKeyboard())
-                GetSubsystem<UI>()->SetUseScreenKeyboard(true);
+            
+            if (GetSubsystem<UI>()->GetUseScreenKeyboard())
+                GetSubsystem<Input>()->SetScreenKeyboardVisible(true);
+            
         }
         else // unfocus otherwise
         {
-            if (HasFocus() && GetSubsystem<UI>()->GetUseScreenKeyboard())
-                GetSubsystem<UI>()->SetUseScreenKeyboard(false);
-            SetFocus(false);
+            if (GetSubsystem<UI>()->GetUseScreenKeyboard())
+                GetSubsystem<Input>()->SetScreenKeyboardVisible(false);
         }
+    }
+
+    void ImGuiElement::HandleMouseButtonDown(StringHash eventType, VariantMap& eventData)
+    {
+        using namespace MouseButtonDown;
+        MouseButton button = (MouseButton)(eventData[P_BUTTON].GetUInt());
+        mouseButtons_ = MouseButtonFlags(eventData[P_BUTTONS].GetUInt());
+        qualifiers_ = QualifierFlags(eventData[P_QUALIFIERS].GetUInt());
+        
+        UpdateQualifiers(qualifiers_);
+        int mouse_button = -1;
+        switch(button)
+        {
+            case MOUSEB_LEFT:
+                AddMouseButtonEvent( ImGuiMouseButton_Left, true);
+                break;
+            case MOUSEB_RIGHT:
+                AddMouseButtonEvent( ImGuiMouseButton_Right, true);
+                break;
+            case MOUSEB_MIDDLE:
+                AddMouseButtonEvent( ImGuiMouseButton_Middle, true);
+                break;
+                
+        }
+    }
+
+    /// Handle mouse button up event.
+    void ImGuiElement::HandleMouseButtonUp(StringHash eventType, VariantMap& eventData)
+    {
+        using namespace MouseButtonUp;
+        MouseButton button = (MouseButton)(eventData[P_BUTTON].GetUInt());
+        mouseButtons_ = MouseButtonFlags(eventData[P_BUTTONS].GetUInt());
+        qualifiers_ = QualifierFlags(eventData[P_QUALIFIERS].GetUInt());
+        
+        UpdateQualifiers(qualifiers_);
+
+        switch(button)
+        {
+            case MOUSEB_LEFT:
+                AddMouseButtonEvent( ImGuiMouseButton_Left, false);
+                break;
+            case MOUSEB_RIGHT:
+                AddMouseButtonEvent( ImGuiMouseButton_Right, false);
+                break;
+            case MOUSEB_MIDDLE:
+                AddMouseButtonEvent( ImGuiMouseButton_Middle, false);
+                break;
+                
+        }
+    }
+    /// Handle mouse move event.
+    void ImGuiElement::HandleMouseMove(StringHash eventType, VariantMap& eventData)
+    {
+        using namespace MouseMove;
+
+        mouseButtons_ = MouseButtonFlags(eventData[P_BUTTONS].GetUInt());
+        qualifiers_ = QualifierFlags(eventData[P_QUALIFIERS].GetUInt());
+        UpdateQualifiers(qualifiers_);
+        AddMousePosEvent();
+    }
+    /// Handle mouse wheel event.
+    void ImGuiElement::HandleMouseWheel(StringHash eventType, VariantMap& eventData)
+    {
+        using namespace MouseWheel;
+
+        mouseButtons_ = MouseButtonFlags(eventData[P_BUTTONS].GetInt());
+        qualifiers_ = QualifierFlags(eventData[P_QUALIFIERS].GetInt());
+        int delta = eventData[P_WHEEL].GetInt();
+        int delta_x = eventData[P_WHEEL_X].GetInt();
+        int delta_y = eventData[P_WHEEL_Y].GetInt();
+        
+        UpdateQualifiers(qualifiers_);
+        
+        ImGuiIO* io = &ImGui::GetIO();
+        #if (IMGUI_VERSION_NUM >= 18950)
+        io->AddMouseSourceEvent(ImGuiMouseSource_Mouse);
+        #endif
+        io->AddMouseWheelEvent(delta_x, delta_y);
+    }
+    /// Handle touch begin event.
+    void ImGuiElement::HandleTouchBegin(StringHash eventType, VariantMap& eventData)
+    {
+        const Input* input = GetSubsystem<Input>();
+        float uiSCale =  GetSubsystem<UI>()->GetScale();
+        AddTouchPosEvent(input->GetTouch(0)->position_.x_/uiSCale, input->GetTouch(0)->position_.y_/uiSCale);
+        AddTouchButtonEvent(0,true);
+    }
+    /// Handle touch end event.
+    void ImGuiElement::HandleTouchEnd(StringHash eventType, VariantMap& eventData)
+    {
+        const Input* input = GetSubsystem<Input>();
+        float uiSCale =  GetSubsystem<UI>()->GetScale();
+        AddTouchPosEvent(input->GetTouch(0)->position_.x_/uiSCale, input->GetTouch(0)->position_.y_/uiSCale);
+        AddTouchButtonEvent(0,false);
+    }
+    /// Handle touch move event.
+    void ImGuiElement::HandleTouchMove(StringHash eventType, VariantMap& eventData)
+    {
+        const Input* input = GetSubsystem<Input>();
+        float uiSCale =  GetSubsystem<UI>()->GetScale();
+        AddTouchPosEvent(input->GetTouch(0)->position_.x_/uiSCale, input->GetTouch(0)->position_.y_/uiSCale);
+    }
+    /// Handle keypress event.
+    void ImGuiElement::HandleKeyDown(StringHash eventType, VariantMap& eventData)
+    {
+        using namespace KeyDown;
+        mouseButtons_ = MouseButtonFlags(eventData[P_BUTTONS].GetUInt());
+        qualifiers_ = QualifierFlags(eventData[P_QUALIFIERS].GetUInt());
+        auto key = (SDL_Keycode)eventData[P_KEY].GetUInt();
+        auto scancode =(SDL_Scancode)eventData[P_SCANCODE].GetUInt();
+        UpdateQualifiers(qualifiers_);
+        ImGuiKey imGuiKey = SDL2KeyEventToImGuiKey(key,scancode);
+        AddKeyEvent(imGuiKey, true);
+    }
+
+    void ImGuiElement::HandleKeyUp(StringHash eventType, VariantMap& eventData)
+    {
+        using namespace KeyUp;
+        mouseButtons_ = MouseButtonFlags(eventData[P_BUTTONS].GetUInt());
+        qualifiers_ = QualifierFlags(eventData[P_QUALIFIERS].GetUInt());
+        auto key = (Key)eventData[P_KEY].GetUInt();
+        auto scancode =(SDL_Scancode)eventData[P_SCANCODE].GetUInt();
+        UpdateQualifiers(qualifiers_);
+        ImGuiKey imGuiKey = SDL2KeyEventToImGuiKey(key,scancode);
+        AddKeyEvent(imGuiKey, false);
+    }
+
+    void ImGuiElement::AddMousePosEvent()
+    {
+        ImGuiIO* io = &ImGui::GetIO();
+        float uiSCale =  GetSubsystem<UI>()->GetScale();
+        const Input* input = GetSubsystem<Input>();
+        IntVector2 mousePos = input->GetMousePosition();
+        
+#if (IMGUI_VERSION_NUM >= 18950)
+        io->AddMouseSourceEvent(ImGuiMouseSource_Mouse);
+#endif
+        io->AddMousePosEvent(mousePos.x_/uiSCale,mousePos.y_/uiSCale);
+    }
+
+    void ImGuiElement::AddMouseButtonEvent(int mouse_button, bool down)
+    {
+        ImGuiIO* io = &ImGui::GetIO();
+        AddMousePosEvent();
+        
+#if (IMGUI_VERSION_NUM >= 18950)
+        io->AddMouseSourceEvent(ImGuiMouseSource_Mouse);
+#endif
+        io->AddMouseButtonEvent(mouse_button, down);
+    }
+
+    void ImGuiElement::AddTouchPosEvent(float x, float y)
+    {
+        ImGuiIO* io = &ImGui::GetIO();
+#if (IMGUI_VERSION_NUM >= 18950)
+        io->AddMouseSourceEvent(ImGuiMouseSource_TouchScreen);
+#endif
+        io->AddMousePosEvent(x, y);
+    }
+
+    void ImGuiElement::AddTouchButtonEvent(int mouse_button, bool down)
+    {
+        ImGuiIO* io = &ImGui::GetIO();
+#if (IMGUI_VERSION_NUM >= 18950)
+        io->AddMouseSourceEvent(ImGuiMouseSource_TouchScreen);
+#endif
+        io->AddMouseButtonEvent(mouse_button, down);
+    }
+
+    void ImGuiElement::AddKeyEvent(ImGuiKey imgui_key, bool down)
+    {
+        ImGuiIO* io = &ImGui::GetIO();
+        io->AddKeyEvent(imgui_key, down);
+    }
+
+    void ImGuiElement::UpdateQualifiers(QualifierFlags qualifiers)
+    {
+        AddKeyEvent(ImGuiMod_Ctrl, (qualifiers & QUAL_CTRL) != 0);
+        AddKeyEvent(ImGuiMod_Shift, (qualifiers & QUAL_SHIFT) != 0);
+        AddKeyEvent(ImGuiMod_Alt, (qualifiers & QUAL_ALT )!= 0);
     }
 
     bool ImGuiElement::Begin(const char* name, bool* p_open, ImGuiWindowFlags flags)
@@ -284,6 +530,7 @@ namespace Urho3D
         flags |= ImGuiWindowFlags_NoMove| ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoResize;
         return  ImGui::Begin(name, p_open, flags);
     }
+
 
     void ImGuiElement::GetBatches(PODVector<UIBatch>& batches, PODVector<float>& vertexData, const IntRect& currentScissor)
     {
