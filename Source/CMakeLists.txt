@@ -162,6 +162,7 @@ endif()
 add_subdirectory (ThirdParty/qoi)
 add_subdirectory (ThirdParty/pl_mpeg)
 add_subdirectory (ThirdParty/imgui)
+add_subdirectory (ThirdParty/imnodes)
 
 # Urho3D game engine library
 add_subdirectory (Urho3D)

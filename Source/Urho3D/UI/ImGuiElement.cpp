@@ -187,7 +187,7 @@ static ImGuiKey SDL2KeyEventToImGuiKey(SDL_Keycode keycode, SDL_Scancode scancod
         
         io.IniFilename = nullptr; // Don't save ini file
         
-        CreateFontTexture();
+        CreateFontTexture(true);
         
         // Render function is deliberately not set
         // Buffering the UIBatches and vertex-data was ridiculously slow
@@ -336,6 +336,7 @@ static ImGuiKey SDL2KeyEventToImGuiKey(SDL_Keycode keycode, SDL_Scancode scancod
 
     void ImGuiElement::HandleMouseButtonDown(StringHash eventType, VariantMap& eventData)
     {
+        ImGui::SetCurrentContext(imguiContext_);
         using namespace MouseButtonDown;
         MouseButton button = (MouseButton)(eventData[P_BUTTON].GetUInt());
         mouseButtons_ = MouseButtonFlags(eventData[P_BUTTONS].GetUInt());
@@ -361,6 +362,7 @@ static ImGuiKey SDL2KeyEventToImGuiKey(SDL_Keycode keycode, SDL_Scancode scancod
     /// Handle mouse button up event.
     void ImGuiElement::HandleMouseButtonUp(StringHash eventType, VariantMap& eventData)
     {
+        ImGui::SetCurrentContext(imguiContext_);
         using namespace MouseButtonUp;
         MouseButton button = (MouseButton)(eventData[P_BUTTON].GetUInt());
         mouseButtons_ = MouseButtonFlags(eventData[P_BUTTONS].GetUInt());
@@ -385,6 +387,7 @@ static ImGuiKey SDL2KeyEventToImGuiKey(SDL_Keycode keycode, SDL_Scancode scancod
     /// Handle mouse move event.
     void ImGuiElement::HandleMouseMove(StringHash eventType, VariantMap& eventData)
     {
+        ImGui::SetCurrentContext(imguiContext_);
         using namespace MouseMove;
 
         mouseButtons_ = MouseButtonFlags(eventData[P_BUTTONS].GetUInt());
@@ -395,6 +398,7 @@ static ImGuiKey SDL2KeyEventToImGuiKey(SDL_Keycode keycode, SDL_Scancode scancod
     /// Handle mouse wheel event.
     void ImGuiElement::HandleMouseWheel(StringHash eventType, VariantMap& eventData)
     {
+        ImGui::SetCurrentContext(imguiContext_);
         using namespace MouseWheel;
 
         mouseButtons_ = MouseButtonFlags(eventData[P_BUTTONS].GetInt());
@@ -414,6 +418,7 @@ static ImGuiKey SDL2KeyEventToImGuiKey(SDL_Keycode keycode, SDL_Scancode scancod
     /// Handle touch begin event.
     void ImGuiElement::HandleTouchBegin(StringHash eventType, VariantMap& eventData)
     {
+        ImGui::SetCurrentContext(imguiContext_);
         const Input* input = GetSubsystem<Input>();
         float uiSCale =  GetSubsystem<UI>()->GetScale();
         AddTouchPosEvent(input->GetTouch(0)->position_.x_/uiSCale, input->GetTouch(0)->position_.y_/uiSCale);
@@ -422,6 +427,7 @@ static ImGuiKey SDL2KeyEventToImGuiKey(SDL_Keycode keycode, SDL_Scancode scancod
     /// Handle touch end event.
     void ImGuiElement::HandleTouchEnd(StringHash eventType, VariantMap& eventData)
     {
+        ImGui::SetCurrentContext(imguiContext_);
         const Input* input = GetSubsystem<Input>();
         float uiSCale =  GetSubsystem<UI>()->GetScale();
         AddTouchPosEvent(input->GetTouch(0)->position_.x_/uiSCale, input->GetTouch(0)->position_.y_/uiSCale);
@@ -430,6 +436,7 @@ static ImGuiKey SDL2KeyEventToImGuiKey(SDL_Keycode keycode, SDL_Scancode scancod
     /// Handle touch move event.
     void ImGuiElement::HandleTouchMove(StringHash eventType, VariantMap& eventData)
     {
+        ImGui::SetCurrentContext(imguiContext_);
         const Input* input = GetSubsystem<Input>();
         float uiSCale =  GetSubsystem<UI>()->GetScale();
         AddTouchPosEvent(input->GetTouch(0)->position_.x_/uiSCale, input->GetTouch(0)->position_.y_/uiSCale);
@@ -437,6 +444,7 @@ static ImGuiKey SDL2KeyEventToImGuiKey(SDL_Keycode keycode, SDL_Scancode scancod
     /// Handle keypress event.
     void ImGuiElement::HandleKeyDown(StringHash eventType, VariantMap& eventData)
     {
+        ImGui::SetCurrentContext(imguiContext_);
         using namespace KeyDown;
         mouseButtons_ = MouseButtonFlags(eventData[P_BUTTONS].GetUInt());
         qualifiers_ = QualifierFlags(eventData[P_QUALIFIERS].GetUInt());
@@ -449,6 +457,7 @@ static ImGuiKey SDL2KeyEventToImGuiKey(SDL_Keycode keycode, SDL_Scancode scancod
 
     void ImGuiElement::HandleKeyUp(StringHash eventType, VariantMap& eventData)
     {
+        ImGui::SetCurrentContext(imguiContext_);
         using namespace KeyUp;
         mouseButtons_ = MouseButtonFlags(eventData[P_BUTTONS].GetUInt());
         qualifiers_ = QualifierFlags(eventData[P_QUALIFIERS].GetUInt());
@@ -521,6 +530,13 @@ static ImGuiKey SDL2KeyEventToImGuiKey(SDL_Keycode keycode, SDL_Scancode scancod
         return  ImGui::Begin(name.CString(), p_open, flags);
     }
 
+    bool ImGuiElement::Begin(const String& name)
+    {
+        imguiActiveWindowName_ = name;
+        bool p_open = true;
+        ImGuiWindowFlags flags = ImGuiWindowFlags_NoMove| ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoResize;
+        return  ImGui::Begin(name.CString(), &p_open, flags);
+    }
 
     void ImGuiElement::GetBatches(PODVector<UIBatch>& batches, PODVector<float>& vertexData, const IntRect& currentScissor)
     {
@@ -616,16 +632,17 @@ static ImGuiKey SDL2KeyEventToImGuiKey(SDL_Keycode keycode, SDL_Scancode scancod
     {
         ResourceCache* resCache = GetSubsystem<ResourceCache>();
         ImGuiIO& io = ImGui::GetIO();
-        if (!force)
-        {
-            if (Texture2D* fontTexture = resCache->GetResource<Texture2D>(IMGUI_FONT_TEXTURE, false))
-            {
-                fontTexture_ = fontTexture;
-                io.Fonts->TexID = (void*)IMGUI_FONT_KEY;
-                textureTable_[(void*)IMGUI_FONT_KEY] = fontTexture_;
-                return;
-            }
-        }
+        //TBD elix22 ,needs better handling
+//        if (!force)
+//        {
+//            if (Texture2D* fontTexture = resCache->GetResource<Texture2D>(IMGUI_FONT_TEXTURE, false))
+//            {
+//                fontTexture_ = fontTexture;
+//                io.Fonts->TexID = (void*)IMGUI_FONT_KEY;
+//                textureTable_[(void*)IMGUI_FONT_KEY] = fontTexture_;
+//                return;
+//            }
+//        }
         
         // ?? what to do about fonts is a serious question?
         ImFontConfig config;
@@ -633,7 +650,7 @@ static ImGuiKey SDL2KeyEventToImGuiKey(SDL_Keycode keycode, SDL_Scancode scancod
         config.OversampleV = 1;
         config.GlyphExtraSpacing.x = 1.0f;
         config.SizePixels = fontSize_;
-        io.Fonts->Clear();
+//        io.Fonts->Clear();
         io.Fonts->AddFontFromFileTTF(fontName_.CString(), fontSize_, &config, io.Fonts->GetGlyphRangesDefault());
 
         unsigned char* pixels;
@@ -735,6 +752,12 @@ static ImGuiKey SDL2KeyEventToImGuiKey(SDL_Keycode keycode, SDL_Scancode scancod
         if(resCache->GetResource<Font>(fontName) == nullptr)return;
         fontName_ = fontName;
         CreateFontTexture(true);
+    }
+
+    void ImGuiElement::SetWindowSize(IntVector2 & size)
+    {
+        ImGui::SetCurrentContext(imguiContext_);
+        ImGui::SetNextWindowSize(ImVec2((float)size.x_, (float)size.y_));
     }
 
  

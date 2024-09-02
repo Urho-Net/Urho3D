@@ -40,8 +40,9 @@
 #include <Urho3D/UI/Window.h>
 #include <Urho3D/UI/ListView.h>
 #include <Urho3D/UI/UIComponent.h>
-#include <Urho3D/UI/ImGuiElement.h>
+
 #include <imgui/imgui.h>
+#include <imnodes/imnodes.h>
 
 #include "ImguiDemo.h"
 
@@ -112,18 +113,32 @@ void ImguiDemo::InitControls()
     window_->AddChild(lineEdit);
     
     // Add imgui Control
-    auto * imguiControl  = window_->CreateChild<ImGuiElement>();
-    imguiControl->SetName("ImGuiElement");
-    imguiControl->SetMinHeight(500);
-    imguiControl->SetFontSize(20); // that's the default , so only for educational purpose
-    imguiControl->SetFontName("Data/Fonts/Anonymous Pro.ttf"); // that's the default , so only for educational purpose
-    imguiControl->SetDemoWindowVisible(true);
+    imGuiElementTool  = window_->CreateChild<ImGuiElement>();
+    imGuiElementTool->SetName("ImGuiElement");
+    imGuiElementTool->SetMinHeight(500);
+    imGuiElementTool->SetFontSize(20); // that's the default , so only for educational purpose
+    imGuiElementTool->SetFontName("Data/Fonts/Anonymous Pro.ttf"); // that's the default , so only for educational purpose
+    imGuiElementTool->SetDemoWindowVisible(true);
+    
+    // Subscribe to imgui draw event event.
+    SubscribeToEvent(imGuiElementTool,E_IMGUI_DRAW, URHO3D_HANDLER(ImguiDemo, HandleImgGuiDraw));
+//    
+    imNodeWindow_=   new Window(context_);
+    uiRoot_->AddChild(imNodeWindow_);
+    imNodeWindow_->SetMovable(true);
+    window_->SetResizable(true);
+    imNodeWindow_->SetLayout(LM_VERTICAL, 6, IntRect(6, 6, 6, 6));
+    imNodeWindow_->SetPosition(500,500);
+    imNodeWindow_->SetMinSize(800,800);
+    imNodeElementTool = imNodeWindow_->CreateChild<ImGuiElement>();
+    SubscribeToEvent(imNodeElementTool,E_IMGUI_DRAW, URHO3D_HANDLER(ImguiDemo, HandleImNodeDraw));
+    
+    ImNodes::CreateContext();
+    ImNodes::SetNodeGridSpacePos(1, ImVec2(200.0f, 200.0f));
     // Apply previously set default style
     checkBox->SetStyleAuto();
     button->SetStyleAuto();
     lineEdit->SetStyleAuto();
-    
-    window_->UpdateLayout();
     
 }
 
@@ -169,7 +184,6 @@ void ImguiDemo::InitWindow()
     list->SetSelectOnClickEnd(true);
     list->SetHighlightMode(HM_ALWAYS);
     list->SetMinHeight(200);
-    list->SetPriority(0);
 
     for (int i = 0; i < 32; i++)
     {
@@ -177,7 +191,6 @@ void ImguiDemo::InitWindow()
         text->SetStyleAuto();
         text->SetText(ToString("List item %d", i));
         text->SetName(ToString("Item %d", i));
-        text->SetPriority(0);
         list->AddItem(text);
     }
 
@@ -231,8 +244,7 @@ void ImguiDemo::InitScene()
     // Subscribe to update event and animate cube and handle input.
     SubscribeToEvent(E_UPDATE, URHO3D_HANDLER(ImguiDemo, HandleUpdate));
     
-    // Subscribe to imgui draw event event.
-    SubscribeToEvent(E_IMGUI_DRAW, URHO3D_HANDLER(ImguiDemo, HandleImgGuiDraw));
+
 }
 
 void ImguiDemo::CreateDraggableFish()
@@ -319,44 +331,140 @@ void ImguiDemo::HandleUpdate(StringHash, VariantMap& eventData)
 }
 
 
-
 void ImguiDemo::HandleImgGuiDraw(StringHash, VariantMap& eventData)
 {
   
     using namespace  IMGUIDraw;
     ImGuiElement *imguiElement = (ImGuiElement*)eventData[P_ELEMENT].GetVoidPtr();
     
-    // Create a window called "My First Tool", with a menu bar.
+    if(imguiElement == imGuiElementTool)
+    {
+        // Create a window called "My First Tool", with a menu bar.
+        
+        // VERY IMPORTANT DON'T CALL ImGui::Begin  , call  ImGuiElement::Begin instead
+        imguiElement->Begin("Some Imgui window", &my_tool_active, ImGuiWindowFlags_MenuBar);
+        
+        if (ImGui::BeginMenuBar())
+        {
+            if (ImGui::BeginMenu("File"))
+            {
+                if (ImGui::MenuItem("Open..", "Ctrl+O")) { /* Do stuff */ }
+                if (ImGui::MenuItem("Save", "Ctrl+S"))   { /* Do stuff */ }
+                if (ImGui::MenuItem("Close", "Ctrl+W"))  { my_tool_active = false; }
+                ImGui::EndMenu();
+            }
+            ImGui::EndMenuBar();
+        }
+        
+        // Edit a color stored as 4 floats
+        ImGui::ColorEdit4("Color", my_color);
+        
+        // Generate samples and plot them
+        float samples[100];
+        for (int n = 0; n < 100; n++)
+            samples[n] = sinf(n * 0.2f + ImGui::GetTime() * 1.5f);
+        ImGui::PlotLines("Samples", samples, 100);
+        
+        // Display contents in a scrolling region
+        ImGui::TextColored(ImVec4(1,1,0,1), "Important Stuff");
+        ImGui::BeginChild("Scrolling");
+        for (int n = 0; n < 1000; n++)
+            ImGui::Text("%04d: Some text", n);
+        ImGui::EndChild();
+        ImGui::End();
+        
+    }
+ 
+}
+
+
+void ImguiDemo::HandleImNodeDraw(StringHash, VariantMap& eventData)
+{
+    using namespace  IMGUIDraw;
+    ImGuiElement *imguiElement = (ImGuiElement*)eventData[P_ELEMENT].GetVoidPtr();
     
     // VERY IMPORTANT DON'T CALL ImGui::Begin  , call  ImGuiElement::Begin instead
-    imguiElement->Begin("Some Imgui window", &my_tool_active, ImGuiWindowFlags_MenuBar);
+    imguiElement->Begin("imNode Demo window");
     
-    if (ImGui::BeginMenuBar())
+    ImGui::TextUnformatted("A -- add node");
+
+    ImNodes::BeginNodeEditor();
+
+    if (ImGui::IsWindowFocused(ImGuiFocusedFlags_RootAndChildWindows) &&
+        ImNodes::IsEditorHovered() && ImGui::IsKeyReleased(ImGuiKey_A))
     {
-        if (ImGui::BeginMenu("File"))
-        {
-            if (ImGui::MenuItem("Open..", "Ctrl+O")) { /* Do stuff */ }
-            if (ImGui::MenuItem("Save", "Ctrl+S"))   { /* Do stuff */ }
-            if (ImGui::MenuItem("Close", "Ctrl+W"))  { my_tool_active = false; }
-            ImGui::EndMenu();
-        }
-        ImGui::EndMenuBar();
+        const int node_id = ++current_imnode_id;
+        ImNodes::SetNodeScreenSpacePos(node_id, ImGui::GetMousePos());
+        ImNodes::SnapNodeToGrid(node_id);
+        nodes.push_back(ImNode(node_id, 0.f));
     }
 
-    // Edit a color stored as 4 floats
-    ImGui::ColorEdit4("Color", my_color);
+    for (ImNode& node : nodes)
+    {
+        ImNodes::BeginNode(node.id);
 
-    // Generate samples and plot them
-    float samples[100];
-    for (int n = 0; n < 100; n++)
-        samples[n] = sinf(n * 0.2f + ImGui::GetTime() * 1.5f);
-    ImGui::PlotLines("Samples", samples, 100);
+        ImNodes::BeginNodeTitleBar();
+        ImGui::TextUnformatted("node");
+        ImNodes::EndNodeTitleBar();
 
-    // Display contents in a scrolling region
-    ImGui::TextColored(ImVec4(1,1,0,1), "Important Stuff");
-    ImGui::BeginChild("Scrolling");
-    for (int n = 0; n < 1000; n++)
-        ImGui::Text("%04d: Some text", n);
-    ImGui::EndChild();
+        ImNodes::BeginInputAttribute(node.id << 8);
+        ImGui::TextUnformatted("input");
+        ImNodes::EndInputAttribute();
+
+        ImNodes::BeginStaticAttribute(node.id << 16);
+        ImGui::PushItemWidth(120.0f);
+        ImGui::DragFloat("value", &node.value, 0.01f);
+        ImGui::PopItemWidth();
+        ImNodes::EndStaticAttribute();
+
+        ImNodes::BeginOutputAttribute(node.id << 24);
+        const float text_width = ImGui::CalcTextSize("output").x;
+        ImGui::Indent(120.f + ImGui::CalcTextSize("value").x - text_width);
+        ImGui::TextUnformatted("output");
+        ImNodes::EndOutputAttribute();
+
+        ImNodes::EndNode();
+    }
+
+    for (const Link& link : links)
+    {
+        ImNodes::Link(link.id, link.start_attr, link.end_attr);
+    }
+
+    ImNodes::MiniMap();
+    ImNodes::EndNodeEditor();
+    
+    //ZOOM
+    if( ImNodes::IsEditorHovered() && ImGui::GetIO().MouseWheel != 0 )
+    {
+        float zoom = ImNodes::EditorContextGetZoom() + ImGui::GetIO().MouseWheel * 0.1f;
+        ImNodes::EditorContextSetZoom( zoom, ImGui::GetMousePos() );
+    }
+    
+
+    {
+        Link link;
+        if (ImNodes::IsLinkCreated(&link.start_attr, &link.end_attr))
+        {
+            link.id = ++current_imnode_id;
+            links.push_back(link);
+        }
+    }
+
+    {
+        int link_id;
+        if (ImNodes::IsLinkDestroyed(&link_id))
+        {
+            auto iter = std::find_if(
+                links.begin(), links.end(), [link_id](const Link& link) -> bool {
+                    return link.id == link_id;
+                });
+            assert(iter != links.end());
+            links.erase(iter);
+        }
+    }
+    
+
+
     ImGui::End();
 }

@@ -23,13 +23,27 @@
 #pragma once
 
 #include "Sample.h"
-
+#include <Urho3D/UI/ImGuiElement.h>
 namespace Urho3D
 {
 
 class Window;
 
 }
+
+struct ImNode
+{
+    int   id;
+    float value;
+
+    ImNode(const int i, const float v) : id(i), value(v) {}
+};
+
+struct Link
+{
+    int id;
+    int start_attr, end_attr;
+};
 
 /// A 3D UI demonstration based on the HelloGUI sample. Renders UI alternatively
 /// either to a 3D scene object using UIComponent, or directly to the backbuffer.
@@ -76,12 +90,14 @@ private:
     /// Animate cube.
     void HandleUpdate(StringHash, VariantMap& eventData);
     void HandleImgGuiDraw(StringHash, VariantMap& eventData);
+    void HandleImNodeDraw(StringHash, VariantMap& eventData);
 
 
     /// The Scene.
     SharedPtr<Scene> scene_;
     /// The Window.
     SharedPtr<Window> window_;
+    SharedPtr<Window> imNodeWindow_;
     /// The UI's root UIElement.
     SharedPtr<UIElement> uiRoot_;
     /// Remembered drag begin position.
@@ -89,8 +105,18 @@ private:
     /// Root UI element of texture.
     SharedPtr<UIElement> textureRoot_;
 
+    ImGuiElement *imGuiElementTool;
+    ImGuiElement *imNodeElementTool;
+    
+   
+
     bool my_tool_active = true;
     float my_color[4]={0};
+
+    int current_imnode_id = 0;
+    std::vector<ImNode>     nodes;
+    std::vector<Link>     links;
+    bool my_imnode_active = true;
 };
 
 

@@ -311,6 +311,15 @@ ImGuiElement_GetTouchPadding
 			return ImGuiElement_Begin (handle, name, p_open, flags);
 		}
 
+		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+		internal static extern bool ImGuiElement_Begin0 (IntPtr handle, string name);
+
+		public bool Begin (string name)
+		{
+			Runtime.ValidateRefCounted (this);
+			return ImGuiElement_Begin0 (handle, name);
+		}
+
 		public override StringHash Type {
 			get {
 				return UrhoGetType ();

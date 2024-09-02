@@ -82,6 +82,7 @@ namespace Urho3D
         inline String GetFontName() const { return fontName_; }
         
         bool Begin(const String& name, bool* p_open, ImGuiWindowFlags flags);
+        bool Begin(const String& name);
         
         void HandleMouseButtonDown(StringHash eventType, VariantMap& eventData);
         /// Handle mouse button up event.
@@ -100,7 +101,7 @@ namespace Urho3D
         void HandleKeyDown(StringHash eventType, VariantMap& eventData);
         void HandleKeyUp(StringHash eventType, VariantMap& eventData);
         
-        
+        void SetWindowSize(IntVector2 & size);
 
     protected:
         /// Creates or acquires the font texture.

@@ -361,6 +361,7 @@ list (APPEND SOURCE_FILES ${GEN_CPP_FILES} ${LUA_GEN_CPP_FILES} librevision.h Ur
 
 if (URHO3D_DOTNET)
     list (APPEND SOURCE_FILES ${CMAKE_CURRENT_SOURCE_DIR}/../ThirdParty/cimgui/cimgui.cpp)
+    list (APPEND SOURCE_FILES ${CMAKE_CURRENT_SOURCE_DIR}/../ThirdParty/cimnodes/cimnodes.cpp)
 endif()
 
 # Define dependency libs

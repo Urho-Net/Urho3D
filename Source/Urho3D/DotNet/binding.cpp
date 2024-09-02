@@ -40697,6 +40697,13 @@ ImGuiElement_Begin (Urho3D::ImGuiElement *_target, const char * name, bool * p_o
 
 
 DllExport int
+ImGuiElement_Begin0 (Urho3D::ImGuiElement *_target, const char * name)
+{
+	return _target->Begin (Urho3D::String(name));
+}
+
+
+DllExport int
 Drawable2D_GetType (Urho3D::Drawable2D *_target)
 {
 	return (_target->GetType ()).Value ();
