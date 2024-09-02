@@ -46,6 +46,7 @@ namespace SharpieBinder
 			{ "LayoutMode", "Urho.Gui" },
 			{ "TraversalMode", "Urho.Gui" },
 			{ "WindowDragMode", "Urho.Gui" },
+			{ "ImGuiElement", "Urho.Gui" },
 
 
 			// Audio

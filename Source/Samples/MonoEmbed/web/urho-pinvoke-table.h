@@ -52,6 +52,9 @@ int Application_GetTypeStatic ();
 int Application_GetTypeNameStatic ();
 int Application_Run (int);
 void Application_ErrorExit (int,int);
+int Application_SetupAndStart (int);
+int Application_RunOneFrame (int);
+void Application_Terminate (int);
 int AttributeInfo_GetType (int);
 int AttributeInfo_GetName (int);
 int BillboardSet_GetType (int);
@@ -366,9 +369,18 @@ void Graphics_SetWindowTitle (int,int);
 void Graphics_SetWindowIcon (int,int);
 void Graphics_SetWindowPosition (int,int);
 void Graphics_SetWindowPosition0 (int,int,int);
+void Graphics_SetWindowSize (int,int);
+void Graphics_SetWindowSize1 (int,int,int);
+void Graphics_SetExternalWindowSize (int,int);
+void Graphics_SetExternalWindowSize2 (int,int,int);
+void Graphics_SetWindowOpacity (int,float);
+void Graphics_HideWindow (int);
+void Graphics_ShowWindow (int);
+int Graphics_GetNativeWindowHandle (int);
 int Graphics_SetScreenMode (int,int,int);
 int Graphics_SetMode (int,int,int,int,int,int,int,int,int,int,int,int);
-int Graphics_SetMode1 (int,int,int);
+int Graphics_SetMode3 (int,int,int,int,int,int,int,int,int,int,int,int,int);
+int Graphics_SetMode4 (int,int,int);
 void Graphics_SetSRGB (int,int);
 void Graphics_SetDither (int,int);
 void Graphics_SetFlushGPU (int,int);
@@ -379,27 +391,27 @@ int Graphics_TakeScreenShot (int,int);
 int Graphics_BeginFrame (int);
 void Graphics_EndFrame (int);
 int Graphics_ResolveToTexture (int,int,int);
-int Graphics_ResolveToTexture2 (int,int);
-int Graphics_ResolveToTexture3 (int,int);
+int Graphics_ResolveToTexture5 (int,int);
+int Graphics_ResolveToTexture6 (int,int);
 void Graphics_Draw (int,int,int,int);
-void Graphics_Draw4 (int,int,int,int,int,int);
-void Graphics_Draw5 (int,int,int,int,int,int,int);
+void Graphics_Draw7 (int,int,int,int,int,int);
+void Graphics_Draw8 (int,int,int,int,int,int,int);
 void Graphics_DrawInstanced (int,int,int,int,int,int,int);
-void Graphics_DrawInstanced6 (int,int,int,int,int,int,int,int);
+void Graphics_DrawInstanced9 (int,int,int,int,int,int,int,int);
 void Graphics_SetVertexBuffer (int,int);
 void Graphics_SetIndexBuffer (int,int);
 void Graphics_SetShaders (int,int,int);
 void Graphics_SetShaderParameter (int,int,int,int);
-void Graphics_SetShaderParameter7 (int,int,float);
-void Graphics_SetShaderParameter8 (int,int,int);
-void Graphics_SetShaderParameter9 (int,int,int);
-void Graphics_SetShaderParameter10 (int,int,int);
+void Graphics_SetShaderParameter10 (int,int,float);
 void Graphics_SetShaderParameter11 (int,int,int);
 void Graphics_SetShaderParameter12 (int,int,int);
 void Graphics_SetShaderParameter13 (int,int,int);
 void Graphics_SetShaderParameter14 (int,int,int);
 void Graphics_SetShaderParameter15 (int,int,int);
 void Graphics_SetShaderParameter16 (int,int,int);
+void Graphics_SetShaderParameter17 (int,int,int);
+void Graphics_SetShaderParameter18 (int,int,int);
+void Graphics_SetShaderParameter19 (int,int,int);
 int Graphics_NeedParameterUpdate (int,int,int);
 int Graphics_HasShaderParameter (int,int);
 int Graphics_HasTextureUnit (int,int);
@@ -414,9 +426,9 @@ void Graphics_ResetRenderTargets (int);
 void Graphics_ResetRenderTarget (int,int);
 void Graphics_ResetDepthStencil (int);
 void Graphics_SetRenderTarget (int,int,int);
-void Graphics_SetRenderTarget17 (int,int,int);
+void Graphics_SetRenderTarget20 (int,int,int);
 void Graphics_SetDepthStencil (int,int);
-void Graphics_SetDepthStencil18 (int,int);
+void Graphics_SetDepthStencil21 (int,int);
 void Graphics_SetViewport (int,int);
 void Graphics_SetBlendMode (int,int,int);
 void Graphics_SetColorWrite (int,int);
@@ -528,6 +540,8 @@ int Graphics_GetVersionString (int);
 int Graphics_glOESStandardDerivativesSupport (int);
 int Graphics_clipDistanceEXTSupport (int);
 int Graphics_clipDistanceAPPLESupport (int);
+void Graphics_SetEmbeddedWindow (int,int);
+int Graphics_GetEmbeddedWindow (int);
 int Graphics_GetAlphaFormat ();
 int Graphics_GetLuminanceFormat ();
 int Graphics_GetLuminanceAlphaFormat ();
@@ -544,7 +558,7 @@ int Graphics_GetFloat32Format ();
 int Graphics_GetLinearDepthFormat ();
 int Graphics_GetDepthStencilFormat ();
 int Graphics_GetReadableDepthFormat ();
-int Graphics_GetFormat19 (int);
+int Graphics_GetFormat22 (int);
 int Graphics_GetPixelUVOffset ();
 int Graphics_GetMaxBones ();
 int IndexBuffer_CastToGPUObject (int);
@@ -606,6 +620,7 @@ int Input_GetKeyDown (int,int);
 int Input_GetKeyPress (int,int);
 int Input_GetScancodeDown (int,int);
 int Input_GetScancodePress (int,int);
+void Input_SetKey (int,int,int,int);
 int Input_GetQualifierDown (int,int);
 int Input_GetQualifierPress (int,int);
 int Input_GetMousePosition (int);
@@ -625,6 +640,9 @@ int Input_IsScreenJoystickVisible (int,int);
 int Input_GetScreenKeyboardSupport (int);
 int Input_IsScreenKeyboardVisible (int);
 int Input_GetTouchEmulation (int);
+void Input_SetExternalInput (int,int);
+void Input_SetInputScale (int,int);
+int Input_GetExternalInput (int);
 int Input_IsMouseVisible (int);
 int Input_IsMouseGrabbed (int);
 int Input_IsMouseLocked (int);
@@ -635,6 +653,7 @@ void Input_MapCtrlQualifierToCommandKey (int,int);
 int Input_IsMapCtrlQualifierToCommandKey (int);
 int Input_GetMouseButtonDown (int,int);
 int Input_GetMouseButtonPress (int,int);
+void Input_SetMouseButton (int,int,int,int);
 void KinematicCharacterController_GetTransform (int,int,int);
 int KinematicCharacterController_GetType (int);
 int KinematicCharacterController_GetTypeName (int);
@@ -678,6 +697,8 @@ void KinematicCharacterController_SetLinearVelocity (int,int);
 int KinematicCharacterController_GetLinearVelocity (int);
 void KinematicCharacterController_Warp (int,int);
 void KinematicCharacterController_DrawDebugGeometry (int);
+void KinematicCharacterController_SetPosition (int,int);
+void KinematicCharacterController_SetRotation (int,int);
 int LogicComponent_GetType (int);
 int LogicComponent_GetTypeName (int);
 int LogicComponent_GetTypeStatic ();
@@ -4583,6 +4604,30 @@ int FontFaceFreeType_FontFaceFreeType (int);
 int FontFaceFreeType_Load (int,int,int,float);
 int FontFaceFreeType_GetGlyph (int,int);
 int FontFaceFreeType_HasMutableGlyphs (int);
+int ImGuiElement_GetType (int);
+int ImGuiElement_GetTypeName (int);
+int ImGuiElement_GetTypeStatic ();
+int ImGuiElement_GetTypeNameStatic ();
+int ImGuiElement_ImGuiElement (int);
+void ImGuiElement_RegisterObject (int);
+void ImGuiElement_Update (int,float);
+void ImGuiElement_OnTextInput (int,int);
+void ImGuiElement_RemoveTexture (int,int);
+float ImGuiElement_GetAlphaMultiplier (int);
+int ImGuiElement_AntialiasEnabled (int);
+int ImGuiElement_GetTouchPadding (int);
+int ImGuiElement_IsMetricsWindowVisible (int);
+int ImGuiElement_IsDemoWindowVisible (int);
+void ImGuiElement_SetAlphaMultiplier (int,float);
+void ImGuiElement_SetAntialize (int,int);
+void ImGuiElement_SetTouchPadding (int,int);
+void ImGuiElement_SetMetricsWindowVisible (int,int);
+void ImGuiElement_SetDemoWindowVisible (int,int);
+int ImGuiElement_GetFontSize (int);
+void ImGuiElement_SetFontSize (int,int);
+void ImGuiElement_SetFontName (int,int);
+int ImGuiElement_GetFontName (int);
+int ImGuiElement_Begin (int,int,int,int);
 int LineEdit_GetType (int);
 int LineEdit_GetTypeName (int);
 int LineEdit_GetTypeStatic ();
@@ -4935,6 +4980,9 @@ int View3D_GetViewport (int);
 int File_GetSize (int);
 int File_WriteLine (int,int);
 int File_ReadLine (int);
+int File_IsEof (int);
+int File_SeekRelative (int,int);
+int File_Tell (int);
 int File_GetType (int);
 int File_GetTypeName (int);
 int File_GetTypeStatic ();
@@ -6378,6 +6426,9 @@ static PinvokeImport Urho3D_imports [] = {
 {"Application_GetTypeNameStatic", Application_GetTypeNameStatic},
 {"Application_Run", Application_Run},
 {"Application_ErrorExit", Application_ErrorExit},
+{"Application_SetupAndStart", Application_SetupAndStart},
+{"Application_RunOneFrame", Application_RunOneFrame},
+{"Application_Terminate", Application_Terminate},
 {"AttributeInfo_GetType", AttributeInfo_GetType},
 {"AttributeInfo_GetName", AttributeInfo_GetName},
 {"BillboardSet_GetType", BillboardSet_GetType},
@@ -6692,9 +6743,18 @@ static PinvokeImport Urho3D_imports [] = {
 {"Graphics_SetWindowIcon", Graphics_SetWindowIcon},
 {"Graphics_SetWindowPosition", Graphics_SetWindowPosition},
 {"Graphics_SetWindowPosition0", Graphics_SetWindowPosition0},
+{"Graphics_SetWindowSize", Graphics_SetWindowSize},
+{"Graphics_SetWindowSize1", Graphics_SetWindowSize1},
+{"Graphics_SetExternalWindowSize", Graphics_SetExternalWindowSize},
+{"Graphics_SetExternalWindowSize2", Graphics_SetExternalWindowSize2},
+{"Graphics_SetWindowOpacity", Graphics_SetWindowOpacity},
+{"Graphics_HideWindow", Graphics_HideWindow},
+{"Graphics_ShowWindow", Graphics_ShowWindow},
+{"Graphics_GetNativeWindowHandle", Graphics_GetNativeWindowHandle},
 {"Graphics_SetScreenMode", Graphics_SetScreenMode},
 {"Graphics_SetMode", Graphics_SetMode},
-{"Graphics_SetMode1", Graphics_SetMode1},
+{"Graphics_SetMode3", Graphics_SetMode3},
+{"Graphics_SetMode4", Graphics_SetMode4},
 {"Graphics_SetSRGB", Graphics_SetSRGB},
 {"Graphics_SetDither", Graphics_SetDither},
 {"Graphics_SetFlushGPU", Graphics_SetFlushGPU},
@@ -6705,20 +6765,17 @@ static PinvokeImport Urho3D_imports [] = {
 {"Graphics_BeginFrame", Graphics_BeginFrame},
 {"Graphics_EndFrame", Graphics_EndFrame},
 {"Graphics_ResolveToTexture", Graphics_ResolveToTexture},
-{"Graphics_ResolveToTexture2", Graphics_ResolveToTexture2},
-{"Graphics_ResolveToTexture3", Graphics_ResolveToTexture3},
+{"Graphics_ResolveToTexture5", Graphics_ResolveToTexture5},
+{"Graphics_ResolveToTexture6", Graphics_ResolveToTexture6},
 {"Graphics_Draw", Graphics_Draw},
-{"Graphics_Draw4", Graphics_Draw4},
-{"Graphics_Draw5", Graphics_Draw5},
+{"Graphics_Draw7", Graphics_Draw7},
+{"Graphics_Draw8", Graphics_Draw8},
 {"Graphics_DrawInstanced", Graphics_DrawInstanced},
-{"Graphics_DrawInstanced6", Graphics_DrawInstanced6},
+{"Graphics_DrawInstanced9", Graphics_DrawInstanced9},
 {"Graphics_SetVertexBuffer", Graphics_SetVertexBuffer},
 {"Graphics_SetIndexBuffer", Graphics_SetIndexBuffer},
 {"Graphics_SetShaders", Graphics_SetShaders},
 {"Graphics_SetShaderParameter", Graphics_SetShaderParameter},
-{"Graphics_SetShaderParameter7", Graphics_SetShaderParameter7},
-{"Graphics_SetShaderParameter8", Graphics_SetShaderParameter8},
-{"Graphics_SetShaderParameter9", Graphics_SetShaderParameter9},
 {"Graphics_SetShaderParameter10", Graphics_SetShaderParameter10},
 {"Graphics_SetShaderParameter11", Graphics_SetShaderParameter11},
 {"Graphics_SetShaderParameter12", Graphics_SetShaderParameter12},
@@ -6726,6 +6783,9 @@ static PinvokeImport Urho3D_imports [] = {
 {"Graphics_SetShaderParameter14", Graphics_SetShaderParameter14},
 {"Graphics_SetShaderParameter15", Graphics_SetShaderParameter15},
 {"Graphics_SetShaderParameter16", Graphics_SetShaderParameter16},
+{"Graphics_SetShaderParameter17", Graphics_SetShaderParameter17},
+{"Graphics_SetShaderParameter18", Graphics_SetShaderParameter18},
+{"Graphics_SetShaderParameter19", Graphics_SetShaderParameter19},
 {"Graphics_NeedParameterUpdate", Graphics_NeedParameterUpdate},
 {"Graphics_HasShaderParameter", Graphics_HasShaderParameter},
 {"Graphics_HasTextureUnit", Graphics_HasTextureUnit},
@@ -6740,9 +6800,9 @@ static PinvokeImport Urho3D_imports [] = {
 {"Graphics_ResetRenderTarget", Graphics_ResetRenderTarget},
 {"Graphics_ResetDepthStencil", Graphics_ResetDepthStencil},
 {"Graphics_SetRenderTarget", Graphics_SetRenderTarget},
-{"Graphics_SetRenderTarget17", Graphics_SetRenderTarget17},
+{"Graphics_SetRenderTarget20", Graphics_SetRenderTarget20},
 {"Graphics_SetDepthStencil", Graphics_SetDepthStencil},
-{"Graphics_SetDepthStencil18", Graphics_SetDepthStencil18},
+{"Graphics_SetDepthStencil21", Graphics_SetDepthStencil21},
 {"Graphics_SetViewport", Graphics_SetViewport},
 {"Graphics_SetBlendMode", Graphics_SetBlendMode},
 {"Graphics_SetColorWrite", Graphics_SetColorWrite},
@@ -6854,6 +6914,8 @@ static PinvokeImport Urho3D_imports [] = {
 {"Graphics_glOESStandardDerivativesSupport", Graphics_glOESStandardDerivativesSupport},
 {"Graphics_clipDistanceEXTSupport", Graphics_clipDistanceEXTSupport},
 {"Graphics_clipDistanceAPPLESupport", Graphics_clipDistanceAPPLESupport},
+{"Graphics_SetEmbeddedWindow", Graphics_SetEmbeddedWindow},
+{"Graphics_GetEmbeddedWindow", Graphics_GetEmbeddedWindow},
 {"Graphics_GetAlphaFormat", Graphics_GetAlphaFormat},
 {"Graphics_GetLuminanceFormat", Graphics_GetLuminanceFormat},
 {"Graphics_GetLuminanceAlphaFormat", Graphics_GetLuminanceAlphaFormat},
@@ -6870,7 +6932,7 @@ static PinvokeImport Urho3D_imports [] = {
 {"Graphics_GetLinearDepthFormat", Graphics_GetLinearDepthFormat},
 {"Graphics_GetDepthStencilFormat", Graphics_GetDepthStencilFormat},
 {"Graphics_GetReadableDepthFormat", Graphics_GetReadableDepthFormat},
-{"Graphics_GetFormat19", Graphics_GetFormat19},
+{"Graphics_GetFormat22", Graphics_GetFormat22},
 {"Graphics_GetPixelUVOffset", Graphics_GetPixelUVOffset},
 {"Graphics_GetMaxBones", Graphics_GetMaxBones},
 {"IndexBuffer_CastToGPUObject", IndexBuffer_CastToGPUObject},
@@ -6932,6 +6994,7 @@ static PinvokeImport Urho3D_imports [] = {
 {"Input_GetKeyPress", Input_GetKeyPress},
 {"Input_GetScancodeDown", Input_GetScancodeDown},
 {"Input_GetScancodePress", Input_GetScancodePress},
+{"Input_SetKey", Input_SetKey},
 {"Input_GetQualifierDown", Input_GetQualifierDown},
 {"Input_GetQualifierPress", Input_GetQualifierPress},
 {"Input_GetMousePosition", Input_GetMousePosition},
@@ -6951,6 +7014,9 @@ static PinvokeImport Urho3D_imports [] = {
 {"Input_GetScreenKeyboardSupport", Input_GetScreenKeyboardSupport},
 {"Input_IsScreenKeyboardVisible", Input_IsScreenKeyboardVisible},
 {"Input_GetTouchEmulation", Input_GetTouchEmulation},
+{"Input_SetExternalInput", Input_SetExternalInput},
+{"Input_SetInputScale", Input_SetInputScale},
+{"Input_GetExternalInput", Input_GetExternalInput},
 {"Input_IsMouseVisible", Input_IsMouseVisible},
 {"Input_IsMouseGrabbed", Input_IsMouseGrabbed},
 {"Input_IsMouseLocked", Input_IsMouseLocked},
@@ -6961,6 +7027,7 @@ static PinvokeImport Urho3D_imports [] = {
 {"Input_IsMapCtrlQualifierToCommandKey", Input_IsMapCtrlQualifierToCommandKey},
 {"Input_GetMouseButtonDown", Input_GetMouseButtonDown},
 {"Input_GetMouseButtonPress", Input_GetMouseButtonPress},
+{"Input_SetMouseButton", Input_SetMouseButton},
 {"KinematicCharacterController_GetTransform", KinematicCharacterController_GetTransform},
 {"KinematicCharacterController_GetType", KinematicCharacterController_GetType},
 {"KinematicCharacterController_GetTypeName", KinematicCharacterController_GetTypeName},
@@ -7004,6 +7071,8 @@ static PinvokeImport Urho3D_imports [] = {
 {"KinematicCharacterController_GetLinearVelocity", KinematicCharacterController_GetLinearVelocity},
 {"KinematicCharacterController_Warp", KinematicCharacterController_Warp},
 {"KinematicCharacterController_DrawDebugGeometry", KinematicCharacterController_DrawDebugGeometry},
+{"KinematicCharacterController_SetPosition", KinematicCharacterController_SetPosition},
+{"KinematicCharacterController_SetRotation", KinematicCharacterController_SetRotation},
 {"LogicComponent_GetType", LogicComponent_GetType},
 {"LogicComponent_GetTypeName", LogicComponent_GetTypeName},
 {"LogicComponent_GetTypeStatic", LogicComponent_GetTypeStatic},
@@ -10909,6 +10978,30 @@ static PinvokeImport Urho3D_imports [] = {
 {"FontFaceFreeType_Load", FontFaceFreeType_Load},
 {"FontFaceFreeType_GetGlyph", FontFaceFreeType_GetGlyph},
 {"FontFaceFreeType_HasMutableGlyphs", FontFaceFreeType_HasMutableGlyphs},
+{"ImGuiElement_GetType", ImGuiElement_GetType},
+{"ImGuiElement_GetTypeName", ImGuiElement_GetTypeName},
+{"ImGuiElement_GetTypeStatic", ImGuiElement_GetTypeStatic},
+{"ImGuiElement_GetTypeNameStatic", ImGuiElement_GetTypeNameStatic},
+{"ImGuiElement_ImGuiElement", ImGuiElement_ImGuiElement},
+{"ImGuiElement_RegisterObject", ImGuiElement_RegisterObject},
+{"ImGuiElement_Update", ImGuiElement_Update},
+{"ImGuiElement_OnTextInput", ImGuiElement_OnTextInput},
+{"ImGuiElement_RemoveTexture", ImGuiElement_RemoveTexture},
+{"ImGuiElement_GetAlphaMultiplier", ImGuiElement_GetAlphaMultiplier},
+{"ImGuiElement_AntialiasEnabled", ImGuiElement_AntialiasEnabled},
+{"ImGuiElement_GetTouchPadding", ImGuiElement_GetTouchPadding},
+{"ImGuiElement_IsMetricsWindowVisible", ImGuiElement_IsMetricsWindowVisible},
+{"ImGuiElement_IsDemoWindowVisible", ImGuiElement_IsDemoWindowVisible},
+{"ImGuiElement_SetAlphaMultiplier", ImGuiElement_SetAlphaMultiplier},
+{"ImGuiElement_SetAntialize", ImGuiElement_SetAntialize},
+{"ImGuiElement_SetTouchPadding", ImGuiElement_SetTouchPadding},
+{"ImGuiElement_SetMetricsWindowVisible", ImGuiElement_SetMetricsWindowVisible},
+{"ImGuiElement_SetDemoWindowVisible", ImGuiElement_SetDemoWindowVisible},
+{"ImGuiElement_GetFontSize", ImGuiElement_GetFontSize},
+{"ImGuiElement_SetFontSize", ImGuiElement_SetFontSize},
+{"ImGuiElement_SetFontName", ImGuiElement_SetFontName},
+{"ImGuiElement_GetFontName", ImGuiElement_GetFontName},
+{"ImGuiElement_Begin", ImGuiElement_Begin},
 {"LineEdit_GetType", LineEdit_GetType},
 {"LineEdit_GetTypeName", LineEdit_GetTypeName},
 {"LineEdit_GetTypeStatic", LineEdit_GetTypeStatic},
@@ -11261,6 +11354,9 @@ static PinvokeImport Urho3D_imports [] = {
 {"File_GetSize", File_GetSize},
 {"File_WriteLine", File_WriteLine},
 {"File_ReadLine", File_ReadLine},
+{"File_IsEof", File_IsEof},
+{"File_SeekRelative", File_SeekRelative},
+{"File_Tell", File_Tell},
 {"File_GetType", File_GetType},
 {"File_GetTypeName", File_GetTypeName},
 {"File_GetTypeStatic", File_GetTypeStatic},
@@ -12669,22 +12765,22 @@ void wasm_native_to_interp_UrhoDotNet_100664646 (int arg0) {
 ((WasmInterpEntrySig_2)wasm_native_to_interp_ftndescs [2].func) (&arg0, wasm_native_to_interp_ftndescs [2].arg);
 }
 typedef void  (*WasmInterpEntrySig_3) (int,int,int,int);
-void wasm_native_to_interp_UrhoDotNet_100667452 (int arg0,int arg1,int arg2) { 
+void wasm_native_to_interp_UrhoDotNet_100667500 (int arg0,int arg1,int arg2) { 
 ((WasmInterpEntrySig_3)wasm_native_to_interp_ftndescs [3].func) (&arg0, &arg1, &arg2, wasm_native_to_interp_ftndescs [3].arg);
 }
 typedef void  (*WasmInterpEntrySig_4) (int,int,int,int);
-void wasm_native_to_interp_UrhoDotNet_100667453 (int arg0,int arg1,int arg2) { 
+void wasm_native_to_interp_UrhoDotNet_100667501 (int arg0,int arg1,int arg2) { 
 ((WasmInterpEntrySig_4)wasm_native_to_interp_ftndescs [4].func) (&arg0, &arg1, &arg2, wasm_native_to_interp_ftndescs [4].arg);
 }
 typedef void  (*WasmInterpEntrySig_5) (int,int,int,int,int,int);
-void wasm_native_to_interp_UrhoDotNet_100670883 (int arg0,int arg1,int arg2,int arg3,int arg4) { 
+void wasm_native_to_interp_UrhoDotNet_100670930 (int arg0,int arg1,int arg2,int arg3,int arg4) { 
 ((WasmInterpEntrySig_5)wasm_native_to_interp_ftndescs [5].func) (&arg0, &arg1, &arg2, &arg3, &arg4, wasm_native_to_interp_ftndescs [5].arg);
 }
-static void *wasm_native_to_interp_funcs[] = { wasm_native_to_interp_UrhoDotNet_100664642,wasm_native_to_interp_UrhoDotNet_100664643,wasm_native_to_interp_UrhoDotNet_100664646,wasm_native_to_interp_UrhoDotNet_100667452,wasm_native_to_interp_UrhoDotNet_100667453,wasm_native_to_interp_UrhoDotNet_100670883,};
+static void *wasm_native_to_interp_funcs[] = { wasm_native_to_interp_UrhoDotNet_100664642,wasm_native_to_interp_UrhoDotNet_100664643,wasm_native_to_interp_UrhoDotNet_100664646,wasm_native_to_interp_UrhoDotNet_100667500,wasm_native_to_interp_UrhoDotNet_100667501,wasm_native_to_interp_UrhoDotNet_100670930,};
 static const char *wasm_native_to_interp_map[] = { "UrhoDotNet_100664642",
 "UrhoDotNet_100664643",
 "UrhoDotNet_100664646",
-"UrhoDotNet_100667452",
-"UrhoDotNet_100667453",
-"UrhoDotNet_100670883",
+"UrhoDotNet_100667500",
+"UrhoDotNet_100667501",
+"UrhoDotNet_100670930",
 };

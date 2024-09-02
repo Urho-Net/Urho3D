@@ -32,8 +32,8 @@
 #include "../UI/UI.h"
 #include "../IO/Log.h"
 #include "../UI/Font.h"
-
-
+#include "../UI/ImGuiEvents.h"
+#include <imgui/imgui.h>
 
 namespace Urho3D
 {
@@ -175,8 +175,7 @@ static ImGuiKey SDL2KeyEventToImGuiKey(SDL_Keycode keycode, SDL_Scancode scancod
 
     ImGuiElement::ImGuiElement(Context* context) :
         UIElement(context), 
-        imguiContext_(nullptr),
-        renderFunction_(nullptr)
+        imguiContext_(nullptr)
     {
         enabled_ = true;
         SetFocusMode(FM_FOCUSABLE);
@@ -305,20 +304,11 @@ static ImGuiKey SDL2KeyEventToImGuiKey(SDL_Keycode keycode, SDL_Scancode scancod
 
         ImGui::NewFrame();
 
-        // if we have a render function then use that, otherwise default to whatever is in our virtual method
-        if (renderFunction_)
-            renderFunction_;
-        else
-        {
-          
-            VariantMap& eventMap = GetEventDataMap();
-            using namespace IMGUIDraw;
-            eventMap[IMGUIDraw::P_ELEMENT] = this;
-            eventMap[IMGUIDraw::P_TIMESTEP] = timeStep;
-            SendEvent(E_IMGUI_DRAW, eventMap);
-
-            RenderImGui();
-        }
+        VariantMap& eventMap = GetEventDataMap();
+        using namespace IMGUIDraw;
+        eventMap[IMGUIDraw::P_ELEMENT] = this;
+        eventMap[IMGUIDraw::P_TIMESTEP] = timeStep;
+        SendEvent(E_IMGUI_DRAW, eventMap);
 
         // Show optional windows as appropriate
         if (showMetrics_)
@@ -524,11 +514,11 @@ static ImGuiKey SDL2KeyEventToImGuiKey(SDL_Keycode keycode, SDL_Scancode scancod
         AddKeyEvent(ImGuiMod_Alt, (qualifiers & QUAL_ALT )!= 0);
     }
 
-    bool ImGuiElement::Begin(const char* name, bool* p_open, ImGuiWindowFlags flags)
+    bool ImGuiElement::Begin(const String& name, bool* p_open, ImGuiWindowFlags flags)
     {
         imguiActiveWindowName_ = name;
         flags |= ImGuiWindowFlags_NoMove| ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoResize;
-        return  ImGui::Begin(name, p_open, flags);
+        return  ImGui::Begin(name.CString(), p_open, flags);
     }
 
 
@@ -610,12 +600,6 @@ static ImGuiKey SDL2KeyEventToImGuiKey(SDL_Keycode keycode, SDL_Scancode scancod
     void ImGuiElement::OnTextInput(const String& text)
     {
         lastText_ = text;
-    }
-
-
-    void ImGuiElement::SetRenderFunction(ImGuiRenderFunction* func)
-    {
-        renderFunction_ = func;
     }
 
     void ImGuiElement::AddTexture(void * textureID, SharedPtr<Texture2D> texture)

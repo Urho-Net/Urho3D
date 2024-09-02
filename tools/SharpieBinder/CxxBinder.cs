@@ -58,6 +58,9 @@ namespace SharpieBinder
             if (s == "_Bool")
                 return "bool";
 
+            if (s == "_Bool *")
+                return "bool *";
+                
             // Ok, I want to click on that blue thing and use the action, the "1"//
             if (s.IndexOf("_Bool") != -1)
                 Console.WriteLine("f");

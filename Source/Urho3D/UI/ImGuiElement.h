@@ -22,21 +22,12 @@
 #pragma once
 
 #include "../UI/UIElement.h"
+#include "../UI/ImGuiEvents.h"
 #include <imgui/imgui.h>
 #include <imgui/imgui_internal.h>
-struct ImGuiContext;
 
 namespace Urho3D
 {
-    URHO3D_EVENT(E_IMGUI_DRAW, IMGUIDraw)
-    {
-        URHO3D_PARAM(P_ELEMENT, Element);       // UIElement pointer
-        URHO3D_PARAM(P_TIMESTEP, TimeStep);     // float
-    }
-
-    class ImGuiElement;
-    typedef void(*ImGuiRenderFunction)(ImGuiElement* self);
-
     /// Implements a fullscreen Dear ImGui context.
     class URHO3D_API ImGuiElement : public UIElement
     {
@@ -57,10 +48,6 @@ namespace Urho3D
 
         /// Records the text for use in the next update.
         void OnTextInput(const String& text) override;
-
-        /// Sets an external rendering function to be called for running ImGui commands. Function will be called from Update.
-        void SetRenderFunction(ImGuiRenderFunction* func);
-
         /// Add a texture for referencing within ImGui.
         void AddTexture(void* textureID, SharedPtr<Texture2D> texture);
         /// Remove a texture from the table.
@@ -94,7 +81,7 @@ namespace Urho3D
         void SetFontName(String fontName);
         inline String GetFontName() const { return fontName_; }
         
-        bool Begin(const char* name, bool* p_open, ImGuiWindowFlags flags);
+        bool Begin(const String& name, bool* p_open, ImGuiWindowFlags flags);
         
         void HandleMouseButtonDown(StringHash eventType, VariantMap& eventData);
         /// Handle mouse button up event.
@@ -116,9 +103,6 @@ namespace Urho3D
         
 
     protected:
-        /// Alternatively to set the ImGuiRenderFunction pointer this method can be overriden for generating the UI.
-        virtual void RenderImGui() { }
-
         /// Creates or acquires the font texture.
         void CreateFontTexture(bool force = false);
         
@@ -137,8 +121,6 @@ namespace Urho3D
         String lastText_;
         /// ImGuiContext for this particular instance.
         ImGuiContext* imguiContext_;
-        /// Optional GUI rendering function to use.
-        ImGuiRenderFunction* renderFunction_;
         /// Table of IDs to textures for drawing textures/render-target in Dear ImGui.
         HashMap<void*, SharedPtr<Texture2D> > textureTable_;
         /// Stored font texture.

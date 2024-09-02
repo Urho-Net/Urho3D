@@ -359,6 +359,10 @@ endif ()
 # Aggregate all source files
 list (APPEND SOURCE_FILES ${GEN_CPP_FILES} ${LUA_GEN_CPP_FILES} librevision.h Urho3D.h ${SYMBOLIC_SOURCES})
 
+if (URHO3D_DOTNET)
+    list (APPEND SOURCE_FILES ${CMAKE_CURRENT_SOURCE_DIR}/../ThirdParty/cimgui/cimgui.cpp)
+endif()
+
 # Define dependency libs
 # Add include directories to find the precompiled header, export header, and installed headers from third-party libs
 set (INCLUDE_DIRS ${CMAKE_CURRENT_BINARY_DIR} ${CMAKE_CURRENT_SOURCE_DIR} ${THIRD_PARTY_INCLUDE_DIR})

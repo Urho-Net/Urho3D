@@ -59,6 +59,8 @@ $events{"DragEnd"} = "Urho.Gui";
 $events{"DragCancel"} = "Urho.Gui"; 
 $events{"UIDropFile"} = "Urho.Gui"; 
 $events{"TextEntry"} = "Urho.Gui"; 
+$events{"IMGUIDraw"} = "Urho.Gui"; 
+
 
 $events{"PhysicsPreStep2D"} = "Urho.Urho2D"; 
 $events{"PhysicsPostStep2D"} = "Urho.Urho2D"; 

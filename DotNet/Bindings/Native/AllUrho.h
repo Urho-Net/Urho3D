@@ -235,6 +235,7 @@
 #include <Urho3D/UI/UIEvents.h>
 #include <Urho3D/UI/View3D.h>
 #include <Urho3D/UI/Window.h>
+#include <Urho3D/UI/ImGuiElement.h>
 #include <Urho3D/Urho2D/AnimatedSprite2D.h>
 #include <Urho3D/Urho2D/AnimationSet2D.h>
 #include <Urho3D/Urho2D/CollisionBox2D.h>

@@ -3885,6 +3885,38 @@ namespace Urho {
 } /* namespace */
 
 namespace Urho.Gui {
+        public partial struct IMGUIDrawEventArgs {
+            public EventDataContainer EventData;
+            public UIElement Element => EventData.get_UIElement (unchecked((int)3793610108) /* Element (P_ELEMENT) */);
+            public float TimeStep => EventData.get_float (unchecked((int)3855275641) /* TimeStep (P_TIMESTEP) */);
+        } /* struct IMGUIDrawEventArgs */
+
+        public partial class ImGuiElement {
+             [Obsolete("SubscribeTo API may lead to unxpected behaviour and will be removed in a future version. Use C# event '.IMGUIDraw += ...' instead.")]
+             public Subscription SubscribeToIMGUIDraw (Action<IMGUIDrawEventArgs> handler)
+             {
+                  Action<IntPtr> proxy = (x)=> { var d = new IMGUIDrawEventArgs () { EventData = new EventDataContainer(x) }; handler (d); };
+                  var s = new Subscription (proxy);
+                  s.UnmanagedProxy = UrhoObject.urho_subscribe_event (handle, UrhoObject.ObjectCallbackInstance, GCHandle.ToIntPtr (s.gch), unchecked((int)4094205499) /* IMGUIDraw (E_IMGUI_DRAW) */);
+                  return s;
+             }
+
+             static UrhoEventAdapter<IMGUIDrawEventArgs> eventAdapterForIMGUIDraw;
+             public event Action<IMGUIDrawEventArgs> IMGUIDraw
+             {
+                 add
+                 {
+                      if (eventAdapterForIMGUIDraw == null)
+                          eventAdapterForIMGUIDraw = new UrhoEventAdapter<IMGUIDrawEventArgs>(typeof(ImGuiElement));
+                      eventAdapterForIMGUIDraw.AddManagedSubscriber(handle, value, SubscribeToIMGUIDraw);
+                 }
+                 remove { eventAdapterForIMGUIDraw.RemoveManagedSubscriber(handle, value); }
+             }
+        } /* class ImGuiElement */ 
+
+} /* namespace */
+
+namespace Urho.Gui {
         public partial struct UIMouseClickEventArgs {
             public EventDataContainer EventData;
             public UIElement Element => EventData.get_UIElement (unchecked((int)3793610108) /* Element (P_ELEMENT) */);

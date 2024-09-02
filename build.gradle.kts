@@ -28,7 +28,8 @@ buildscript {
     val kotlinVersion: String by extra
     repositories {
         google()
-        jcenter()
+        mavenCentral()
+        maven { url = uri("https://repo.grails.org/grails/core/") } 
     }
     dependencies {
         classpath("com.android.tools.build:gradle:7.0.0")
@@ -36,9 +37,6 @@ buildscript {
     }
 }
 
-plugins {
-    id("com.jfrog.bintray") version "1.8.5" apply false
-}
 
 val kotlinVersion: String by ext
 
@@ -51,7 +49,8 @@ allprojects {
     """.trimIndent().replace('\n', ' ')
     repositories {
         google()
-        jcenter()
+        mavenCentral()
+        maven { url = uri("https://repo.grails.org/grails/core/") } 
     }
     buildscript {
         ext {

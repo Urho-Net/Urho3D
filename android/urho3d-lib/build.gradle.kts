@@ -27,17 +27,16 @@ import java.time.Duration
 
 plugins {
     id("com.android.library")
-    id("com.jfrog.bintray")
     kotlin("android")
     kotlin("android.extensions")
     `maven-publish`
 }
 
 android {
-    compileSdkVersion(29)
+    compileSdkVersion(31)
     defaultConfig {
         minSdkVersion(21)
-        targetSdkVersion(29)
+        targetSdkVersion(31)
         testInstrumentationRunner = "android.support.test.runner.AndroidJUnitRunner"
         externalNativeBuild {
             cmake {
@@ -117,10 +116,8 @@ android {
 dependencies {
     implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
     implementation(kotlin("stdlib-jdk8", embeddedKotlinVersion))
-    implementation("com.getkeepsafe.relinker:relinker:1.3.1")
+    implementation("com.getkeepsafe.relinker:relinker:1.4.0")
     testImplementation("junit:junit:4.12")
-    androidTestImplementation("androidx.test:runner:1.2.0")
-    androidTestImplementation("androidx.test.espresso:espresso-core:3.2.0")
 }
 
 lateinit var docABI: String
@@ -258,30 +255,7 @@ publishing {
     }
 }
 
-bintray {
-    user = System.getenv("BINTRAY_USER")
-    key = System.getenv("BINTRAY_KEY")
-    publish = true
-    override = true
-    setPublications("mavenAndroid")
-    pkg.apply {
-        repo = "maven"
-        name = project.name
-        setLicenses("MIT")
-        vcsUrl = "https://github.com/urho3d/Urho3D.git"
-        userOrg = "urho3d"
-        setLabels("android", "game-development", "game-engine", "open-source", "urho3d")
-        websiteUrl = "https://urho3d.github.io/"
-        issueTrackerUrl = "https://github.com/urho3d/Urho3D/issues"
-        githubRepo = "urho3d/Urho3D"
-        publicDownloadNumbers = true
-        desc = project.description
-        version.apply {
-            name = project.version.toString()
-            desc = "Continuous delivery from Travis-CI."
-        }
-    }
-}
+
 
 val Project.libraryType: String
     get() = findProperty("URHO3D_LIB_TYPE") as String? ?: "STATIC"

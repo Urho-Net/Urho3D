@@ -1,4 +1,4 @@
-./gradlew assembleRelease -P URHO3D_DOTNET=1 -P URHO3D_DATABASE_SQLITE=1 -P URHO3D_ANGELSCRIPT=0 -P URHO3D_LUA=0  -P URHO3D_LIB_TYPE=SHARED  -P URHO3D_SAMPLES=0
+./gradlew assembleRelease -P URHO3D_DOTNET=1 -P URHO3D_DATABASE_SQLITE=1 -P URHO3D_ANGELSCRIPT=0 -P URHO3D_LUA=0  -P URHO3D_LIB_TYPE=SHARED  -P URHO3D_SAMPLES=0 -P URHO3D_PCH=0
 
 mkdir -p DotNet/libs/android/net6.0-Release/armeabi-v7a
 mkdir -p DotNet/libs/android/net6.0-Release/x86

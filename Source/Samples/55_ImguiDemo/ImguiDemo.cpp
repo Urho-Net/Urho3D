@@ -41,7 +41,6 @@
 #include <Urho3D/UI/ListView.h>
 #include <Urho3D/UI/UIComponent.h>
 #include <Urho3D/UI/ImGuiElement.h>
-
 #include <imgui/imgui.h>
 
 #include "ImguiDemo.h"

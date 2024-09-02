@@ -30,10 +30,10 @@ plugins {
 }
 
 android {
-    compileSdkVersion(29)
+    compileSdkVersion(31)
     defaultConfig {
         minSdkVersion(21)
-        targetSdkVersion(29)
+        targetSdkVersion(31)
         applicationId = "com.github.urho3d.launcher"
         versionCode = 1
         versionName = project.version.toString()
