@@ -32,6 +32,8 @@
 #include "../UI/UI.h"
 #include "../IO/Log.h"
 #include "../UI/Font.h"
+#include "../UI/UIEvents.h"
+#include "../UI/Window.h"
 #include "../UI/ImGuiEvents.h"
 #include <imgui/imgui.h>
 
@@ -175,7 +177,10 @@ static ImGuiKey SDL2KeyEventToImGuiKey(SDL_Keycode keycode, SDL_Scancode scancod
 
     ImGuiElement::ImGuiElement(Context* context) :
         UIElement(context), 
-        imguiContext_(nullptr)
+        imguiContext_(nullptr),
+        firstTime(true),
+        movable_(false),
+        resizable_(false)
     {
         enabled_ = true;
         SetFocusMode(FM_FOCUSABLE);
@@ -204,6 +209,9 @@ static ImGuiKey SDL2KeyEventToImGuiKey(SDL_Keycode keycode, SDL_Scancode scancod
         SubscribeToEvent(E_TOUCHMOVE, URHO3D_HANDLER(ImGuiElement, HandleTouchMove));
         SubscribeToEvent(E_KEYDOWN, URHO3D_HANDLER(ImGuiElement, HandleKeyDown));
         SubscribeToEvent(E_KEYUP, URHO3D_HANDLER(ImGuiElement, HandleKeyUp));
+        
+        SubscribeToEvent(E_ELEMENTADDED, URHO3D_HANDLER(ImGuiElement, HandleElementAdded));
+        
     }
 
     ImGuiElement::~ImGuiElement()
@@ -231,6 +239,7 @@ static ImGuiKey SDL2KeyEventToImGuiKey(SDL_Keycode keycode, SDL_Scancode scancod
         UnsubscribeFromEvent(E_KEYDOWN);
         UnsubscribeFromEvent(E_KEYUP);
         UnsubscribeFromEvent(E_TEXTINPUT);
+        UnsubscribeFromEvent(E_ELEMENTADDED);
     }
 
     void ImGuiElement::RegisterObject(Context* context)
@@ -244,6 +253,21 @@ static ImGuiKey SDL2KeyEventToImGuiKey(SDL_Keycode keycode, SDL_Scancode scancod
         URHO3D_ACCESSOR_ATTRIBUTE("Font Size", GetFontSize, SetFontSize, int, 20, AM_DEFAULT);
         URHO3D_ACCESSOR_ATTRIBUTE("Show Metrics", IsMetricsWindowVisible, SetMetricsWindowVisible, bool, false, AM_DEFAULT);
         URHO3D_ACCESSOR_ATTRIBUTE("Show Demo", IsDemoWindowVisible, SetDemoWindowVisible, bool, false, AM_DEFAULT);
+    }
+
+    void ImGuiElement::HandleElementAdded(StringHash eventType, VariantMap& eventData)
+    {
+        using namespace ElementAdded;
+        
+        UIElement * parent = (UIElement *)(eventData[P_PARENT].GetPtr());
+        UIElement * elm = (UIElement *)(eventData[P_ELEMENT].GetPtr());
+//        if(this == elm)
+//        {
+//            if(parent)
+//            {
+//                parent->SetLayoutMode(LM_VERTICAL);
+//            }
+//        }
     }
 
     void ImGuiElement::Update(float timeStep)
@@ -282,13 +306,62 @@ static ImGuiKey SDL2KeyEventToImGuiKey(SDL_Keycode keycode, SDL_Scancode scancod
         {
             auto screenPosition = this->GetScreenPosition();
             auto size = GetSize();
+            
             for (auto window :imguiContext_->Windows)
             {
                 if(strcmp(window->Name,imguiActiveWindowName_.CString()) == 0)
                 {
-                    window->Pos = ImVec2(screenPosition.x_, screenPosition.y_);
-                    window->Size = ImVec2(size.x_, size.y_);
-                    window->SizeFull = ImVec2(size.x_, size.y_);
+                    if(firstTime)
+                    {
+                        window->Pos = ImVec2(screenPosition.x_, screenPosition.y_);
+                        window->Size = ImVec2(size.x_, size.y_);
+                        window->SizeFull = ImVec2(size.x_, size.y_);
+                        firstTime = false;
+                    }
+                    else{
+                        
+                        if(movable_ == false)
+                        {
+                            window->Pos = ImVec2(screenPosition.x_, screenPosition.y_);
+                        }
+                        else{
+                            auto * parent = GetParent();
+                            if(parent)
+                            {
+                                auto border = parent->GetLayoutBorder();
+                                parent->SetPosition(window->Pos.x-border.left_, window->Pos.y-border.top_);
+                            }
+                            else{
+                                SetPosition(window->Pos.x, window->Pos.y);
+                            }
+                            
+                        }
+                        
+                        if(resizable_ == true)
+                        {
+                            if(size.x_ != window->SizeFull.x || size.y_ != window->SizeFull.y)
+                            {
+                                auto * parent = GetParent();
+                                if(parent)
+                                {
+                                    auto newSize = IntVector2(window->SizeFull.x,window->SizeFull.y);
+                                    auto border = parent->GetLayoutBorder();
+                                    newSize.x_ += (border.right_ + border.left_);
+                                    newSize.y_ += (border.bottom_ + border.top_);
+                                    
+                                    parent->SetFixedSize(newSize);
+                                }
+                                else{
+                                    SetFixedSize(IntVector2(window->SizeFull.x,window->SizeFull.y));
+                                }
+                            }
+                        }
+                        else
+                        {
+                            window->Size = ImVec2(size.x_, size.y_);
+                            window->SizeFull = ImVec2(size.x_, size.y_);
+                        }
+                    }
                     break;
                 }
             }
@@ -332,6 +405,8 @@ static ImGuiKey SDL2KeyEventToImGuiKey(SDL_Keycode keycode, SDL_Scancode scancod
             if (GetSubsystem<UI>()->GetUseScreenKeyboard())
                 GetSubsystem<Input>()->SetScreenKeyboardVisible(false);
         }
+        
+        
     }
 
     void ImGuiElement::HandleMouseButtonDown(StringHash eventType, VariantMap& eventData)
@@ -470,6 +545,7 @@ static ImGuiKey SDL2KeyEventToImGuiKey(SDL_Keycode keycode, SDL_Scancode scancod
 
     void ImGuiElement::AddMousePosEvent()
     {
+        ImGui::SetCurrentContext(imguiContext_);
         ImGuiIO* io = &ImGui::GetIO();
         float uiSCale =  GetSubsystem<UI>()->GetScale();
         const Input* input = GetSubsystem<Input>();
@@ -483,6 +559,7 @@ static ImGuiKey SDL2KeyEventToImGuiKey(SDL_Keycode keycode, SDL_Scancode scancod
 
     void ImGuiElement::AddMouseButtonEvent(int mouse_button, bool down)
     {
+        ImGui::SetCurrentContext(imguiContext_);
         ImGuiIO* io = &ImGui::GetIO();
         AddMousePosEvent();
         
@@ -494,6 +571,7 @@ static ImGuiKey SDL2KeyEventToImGuiKey(SDL_Keycode keycode, SDL_Scancode scancod
 
     void ImGuiElement::AddTouchPosEvent(float x, float y)
     {
+        ImGui::SetCurrentContext(imguiContext_);
         ImGuiIO* io = &ImGui::GetIO();
 #if (IMGUI_VERSION_NUM >= 18950)
         io->AddMouseSourceEvent(ImGuiMouseSource_TouchScreen);
@@ -503,6 +581,7 @@ static ImGuiKey SDL2KeyEventToImGuiKey(SDL_Keycode keycode, SDL_Scancode scancod
 
     void ImGuiElement::AddTouchButtonEvent(int mouse_button, bool down)
     {
+        ImGui::SetCurrentContext(imguiContext_);
         ImGuiIO* io = &ImGui::GetIO();
 #if (IMGUI_VERSION_NUM >= 18950)
         io->AddMouseSourceEvent(ImGuiMouseSource_TouchScreen);
@@ -512,12 +591,14 @@ static ImGuiKey SDL2KeyEventToImGuiKey(SDL_Keycode keycode, SDL_Scancode scancod
 
     void ImGuiElement::AddKeyEvent(ImGuiKey imgui_key, bool down)
     {
+        ImGui::SetCurrentContext(imguiContext_);
         ImGuiIO* io = &ImGui::GetIO();
         io->AddKeyEvent(imgui_key, down);
     }
 
     void ImGuiElement::UpdateQualifiers(QualifierFlags qualifiers)
     {
+        ImGui::SetCurrentContext(imguiContext_);
         AddKeyEvent(ImGuiMod_Ctrl, (qualifiers & QUAL_CTRL) != 0);
         AddKeyEvent(ImGuiMod_Shift, (qualifiers & QUAL_SHIFT) != 0);
         AddKeyEvent(ImGuiMod_Alt, (qualifiers & QUAL_ALT )!= 0);
@@ -526,15 +607,52 @@ static ImGuiKey SDL2KeyEventToImGuiKey(SDL_Keycode keycode, SDL_Scancode scancod
     bool ImGuiElement::Begin(const String& name, bool* p_open, ImGuiWindowFlags flags)
     {
         imguiActiveWindowName_ = name;
+        ImGui::SetCurrentContext(imguiContext_);
         flags |= ImGuiWindowFlags_NoMove| ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoResize;
+        if(resizable_ == true)
+        {
+            flags &= ~ImGuiWindowFlags_NoResize;
+        }
+        if(movable_)
+        {
+            flags &= ~ImGuiWindowFlags_NoMove;
+        }
+        
         return  ImGui::Begin(name.CString(), p_open, flags);
     }
 
+    bool ImGuiElement::Begin(const String& name, ImGuiWindowFlags flags)
+    {
+        imguiActiveWindowName_ = name;
+        ImGui::SetCurrentContext(imguiContext_);
+        bool p_open = true;
+        flags |= ImGuiWindowFlags_NoMove| ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoResize;
+        if(resizable_ == true)
+        {
+            flags &= ~ImGuiWindowFlags_NoResize;
+        }
+        if(movable_)
+        {
+            flags &= ~ImGuiWindowFlags_NoMove;
+        }
+        return  ImGui::Begin(name.CString(), &p_open, flags);
+    }
+
+   
     bool ImGuiElement::Begin(const String& name)
     {
         imguiActiveWindowName_ = name;
+        ImGui::SetCurrentContext(imguiContext_);
         bool p_open = true;
         ImGuiWindowFlags flags = ImGuiWindowFlags_NoMove| ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoResize;
+        if(resizable_ == true)
+        {
+            flags &= ~ImGuiWindowFlags_NoResize;
+        }
+        if(movable_)
+        {
+            flags &= ~ImGuiWindowFlags_NoMove;
+        }
         return  ImGui::Begin(name.CString(), &p_open, flags);
     }
 
@@ -560,6 +678,8 @@ static ImGuiKey SDL2KeyEventToImGuiKey(SDL_Keycode keycode, SDL_Scancode scancod
             for (int cmdIdx = 0; cmdIdx < drawList->CmdBuffer.Size; ++cmdIdx)
             {
                 const ImDrawCmd* drawCmd = &drawList->CmdBuffer[cmdIdx];
+                if(drawCmd->ElemCount == 0)continue;
+                
                 if (drawCmd->UserCallback)
                 {
                     //TODO: is there a meaningful use to this?
@@ -758,6 +878,36 @@ static ImGuiKey SDL2KeyEventToImGuiKey(SDL_Keycode keycode, SDL_Scancode scancod
     {
         ImGui::SetCurrentContext(imguiContext_);
         ImGui::SetNextWindowSize(ImVec2((float)size.x_, (float)size.y_));
+    }
+
+    /// Set whether can be moved.
+    /// @property
+    void ImGuiElement::SetMovable(bool enable)
+    {
+        movable_ = enable;
+        if(resizable_ && movable_)
+        {
+            auto parent = GetParent();
+            if(parent)
+            {
+                parent->SetColor(Color::TRANSPARENT_BLACK);
+            }
+        }
+    }
+    /// Set whether can be resized.
+    /// @property
+    void ImGuiElement::SetResizable(bool enable)
+    {
+        resizable_ = enable;
+        
+        if(resizable_ && movable_)
+        {
+            auto parent = GetParent();
+            if(parent)
+            {
+                parent->SetColor(Color::TRANSPARENT_BLACK);
+            }
+        }
     }
 
  

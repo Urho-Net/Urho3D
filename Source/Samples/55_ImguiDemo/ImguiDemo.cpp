@@ -118,23 +118,33 @@ void ImguiDemo::InitControls()
     imGuiElementTool->SetMinHeight(500);
     imGuiElementTool->SetFontSize(20); // that's the default , so only for educational purpose
     imGuiElementTool->SetFontName("Data/Fonts/Anonymous Pro.ttf"); // that's the default , so only for educational purpose
-    imGuiElementTool->SetDemoWindowVisible(true);
+//    imGuiElementTool->SetDemoWindowVisible(true);
     
     // Subscribe to imgui draw event event.
     SubscribeToEvent(imGuiElementTool,E_IMGUI_DRAW, URHO3D_HANDLER(ImguiDemo, HandleImgGuiDraw));
-//    
+  
     imNodeWindow_=   new Window(context_);
     uiRoot_->AddChild(imNodeWindow_);
-    imNodeWindow_->SetMovable(true);
-    window_->SetResizable(true);
-    imNodeWindow_->SetLayout(LM_VERTICAL, 6, IntRect(6, 6, 6, 6));
-    imNodeWindow_->SetPosition(500,500);
-    imNodeWindow_->SetMinSize(800,800);
+    imNodeWindow_->SetLayoutMode(LM_VERTICAL);
+    imNodeWindow_->SetPosition(600,0);
     imNodeElementTool = imNodeWindow_->CreateChild<ImGuiElement>();
+    imNodeElementTool->SetMinSize(800,800);
+    imNodeElementTool->SetMovable(true);
+    imNodeElementTool->SetResizable(true);
+
     SubscribeToEvent(imNodeElementTool,E_IMGUI_DRAW, URHO3D_HANDLER(ImguiDemo, HandleImNodeDraw));
     
     ImNodes::CreateContext();
-    ImNodes::SetNodeGridSpacePos(1, ImVec2(200.0f, 200.0f));
+    
+    ImNodesIO& io = ImNodes::GetIO();
+    io.LinkDetachWithModifierClick.Modifier = &ImGui::GetIO().KeyShift;
+    io.MultipleSelectModifier.Modifier = &ImGui::GetIO().KeyCtrl;
+    
+    ImNodesStyle style =  ImNodes::GetStyle();
+    style.Flags |= ImNodesStyleFlags_GridLinesPrimary |ImNodesStyleFlags_GridSnapping;
+    ImNodes::StyleColorsClassic();
+
+    
     // Apply previously set default style
     checkBox->SetStyleAuto();
     button->SetStyleAuto();
@@ -155,7 +165,7 @@ void ImguiDemo::InitWindow()
 //    window_->SetAlignment(HA_CENTER, VA_CENTER);
     window_->SetName("Window");
     window_->SetMovable(true);
-    window_->SetResizable(true);
+    window_->SetResizable(false);
 
     // Create Window 'titlebar' container
     auto* titleBar = new UIElement(context_);
@@ -384,11 +394,15 @@ void ImguiDemo::HandleImNodeDraw(StringHash, VariantMap& eventData)
     ImGuiElement *imguiElement = (ImGuiElement*)eventData[P_ELEMENT].GetVoidPtr();
     
     // VERY IMPORTANT DON'T CALL ImGui::Begin  , call  ImGuiElement::Begin instead
+
     imguiElement->Begin("imNode Demo window");
     
     ImGui::TextUnformatted("A -- add node");
 
+    
     ImNodes::BeginNodeEditor();
+    
+
 
     if (ImGui::IsWindowFocused(ImGuiFocusedFlags_RootAndChildWindows) &&
         ImNodes::IsEditorHovered() && ImGui::IsKeyReleased(ImGuiKey_A))

@@ -312,12 +312,73 @@ ImGuiElement_GetTouchPadding
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern bool ImGuiElement_Begin0 (IntPtr handle, string name);
+		internal static extern bool ImGuiElement_Begin0 (IntPtr handle, string name, int flags);
+
+		public bool Begin (string name, int flags)
+		{
+			Runtime.ValidateRefCounted (this);
+			return ImGuiElement_Begin0 (handle, name, flags);
+		}
+
+		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+		internal static extern bool ImGuiElement_Begin1 (IntPtr handle, string name);
 
 		public bool Begin (string name)
 		{
 			Runtime.ValidateRefCounted (this);
-			return ImGuiElement_Begin0 (handle, name);
+			return ImGuiElement_Begin1 (handle, name);
+		}
+
+		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+		internal static extern void ImGuiElement_SetMovable (IntPtr handle, bool enable);
+
+		/// <summary>
+		/// Set whether can be moved.
+		/// 
+		/// </summary>
+		private void SetMovable (bool enable)
+		{
+			Runtime.ValidateRefCounted (this);
+			ImGuiElement_SetMovable (handle, enable);
+		}
+
+		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+		internal static extern void ImGuiElement_SetResizable (IntPtr handle, bool enable);
+
+		/// <summary>
+		/// Set whether can be resized.
+		/// 
+		/// </summary>
+		private void SetResizable (bool enable)
+		{
+			Runtime.ValidateRefCounted (this);
+			ImGuiElement_SetResizable (handle, enable);
+		}
+
+		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+		internal static extern bool ImGuiElement_IsMovable (IntPtr handle);
+
+		/// <summary>
+		/// Return whether is movable.
+		/// 
+		/// </summary>
+		private bool IsMovable ()
+		{
+			Runtime.ValidateRefCounted (this);
+			return ImGuiElement_IsMovable (handle);
+		}
+
+		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+		internal static extern bool ImGuiElement_IsResizable (IntPtr handle);
+
+		/// <summary>
+		/// Return whether is resizable.
+		/// 
+		/// </summary>
+		private bool IsResizable ()
+		{
+			Runtime.ValidateRefCounted (this);
+			return ImGuiElement_IsResizable (handle);
 		}
 
 		public override StringHash Type {
@@ -411,6 +472,38 @@ ImGuiElement_GetTouchPadding
 			}
 			set {
 				SetFontName (value);
+			}
+		}
+
+		/// <summary>
+		/// Return whether is movable.
+		/// 
+		/// Or
+		/// Set whether can be moved.
+		/// 
+		/// </summary>
+		public bool Movable {
+			get {
+				return IsMovable ();
+			}
+			set {
+				SetMovable (value);
+			}
+		}
+
+		/// <summary>
+		/// Return whether is resizable.
+		/// 
+		/// Or
+		/// Set whether can be resized.
+		/// 
+		/// </summary>
+		public bool Resizable {
+			get {
+				return IsResizable ();
+			}
+			set {
+				SetResizable (value);
 			}
 		}
 	}

@@ -40697,9 +40697,44 @@ ImGuiElement_Begin (Urho3D::ImGuiElement *_target, const char * name, bool * p_o
 
 
 DllExport int
-ImGuiElement_Begin0 (Urho3D::ImGuiElement *_target, const char * name)
+ImGuiElement_Begin0 (Urho3D::ImGuiElement *_target, const char * name, ImGuiWindowFlags flags)
+{
+	return _target->Begin (Urho3D::String(name), flags);
+}
+
+
+DllExport int
+ImGuiElement_Begin1 (Urho3D::ImGuiElement *_target, const char * name)
 {
 	return _target->Begin (Urho3D::String(name));
+}
+
+
+DllExport void
+ImGuiElement_SetMovable (Urho3D::ImGuiElement *_target, bool enable)
+{
+	_target->SetMovable (enable);
+}
+
+
+DllExport void
+ImGuiElement_SetResizable (Urho3D::ImGuiElement *_target, bool enable)
+{
+	_target->SetResizable (enable);
+}
+
+
+DllExport int
+ImGuiElement_IsMovable (Urho3D::ImGuiElement *_target)
+{
+	return _target->IsMovable ();
+}
+
+
+DllExport int
+ImGuiElement_IsResizable (Urho3D::ImGuiElement *_target)
+{
+	return _target->IsResizable ();
 }
 
 

@@ -37,6 +37,8 @@ namespace Urho3D
         explicit ImGuiElement(Context* context);
         /// Destruct.
         ~ImGuiElement();
+        
+        void HandleElementAdded(StringHash eventType, VariantMap& eventData);
 
         /// Register object factory and properties.
         static void RegisterObject(Context* context);
@@ -82,6 +84,7 @@ namespace Urho3D
         inline String GetFontName() const { return fontName_; }
         
         bool Begin(const String& name, bool* p_open, ImGuiWindowFlags flags);
+        bool Begin(const String& name, ImGuiWindowFlags flags);
         bool Begin(const String& name);
         
         void HandleMouseButtonDown(StringHash eventType, VariantMap& eventData);
@@ -103,6 +106,18 @@ namespace Urho3D
         
         void SetWindowSize(IntVector2 & size);
 
+        /// Set whether can be moved.
+        /// @property
+        void SetMovable(bool enable);
+        /// Set whether can be resized.
+        /// @property
+        void SetResizable(bool enable);
+        /// Return whether is movable.
+        /// @property
+        bool IsMovable() const { return movable_; }
+        /// Return whether is resizable.
+        /// @property
+        bool IsResizable() const { return resizable_; }
     protected:
         /// Creates or acquires the font texture.
         void CreateFontTexture(bool force = false);
@@ -133,6 +148,7 @@ namespace Urho3D
         /// Whether to show the standard ImGui demo or not.
         bool showDemo_ = false;
         
+        bool firstTime = true;
         String imguiActiveWindowName_;
         String fontName_ = "Data/Fonts/Anonymous Pro.ttf";
         
@@ -140,6 +156,9 @@ namespace Urho3D
         /// Last mouse button pressed.
         /// Qualifier keys held down.
         QualifierFlags qualifiers_;
+        bool movable_;
+        /// Resizable flag.
+        bool resizable_;
     };
 
 }
