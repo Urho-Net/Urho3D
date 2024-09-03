@@ -403,9 +403,9 @@ void ImguiDemo::HandleImNodeDraw(StringHash, VariantMap& eventData)
     ImNodes::BeginNodeEditor();
     
 
-
+    
     if (ImGui::IsWindowFocused(ImGuiFocusedFlags_RootAndChildWindows) &&
-        ImNodes::IsEditorHovered() && ImGui::IsKeyReleased(ImGuiKey_A))
+        ((ImNodes::IsEditorHovered() && ImGui::IsKeyReleased(ImGuiKey_A)) || ImGui::IsMouseDoubleClicked(ImGuiMouseButton_Left)))
     {
         const int node_id = ++current_imnode_id;
         ImNodes::SetNodeScreenSpacePos(node_id, ImGui::GetMousePos());

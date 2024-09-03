@@ -47,7 +47,6 @@ namespace Urho3D
         void Update(float timeStep) override;
         /// Constructs UIBatches for rendering from the ImGuiContext's draw data.
         void GetBatches(PODVector<UIBatch>& batches, PODVector<float>& vertexData, const IntRect& currentScissor) override;
-
         /// Records the text for use in the next update.
         void OnTextInput(const String& text) override;
         /// Add a texture for referencing within ImGui.
@@ -159,6 +158,8 @@ namespace Urho3D
         bool movable_;
         /// Resizable flag.
         bool resizable_;
+        static std::vector<ImGuiContext *> allImGuiContexts_;
+        static bool keyboardVisible_;
     };
 
 }

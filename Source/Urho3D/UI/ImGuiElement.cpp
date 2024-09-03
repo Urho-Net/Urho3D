@@ -45,6 +45,9 @@ namespace Urho3D
     const char* IMGUI_FONT_TEXTURE = "IMGUI_FONT_TEXTURE";
     const intptr_t IMGUI_FONT_KEY = -1;
    
+std::vector<ImGuiContext *> ImGuiElement::allImGuiContexts_;
+bool ImGuiElement::keyboardVisible_ = false ;
+
 static ImGuiKey SDL2KeyEventToImGuiKey(SDL_Keycode keycode, SDL_Scancode scancode)
 {
     IM_UNUSED(scancode);
@@ -187,9 +190,9 @@ static ImGuiKey SDL2KeyEventToImGuiKey(SDL_Keycode keycode, SDL_Scancode scancod
         imguiActiveWindowName_ = "";
 
         imguiContext_ = ImGui::CreateContext();
+        allImGuiContexts_.push_back(imguiContext_);
         ImGui::SetCurrentContext(imguiContext_);
         ImGuiIO& io = ImGui::GetIO();
-        
         io.IniFilename = nullptr; // Don't save ini file
         
         CreateFontTexture(true);
@@ -218,7 +221,15 @@ static ImGuiKey SDL2KeyEventToImGuiKey(SDL_Keycode keycode, SDL_Scancode scancod
     {
         if (imguiContext_)
         {
-            //!!! NOTICE: this block will be invalid when [GH issue #1565](https://github.com/ocornut/imgui/issues/1565) makes its' way into the DearImGui trunk
+            
+            // Remove the element using erase function and iterators
+             auto it = std::find(allImGuiContexts_.begin(), allImGuiContexts_.end(),
+                                 imguiContext_);
+           
+             // If element is found found, erase it
+             if (it != allImGuiContexts_.end()) {
+                 allImGuiContexts_.erase(it);
+             }            //!!! NOTICE: this block will be invalid when [GH issue #1565](https://github.com/ocornut/imgui/issues/1565) makes its' way into the DearImGui trunk
             
             // have to shut it down to clear it's context local copy of font data
             ImGui::SetCurrentContext(imguiContext_);
@@ -293,13 +304,14 @@ static ImGuiKey SDL2KeyEventToImGuiKey(SDL_Keycode keycode, SDL_Scancode scancod
 
         // Viewport
         io.DisplaySize = ImVec2(graphics->GetWidth(), graphics->GetHeight());
-        if(input->GetMouseButtonDown(MOUSEB_LEFT) || input->GetNumTouches())
-        {
-            if(IsInside(input->GetMousePosition(), true))
-            {
-                SetFocus(true);
-            }
-        }
+        
+//        if(input->GetMouseButtonDown(MOUSEB_LEFT) || input->GetNumTouches())
+//        {
+//            if(IsInside(input->GetMousePosition(), true))
+//            {
+//                SetFocus(true);
+//            }
+//        }
         
       
         if(imguiContext_->Windows.size()>0 && imguiActiveWindowName_ !="")
@@ -391,19 +403,33 @@ static ImGuiKey SDL2KeyEventToImGuiKey(SDL_Keycode keycode, SDL_Scancode scancod
 
         ImGui::Render();
 
-        if (io.WantTextInput)
+        bool WantTextInput = false;
+        // check if any Imgui window needs keyboad input
+        for (auto element : allImGuiContexts_)
         {
-            if (!HasFocus())
-                SetFocus(true);
-            
-            if (GetSubsystem<UI>()->GetUseScreenKeyboard())
+            if(element->IO.WantTextInput)
+            {
+                WantTextInput = true;
+                break;
+            }
+        }
+        
+        if (WantTextInput)
+        {
+            if (!keyboardVisible_ && GetSubsystem<UI>()->GetUseScreenKeyboard())
+            {
+                keyboardVisible_ = true;
                 GetSubsystem<Input>()->SetScreenKeyboardVisible(true);
+            }
             
         }
-        else // unfocus otherwise
+        else // hide otherwise
         {
-            if (GetSubsystem<UI>()->GetUseScreenKeyboard())
+            if (keyboardVisible_ && GetSubsystem<UI>()->GetUseScreenKeyboard())
+            {
+                keyboardVisible_ = false;
                 GetSubsystem<Input>()->SetScreenKeyboardVisible(false);
+            }
         }
         
         
@@ -411,6 +437,8 @@ static ImGuiKey SDL2KeyEventToImGuiKey(SDL_Keycode keycode, SDL_Scancode scancod
 
     void ImGuiElement::HandleMouseButtonDown(StringHash eventType, VariantMap& eventData)
     {
+        if(!HasFocus())return;
+        
         ImGui::SetCurrentContext(imguiContext_);
         using namespace MouseButtonDown;
         MouseButton button = (MouseButton)(eventData[P_BUTTON].GetUInt());
@@ -437,6 +465,7 @@ static ImGuiKey SDL2KeyEventToImGuiKey(SDL_Keycode keycode, SDL_Scancode scancod
     /// Handle mouse button up event.
     void ImGuiElement::HandleMouseButtonUp(StringHash eventType, VariantMap& eventData)
     {
+//        if(!HasFocus())return;
         ImGui::SetCurrentContext(imguiContext_);
         using namespace MouseButtonUp;
         MouseButton button = (MouseButton)(eventData[P_BUTTON].GetUInt());
@@ -470,6 +499,7 @@ static ImGuiKey SDL2KeyEventToImGuiKey(SDL_Keycode keycode, SDL_Scancode scancod
         UpdateQualifiers(qualifiers_);
         AddMousePosEvent();
     }
+
     /// Handle mouse wheel event.
     void ImGuiElement::HandleMouseWheel(StringHash eventType, VariantMap& eventData)
     {
@@ -493,6 +523,7 @@ static ImGuiKey SDL2KeyEventToImGuiKey(SDL_Keycode keycode, SDL_Scancode scancod
     /// Handle touch begin event.
     void ImGuiElement::HandleTouchBegin(StringHash eventType, VariantMap& eventData)
     {
+        if(!HasFocus())return;
         ImGui::SetCurrentContext(imguiContext_);
         const Input* input = GetSubsystem<Input>();
         float uiSCale =  GetSubsystem<UI>()->GetScale();
@@ -502,6 +533,7 @@ static ImGuiKey SDL2KeyEventToImGuiKey(SDL_Keycode keycode, SDL_Scancode scancod
     /// Handle touch end event.
     void ImGuiElement::HandleTouchEnd(StringHash eventType, VariantMap& eventData)
     {
+        if(!HasFocus())return;
         ImGui::SetCurrentContext(imguiContext_);
         const Input* input = GetSubsystem<Input>();
         float uiSCale =  GetSubsystem<UI>()->GetScale();
@@ -511,6 +543,7 @@ static ImGuiKey SDL2KeyEventToImGuiKey(SDL_Keycode keycode, SDL_Scancode scancod
     /// Handle touch move event.
     void ImGuiElement::HandleTouchMove(StringHash eventType, VariantMap& eventData)
     {
+        if(!HasFocus())return;
         ImGui::SetCurrentContext(imguiContext_);
         const Input* input = GetSubsystem<Input>();
         float uiSCale =  GetSubsystem<UI>()->GetScale();
@@ -519,6 +552,7 @@ static ImGuiKey SDL2KeyEventToImGuiKey(SDL_Keycode keycode, SDL_Scancode scancod
     /// Handle keypress event.
     void ImGuiElement::HandleKeyDown(StringHash eventType, VariantMap& eventData)
     {
+        if(!HasFocus())return;
         ImGui::SetCurrentContext(imguiContext_);
         using namespace KeyDown;
         mouseButtons_ = MouseButtonFlags(eventData[P_BUTTONS].GetUInt());
@@ -532,6 +566,7 @@ static ImGuiKey SDL2KeyEventToImGuiKey(SDL_Keycode keycode, SDL_Scancode scancod
 
     void ImGuiElement::HandleKeyUp(StringHash eventType, VariantMap& eventData)
     {
+//        if(!HasFocus())return;
         ImGui::SetCurrentContext(imguiContext_);
         using namespace KeyUp;
         mouseButtons_ = MouseButtonFlags(eventData[P_BUTTONS].GetUInt());
@@ -559,6 +594,7 @@ static ImGuiKey SDL2KeyEventToImGuiKey(SDL_Keycode keycode, SDL_Scancode scancod
 
     void ImGuiElement::AddMouseButtonEvent(int mouse_button, bool down)
     {
+        if(!HasFocus())return;
         ImGui::SetCurrentContext(imguiContext_);
         ImGuiIO* io = &ImGui::GetIO();
         AddMousePosEvent();
@@ -571,6 +607,7 @@ static ImGuiKey SDL2KeyEventToImGuiKey(SDL_Keycode keycode, SDL_Scancode scancod
 
     void ImGuiElement::AddTouchPosEvent(float x, float y)
     {
+        if(!HasFocus())return;
         ImGui::SetCurrentContext(imguiContext_);
         ImGuiIO* io = &ImGui::GetIO();
 #if (IMGUI_VERSION_NUM >= 18950)
@@ -581,6 +618,7 @@ static ImGuiKey SDL2KeyEventToImGuiKey(SDL_Keycode keycode, SDL_Scancode scancod
 
     void ImGuiElement::AddTouchButtonEvent(int mouse_button, bool down)
     {
+        if(!HasFocus())return;
         ImGui::SetCurrentContext(imguiContext_);
         ImGuiIO* io = &ImGui::GetIO();
 #if (IMGUI_VERSION_NUM >= 18950)
@@ -591,6 +629,7 @@ static ImGuiKey SDL2KeyEventToImGuiKey(SDL_Keycode keycode, SDL_Scancode scancod
 
     void ImGuiElement::AddKeyEvent(ImGuiKey imgui_key, bool down)
     {
+        if(!HasFocus())return;
         ImGui::SetCurrentContext(imguiContext_);
         ImGuiIO* io = &ImGui::GetIO();
         io->AddKeyEvent(imgui_key, down);
@@ -890,7 +929,15 @@ static ImGuiKey SDL2KeyEventToImGuiKey(SDL_Keycode keycode, SDL_Scancode scancod
             auto parent = GetParent();
             if(parent)
             {
-                parent->SetColor(Color::TRANSPARENT_BLACK);
+                parent->SetOpacity(0);
+            }
+        }
+        else
+        {
+            auto parent = GetParent();
+            if(parent)
+            {
+                parent->SetOpacity(1);
             }
         }
     }
@@ -905,7 +952,15 @@ static ImGuiKey SDL2KeyEventToImGuiKey(SDL_Keycode keycode, SDL_Scancode scancod
             auto parent = GetParent();
             if(parent)
             {
-                parent->SetColor(Color::TRANSPARENT_BLACK);
+                parent->SetOpacity(0);
+            }
+        }
+        else
+        {
+            auto parent = GetParent();
+            if(parent)
+            {
+                parent->SetOpacity(1);
             }
         }
     }
