@@ -245,15 +245,14 @@ CIMGUI_API void imnodes_SaveCurrentEditorStateToIniFile(const char* file_name);
 CIMGUI_API void imnodes_SaveEditorStateToIniFile(const ImNodesEditorContext* editor,const char* file_name);
 CIMGUI_API void imnodes_LoadCurrentEditorStateFromIniFile(const char* file_name);
 CIMGUI_API void imnodes_LoadEditorStateFromIniFile(ImNodesEditorContext* editor,const char* file_name);
+CIMGUI_API ImGuiContext* imnodes_GetNodeEditorImGuiContext(void);
+CIMGUI_API float imnodes_EditorContextGetZoom(void);
+CIMGUI_API void imnodes_EditorContextSetZoom(float zoom_scale,ImVec2 zoom_center);
+CIMGUI_API void imnodes_AppendDrawData(ImDrawList* src,ImVec2 origin,float scale);
 
 
 //needed for io.link_detach_with_modifier_click.modifier = &ImGui::GetIO().KeyCtrl
 CIMGUI_API bool* getIOKeyCtrlPtr();
-
-
-CIMGUI_API float imnodes_EditorContextGetZoom(void);
-CIMGUI_API void imnodes_EditorContextSetZoom(float zoom_scale, ImVec2 zoom_center);
-
 
 #endif //CIMNODES_INCLUDED
 
