@@ -4656,7 +4656,6 @@ namespace ImGuiNET
         {
             ImGuiNative.igDestroyContext(ctx);
         }
-        
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP2_1_OR_GREATER
         public static bool DragFloat(ReadOnlySpan<char> label, ref float v)
         {
@@ -12450,7 +12449,6 @@ namespace ImGuiNET
         {
             ImGuiNative.igEndTooltip();
         }
-
         public static void GetAllocatorFunctions(ref IntPtr p_alloc_func, ref IntPtr p_free_func, ref void* p_user_data)
         {
             fixed (IntPtr* native_p_alloc_func = &p_alloc_func)
@@ -12463,6 +12461,11 @@ namespace ImGuiNET
                     }
                 }
             }
+        }
+        public static ImDrawListPtr GetBackgroundDrawList()
+        {
+            ImDrawList* ret = ImGuiNative.igGetBackgroundDrawList_Nil();
+            return new ImDrawListPtr(ret);
         }
         public static string GetClipboardText()
         {
@@ -12600,14 +12603,7 @@ namespace ImGuiNET
         }
         public static ImDrawListPtr GetForegroundDrawList()
         {
-            ImGuiViewport* viewport = null;
-            ImDrawList* ret = ImGuiNative.igGetForegroundDrawList_ViewportPtr(viewport);
-            return new ImDrawListPtr(ret);
-        }
-        public static ImDrawListPtr GetForegroundDrawList(ImGuiViewportPtr viewport)
-        {
-            ImGuiViewport* native_viewport = viewport.NativePtr;
-            ImDrawList* ret = ImGuiNative.igGetForegroundDrawList_ViewportPtr(native_viewport);
+            ImDrawList* ret = ImGuiNative.igGetForegroundDrawList_Nil();
             return new ImDrawListPtr(ret);
         }
         public static int GetFrameCount()
@@ -12843,7 +12839,6 @@ namespace ImGuiNET
             byte* ret = ImGuiNative.igGetVersion();
             return Util.StringFromPtr(ret);
         }
-        
         public static ImDrawListPtr GetWindowDrawList()
         {
             ImDrawList* ret = ImGuiNative.igGetWindowDrawList();
@@ -21262,7 +21257,6 @@ namespace ImGuiNET
             void* native_custom_callback_data = (void*)custom_callback_data.ToPointer();
             ImGuiNative.igSetNextWindowSizeConstraints(size_min, size_max, custom_callback, native_custom_callback_data);
         }
-
         public static void SetScrollFromPosX(float local_x)
         {
             float center_x_ratio = 0.5f;

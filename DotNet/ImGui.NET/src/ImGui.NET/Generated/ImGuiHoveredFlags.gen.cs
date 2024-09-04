@@ -8,7 +8,6 @@ namespace ImGuiNET
         RootWindow = 2,
         AnyWindow = 4,
         NoPopupHierarchy = 8,
-        DockHierarchy = 16,
         AllowWhenBlockedByPopup = 32,
         AllowWhenBlockedByActiveItem = 128,
         AllowWhenOverlappedByItem = 256,

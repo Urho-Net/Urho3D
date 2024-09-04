@@ -17,6 +17,21 @@ namespace imnodesNET
         {
             imnodesNative.imnodes_EditorContextSetZoom( zoom_scale,  zoom_center);
         }
+
+        public static IntPtr CreateContext()
+        {
+            return  imnodesNative.imnodes_CreateContext();
+        }
+
+        public static void DestroyContext(IntPtr ctx)
+        {
+            imnodesNative.imnodes_DestroyContext( ctx);
+        }
+        
+        public static void SnapNodeToGrid(int node_id)
+        {
+            imnodesNative.imnodes_SnapNodeToGrid(node_id);
+        }
     }
 
 }

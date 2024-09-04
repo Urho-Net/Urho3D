@@ -23,7 +23,6 @@ namespace ImGuiNET
         NoNavInputs = 65536,
         NoNavFocus = 131072,
         UnsavedDocument = 262144,
-        NoDocking = 524288,
         NoNav = 196608,
         NoDecoration = 43,
         NoInputs = 197120,
@@ -32,6 +31,5 @@ namespace ImGuiNET
         Popup = 67108864,
         Modal = 134217728,
         ChildMenu = 268435456,
-        DockNodeHost = 536870912,
     }
 }

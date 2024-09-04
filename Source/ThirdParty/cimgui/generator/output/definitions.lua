@@ -19712,7 +19712,7 @@ defs["igImRsqrt"][1]["call_args"] = "(x)"
 defs["igImRsqrt"][1]["cimguiname"] = "igImRsqrt"
 defs["igImRsqrt"][1]["defaults"] = {}
 defs["igImRsqrt"][1]["funcname"] = "ImRsqrt"
-defs["igImRsqrt"][1]["location"] = "imgui_internal:464"
+defs["igImRsqrt"][1]["location"] = "imgui_internal:462"
 defs["igImRsqrt"][1]["ov_cimguiname"] = "igImRsqrt_Float"
 defs["igImRsqrt"][1]["ret"] = "float"
 defs["igImRsqrt"][1]["signature"] = "(float)"
@@ -23723,7 +23723,7 @@ defs["igPlotHistogram"][1]["argsT"][8]["type"] = "ImVec2"
 defs["igPlotHistogram"][1]["argsT"][9] = {}
 defs["igPlotHistogram"][1]["argsT"][9]["name"] = "stride"
 defs["igPlotHistogram"][1]["argsT"][9]["type"] = "int"
-defs["igPlotHistogram"][1]["argsoriginal"] = "(const char* label,const float* values,int values_count,int values_offset=0,const char* overlay_text=((void*)0),float scale_min=3.40282346638528859811704183484516925e+38F,float scale_max=3.40282346638528859811704183484516925e+38F,ImVec2 graph_size=ImVec2(0,0),int stride=sizeof(float))"
+defs["igPlotHistogram"][1]["argsoriginal"] = "(const char* label,const float* values,int values_count,int values_offset=0,const char* overlay_text=((void*)0),float scale_min=3.40282347e+38F,float scale_max=3.40282347e+38F,ImVec2 graph_size=ImVec2(0,0),int stride=sizeof(float))"
 defs["igPlotHistogram"][1]["call_args"] = "(label,values,values_count,values_offset,overlay_text,scale_min,scale_max,graph_size,stride)"
 defs["igPlotHistogram"][1]["cimguiname"] = "igPlotHistogram"
 defs["igPlotHistogram"][1]["defaults"] = {}
@@ -23772,7 +23772,7 @@ defs["igPlotHistogram"][2]["argsT"][8]["type"] = "float"
 defs["igPlotHistogram"][2]["argsT"][9] = {}
 defs["igPlotHistogram"][2]["argsT"][9]["name"] = "graph_size"
 defs["igPlotHistogram"][2]["argsT"][9]["type"] = "ImVec2"
-defs["igPlotHistogram"][2]["argsoriginal"] = "(const char* label,float(*values_getter)(void* data,int idx),void* data,int values_count,int values_offset=0,const char* overlay_text=((void*)0),float scale_min=3.40282346638528859811704183484516925e+38F,float scale_max=3.40282346638528859811704183484516925e+38F,ImVec2 graph_size=ImVec2(0,0))"
+defs["igPlotHistogram"][2]["argsoriginal"] = "(const char* label,float(*values_getter)(void* data,int idx),void* data,int values_count,int values_offset=0,const char* overlay_text=((void*)0),float scale_min=3.40282347e+38F,float scale_max=3.40282347e+38F,ImVec2 graph_size=ImVec2(0,0))"
 defs["igPlotHistogram"][2]["call_args"] = "(label,values_getter,data,values_count,values_offset,overlay_text,scale_min,scale_max,graph_size)"
 defs["igPlotHistogram"][2]["cimguiname"] = "igPlotHistogram"
 defs["igPlotHistogram"][2]["defaults"] = {}
@@ -23821,7 +23821,7 @@ defs["igPlotLines"][1]["argsT"][8]["type"] = "ImVec2"
 defs["igPlotLines"][1]["argsT"][9] = {}
 defs["igPlotLines"][1]["argsT"][9]["name"] = "stride"
 defs["igPlotLines"][1]["argsT"][9]["type"] = "int"
-defs["igPlotLines"][1]["argsoriginal"] = "(const char* label,const float* values,int values_count,int values_offset=0,const char* overlay_text=((void*)0),float scale_min=3.40282346638528859811704183484516925e+38F,float scale_max=3.40282346638528859811704183484516925e+38F,ImVec2 graph_size=ImVec2(0,0),int stride=sizeof(float))"
+defs["igPlotLines"][1]["argsoriginal"] = "(const char* label,const float* values,int values_count,int values_offset=0,const char* overlay_text=((void*)0),float scale_min=3.40282347e+38F,float scale_max=3.40282347e+38F,ImVec2 graph_size=ImVec2(0,0),int stride=sizeof(float))"
 defs["igPlotLines"][1]["call_args"] = "(label,values,values_count,values_offset,overlay_text,scale_min,scale_max,graph_size,stride)"
 defs["igPlotLines"][1]["cimguiname"] = "igPlotLines"
 defs["igPlotLines"][1]["defaults"] = {}
@@ -23870,7 +23870,7 @@ defs["igPlotLines"][2]["argsT"][8]["type"] = "float"
 defs["igPlotLines"][2]["argsT"][9] = {}
 defs["igPlotLines"][2]["argsT"][9]["name"] = "graph_size"
 defs["igPlotLines"][2]["argsT"][9]["type"] = "ImVec2"
-defs["igPlotLines"][2]["argsoriginal"] = "(const char* label,float(*values_getter)(void* data,int idx),void* data,int values_count,int values_offset=0,const char* overlay_text=((void*)0),float scale_min=3.40282346638528859811704183484516925e+38F,float scale_max=3.40282346638528859811704183484516925e+38F,ImVec2 graph_size=ImVec2(0,0))"
+defs["igPlotLines"][2]["argsoriginal"] = "(const char* label,float(*values_getter)(void* data,int idx),void* data,int values_count,int values_offset=0,const char* overlay_text=((void*)0),float scale_min=3.40282347e+38F,float scale_max=3.40282347e+38F,ImVec2 graph_size=ImVec2(0,0))"
 defs["igPlotLines"][2]["call_args"] = "(label,values_getter,data,values_count,values_offset,overlay_text,scale_min,scale_max,graph_size)"
 defs["igPlotLines"][2]["cimguiname"] = "igPlotLines"
 defs["igPlotLines"][2]["defaults"] = {}
@@ -24069,7 +24069,7 @@ defs["igProgressBar"][1]["argsT"][2]["type"] = "const ImVec2"
 defs["igProgressBar"][1]["argsT"][3] = {}
 defs["igProgressBar"][1]["argsT"][3]["name"] = "overlay"
 defs["igProgressBar"][1]["argsT"][3]["type"] = "const char*"
-defs["igProgressBar"][1]["argsoriginal"] = "(float fraction,const ImVec2& size_arg=ImVec2(-1.17549435082228750796873653722224568e-38F,0),const char* overlay=((void*)0))"
+defs["igProgressBar"][1]["argsoriginal"] = "(float fraction,const ImVec2& size_arg=ImVec2(-1.17549435e-38F,0),const char* overlay=((void*)0))"
 defs["igProgressBar"][1]["call_args"] = "(fraction,size_arg,overlay)"
 defs["igProgressBar"][1]["cimguiname"] = "igProgressBar"
 defs["igProgressBar"][1]["defaults"] = {}
