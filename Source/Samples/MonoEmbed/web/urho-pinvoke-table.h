@@ -4628,6 +4628,12 @@ void ImGuiElement_SetFontSize (int,int);
 void ImGuiElement_SetFontName (int,int);
 int ImGuiElement_GetFontName (int);
 int ImGuiElement_Begin (int,int,int,int);
+int ImGuiElement_Begin0 (int,int,int);
+int ImGuiElement_Begin1 (int,int);
+void ImGuiElement_SetMovable (int,int);
+void ImGuiElement_SetResizable (int,int);
+int ImGuiElement_IsMovable (int);
+int ImGuiElement_IsResizable (int);
 int LineEdit_GetType (int);
 int LineEdit_GetTypeName (int);
 int LineEdit_GetTypeStatic ();
@@ -11002,6 +11008,12 @@ static PinvokeImport Urho3D_imports [] = {
 {"ImGuiElement_SetFontName", ImGuiElement_SetFontName},
 {"ImGuiElement_GetFontName", ImGuiElement_GetFontName},
 {"ImGuiElement_Begin", ImGuiElement_Begin},
+{"ImGuiElement_Begin0", ImGuiElement_Begin0},
+{"ImGuiElement_Begin1", ImGuiElement_Begin1},
+{"ImGuiElement_SetMovable", ImGuiElement_SetMovable},
+{"ImGuiElement_SetResizable", ImGuiElement_SetResizable},
+{"ImGuiElement_IsMovable", ImGuiElement_IsMovable},
+{"ImGuiElement_IsResizable", ImGuiElement_IsResizable},
 {"LineEdit_GetType", LineEdit_GetType},
 {"LineEdit_GetTypeName", LineEdit_GetTypeName},
 {"LineEdit_GetTypeStatic", LineEdit_GetTypeStatic},

@@ -36,6 +36,8 @@
 #include "../UI/Window.h"
 #include "../UI/ImGuiEvents.h"
 #include <imgui/imgui.h>
+#include <imgui/imgui_internal.h>
+#include <vector>
 
 namespace Urho3D
 {
