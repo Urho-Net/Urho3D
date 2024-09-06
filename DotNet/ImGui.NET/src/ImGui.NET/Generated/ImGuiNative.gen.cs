@@ -99,7 +99,7 @@ namespace ImGuiNET
         [DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
         public static extern byte igColorPicker4(byte* label, Vector4* col, ImGuiColorEditFlags flags, float* ref_col);
         [DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void igColumns(int count, byte* id, byte border);
+        public static extern void igColumns(int count, byte* id, byte borders);
         [DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
         public static extern byte igCombo_Str_arr(byte* label, int* current_item, byte** items, int items_count, int popup_max_height_in_items);
         [DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
@@ -118,6 +118,12 @@ namespace ImGuiNET
         public static extern void igDebugTextEncoding(byte* text);
         [DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
         public static extern void igDestroyContext(IntPtr ctx);
+        [DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+        public static extern void igDestroyPlatformWindows();
+        [DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+        public static extern uint igDockSpace(uint dockspace_id, Vector2 size, ImGuiDockNodeFlags flags, ImGuiWindowClass* window_class);
+        [DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+        public static extern uint igDockSpaceOverViewport(uint dockspace_id, ImGuiViewport* viewport, ImGuiDockNodeFlags flags, ImGuiWindowClass* window_class);
         [DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
         public static extern byte igDragFloat(byte* label, float* v, float v_speed, float v_min, float v_max, byte* format, ImGuiSliderFlags flags);
         [DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
@@ -181,9 +187,13 @@ namespace ImGuiNET
         [DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
         public static extern void igEndTooltip();
         [DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+        public static extern ImGuiViewport* igFindViewportByID(uint id);
+        [DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+        public static extern ImGuiViewport* igFindViewportByPlatformHandle(void* platform_handle);
+        [DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
         public static extern void igGetAllocatorFunctions(IntPtr* p_alloc_func, IntPtr* p_free_func, void** p_user_data);
         [DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-        public static extern ImDrawList* igGetBackgroundDrawList_Nil();
+        public static extern ImDrawList* igGetBackgroundDrawList(ImGuiViewport* viewport);
         [DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
         public static extern byte* igGetClipboardText();
         [DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
@@ -227,7 +237,7 @@ namespace ImGuiNET
         [DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
         public static extern void igGetFontTexUvWhitePixel(Vector2* pOut);
         [DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-        public static extern ImDrawList* igGetForegroundDrawList_Nil();
+        public static extern ImDrawList* igGetForegroundDrawList_ViewportPtr(ImGuiViewport* viewport);
         [DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
         public static extern int igGetFrameCount();
         [DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
@@ -269,6 +279,8 @@ namespace ImGuiNET
         [DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
         public static extern void igGetMousePosOnOpeningCurrentPopup(Vector2* pOut);
         [DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+        public static extern ImGuiPlatformIO* igGetPlatformIO();
+        [DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
         public static extern float igGetScrollMaxX();
         [DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
         public static extern float igGetScrollMaxY();
@@ -295,6 +307,10 @@ namespace ImGuiNET
         [DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
         public static extern byte* igGetVersion();
         [DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+        public static extern uint igGetWindowDockID();
+        [DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+        public static extern float igGetWindowDpiScale();
+        [DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
         public static extern ImDrawList* igGetWindowDrawList();
         [DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
         public static extern float igGetWindowHeight();
@@ -302,6 +318,8 @@ namespace ImGuiNET
         public static extern void igGetWindowPos(Vector2* pOut);
         [DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
         public static extern void igGetWindowSize(Vector2* pOut);
+        [DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+        public static extern ImGuiViewport* igGetWindowViewport();
         [DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
         public static extern float igGetWindowWidth();
         [DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
@@ -403,6 +421,8 @@ namespace ImGuiNET
         [DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
         public static extern byte igIsWindowCollapsed();
         [DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+        public static extern byte igIsWindowDocked();
+        [DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
         public static extern byte igIsWindowFocused(ImGuiFocusedFlags flags);
         [DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
         public static extern byte igIsWindowHovered(ImGuiHoveredFlags flags);
@@ -493,6 +513,10 @@ namespace ImGuiNET
         [DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
         public static extern void igPushStyleVar_Vec2(ImGuiStyleVar idx, Vector2 val);
         [DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+        public static extern void igPushStyleVarX(ImGuiStyleVar idx, float val_x);
+        [DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+        public static extern void igPushStyleVarY(ImGuiStyleVar idx, float val_y);
+        [DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
         public static extern void igPushTextWrapPos(float wrap_local_pos_x);
         [DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
         public static extern byte igRadioButton_Bool(byte* label, byte active);
@@ -500,6 +524,8 @@ namespace ImGuiNET
         public static extern byte igRadioButton_IntPtr(byte* label, int* v, int v_button);
         [DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
         public static extern void igRender();
+        [DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+        public static extern void igRenderPlatformWindowsDefault(void* platform_render_arg, void* renderer_render_arg);
         [DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
         public static extern void igResetMouseDragDelta(ImGuiMouseButton button);
         [DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
@@ -567,9 +593,13 @@ namespace ImGuiNET
         [DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
         public static extern void igSetNextWindowBgAlpha(float alpha);
         [DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+        public static extern void igSetNextWindowClass(ImGuiWindowClass* window_class);
+        [DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
         public static extern void igSetNextWindowCollapsed(byte collapsed, ImGuiCond cond);
         [DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
         public static extern void igSetNextWindowContentSize(Vector2 size);
+        [DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+        public static extern void igSetNextWindowDockID(uint dock_id, ImGuiCond cond);
         [DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
         public static extern void igSetNextWindowFocus();
         [DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
@@ -580,6 +610,8 @@ namespace ImGuiNET
         public static extern void igSetNextWindowSize(Vector2 size, ImGuiCond cond);
         [DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
         public static extern void igSetNextWindowSizeConstraints(Vector2 size_min, Vector2 size_max, ImGuiSizeCallback custom_callback, void* custom_callback_data);
+        [DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+        public static extern void igSetNextWindowViewport(uint viewport_id);
         [DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
         public static extern void igSetScrollFromPosX_Float(float local_x, float center_x_ratio);
         [DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
@@ -739,6 +771,8 @@ namespace ImGuiNET
         [DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
         public static extern void igUnindent(float indent_w);
         [DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+        public static extern void igUpdatePlatformWindows();
+        [DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
         public static extern void igValue_Bool(byte* prefix, byte b);
         [DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
         public static extern void igValue_Int(byte* prefix, int v);
@@ -804,6 +838,8 @@ namespace ImGuiNET
         public static extern void ImDrawList__PopUnusedDrawCmd(ImDrawList* self);
         [DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
         public static extern void ImDrawList__ResetForNewFrame(ImDrawList* self);
+        [DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+        public static extern void ImDrawList__SetTextureID(ImDrawList* self, IntPtr texture_id);
         [DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
         public static extern void ImDrawList__TryMergeDrawCmds(ImDrawList* self);
         [DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
@@ -1101,6 +1137,8 @@ namespace ImGuiNET
         [DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
         public static extern void ImGuiIO_AddMouseSourceEvent(ImGuiIO* self, ImGuiMouseSource source);
         [DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+        public static extern void ImGuiIO_AddMouseViewportEvent(ImGuiIO* self, uint id);
+        [DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
         public static extern void ImGuiIO_AddMouseWheelEvent(ImGuiIO* self, float wheel_x, float wheel_y);
         [DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
         public static extern void ImGuiIO_ClearEventsQueue(ImGuiIO* self);
@@ -1152,6 +1190,14 @@ namespace ImGuiNET
         public static extern void ImGuiPlatformImeData_destroy(ImGuiPlatformImeData* self);
         [DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
         public static extern ImGuiPlatformImeData* ImGuiPlatformImeData_ImGuiPlatformImeData();
+        [DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+        public static extern void ImGuiPlatformIO_destroy(ImGuiPlatformIO* self);
+        [DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+        public static extern ImGuiPlatformIO* ImGuiPlatformIO_ImGuiPlatformIO();
+        [DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+        public static extern void ImGuiPlatformMonitor_destroy(ImGuiPlatformMonitor* self);
+        [DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+        public static extern ImGuiPlatformMonitor* ImGuiPlatformMonitor_ImGuiPlatformMonitor();
         [DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
         public static extern void ImGuiSelectionBasicStorage_ApplyRequests(ImGuiSelectionBasicStorage* self, ImGuiMultiSelectIO* ms_io);
         [DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
@@ -1282,6 +1328,10 @@ namespace ImGuiNET
         public static extern void ImGuiViewport_GetWorkCenter(Vector2* pOut, ImGuiViewport* self);
         [DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
         public static extern ImGuiViewport* ImGuiViewport_ImGuiViewport();
+        [DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+        public static extern void ImGuiWindowClass_destroy(ImGuiWindowClass* self);
+        [DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+        public static extern ImGuiWindowClass* ImGuiWindowClass_ImGuiWindowClass();
         [DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
         public static extern void ImVec2_destroy(Vector2* self);
         [DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]

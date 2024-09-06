@@ -118,7 +118,9 @@ void ImguiDemo::InitControls()
     imGuiElementTool->SetMinHeight(500);
     imGuiElementTool->SetFontSize(20); // that's the default , so only for educational purpose
     imGuiElementTool->SetFontName("Data/Fonts/Anonymous Pro.ttf"); // that's the default , so only for educational purpose
-//    imGuiElementTool->SetDemoWindowVisible(true);
+    imGuiElementTool->SetDemoWindowVisible(true);
+    
+    ImGui::GetIO().ConfigFlags |= ImGuiConfigFlags_DockingEnable;
     
     // Subscribe to imgui draw event event.
     SubscribeToEvent(imGuiElementTool,E_IMGUI_DRAW, URHO3D_HANDLER(ImguiDemo, HandleImgGuiDraw));
@@ -341,6 +343,7 @@ void ImguiDemo::HandleUpdate(StringHash, VariantMap& eventData)
 }
 
 
+static float some_value = 0;
 void ImguiDemo::HandleImgGuiDraw(StringHash, VariantMap& eventData)
 {
   
@@ -405,7 +408,7 @@ void ImguiDemo::HandleImNodeDraw(StringHash, VariantMap& eventData)
 
     
     if (ImGui::IsWindowFocused(ImGuiFocusedFlags_RootAndChildWindows) &&
-        ((ImNodes::IsEditorHovered() && ImGui::IsKeyReleased(ImGuiKey_A)) || ImGui::IsMouseDoubleClicked(ImGuiMouseButton_Left)))
+        ((ImNodes::IsEditorHovered() && ImGui::IsKeyReleased(ImGuiKey_A)) /*|| ImGui::IsMouseDoubleClicked(ImGuiMouseButton_Left)*/))
     {
         const int node_id = ++current_imnode_id;
         ImNodes::SetNodeScreenSpacePos(node_id, ImGui::GetMousePos());
@@ -428,6 +431,7 @@ void ImguiDemo::HandleImNodeDraw(StringHash, VariantMap& eventData)
         ImNodes::BeginStaticAttribute(node.id << 16);
         ImGui::PushItemWidth(120.0f);
         ImGui::DragFloat("value", &node.value, 0.01f);
+        ImGui::DragFloat("value2", &some_value, 0.01f);
         ImGui::PopItemWidth();
         ImNodes::EndStaticAttribute();
 

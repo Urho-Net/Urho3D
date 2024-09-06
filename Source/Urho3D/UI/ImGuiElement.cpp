@@ -439,7 +439,7 @@ static ImGuiKey SDL2KeyEventToImGuiKey(SDL_Keycode keycode, SDL_Scancode scancod
 
     void ImGuiElement::HandleMouseButtonDown(StringHash eventType, VariantMap& eventData)
     {
-        if(!HasFocus())return;
+      // TBD ELI  if(!HasFocus())return;
         
         ImGui::SetCurrentContext(imguiContext_);
         using namespace MouseButtonDown;
@@ -467,7 +467,7 @@ static ImGuiKey SDL2KeyEventToImGuiKey(SDL_Keycode keycode, SDL_Scancode scancod
     /// Handle mouse button up event.
     void ImGuiElement::HandleMouseButtonUp(StringHash eventType, VariantMap& eventData)
     {
-//        if(!HasFocus())return;
+// TBD ELI       if(!HasFocus())return;
         ImGui::SetCurrentContext(imguiContext_);
         using namespace MouseButtonUp;
         MouseButton button = (MouseButton)(eventData[P_BUTTON].GetUInt());
@@ -525,27 +525,27 @@ static ImGuiKey SDL2KeyEventToImGuiKey(SDL_Keycode keycode, SDL_Scancode scancod
     /// Handle touch begin event.
     void ImGuiElement::HandleTouchBegin(StringHash eventType, VariantMap& eventData)
     {
-        if(!HasFocus())return;
+          // TBD ELI  if(!HasFocus())return;
         ImGui::SetCurrentContext(imguiContext_);
         const Input* input = GetSubsystem<Input>();
         float uiSCale =  GetSubsystem<UI>()->GetScale();
         AddTouchPosEvent(input->GetTouch(0)->position_.x_/uiSCale, input->GetTouch(0)->position_.y_/uiSCale);
-        AddTouchButtonEvent(0,true);
+        AddTouchButtonEvent(ImGuiMouseButton_Left,true);
     }
     /// Handle touch end event.
     void ImGuiElement::HandleTouchEnd(StringHash eventType, VariantMap& eventData)
     {
-        if(!HasFocus())return;
+           // TBD ELI  if(!HasFocus())return;
         ImGui::SetCurrentContext(imguiContext_);
         const Input* input = GetSubsystem<Input>();
         float uiSCale =  GetSubsystem<UI>()->GetScale();
         AddTouchPosEvent(input->GetTouch(0)->position_.x_/uiSCale, input->GetTouch(0)->position_.y_/uiSCale);
-        AddTouchButtonEvent(0,false);
+        AddTouchButtonEvent(ImGuiMouseButton_Left,false);
     }
     /// Handle touch move event.
     void ImGuiElement::HandleTouchMove(StringHash eventType, VariantMap& eventData)
     {
-        if(!HasFocus())return;
+            // TBD ELI if(!HasFocus())return;
         ImGui::SetCurrentContext(imguiContext_);
         const Input* input = GetSubsystem<Input>();
         float uiSCale =  GetSubsystem<UI>()->GetScale();
@@ -554,7 +554,7 @@ static ImGuiKey SDL2KeyEventToImGuiKey(SDL_Keycode keycode, SDL_Scancode scancod
     /// Handle keypress event.
     void ImGuiElement::HandleKeyDown(StringHash eventType, VariantMap& eventData)
     {
-        if(!HasFocus())return;
+           // TBD ELI  if(!HasFocus())return;
         ImGui::SetCurrentContext(imguiContext_);
         using namespace KeyDown;
         mouseButtons_ = MouseButtonFlags(eventData[P_BUTTONS].GetUInt());
@@ -568,7 +568,7 @@ static ImGuiKey SDL2KeyEventToImGuiKey(SDL_Keycode keycode, SDL_Scancode scancod
 
     void ImGuiElement::HandleKeyUp(StringHash eventType, VariantMap& eventData)
     {
-//        if(!HasFocus())return;
+//     TBD ELI   if(!HasFocus())return;
         ImGui::SetCurrentContext(imguiContext_);
         using namespace KeyUp;
         mouseButtons_ = MouseButtonFlags(eventData[P_BUTTONS].GetUInt());
@@ -596,7 +596,7 @@ static ImGuiKey SDL2KeyEventToImGuiKey(SDL_Keycode keycode, SDL_Scancode scancod
 
     void ImGuiElement::AddMouseButtonEvent(int mouse_button, bool down)
     {
-        if(!HasFocus())return;
+            // TBD ELI if(!HasFocus())return;
         ImGui::SetCurrentContext(imguiContext_);
         ImGuiIO* io = &ImGui::GetIO();
         AddMousePosEvent();
@@ -609,7 +609,7 @@ static ImGuiKey SDL2KeyEventToImGuiKey(SDL_Keycode keycode, SDL_Scancode scancod
 
     void ImGuiElement::AddTouchPosEvent(float x, float y)
     {
-        if(!HasFocus())return;
+          // TBD ELI   if(!HasFocus())return;
         ImGui::SetCurrentContext(imguiContext_);
         ImGuiIO* io = &ImGui::GetIO();
 #if (IMGUI_VERSION_NUM >= 18950)
@@ -620,7 +620,7 @@ static ImGuiKey SDL2KeyEventToImGuiKey(SDL_Keycode keycode, SDL_Scancode scancod
 
     void ImGuiElement::AddTouchButtonEvent(int mouse_button, bool down)
     {
-        if(!HasFocus())return;
+          // TBD ELI   if(!HasFocus())return;
         ImGui::SetCurrentContext(imguiContext_);
         ImGuiIO* io = &ImGui::GetIO();
 #if (IMGUI_VERSION_NUM >= 18950)
@@ -631,7 +631,7 @@ static ImGuiKey SDL2KeyEventToImGuiKey(SDL_Keycode keycode, SDL_Scancode scancod
 
     void ImGuiElement::AddKeyEvent(ImGuiKey imgui_key, bool down)
     {
-        if(!HasFocus())return;
+          // TBD ELI   if(!HasFocus())return;
         ImGui::SetCurrentContext(imguiContext_);
         ImGuiIO* io = &ImGui::GetIO();
         io->AddKeyEvent(imgui_key, down);

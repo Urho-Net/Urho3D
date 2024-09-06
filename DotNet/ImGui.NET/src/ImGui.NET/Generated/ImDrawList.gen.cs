@@ -83,6 +83,10 @@ namespace ImGuiNET
         {
             ImGuiNative.ImDrawList__ResetForNewFrame((ImDrawList*)(NativePtr));
         }
+        public void _SetTextureID(IntPtr texture_id)
+        {
+            ImGuiNative.ImDrawList__SetTextureID((ImDrawList*)(NativePtr), texture_id);
+        }
         public void _TryMergeDrawCmds()
         {
             ImGuiNative.ImDrawList__TryMergeDrawCmds((ImDrawList*)(NativePtr));

@@ -28,5 +28,9 @@ namespace ImGuiNET
         public ref Vector2 WorkSize => ref Unsafe.AsRef<Vector2>(&NativePtr->WorkSize);
         public ref float DpiScale => ref Unsafe.AsRef<float>(&NativePtr->DpiScale);
         public IntPtr PlatformHandle { get => (IntPtr)NativePtr->PlatformHandle; set => NativePtr->PlatformHandle = (void*)value; }
+        public void Destroy()
+        {
+            ImGuiNative.ImGuiPlatformMonitor_destroy((ImGuiPlatformMonitor*)(NativePtr));
+        }
     }
 }

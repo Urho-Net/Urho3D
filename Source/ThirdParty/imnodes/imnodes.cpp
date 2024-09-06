@@ -2297,13 +2297,13 @@ void BeginNodeEditor()
         ImVec2 canvas_size = ImGui::GetContentRegionAvail();
         GImNodes->CanvasOriginalOrigin = ImGui::GetCursorScreenPos();
         GImNodes->OriginalImgCtx = ImGui::GetCurrentContext();
-
+        
         // Copy config settings in IO from main context, avoiding input fields
         memcpy(
             (void*)&GImNodes->NodeEditorImgCtx->IO,
             (void*)&GImNodes->OriginalImgCtx->IO,
-            offsetof(ImGuiIO, PlatformSetImeDataFn) +
-                sizeof(GImNodes->OriginalImgCtx->IO.PlatformSetImeDataFn));
+            offsetof(ImGuiPlatformIO, Platform_SetImeDataFn) +
+                sizeof(GImNodes->OriginalImgCtx->PlatformIO.Platform_SetImeDataFn));
 
         GImNodes->NodeEditorImgCtx->IO.BackendPlatformUserData = nullptr;
         GImNodes->NodeEditorImgCtx->IO.BackendRendererUserData = nullptr;
