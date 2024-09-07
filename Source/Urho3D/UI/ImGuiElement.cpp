@@ -47,7 +47,9 @@ namespace Urho3D
     const char* IMGUI_FONT_TEXTURE = "IMGUI_FONT_TEXTURE";
     const intptr_t IMGUI_FONT_KEY = -1;
    
+ImGuiMultiContextCompositor ImGuiElement::imguiMultiContextCompositor_;
 std::vector<ImGuiContext *> ImGuiElement::allImGuiContexts_;
+std::vector<ImGuiContext *> ImGuiElement::imGuiContextsUpdateList_;
 bool ImGuiElement::keyboardVisible_ = false ;
 
 static ImGuiKey SDL2KeyEventToImGuiKey(SDL_Keycode keycode, SDL_Scancode scancode)
@@ -190,12 +192,14 @@ static ImGuiKey SDL2KeyEventToImGuiKey(SDL_Keycode keycode, SDL_Scancode scancod
         enabled_ = true;
         SetFocusMode(FM_FOCUSABLE);
         imguiActiveWindowName_ = "";
-
         imguiContext_ = ImGui::CreateContext();
         allImGuiContexts_.push_back(imguiContext_);
         ImGui::SetCurrentContext(imguiContext_);
         ImGuiIO& io = ImGui::GetIO();
         io.IniFilename = nullptr; // Don't save ini file
+        
+        imGuiContextsUpdateList_.clear();
+        ImGuiMultiContextCompositor_AddContext(&imguiMultiContextCompositor_, imguiContext_);
         
         CreateFontTexture(true);
         
@@ -215,23 +219,29 @@ static ImGuiKey SDL2KeyEventToImGuiKey(SDL_Keycode keycode, SDL_Scancode scancod
         SubscribeToEvent(E_KEYDOWN, URHO3D_HANDLER(ImGuiElement, HandleKeyDown));
         SubscribeToEvent(E_KEYUP, URHO3D_HANDLER(ImGuiElement, HandleKeyUp));
         
+        //
+        SubscribeToEvent(E_FOCUSED, URHO3D_HANDLER(ImGuiElement, HandleFocused));
+        SubscribeToEvent(E_DEFOCUSED, URHO3D_HANDLER(ImGuiElement, HandleDefocused));
+        
         SubscribeToEvent(E_ELEMENTADDED, URHO3D_HANDLER(ImGuiElement, HandleElementAdded));
         
     }
+
+
 
     ImGuiElement::~ImGuiElement()
     {
         if (imguiContext_)
         {
+            ImGuiMultiContextCompositor_RemoveContext(&imguiMultiContextCompositor_, imguiContext_);
             
             // Remove the element using erase function and iterators
-             auto it = std::find(allImGuiContexts_.begin(), allImGuiContexts_.end(),
-                                 imguiContext_);
+            auto it = std::remove(allImGuiContexts_.begin(), allImGuiContexts_.end(),imguiContext_);
+            allImGuiContexts_.erase(it, allImGuiContexts_.end());
            
-             // If element is found found, erase it
-             if (it != allImGuiContexts_.end()) {
-                 allImGuiContexts_.erase(it);
-             }            //!!! NOTICE: this block will be invalid when [GH issue #1565](https://github.com/ocornut/imgui/issues/1565) makes its' way into the DearImGui trunk
+            it = std::remove(imGuiContextsUpdateList_.begin(), imGuiContextsUpdateList_.end(), imguiContext_);
+            // Erase the 'removed' elements from the vector
+            imGuiContextsUpdateList_.erase(it, imGuiContextsUpdateList_.end());
             
             // have to shut it down to clear it's context local copy of font data
             ImGui::SetCurrentContext(imguiContext_);
@@ -253,6 +263,10 @@ static ImGuiKey SDL2KeyEventToImGuiKey(SDL_Keycode keycode, SDL_Scancode scancod
         UnsubscribeFromEvent(E_KEYUP);
         UnsubscribeFromEvent(E_TEXTINPUT);
         UnsubscribeFromEvent(E_ELEMENTADDED);
+        UnsubscribeFromEvent(E_FOCUSED);
+        UnsubscribeFromEvent(E_DEFOCUSED);
+        
+        
     }
 
     void ImGuiElement::RegisterObject(Context* context)
@@ -270,18 +284,12 @@ static ImGuiKey SDL2KeyEventToImGuiKey(SDL_Keycode keycode, SDL_Scancode scancod
 
     void ImGuiElement::HandleElementAdded(StringHash eventType, VariantMap& eventData)
     {
-        using namespace ElementAdded;
-        
-        UIElement * parent = (UIElement *)(eventData[P_PARENT].GetPtr());
-        UIElement * elm = (UIElement *)(eventData[P_ELEMENT].GetPtr());
-//        if(this == elm)
-//        {
-//            if(parent)
-//            {
-//                parent->SetLayoutMode(LM_VERTICAL);
-//            }
-//        }
+//        using namespace ElementAdded;
+//        
+//        UIElement * parent = (UIElement *)(eventData[P_PARENT].GetPtr());
+//        UIElement * elm = (UIElement *)(eventData[P_ELEMENT].GetPtr());
     }
+
 
     void ImGuiElement::Update(float timeStep)
     {
@@ -295,16 +303,21 @@ static ImGuiKey SDL2KeyEventToImGuiKey(SDL_Keycode keycode, SDL_Scancode scancod
         }
 
         ImGui::SetCurrentContext(imguiContext_);
-        Graphics* graphics = GetSubsystem<Graphics>();
-
-
-        const Input* input = GetSubsystem<Input>();
-
-        ImGuiIO& io = ImGui::GetIO();
         
+        if(imGuiContextsUpdateList_.size()==0)
+        {
+            ImGuiMultiContextCompositor_PreNewFrameUpdateAll(&imguiMultiContextCompositor_);
+            // Copy all elements from allImGuiContexts_ to imGuiContextsUpdateList_
+            std::copy(allImGuiContexts_.begin(), allImGuiContexts_.end(), std::back_inserter(imGuiContextsUpdateList_));
+        }
+        
+        auto it = std::remove(imGuiContextsUpdateList_.begin(), imGuiContextsUpdateList_.end(), imguiContext_);
+        // Erase the 'removed' elements from the vector
+        imGuiContextsUpdateList_.erase(it, imGuiContextsUpdateList_.end());
+        
+        Graphics* graphics = GetSubsystem<Graphics>();
+        ImGuiIO& io = ImGui::GetIO();
         io.DeltaTime = timeStep;
-
-        // Viewport
         io.DisplaySize = ImVec2(graphics->GetWidth(), graphics->GetHeight());
         
 //        if(input->GetMouseButtonDown(MOUSEB_LEFT) || input->GetNumTouches())
@@ -390,6 +403,8 @@ static ImGuiKey SDL2KeyEventToImGuiKey(SDL_Keycode keycode, SDL_Scancode scancod
         lastText_ = String::EMPTY;
 
         ImGui::NewFrame();
+        
+        ImGuiMultiContextCompositor_PostNewFrameUpdateOne(&imguiMultiContextCompositor_, imguiContext_);
 
         VariantMap& eventMap = GetEventDataMap();
         using namespace IMGUIDraw;
@@ -434,13 +449,46 @@ static ImGuiKey SDL2KeyEventToImGuiKey(SDL_Keycode keycode, SDL_Scancode scancod
             }
         }
         
+        if(imGuiContextsUpdateList_.size() == 0)
+        {
+//            ImGui::EndFrame();
+            ImGuiMultiContextCompositor_PostEndFrameUpdateAll(&imguiMultiContextCompositor_);
+        }
+        
+        
+    }
+
+    void ImGuiElement::HandleFocused(StringHash eventType, VariantMap& eventData)
+    {
+        UIElement* elm =  (UIElement*)eventData[Focused::P_ELEMENT].GetPtr();
+        if(elm == this)
+        {
+            ImGui::SetCurrentContext(imguiContext_);
+            ImGuiIO* io = &ImGui::GetIO();
+            io->AddFocusEvent(true);
+            
+            this->BringToFront();
+            
+            imGuiContextsUpdateList_.clear();
+        }
+    }
+
+    void ImGuiElement::HandleDefocused(StringHash eventType, VariantMap& eventData)
+    {
+        UIElement* elm =  (UIElement*)eventData[Focused::P_ELEMENT].GetPtr();
+        if(elm == this)
+        {
+            ImGui::SetCurrentContext(imguiContext_);
+            ImGuiIO* io = &ImGui::GetIO();
+            io->AddFocusEvent(false);
+            
+            imGuiContextsUpdateList_.clear();
+        }
         
     }
 
     void ImGuiElement::HandleMouseButtonDown(StringHash eventType, VariantMap& eventData)
     {
-      // TBD ELI  if(!HasFocus())return;
-        
         ImGui::SetCurrentContext(imguiContext_);
         using namespace MouseButtonDown;
         MouseButton button = (MouseButton)(eventData[P_BUTTON].GetUInt());
@@ -467,7 +515,6 @@ static ImGuiKey SDL2KeyEventToImGuiKey(SDL_Keycode keycode, SDL_Scancode scancod
     /// Handle mouse button up event.
     void ImGuiElement::HandleMouseButtonUp(StringHash eventType, VariantMap& eventData)
     {
-// TBD ELI       if(!HasFocus())return;
         ImGui::SetCurrentContext(imguiContext_);
         using namespace MouseButtonUp;
         MouseButton button = (MouseButton)(eventData[P_BUTTON].GetUInt());
@@ -525,7 +572,6 @@ static ImGuiKey SDL2KeyEventToImGuiKey(SDL_Keycode keycode, SDL_Scancode scancod
     /// Handle touch begin event.
     void ImGuiElement::HandleTouchBegin(StringHash eventType, VariantMap& eventData)
     {
-          // TBD ELI  if(!HasFocus())return;
         ImGui::SetCurrentContext(imguiContext_);
         const Input* input = GetSubsystem<Input>();
         float uiSCale =  GetSubsystem<UI>()->GetScale();
@@ -535,7 +581,6 @@ static ImGuiKey SDL2KeyEventToImGuiKey(SDL_Keycode keycode, SDL_Scancode scancod
     /// Handle touch end event.
     void ImGuiElement::HandleTouchEnd(StringHash eventType, VariantMap& eventData)
     {
-           // TBD ELI  if(!HasFocus())return;
         ImGui::SetCurrentContext(imguiContext_);
         const Input* input = GetSubsystem<Input>();
         float uiSCale =  GetSubsystem<UI>()->GetScale();
@@ -545,7 +590,6 @@ static ImGuiKey SDL2KeyEventToImGuiKey(SDL_Keycode keycode, SDL_Scancode scancod
     /// Handle touch move event.
     void ImGuiElement::HandleTouchMove(StringHash eventType, VariantMap& eventData)
     {
-            // TBD ELI if(!HasFocus())return;
         ImGui::SetCurrentContext(imguiContext_);
         const Input* input = GetSubsystem<Input>();
         float uiSCale =  GetSubsystem<UI>()->GetScale();
@@ -554,7 +598,6 @@ static ImGuiKey SDL2KeyEventToImGuiKey(SDL_Keycode keycode, SDL_Scancode scancod
     /// Handle keypress event.
     void ImGuiElement::HandleKeyDown(StringHash eventType, VariantMap& eventData)
     {
-           // TBD ELI  if(!HasFocus())return;
         ImGui::SetCurrentContext(imguiContext_);
         using namespace KeyDown;
         mouseButtons_ = MouseButtonFlags(eventData[P_BUTTONS].GetUInt());
@@ -568,7 +611,6 @@ static ImGuiKey SDL2KeyEventToImGuiKey(SDL_Keycode keycode, SDL_Scancode scancod
 
     void ImGuiElement::HandleKeyUp(StringHash eventType, VariantMap& eventData)
     {
-//     TBD ELI   if(!HasFocus())return;
         ImGui::SetCurrentContext(imguiContext_);
         using namespace KeyUp;
         mouseButtons_ = MouseButtonFlags(eventData[P_BUTTONS].GetUInt());
@@ -596,7 +638,6 @@ static ImGuiKey SDL2KeyEventToImGuiKey(SDL_Keycode keycode, SDL_Scancode scancod
 
     void ImGuiElement::AddMouseButtonEvent(int mouse_button, bool down)
     {
-            // TBD ELI if(!HasFocus())return;
         ImGui::SetCurrentContext(imguiContext_);
         ImGuiIO* io = &ImGui::GetIO();
         AddMousePosEvent();
@@ -609,7 +650,6 @@ static ImGuiKey SDL2KeyEventToImGuiKey(SDL_Keycode keycode, SDL_Scancode scancod
 
     void ImGuiElement::AddTouchPosEvent(float x, float y)
     {
-          // TBD ELI   if(!HasFocus())return;
         ImGui::SetCurrentContext(imguiContext_);
         ImGuiIO* io = &ImGui::GetIO();
 #if (IMGUI_VERSION_NUM >= 18950)
@@ -620,7 +660,6 @@ static ImGuiKey SDL2KeyEventToImGuiKey(SDL_Keycode keycode, SDL_Scancode scancod
 
     void ImGuiElement::AddTouchButtonEvent(int mouse_button, bool down)
     {
-          // TBD ELI   if(!HasFocus())return;
         ImGui::SetCurrentContext(imguiContext_);
         ImGuiIO* io = &ImGui::GetIO();
 #if (IMGUI_VERSION_NUM >= 18950)
@@ -631,7 +670,6 @@ static ImGuiKey SDL2KeyEventToImGuiKey(SDL_Keycode keycode, SDL_Scancode scancod
 
     void ImGuiElement::AddKeyEvent(ImGuiKey imgui_key, bool down)
     {
-          // TBD ELI   if(!HasFocus())return;
         ImGui::SetCurrentContext(imguiContext_);
         ImGuiIO* io = &ImGui::GetIO();
         io->AddKeyEvent(imgui_key, down);
@@ -806,32 +844,35 @@ static ImGuiKey SDL2KeyEventToImGuiKey(SDL_Keycode keycode, SDL_Scancode scancod
 //        }
         
         // ?? what to do about fonts is a serious question?
-        ImFontConfig config;
-        config.OversampleH = 1; // horizontal oversampling blurs things quite badly
-        config.OversampleV = 1;
-        config.GlyphExtraSpacing.x = 1.0f;
-        config.SizePixels = fontSize_;
-//        io.Fonts->Clear();
-        io.Fonts->AddFontFromFileTTF(fontName_.CString(), fontSize_, &config, io.Fonts->GetGlyphRangesDefault());
 
-        unsigned char* pixels;
-        int width, height;
-        int out_bytes_per_pixel;
-        io.Fonts->GetTexDataAsRGBA32(&pixels, &width, &height,&out_bytes_per_pixel);
-
-        SharedPtr<Image> img(new Image(context_));
-        img->SetSize(width, height, 4);
-        img->SetData(pixels);
-
-        SharedPtr<Texture2D> texture(new Texture2D(context_));
-        texture->SetName(IMGUI_FONT_TEXTURE);
-        texture->SetData(img, true);
-        texture->AddMetadata("FONT_SIZE", fontSize_);
-        resCache->AddManualResource(texture);
-        
-        fontTexture_ = texture;
-        io.Fonts->TexID = (void*)IMGUI_FONT_KEY;
-        textureTable_[(void*)IMGUI_FONT_KEY] = fontTexture_;
+            ImFontConfig config;
+            config.OversampleH = 1; // horizontal oversampling blurs things quite badly
+            config.OversampleV = 1;
+            config.GlyphExtraSpacing.x = 1.0f;
+            config.SizePixels = fontSize_;
+            //        io.Fonts->Clear();
+            io.Fonts->AddFontFromFileTTF(fontName_.CString(), fontSize_, &config, io.Fonts->GetGlyphRangesDefault());
+            if(fontTexture_ == nullptr)
+            {
+                unsigned char* pixels;
+                int width, height;
+                int out_bytes_per_pixel;
+                io.Fonts->GetTexDataAsRGBA32(&pixels, &width, &height,&out_bytes_per_pixel);
+                
+                SharedPtr<Image> img(new Image(context_));
+                img->SetSize(width, height, 4);
+                img->SetData(pixels);
+                
+                SharedPtr<Texture2D> texture(new Texture2D(context_));
+                texture->SetName(IMGUI_FONT_TEXTURE);
+                texture->SetData(img, true);
+                texture->AddMetadata("FONT_SIZE", fontSize_);
+//                resCache->AddManualResource(texture);
+                
+                fontTexture_ = texture;
+                io.Fonts->TexID = (void*)IMGUI_FONT_KEY;
+                textureTable_[(void*)IMGUI_FONT_KEY] = fontTexture_;
+            }
     }
 
     void ImGuiElement::HandleDeviceReset(StringHash eventType, VariantMap& eventData)

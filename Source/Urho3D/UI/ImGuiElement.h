@@ -25,6 +25,8 @@
 #include "../UI/ImGuiEvents.h"
 #include <imgui/imgui.h>
 #include <imgui/imgui_internal.h>
+#include <imgui/imgui_multicontext_compositor.h>
+//#include <imgui/imgui_multicontext_compositor.h>
 
 namespace Urho3D
 {
@@ -103,6 +105,9 @@ namespace Urho3D
         void HandleKeyDown(StringHash eventType, VariantMap& eventData);
         void HandleKeyUp(StringHash eventType, VariantMap& eventData);
         
+        void HandleFocused(StringHash eventType, VariantMap& eventData);
+        void HandleDefocused(StringHash eventType, VariantMap& eventData);
+        
         void SetWindowSize(IntVector2 & size);
 
         /// Set whether can be moved.
@@ -117,6 +122,7 @@ namespace Urho3D
         /// Return whether is resizable.
         /// @property
         bool IsResizable() const { return resizable_; }
+
     protected:
         /// Creates or acquires the font texture.
         void CreateFontTexture(bool force = false);
@@ -127,15 +133,18 @@ namespace Urho3D
         void AddTouchButtonEvent(int mouse_button, bool down);
         void AddKeyEvent(ImGuiKey imgui_key, bool down);
         void UpdateQualifiers(QualifierFlags qualifiers);
+        
 
     private:
         /// Rebuilds the font texture when necessary.
         void HandleDeviceReset(StringHash eventType, VariantMap& eventData);
+        
+        ImGuiContext* imguiContext_;
 
         /// Last text received from OnTextInput.
         String lastText_;
         /// ImGuiContext for this particular instance.
-        ImGuiContext* imguiContext_;
+     
         /// Table of IDs to textures for drawing textures/render-target in Dear ImGui.
         HashMap<void*, SharedPtr<Texture2D> > textureTable_;
         /// Stored font texture.
@@ -159,6 +168,8 @@ namespace Urho3D
         /// Resizable flag.
         bool resizable_;
         static std::vector<ImGuiContext *> allImGuiContexts_;
+        static std::vector<ImGuiContext *> imGuiContextsUpdateList_;
+        static ImGuiMultiContextCompositor imguiMultiContextCompositor_;
         static bool keyboardVisible_;
     };
 
