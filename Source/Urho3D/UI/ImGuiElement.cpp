@@ -218,6 +218,7 @@ static ImGuiKey SDL2KeyEventToImGuiKey(SDL_Keycode keycode, SDL_Scancode scancod
         SubscribeToEvent(E_TOUCHMOVE, URHO3D_HANDLER(ImGuiElement, HandleTouchMove));
         SubscribeToEvent(E_KEYDOWN, URHO3D_HANDLER(ImGuiElement, HandleKeyDown));
         SubscribeToEvent(E_KEYUP, URHO3D_HANDLER(ImGuiElement, HandleKeyUp));
+        SubscribeToEvent(E_TEXTINPUT, URHO3D_HANDLER(ImGuiElement, HandleTextInput));
         
         //
         SubscribeToEvent(E_FOCUSED, URHO3D_HANDLER(ImGuiElement, HandleFocused));
@@ -394,14 +395,6 @@ static ImGuiKey SDL2KeyEventToImGuiKey(SDL_Keycode keycode, SDL_Scancode scancod
             }
         }
         
-        
-
-        if (!lastText_.Empty())
-            io.AddInputCharactersUTF8(lastText_.CString());
-        
-
-        lastText_ = String::EMPTY;
-
         ImGui::NewFrame();
         
         ImGuiMultiContextCompositor_PostNewFrameUpdateOne(&imguiMultiContextCompositor_, imguiContext_);
@@ -432,7 +425,7 @@ static ImGuiKey SDL2KeyEventToImGuiKey(SDL_Keycode keycode, SDL_Scancode scancod
         }
         
         if (WantTextInput)
-        {
+        {            
             if (!keyboardVisible_ && GetSubsystem<UI>()->GetUseScreenKeyboard())
             {
                 keyboardVisible_ = true;
@@ -620,6 +613,15 @@ static ImGuiKey SDL2KeyEventToImGuiKey(SDL_Keycode keycode, SDL_Scancode scancod
         UpdateQualifiers(qualifiers_);
         ImGuiKey imGuiKey = SDL2KeyEventToImGuiKey(key,scancode);
         AddKeyEvent(imGuiKey, false);
+    }
+
+    void  ImGuiElement::HandleTextInput(StringHash eventType, VariantMap& eventData)
+    {
+        using namespace TextInput;
+        ImGui::SetCurrentContext(imguiContext_);
+        ImGuiIO* io = &ImGui::GetIO();
+        String text = eventData[P_TEXT].GetString();
+        io->AddInputCharactersUTF8(text.CString());
     }
 
     void ImGuiElement::AddMousePosEvent()
@@ -811,11 +813,6 @@ static ImGuiKey SDL2KeyEventToImGuiKey(SDL_Keycode keycode, SDL_Scancode scancod
         }
     }
 
-
-    void ImGuiElement::OnTextInput(const String& text)
-    {
-        lastText_ = text;
-    }
 
     void ImGuiElement::AddTexture(void * textureID, SharedPtr<Texture2D> texture)
     {

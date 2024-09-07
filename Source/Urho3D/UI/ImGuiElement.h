@@ -49,8 +49,6 @@ namespace Urho3D
         void Update(float timeStep) override;
         /// Constructs UIBatches for rendering from the ImGuiContext's draw data.
         void GetBatches(PODVector<UIBatch>& batches, PODVector<float>& vertexData, const IntRect& currentScissor) override;
-        /// Records the text for use in the next update.
-        void OnTextInput(const String& text) override;
         /// Add a texture for referencing within ImGui.
         void AddTexture(void* textureID, SharedPtr<Texture2D> texture);
         /// Remove a texture from the table.
@@ -105,6 +103,8 @@ namespace Urho3D
         void HandleKeyDown(StringHash eventType, VariantMap& eventData);
         void HandleKeyUp(StringHash eventType, VariantMap& eventData);
         
+        void HandleTextInput(StringHash eventType, VariantMap& eventData);
+        
         void HandleFocused(StringHash eventType, VariantMap& eventData);
         void HandleDefocused(StringHash eventType, VariantMap& eventData);
         
@@ -139,12 +139,8 @@ namespace Urho3D
         /// Rebuilds the font texture when necessary.
         void HandleDeviceReset(StringHash eventType, VariantMap& eventData);
         
-        ImGuiContext* imguiContext_;
-
-        /// Last text received from OnTextInput.
-        String lastText_;
         /// ImGuiContext for this particular instance.
-     
+        ImGuiContext* imguiContext_;
         /// Table of IDs to textures for drawing textures/render-target in Dear ImGui.
         HashMap<void*, SharedPtr<Texture2D> > textureTable_;
         /// Stored font texture.
