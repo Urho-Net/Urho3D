@@ -40564,13 +40564,6 @@ ImGuiElement_Update (Urho3D::ImGuiElement *_target, float timeStep)
 
 
 DllExport void
-ImGuiElement_OnTextInput (Urho3D::ImGuiElement *_target, const char * text)
-{
-	_target->OnTextInput (Urho3D::String(text));
-}
-
-
-DllExport void
 ImGuiElement_RemoveTexture (Urho3D::ImGuiElement *_target, void * textureID)
 {
 	_target->RemoveTexture (textureID);

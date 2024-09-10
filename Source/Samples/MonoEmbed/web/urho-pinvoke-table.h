@@ -4611,7 +4611,6 @@ int ImGuiElement_GetTypeNameStatic ();
 int ImGuiElement_ImGuiElement (int);
 void ImGuiElement_RegisterObject (int);
 void ImGuiElement_Update (int,float);
-void ImGuiElement_OnTextInput (int,int);
 void ImGuiElement_RemoveTexture (int,int);
 float ImGuiElement_GetAlphaMultiplier (int);
 int ImGuiElement_AntialiasEnabled (int);
@@ -10991,7 +10990,6 @@ static PinvokeImport Urho3D_imports [] = {
 {"ImGuiElement_ImGuiElement", ImGuiElement_ImGuiElement},
 {"ImGuiElement_RegisterObject", ImGuiElement_RegisterObject},
 {"ImGuiElement_Update", ImGuiElement_Update},
-{"ImGuiElement_OnTextInput", ImGuiElement_OnTextInput},
 {"ImGuiElement_RemoveTexture", ImGuiElement_RemoveTexture},
 {"ImGuiElement_GetAlphaMultiplier", ImGuiElement_GetAlphaMultiplier},
 {"ImGuiElement_AntialiasEnabled", ImGuiElement_AntialiasEnabled},

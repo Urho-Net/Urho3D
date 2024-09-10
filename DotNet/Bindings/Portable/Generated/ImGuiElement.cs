@@ -111,18 +111,6 @@ namespace Urho.Gui
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern void ImGuiElement_OnTextInput (IntPtr handle, string text);
-
-		/// <summary>
-		/// Records the text for use in the next update.
-		/// </summary>
-		public override void OnTextInput (string text)
-		{
-			Runtime.ValidateRefCounted (this);
-			ImGuiElement_OnTextInput (handle, text);
-		}
-
-		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
 		internal static extern void ImGuiElement_RemoveTexture (IntPtr handle, IntPtr textureID);
 
 		/// <summary>
