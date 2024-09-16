@@ -178,6 +178,7 @@ option (URHO3D_DOTNET "Enable DotNet support" FALSE)
 option (URHO3D_DOTNET_ASSIMP "Enable Assimp support on Desktop if DotNet enabled" FALSE)
 option (URHO3D_DOTNET_EDITOR "Enable Editor support on Desktop if DotNet enabled" FALSE)
 option (URHO3D_AUTOMATION "Enable automation tool on desktop only" FALSE)
+option (URHO3D_MANIFOLD "Enable Manifold Geometry library for topological robustness" FALSE)
 
 
 if(URHO3D_DOTNET AND EMSCRIPTEN)
@@ -493,7 +494,8 @@ if (URHO3D_CLANG_TOOLS)
             URHO3D_DOTNET
             URHO3D_DOTNET_ASSIMP
             URHO3D_DOTNET_EDITOR
-            URHO3D_AUTOMATION)
+            URHO3D_AUTOMATION
+            URHO3D_MANIFOLD)
         set (${OPT} 1)
     endforeach ()
     foreach (OPT URHO3D_TESTING URHO3D_LUAJIT URHO3D_DATABASE_ODBC)
@@ -560,7 +562,8 @@ foreach (OPT
         URHO3D_DOTNET
         URHO3D_DOTNET_ASSIMP
         URHO3D_DOTNET_EDITOR
-        URHO3D_AUTOMATION)
+        URHO3D_AUTOMATION
+        URHO3D_MANIFOLD)
     if (${OPT})
         add_definitions (-D${OPT})
     endif ()
@@ -585,13 +588,20 @@ if (WIN32 AND NOT CMAKE_PROJECT_NAME MATCHES ^Urho3D-ExternalProject-)
 endif ()
 
 # Platform and compiler specific options
-if(URHO3D_ANGLE_METAL)
-set (CMAKE_CXX_STANDARD 14)
-set (CMAKE_CXX_STANDARD_REQUIRED ON)
+if(URHO3D_MANIFOLD)
+    set (CMAKE_CXX_STANDARD 17)
+    set (CMAKE_CXX_STANDARD_REQUIRED ON)
 else()
-set (CMAKE_CXX_STANDARD 11)
-set (CMAKE_CXX_STANDARD_REQUIRED ON)
+    if(URHO3D_ANGLE_METAL)
+        set (CMAKE_CXX_STANDARD 14)
+        set (CMAKE_CXX_STANDARD_REQUIRED ON)
+    else()
+        set (CMAKE_CXX_STANDARD 11)
+        set (CMAKE_CXX_STANDARD_REQUIRED ON)
+    endif()
 endif()
+
+
 set (CMAKE_CXX_EXTENSIONS OFF)
 if (EMSCRIPTEN)     # It appears CMake does not detect C++standard for EMCC correctly, so do it the old way still
     set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
