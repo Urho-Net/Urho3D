@@ -165,7 +165,7 @@ add_subdirectory (ThirdParty/imgui)
 add_subdirectory (ThirdParty/imnodes)
 
 if(URHO3D_MANIFOLD)
-    add_subdirectory (ThirdParty/clipper2/CPP)
+    add_subdirectory (ThirdParty/clipper2)
     add_subdirectory (ThirdParty/glm/glm)
     add_subdirectory (ThirdParty/manifold)
 endif()

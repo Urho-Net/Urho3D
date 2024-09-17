@@ -13,12 +13,12 @@ set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 option(CLIPPER2_HI_PRECISION "Caution: enabling this will compromise performance" OFF)
 
 option(CLIPPER2_UTILS "Build utilities" ON)
-option(CLIPPER2_EXAMPLES "Build examples" OFF)
-option(CLIPPER2_TESTS "Build tests" OFF)
+option(CLIPPER2_EXAMPLES "Build examples" ON)
+option(CLIPPER2_TESTS "Build tests" ON)
 option(USE_EXTERNAL_GTEST "Use system-wide installed GoogleTest" OFF)
 option(USE_EXTERNAL_GBENCHMARK "Use the googlebenchmark" OFF)
 option(BUILD_SHARED_LIBS "Build shared libs" OFF)
-set(CLIPPER2_USINGZ "OFF" CACHE STRING "Build Clipper2Z, either \"ON\" or \"OFF\" or \"ONLY\"")
+set(CLIPPER2_USINGZ "ON" CACHE STRING "Build Clipper2Z, either \"ON\" or \"OFF\" or \"ONLY\"")
 
 # CLIPPER2_MAX_DECIMAL_PRECISION: maximum decimal precision when scaling PathsD to Paths64.
 # Caution: excessive scaling will increase the likelihood of integer overflow errors.
@@ -54,54 +54,54 @@ set(CLIPPER2_SRC
 set(CLIPPER2_LIBS "") # one or both of Clipper2/Clipper2Z
 
 # primary Clipper2 library
-# if (NOT (CLIPPER2_USINGZ STREQUAL "ONLY"))
-#   list(APPEND CLIPPER2_LIBS Clipper2)
-#   add_library(Clipper2 ${CLIPPER2_INC} ${CLIPPER2_SRC})
+if (NOT (CLIPPER2_USINGZ STREQUAL "ONLY"))
+  list(APPEND CLIPPER2_LIBS Clipper2)
+  add_library(Clipper2 ${CLIPPER2_INC} ${CLIPPER2_SRC})
 
-#   target_compile_definitions(
-#     Clipper2 PUBLIC
-#       CLIPPER2_MAX_DECIMAL_PRECISION=${CLIPPER2_MAX_DECIMAL_PRECISION}
-#       $<$<BOOL:${CLIPPER2_HI_PRECISION}>:CLIPPER2_HI_PRECISION>
-#   )
+  target_compile_definitions(
+    Clipper2 PUBLIC
+      CLIPPER2_MAX_DECIMAL_PRECISION=${CLIPPER2_MAX_DECIMAL_PRECISION}
+      $<$<BOOL:${CLIPPER2_HI_PRECISION}>:CLIPPER2_HI_PRECISION>
+  )
 
-#   target_include_directories(
-#     Clipper2 PUBLIC 
-#       $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/Clipper2Lib/include>
-#       $<INSTALL_INTERFACE:include>
-#   )
+  target_include_directories(
+    Clipper2 PUBLIC 
+      $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/Clipper2Lib/include>
+      $<INSTALL_INTERFACE:include>
+  )
 
-#   if (MSVC)
-#     target_compile_options(Clipper2 PRIVATE /W4 /WX)
-#   else()
-#     target_compile_options(Clipper2 PRIVATE -Wall -Wextra -Wpedantic -Werror -Wno-c++20-compat)
-#     target_link_libraries(Clipper2 PUBLIC -lm)
-#   endif()
-# endif()
+  if (MSVC)
+    target_compile_options(Clipper2 PRIVATE /W4 /WX)
+  else()
+    target_compile_options(Clipper2 PRIVATE -Wall -Wextra -Wpedantic -Werror -Wno-c++20-compat)
+    target_link_libraries(Clipper2 PUBLIC -lm)
+  endif()
+endif()
 
 # secondary Clipper2 library with USINGZ defined (if required)
-# if (NOT (CLIPPER2_USINGZ STREQUAL "OFF"))
-#   list(APPEND CLIPPER2_LIBS Clipper2Z)
-#   add_library(Clipper2Z ${CLIPPER2_INC} ${CLIPPER2_SRC})
+if (NOT (CLIPPER2_USINGZ STREQUAL "OFF"))
+  list(APPEND CLIPPER2_LIBS Clipper2Z)
+  add_library(Clipper2Z ${CLIPPER2_INC} ${CLIPPER2_SRC})
 
-#   target_compile_definitions(
-#     Clipper2Z PUBLIC
-#       USINGZ
-#       CLIPPER2_MAX_DECIMAL_PRECISION=${CLIPPER2_MAX_DECIMAL_PRECISION}
-#       $<$<BOOL:${CLIPPER2_HI_PRECISION}>:CLIPPER2_HI_PRECISION>
-#   )
-#   target_include_directories(
-#     Clipper2Z PUBLIC 
-#       $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/Clipper2Lib/include>
-#       $<INSTALL_INTERFACE:include>
-#   )
+  target_compile_definitions(
+    Clipper2Z PUBLIC
+      USINGZ
+      CLIPPER2_MAX_DECIMAL_PRECISION=${CLIPPER2_MAX_DECIMAL_PRECISION}
+      $<$<BOOL:${CLIPPER2_HI_PRECISION}>:CLIPPER2_HI_PRECISION>
+  )
+  target_include_directories(
+    Clipper2Z PUBLIC 
+      $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/Clipper2Lib/include>
+      $<INSTALL_INTERFACE:include>
+  )
 
-#   if (MSVC)
-#     target_compile_options(Clipper2Z PRIVATE /W4 /WX)
-#   else()
-#     target_compile_options(Clipper2Z PRIVATE -Wall -Wextra -Wpedantic -Werror -Wno-c++20-compat)
-#     target_link_libraries(Clipper2Z PUBLIC -lm)
-#   endif()
-# endif()
+  if (MSVC)
+    target_compile_options(Clipper2Z PRIVATE /W4 /WX)
+  else()
+    target_compile_options(Clipper2Z PRIVATE -Wall -Wextra -Wpedantic -Werror -Wno-c++20-compat)
+    target_link_libraries(Clipper2Z PUBLIC -lm)
+  endif()
+endif()
 
 set_target_properties(${CLIPPER2_LIBS} PROPERTIES FOLDER Libraries
                                          VERSION ${PROJECT_VERSION}
@@ -125,25 +125,25 @@ if(CLIPPER2_UTILS OR CLIPPER2_TESTS OR CLIPPER2_EXAMPLES)
   )
   set(CLIPPER2_UTILS "") # one or both of Clipper2utils/Clipper2Zutils
 
-  # if (NOT (CLIPPER2_USINGZ STREQUAL "ONLY"))
-  #   list(APPEND CLIPPER2_UTILS Clipper2utils)
-  #   add_library(Clipper2utils STATIC ${CLIPPER2_UTILS_INC} ${CLIPPER2_UTILS_SRC})
+  if (NOT (CLIPPER2_USINGZ STREQUAL "ONLY"))
+    list(APPEND CLIPPER2_UTILS Clipper2utils)
+    add_library(Clipper2utils STATIC ${CLIPPER2_UTILS_INC} ${CLIPPER2_UTILS_SRC})
 
-  #   target_link_libraries(Clipper2utils PUBLIC Clipper2)
-  #   target_include_directories(Clipper2utils
-  #     PUBLIC Utils
-  #   )
-  # endif()
+    target_link_libraries(Clipper2utils PUBLIC Clipper2)
+    target_include_directories(Clipper2utils
+      PUBLIC Utils
+    )
+  endif()
 
-  # if (NOT (CLIPPER2_USINGZ STREQUAL "OFF"))
-  #   list(APPEND CLIPPER2_UTILS Clipper2Zutils)
-  #   add_library(Clipper2Zutils STATIC ${CLIPPER2_UTILS_INC} ${CLIPPER2_UTILS_SRC})
+  if (NOT (CLIPPER2_USINGZ STREQUAL "OFF"))
+    list(APPEND CLIPPER2_UTILS Clipper2Zutils)
+    add_library(Clipper2Zutils STATIC ${CLIPPER2_UTILS_INC} ${CLIPPER2_UTILS_SRC})
 
-  #   target_link_libraries(Clipper2Zutils PUBLIC Clipper2Z)
-  #   target_include_directories(Clipper2Zutils
-  #     PUBLIC Utils
-  #   )
-  # endif()
+    target_link_libraries(Clipper2Zutils PUBLIC Clipper2Z)
+    target_include_directories(Clipper2Zutils
+      PUBLIC Utils
+    )
+  endif()
 
   set_target_properties(${CLIPPER2_UTILS} PROPERTIES FOLDER Libraries)
   if (CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
@@ -323,51 +323,31 @@ configure_package_config_file(
 export(TARGETS ${CLIPPER2_LIBS} FILE "${PROJECT_BINARY_DIR}/Clipper2Targets.cmake")
 
 # installation
-# install(TARGETS ${CLIPPER2_LIBS} EXPORT Clipper2-targets
-#         PUBLIC_HEADER DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/clipper2
-#         LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
-# )
+install(TARGETS ${CLIPPER2_LIBS} EXPORT Clipper2-targets
+        PUBLIC_HEADER DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/clipper2
+        LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+)
 
-# install(
-#     FILES 
-#         ${PROJECT_BINARY_DIR}/Clipper2Config.cmake 
-#         ${PROJECT_BINARY_DIR}/Clipper2ConfigVersion.cmake 
-#     DESTINATION 
-#         ${CMAKE_INSTALL_LIBDIR}/cmake/clipper2
-# )
+install(
+    FILES 
+        ${PROJECT_BINARY_DIR}/Clipper2Config.cmake 
+        ${PROJECT_BINARY_DIR}/Clipper2ConfigVersion.cmake 
+    DESTINATION 
+        ${CMAKE_INSTALL_LIBDIR}/cmake/clipper2
+)
 
-# install(
-#     EXPORT 
-#         Clipper2-targets
-#     NAMESPACE 
-#         Clipper2::
-#     FILE 
-#         Clipper2Targets.cmake 
-#     DESTINATION 
-#         ${CMAKE_INSTALL_LIBDIR}/cmake/clipper2
-# )
+install(
+    EXPORT 
+        Clipper2-targets
+    NAMESPACE 
+        Clipper2::
+    FILE 
+        Clipper2Targets.cmake 
+    DESTINATION 
+        ${CMAKE_INSTALL_LIBDIR}/cmake/clipper2
+)
 
 
 # disable exceptions
 #string(REGEX REPLACE "/W[3|4]" "/w" CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
 #add_definitions(-D_HAS_EXCEPTIONS=0) # for STL
-
-# Urho3D - commented out targets defined by original CMakeLists.txt, instead we setup our own target that meets our own needs
-
-# Urho3D - anything below this line is Urho3D specific
-
-# Define target name
-set (TARGET_NAME Clipper2)
-
-# set (INCLUDE_DIRS ./Clipper2Lib/include ./Utils)
-# list (APPEND SOURCE_FILES ${CLIPPER2_INC} ${CLIPPER2_SRC} ${CLIPPER2_UTILS_INC} ${CLIPPER2_UTILS_SRC})
-
-set (INCLUDE_DIRS ./Clipper2Lib/include )
-list (APPEND SOURCE_FILES ${CLIPPER2_INC} ${CLIPPER2_SRC})
-
-# Setup target as STATIC library (as the result we never use EXTRA_LDFLAGS linker flags)
-setup_library ()
-
-install_header_files (DIRECTORY Clipper2Lib/include/clipper2/ DESTINATION ${DEST_INCLUDE_DIR}/ThirdParty/clipper2 FILES_MATCHING PATTERN *.h BUILD_TREE_ONLY)
-# install_header_files (FILES ${CLIPPER2_UTILS_INC} DESTINATION ${DEST_INCLUDE_DIR}/ThirdParty/clipper2)
-
