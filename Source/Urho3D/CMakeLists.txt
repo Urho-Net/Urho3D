@@ -362,6 +362,11 @@ list (APPEND SOURCE_FILES ${GEN_CPP_FILES} ${LUA_GEN_CPP_FILES} librevision.h Ur
 if (URHO3D_DOTNET)
     list (APPEND SOURCE_FILES ${CMAKE_CURRENT_SOURCE_DIR}/../ThirdParty/cimgui/cimgui.cpp)
     list (APPEND SOURCE_FILES ${CMAKE_CURRENT_SOURCE_DIR}/../ThirdParty/cimnodes/cimnodes.cpp)
+    if(URHO3D_MANIFOLD)
+       set(MANIFOLD_C_SOURCE_FOLDER ${CMAKE_CURRENT_SOURCE_DIR}/../ThirdParty/manifold/bindings/c)
+       set(MANIFOLD_C_SOURCE_FILES  ${MANIFOLD_C_SOURCE_FOLDER}/box.cpp ${MANIFOLD_C_SOURCE_FOLDER}/conv.cpp ${MANIFOLD_C_SOURCE_FOLDER}/cross.cpp ${MANIFOLD_C_SOURCE_FOLDER}/manifoldc.cpp ${MANIFOLD_C_SOURCE_FOLDER}/rect.cpp)
+       list (APPEND SOURCE_FILES ${MANIFOLD_C_SOURCE_FILES})
+    endif()
 endif()
 
 # Define dependency libs

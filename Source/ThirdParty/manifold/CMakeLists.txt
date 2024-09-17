@@ -6,7 +6,11 @@ set (INCLUDE_DIRS src bindings/c/include src/utilities/include src/manifold/incl
 
 set(MANIFOLD_C_SOURCE bindings/c/box.cpp bindings/c/conv.cpp bindings/c/cross.cpp bindings/c/manifoldc.cpp bindings/c/rect.cpp)
 
-list (APPEND SOURCE_FILES ${MANIFOLD_SOURCE} ${MANIFOLD_C_SOURCE})
+if (URHO3D_DOTNET)
+    list (APPEND SOURCE_FILES ${MANIFOLD_SOURCE})
+else()
+    list (APPEND SOURCE_FILES ${MANIFOLD_SOURCE} ${MANIFOLD_C_SOURCE})
+endif()
 
 # Setup target as STATIC library (as the result we never use EXTRA_LDFLAGS linker flags)
 setup_library ()
