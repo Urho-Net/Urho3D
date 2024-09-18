@@ -647,7 +647,7 @@ DllExport ManifoldMesh *manifold_get_mesh(void *mem, ManifoldManifold *m) {
 
 
 
-DllExport void manifold_get_mesh_data(ManifoldManifold *m,
+DllExport void manifold_get_mesh_data_allocated(ManifoldManifold *m,
                                       double *precision,
                                       ManifoldVec3 **vertPos,
                                       int *vertPosCount,
@@ -716,7 +716,7 @@ DllExport void manifold_free_mesh_data(ManifoldVec3 *vertPos,ManifoldIVec3 *triV
     free(halfedgeTangent);
 }
 
-DllExport void manifold_get_mesh_data2(ManifoldManifold *m,
+DllExport void manifold_get_mesh_data(ManifoldManifold *m,
                                       double *precision,
                                       ManifoldVec3 *vertPos,
                                       int *vertPosCount,
