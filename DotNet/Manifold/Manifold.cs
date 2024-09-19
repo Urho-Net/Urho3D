@@ -30,13 +30,13 @@ namespace Manifold;
 public unsafe class Manifold : IDisposable
 {
     private bool disposedValue = false;
-    public  ManifoldManifold* Handle{get; private set;}
+    public ManifoldManifold* Handle { get; private set; }
 
     private static IntPtr mallocNativeObject()
     {
         return ManifoldNative.manifold_malloc(ManifoldNative.manifold_manifold_size());
     }
-    
+
     public Manifold()
     {
         Handle = ManifoldNative.manifold_empty(mallocNativeObject());
@@ -45,8 +45,58 @@ public unsafe class Manifold : IDisposable
     {
         Handle = handle;
     }
-    
-    public static Manifold Sphere(double radius , int circularSegments = 0)
+
+    public static Manifold Tetrahedron()
+    {
+        ManifoldManifold* manifold = ManifoldNative.manifold_tetrahedron(mallocNativeObject());
+        var status = ManifoldNative.manifold_status(manifold);
+        if (status == ManifoldError.MANIFOLD_NO_ERROR)
+        {
+            return new Manifold(manifold);
+        }
+        else
+        {
+            if (manifold != null)
+                ManifoldNative.manifold_delete_manifold(manifold);
+            return null;
+        }
+    }
+
+    public static Manifold Cube(ManifoldVec3 size, bool center = false)
+    {
+        ManifoldManifold* manifold = ManifoldNative.manifold_cube(mallocNativeObject(), size.x, size.y, size.z, (center == true) ? 1 : 0);
+        var status = ManifoldNative.manifold_status(manifold);
+        if (status == ManifoldError.MANIFOLD_NO_ERROR)
+        {
+            return new Manifold(manifold);
+        }
+        else
+        {
+            if (manifold != null)
+                ManifoldNative.manifold_delete_manifold(manifold);
+            return null;
+        }
+    }
+
+    public static Manifold Cylinder(double height, double radiusLow,
+        double radiusHigh = -1.0, int circularSegments = 0,
+        bool center = false)
+    {
+        ManifoldManifold* manifold = ManifoldNative.manifold_cylinder(mallocNativeObject(), height, radiusLow, radiusHigh, circularSegments, (center == true) ? 1 : 0);
+        var status = ManifoldNative.manifold_status(manifold);
+        if (status == ManifoldError.MANIFOLD_NO_ERROR)
+        {
+            return new Manifold(manifold);
+        }
+        else
+        {
+            if (manifold != null)
+                ManifoldNative.manifold_delete_manifold(manifold);
+            return null;
+        }
+    }
+
+    public static Manifold Sphere(double radius, int circularSegments = 0)
     {
         ManifoldManifold* manifold = ManifoldNative.manifold_sphere(mallocNativeObject(), radius, circularSegments);
         var status = ManifoldNative.manifold_status(manifold);
@@ -56,28 +106,18 @@ public unsafe class Manifold : IDisposable
         }
         else
         {
+            if (manifold != null)
+                ManifoldNative.manifold_delete_manifold(manifold);
             return null;
         }
     }
 
-    public static Manifold Cube(ManifoldVec3 size , bool center = false)
-    {
-        ManifoldManifold* manifold = ManifoldNative.manifold_cube(mallocNativeObject(),size.x,size.y,size.z,(center == true)?1:0);
-        var status = ManifoldNative.manifold_status(manifold);
-        if (status == ManifoldError.MANIFOLD_NO_ERROR)
-        {
-            return new Manifold(manifold);
-        }
-        else
-        {
-            return null;
-        }
-    }
+
     
-    public static Manifold operator-(Manifold first ,  Manifold second)
+    public static Manifold operator -(Manifold first, Manifold second)
     {
         ManifoldManifold* manifold = ManifoldNative.manifold_difference(mallocNativeObject(), first.Handle, second.Handle);
-        
+
         var status = ManifoldNative.manifold_status(manifold);
         if (status == ManifoldError.MANIFOLD_NO_ERROR)
         {
@@ -85,9 +125,47 @@ public unsafe class Manifold : IDisposable
         }
         else
         {
+            if (manifold != null)
+                ManifoldNative.manifold_delete_manifold(manifold);
             return null;
         }
     }
+
+
+    public static Manifold operator +(Manifold first, Manifold second)
+    {
+        ManifoldManifold* manifold = ManifoldNative.manifold_union(mallocNativeObject(), first.Handle, second.Handle);
+
+        var status = ManifoldNative.manifold_status(manifold);
+        if (status == ManifoldError.MANIFOLD_NO_ERROR)
+        {
+            return new Manifold(manifold);
+        }
+        else
+        {
+            if (manifold != null)
+                ManifoldNative.manifold_delete_manifold(manifold);
+            return null;
+        }
+    }
+
+    public static Manifold operator ^(Manifold first, Manifold second)
+    {
+        ManifoldManifold* manifold = ManifoldNative.manifold_intersection(mallocNativeObject(), first.Handle, second.Handle);
+
+        var status = ManifoldNative.manifold_status(manifold);
+        if (status == ManifoldError.MANIFOLD_NO_ERROR)
+        {
+            return new Manifold(manifold);
+        }
+        else
+        {
+            if (manifold != null)
+                ManifoldNative.manifold_delete_manifold(manifold);
+            return null;
+        }
+    }
+
 
     public bool GetMeshData(
         out double precision,
@@ -99,13 +177,13 @@ public unsafe class Manifold : IDisposable
         out int outVertNormaCount)
     {
         return ManifoldNative.manifoldGetMeshData(Handle,
-            out  precision,
-            out  outVertPos,
-            out  outVertPosCount,
-            out  outTriVerts,
-            out  outTriVertsCount,
-            out  outVertNormal,
-            out  outVertNormaCount);
+            out precision,
+            out outVertPos,
+            out outVertPosCount,
+            out outTriVerts,
+            out outTriVertsCount,
+            out outVertNormal,
+            out outVertNormaCount);
     }
 
     protected virtual void Dispose(bool disposing)
@@ -117,7 +195,7 @@ public unsafe class Manifold : IDisposable
                 // TODO: dispose managed state (managed objects)
             }
 
-            if(Handle != null)
+            if (Handle != null)
             {
                 ManifoldNative.manifold_delete_manifold(Handle);
                 Handle = null;
@@ -128,7 +206,7 @@ public unsafe class Manifold : IDisposable
             disposedValue = true;
         }
     }
-    
+
     // // TODO: override finalizer only if 'Dispose(bool disposing)' has code to free unmanaged resources
     ~Manifold()
     {
@@ -142,6 +220,6 @@ public unsafe class Manifold : IDisposable
         Dispose(disposing: true);
         GC.SuppressFinalize(this);
     }
-    
-    
+
+
 }

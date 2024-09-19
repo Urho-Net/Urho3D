@@ -608,8 +608,6 @@ namespace Manifold
         public static extern int  manifold_box_size();
         [DllImport(NativeImport, CallingConvention = CallingConvention.Cdecl)]
         public static extern int  manifold_rect_size();
-        [DllImport(NativeImport, CallingConvention = CallingConvention.Cdecl)]
-        public static extern int  manifold_curvature_size();
 
 // destruction
         [DllImport(NativeImport, CallingConvention = CallingConvention.Cdecl)]

@@ -59,7 +59,16 @@ public struct ManifoldExportOptions { }
         public ManifoldVec2(double _x, double _y)
         {
             x = _x;
-            y = _x;
+            y = _y;
+        }
+        
+        public static implicit operator ManifoldVec2(Urho.Vector2 v)
+        {
+            return new ManifoldVec2(v.X, v.Y);
+        }
+        public static implicit operator Urho.Vector2(ManifoldVec2 v)
+        {
+            return new Urho.Vector2((float)v.x, (float)v.y);
         }
     }
 
@@ -73,10 +82,31 @@ public struct ManifoldExportOptions { }
         public ManifoldVec3(double _x, double _y, double _z)
         {
             x = _x;
-            y = _x;
+            y = _y;
             z = _z;
         }
+
+        public static ManifoldVec3 Zero()
+        {
+            return new ManifoldVec3(0,0,0);
+        }
+        
+        public static ManifoldVec3 One()
+        {
+            return new ManifoldVec3(1,1,1);
+        }
+        
+        public static implicit operator ManifoldVec3(Urho.Vector3 v)
+        {
+            return new ManifoldVec3(v.X, v.Y, v.Z);
+        }
+        public static implicit operator Urho.Vector3(ManifoldVec3 v)
+        {
+            return new Urho.Vector3((float)v.x, (float)v.y, (float)v.z);
+        }
     }
+    
+  
 
     [StructLayout(LayoutKind.Sequential)]
     public struct ManifoldIVec3
@@ -88,8 +118,17 @@ public struct ManifoldExportOptions { }
         public ManifoldIVec3(int _x, int _y, int _z)
         {
             x = _x;
-            y = _x;
+            y = _y;
             z = _z;
+        }
+        
+        public static implicit operator ManifoldIVec3(Urho.IntVector3 v)
+        {
+            return new ManifoldIVec3(v.X, v.Y, v.Z);
+        }
+        public static implicit operator Urho.IntVector3(ManifoldIVec3 v)
+        {
+            return new Urho.IntVector3(v.x, v.y, v.z);
         }
     }
 
@@ -104,9 +143,18 @@ public struct ManifoldExportOptions { }
         public ManifoldVec4(double _x, double _y, double _z , double _w)
         {
             x = _x;
-            y = _x;
+            y = _y;
             z = _z;
             w = _w;
+        }
+        
+        public static implicit operator ManifoldVec4(Urho.Vector4 v)
+        {
+            return new ManifoldVec4(v.X, v.Y, v.Z, v.W);
+        }
+        public static implicit operator Urho.Vector4(ManifoldVec4 v)
+        {
+            return new Urho.Vector4((float)v.x, (float)v.y, (float)v.z, (float)v.w);
         }
     }
 
