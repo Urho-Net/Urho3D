@@ -390,8 +390,8 @@ DllExport ManifoldManifold *manifold_extrude(void *mem, ManifoldPolygons *cs,
 }
 
 DllExport ManifoldManifold *manifold_revolve(void *mem, ManifoldPolygons *cs,
-                                   int circular_segments) {
-  auto m = Manifold::Revolve(*from_c(cs), circular_segments);
+                                   int circular_segments,double revolveDegrees) {
+  auto m = Manifold::Revolve(*from_c(cs), circular_segments,revolveDegrees);
   return to_c(new (mem) Manifold(m));
 }
 

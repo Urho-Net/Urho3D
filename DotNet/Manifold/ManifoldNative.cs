@@ -246,7 +246,7 @@ namespace Manifold
 
         [DllImport(NativeImport, CallingConvention = CallingConvention.Cdecl)]
         public static extern ManifoldManifold* manifold_revolve(IntPtr mem, ManifoldPolygons* cs,
-            int circular_segments);
+            int circular_segments,double revolveDegrees);
 
         [DllImport(NativeImport, CallingConvention = CallingConvention.Cdecl)]
         public static extern ManifoldManifold* manifold_compose(IntPtr mem, ManifoldManifoldVec* ms);

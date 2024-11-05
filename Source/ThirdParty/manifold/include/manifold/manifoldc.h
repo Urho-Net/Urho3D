@@ -164,7 +164,7 @@ ManifoldManifold *manifold_extrude(void *mem, ManifoldPolygons *cs,
                                    double twist_degrees, double scale_x,
                                    double scale_y);
 ManifoldManifold *manifold_revolve(void *mem, ManifoldPolygons *cs,
-                                   int circular_segments);
+                                   int circular_segments,double revolveDegrees);
 ManifoldManifold *manifold_compose(void *mem, ManifoldManifoldVec *ms);
 ManifoldManifoldVec *manifold_decompose(void *mem, ManifoldManifold *m);
 ManifoldManifold *manifold_as_original(void *mem, ManifoldManifold *m);
