@@ -89,6 +89,9 @@ namespace Urho
 
         public virtual void OnDeserialize(IComponentDeserializer deserializer) { }
 
+        public virtual void OnSerializeFields() { }
+        public virtual void OnDeserializeFields(){}
+
         public void SerializeFields()
         {
             Type type = GetType();
@@ -132,6 +135,8 @@ namespace Urho
                     // throw new InvalidOperationException($"SerializeJson of {value.GetType()} failed.", exc);
                 }
             }
+
+            OnSerializeFields();
         }
 
 
@@ -191,6 +196,8 @@ namespace Urho
                 }
 
             }
+
+            OnDeserializeFields();
         }
 
         public virtual void OnAttachedToNode(Node node) { }
