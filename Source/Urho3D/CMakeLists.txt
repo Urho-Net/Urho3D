@@ -367,6 +367,11 @@ if (URHO3D_DOTNET)
        set(MANIFOLD_C_SOURCE_FILES  ${MANIFOLD_C_SOURCE_FOLDER}/box_export.cpp ${MANIFOLD_C_SOURCE_FOLDER}/conv.cpp ${MANIFOLD_C_SOURCE_FOLDER}/cross_export.cpp ${MANIFOLD_C_SOURCE_FOLDER}/manifoldc_export.cpp ${MANIFOLD_C_SOURCE_FOLDER}/rect_export.cpp)
        list (APPEND SOURCE_FILES ${MANIFOLD_C_SOURCE_FILES})
     endif()
+    if(URHO3D_TINYSPLINE)
+        set(TINYSPLINE_C_SOURCE_FOLDER ${CMAKE_CURRENT_SOURCE_DIR}/../ThirdParty/tinyspline/src)
+        set(TINYSPLINE_C_SOURCE_FILES  ${TINYSPLINE_C_SOURCE_FOLDER}/csharp/tinysplinecsharpCSHARP_wrap.cxx ${TINYSPLINE_C_SOURCE_FOLDER}/parson.c ${TINYSPLINE_C_SOURCE_FOLDER}/tinyspline.c ${TINYSPLINE_C_SOURCE_FOLDER}/tinysplinecxx.cxx )
+        list (APPEND SOURCE_FILES ${TINYSPLINE_C_SOURCE_FILES})
+    endif()
 endif()
 
 # Define dependency libs

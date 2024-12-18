@@ -179,7 +179,7 @@ option (URHO3D_DOTNET_ASSIMP "Enable Assimp support on Desktop if DotNet enabled
 option (URHO3D_DOTNET_EDITOR "Enable Editor support on Desktop if DotNet enabled" FALSE)
 option (URHO3D_AUTOMATION "Enable automation tool on desktop only" FALSE)
 option (URHO3D_MANIFOLD "Enable Manifold Geometry library for topological robustness" FALSE)
-
+option (URHO3D_TINYSPLINE "Enable Tinyspline library for NURBS, B-Splines, and Bézier curves" FALSE)
 
 if(URHO3D_DOTNET AND EMSCRIPTEN)
 set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-address-of-temporary")
@@ -495,7 +495,8 @@ if (URHO3D_CLANG_TOOLS)
             URHO3D_DOTNET_ASSIMP
             URHO3D_DOTNET_EDITOR
             URHO3D_AUTOMATION
-            URHO3D_MANIFOLD)
+            URHO3D_MANIFOLD
+            URHO3D_TINYSPLINE)
         set (${OPT} 1)
     endforeach ()
     foreach (OPT URHO3D_TESTING URHO3D_LUAJIT URHO3D_DATABASE_ODBC)
@@ -563,7 +564,8 @@ foreach (OPT
         URHO3D_DOTNET_ASSIMP
         URHO3D_DOTNET_EDITOR
         URHO3D_AUTOMATION
-        URHO3D_MANIFOLD)
+        URHO3D_MANIFOLD
+        URHO3D_TINYSPLINE)
     if (${OPT})
         add_definitions (-D${OPT})
     endif ()
