@@ -322,7 +322,7 @@ namespace Urho
 
         public Serializable get_Serializable(int paramNameHash)
         {
-            throw new Exception("Not implemented, as we need to figure out serializable mapping");
+            return Runtime.LookupObject<Serializable>(urho_map_get_ptr(Handle, paramNameHash));
         }
 
         public CollisionData[] get_CollisionData(int paramNameHash)
