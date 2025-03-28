@@ -62,6 +62,7 @@ if (URHO3D_SAMPLES)
 else()
     if (URHO3D_DOTNET AND NOT URHO3D_DOTNET_LIB)
         add_sample_subdirectory (${CMAKE_CURRENT_SOURCE_DIR}/MonoEmbed)
+        add_sample_subdirectory (${CMAKE_CURRENT_SOURCE_DIR}/AndroidAOT)
     endif ()
 endif ()
 

@@ -372,6 +372,13 @@ if (URHO3D_DOTNET)
         set(TINYSPLINE_C_SOURCE_FILES  ${TINYSPLINE_C_SOURCE_FOLDER}/csharp/tinysplinecsharpCSHARP_wrap.cxx ${TINYSPLINE_C_SOURCE_FOLDER}/parson.c ${TINYSPLINE_C_SOURCE_FOLDER}/tinyspline.c ${TINYSPLINE_C_SOURCE_FOLDER}/tinysplinecxx.cxx )
         list (APPEND SOURCE_FILES ${TINYSPLINE_C_SOURCE_FILES})
     endif()
+    if (ANDROID)
+        list (APPEND SOURCE_FILES ${CMAKE_CURRENT_SOURCE_DIR}/../ThirdParty/JavaInterop/java_interop_api.c)
+        list (APPEND SOURCE_FILES ${CMAKE_CURRENT_SOURCE_DIR}/../ThirdParty/JavaInterop/java-interop-dlfcn.cc)
+        list (APPEND SOURCE_FILES ${CMAKE_CURRENT_SOURCE_DIR}/../ThirdParty/JavaInterop/java-interop-logger.cc)
+        list (APPEND SOURCE_FILES ${CMAKE_CURRENT_SOURCE_DIR}/../ThirdParty/JavaInterop/java-interop-util.cc)
+        list (APPEND SOURCE_FILES ${CMAKE_CURRENT_SOURCE_DIR}/../ThirdParty/JavaInterop/java-interop.cc)
+    endif()
 endif()
 
 # Define dependency libs

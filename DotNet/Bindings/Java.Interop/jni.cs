@@ -10079,7 +10079,7 @@ namespace
 
 	static partial class NativeMethods {
 
-		const string JavaInteropLib = "__Internal";
+		const string JavaInteropLib = "Urho3D";
 
 		[DllImport (JavaInteropLib, CallingConvention=CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
 		internal static extern unsafe int java_interop_jnienv_get_version (IntPtr jnienv);

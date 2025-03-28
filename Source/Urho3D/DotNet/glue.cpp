@@ -1516,4 +1516,23 @@ extern "C"
         return qoi_decode_ext(data,size,desc,out_pixels);
     }
 
+#if defined(__ANDROID__)
+    typedef void*  JavaVM;
+	JavaVM* SDL_Android_GetJVM();
+	DllExport int java_interop_jvm_list(JavaVM * *vmBuf, int bufLen, int* nVMs)
+	{
+		if (vmBuf != 0)
+		{
+			vmBuf[0] = SDL_Android_GetJVM();
+		}
+
+		if (nVMs != NULL)
+		{
+			*nVMs = 1;
+		}
+
+		return 0;
+	}
+#endif
+
 }

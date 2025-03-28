@@ -8,6 +8,7 @@ using System.Reflection;
 using System.Reflection.Emit;
 using System.Runtime.Serialization;
 using System.Text;
+using System.Runtime.InteropServices;
 
 namespace Java.Interop {
 
@@ -19,19 +20,42 @@ namespace Java.Interop {
 
 		static  readonly    JniPeerMembers  _members        = new JniPeerMembers (JniTypeName, typeof (ManagedPeer));
 
-		static ManagedPeer ()
-		{
-			_members.JniPeerType.RegisterNativeMethods (
-					new JniNativeMethodRegistration (
-						"construct",
-						ConstructSignature,
-						(ConstructMarshalMethod) Construct),
-					new JniNativeMethodRegistration (
-						"registerNativeMembers",
-						RegisterNativeMembersSignature,
-						(RegisterMarshalMethod) RegisterNativeMembers)
-			);
-		}
+		// static ManagedPeer ()
+		// {
+		// 	_members.JniPeerType.RegisterNativeMethods (
+		// 			new JniNativeMethodRegistration (
+		// 				"construct",
+		// 				ConstructSignature,
+		// 				(ConstructMarshalMethod) Construct),
+		// 			new JniNativeMethodRegistration (
+		// 				"registerNativeMembers",
+		// 				RegisterNativeMembersSignature,
+		// 				(RegisterMarshalMethod) RegisterNativeMembers)
+		// 	);
+		// }
+
+		// elix22 : fix to support Android AOT
+        static ManagedPeer()
+        {
+            try {
+                // Create delegates that will be directly registered with JNI
+                var constructDelegate = new ConstructMarshalMethod(Construct);
+                var registerDelegate = new RegisterMarshalMethod(RegisterNativeMembers);
+
+                // Manual registration through JNI
+                var type = _members.JniPeerType.PeerReference;
+                var methods = new JniNativeMethodRegistration[] {
+                    new JniNativeMethodRegistration("construct", ConstructSignature, constructDelegate),
+                    new JniNativeMethodRegistration("registerNativeMembers", RegisterNativeMembersSignature, registerDelegate)
+                };
+
+                JniEnvironment.Types._RegisterNatives(type, methods, methods.Length);
+            }
+            catch (Exception ex) {
+                Debug.WriteLine($"Failed to register native methods: {ex}");
+                // Let the exception propagate - we need these methods registered
+            }
+        }
 
 		ManagedPeer ()
 		{

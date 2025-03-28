@@ -171,7 +171,6 @@ namespace Urho
 			var possibleCoreDataDirectories = new[]
 				{
 					Environment.CurrentDirectory,
-					System.IO.Path.Combine(urhoDllFolder, "../../native"), //in case if Urho.dll is loaded from the nuget directory directly (see UrhoSharp.targets)
 					urhoDllFolder,
 				};
 			if (ResourcePrefixPaths?.Length > 0)
