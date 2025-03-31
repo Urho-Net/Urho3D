@@ -1,14 +1,10 @@
 
-./script/cmake_ios_dotnet_lib.sh build-ios-dotnet-lib
-xcodebuild -project  build-ios-dotnet-lib/Urho3D.xcodeproj -target Urho3D -configuration Release
-mkdir -p DotNet/libs/iphone/Release-iphoneos
-cp -Lf build-ios-dotnet-lib/lib/libUrho3D.a  DotNet/libs/iphone/Release-iphoneos/libUrho3D-GLES.a 
-xcodebuild -project  build-ios-dotnet-lib/Urho3D.xcodeproj -target Urho3D -configuration Debug
-mkdir -p DotNet/libs/iphone/Debug-iphoneos
-cp -Lf build-ios-dotnet-lib/lib/libUrho3D.a  DotNet/libs/iphone/Debug-iphoneos/libUrho3D-GLES.a 
+./script/cmake_ios_dotnet_lib_metal_shared.sh build-ios-dotnet-lib-metal-shared
 
-./script/cmake_ios_dotnet_metal_lib.sh build-ios-dotnet-metal-lib
-xcodebuild -project  build-ios-dotnet-metal-lib/Urho3D.xcodeproj -target Urho3D -configuration Release
-cp -Lf build-ios-dotnet-metal-lib/lib/libUrho3D.a  DotNet/libs/iphone/Release-iphoneos/libUrho3D-Metal.a 
-xcodebuild -project  build-ios-dotnet-metal-lib/Urho3D.xcodeproj -target Urho3D -configuration Debug
-cp -Lf build-ios-dotnet-metal-lib/lib/libUrho3D.a  DotNet/libs/iphone/Debug-iphoneos/libUrho3D-Metal.a 
+xcodebuild -project  build-ios-dotnet-lib-metal-shared/Urho3D.xcodeproj -target Urho3D -configuration Release
+cp -rf build-ios-dotnet-lib-metal-shared/lib/Urho3D.framework DotNet/libs/iphone/Release-iphoneos/
+cp -f ./script/Info.plist DotNet/libs/iphone/Release-iphoneos/Urho3D.framework
+
+xcodebuild -project  build-ios-dotnet-lib-metal-shared/Urho3D.xcodeproj -target Urho3D -configuration Debug
+cp -rf build-ios-dotnet-lib-metal-shared/lib/Urho3D.framework DotNet/libs/iphone/Debug-iphoneos/
+cp -f ./script/Info.plist DotNet/libs/iphone/Debug-iphoneos/Urho3D.framework

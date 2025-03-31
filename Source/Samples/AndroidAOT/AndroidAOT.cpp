@@ -40,13 +40,13 @@
 using namespace Urho3D;
 
 #if defined(__ANDROID__)
-extern "C"  void AndroidMain();
+extern "C"  void UrhoMain();
 extern "C" __attribute__((visibility("default"))) int SDL_main(int argc, char** argv);
 extern "C"
 {
     int SDL_main(int argc, char** argv)
     {
-        AndroidMain();
+        UrhoMain();
         return 0;
     }
 }

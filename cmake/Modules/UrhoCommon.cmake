@@ -67,10 +67,32 @@ if (IOS)
     set (CMAKE_CROSSCOMPILING TRUE)
     set (CMAKE_XCODE_EFFECTIVE_PLATFORMS -iphoneos -iphonesimulator)
     set (CMAKE_OSX_SYSROOT iphoneos)    # Set Base SDK to "Latest iOS"
-    if (DEFINED ENV{CI})
-        set (CMAKE_XCODE_ATTRIBUTE_CODE_SIGNING_REQUIRED 0)
-        set (CMAKE_XCODE_ATTRIBUTE_CODE_SIGN_IDENTITY "")
-    endif ()
+
+    if (IOS AND URHO3D_LIB_TYPE STREQUAL "SHARED")
+        add_definitions(-DIOS_DYLIB=1)
+        # Disable stripping for iOS shared libraries in Xcode
+        set (CMAKE_XCODE_ATTRIBUTE_STRIP_INSTALLED_PRODUCT NO)
+        set (CMAKE_XCODE_ATTRIBUTE_DEPLOYMENT_POSTPROCESSING NO)
+        set (CMAKE_XCODE_ATTRIBUTE_STRIP_STYLE "non-global")
+    endif()
+        # For iOS 17+ we need a different approach to disable code signing
+        execute_process(COMMAND xcodebuild -version -sdk ${CMAKE_OSX_SYSROOT} SDKVersion
+        OUTPUT_VARIABLE IOS_SDK_VERSION
+        OUTPUT_STRIP_TRAILING_WHITESPACE)
+
+        if (IOS_SDK_VERSION VERSION_GREATER_EQUAL 17.0)
+            # Use the "manual" signing style with an empty team ID
+            set (CMAKE_XCODE_ATTRIBUTE_CODE_SIGN_STYLE "Manual")
+            set (CMAKE_XCODE_ATTRIBUTE_CODE_SIGNING_REQUIRED NO)
+            set (CMAKE_XCODE_ATTRIBUTE_CODE_SIGN_IDENTITY "")
+            set (CMAKE_XCODE_ATTRIBUTE_DEVELOPMENT_TEAM "")
+            set (CMAKE_XCODE_ATTRIBUTE_ENABLE_BITCODE NO)
+            set (CMAKE_XCODE_ATTRIBUTE_CODE_SIGNING_ALLOWED NO)
+        else()
+            # Original approach for older iOS SDKs
+            set (CMAKE_XCODE_ATTRIBUTE_CODE_SIGNING_REQUIRED 0)
+            set (CMAKE_XCODE_ATTRIBUTE_CODE_SIGN_IDENTITY "-")
+        endif()
     # This is a CMake hack in order to make standard CMake check modules that use try_compile() internally work on iOS platform
     # The injected "flags" are not compiler flags, they are actually CMake variables meant for another CMake subprocess that builds the source file being passed in the try_compile() command
     # CAVEAT: these injected "flags" must always be kept at the end of the string variable, i.e. when adding more compiler flags later on then those new flags must be prepended in front of these flags instead
@@ -97,10 +119,25 @@ elseif (TVOS)
     set (CMAKE_CROSSCOMPILING TRUE)
     set (CMAKE_XCODE_EFFECTIVE_PLATFORMS -appletvos -appletvsimulator)
     set (CMAKE_OSX_SYSROOT appletvos)    # Set Base SDK to "Latest tvOS"
-    if (DEFINED ENV{CI})
-        set (CMAKE_XCODE_ATTRIBUTE_CODE_SIGNING_REQUIRED 0)
-        set (CMAKE_XCODE_ATTRIBUTE_CODE_SIGN_IDENTITY "")
-    endif ()
+        # For iOS 17+ we need a different approach to disable code signing
+        execute_process(COMMAND xcodebuild -version -sdk ${CMAKE_OSX_SYSROOT} SDKVersion
+        OUTPUT_VARIABLE IOS_SDK_VERSION
+        OUTPUT_STRIP_TRAILING_WHITESPACE)
+
+        if (IOS_SDK_VERSION VERSION_GREATER_EQUAL 17.0)
+            # Use the "manual" signing style with an empty team ID
+            set (CMAKE_XCODE_ATTRIBUTE_CODE_SIGN_STYLE "Manual")
+            set (CMAKE_XCODE_ATTRIBUTE_CODE_SIGNING_REQUIRED NO)
+            set (CMAKE_XCODE_ATTRIBUTE_CODE_SIGN_IDENTITY "")
+            set (CMAKE_XCODE_ATTRIBUTE_DEVELOPMENT_TEAM "")
+            set (CMAKE_XCODE_ATTRIBUTE_ENABLE_BITCODE NO)
+            set (CMAKE_XCODE_ATTRIBUTE_CODE_SIGNING_ALLOWED NO)
+        else()
+            # Original approach for older iOS SDKs
+            set (CMAKE_XCODE_ATTRIBUTE_CODE_SIGNING_REQUIRED 0)
+            set (CMAKE_XCODE_ATTRIBUTE_CODE_SIGN_IDENTITY "-")
+        endif()
+
     set (CMAKE_REQUIRED_FLAGS ";-DSmileyHack=byYaoWT;-DCMAKE_MACOSX_BUNDLE=1;-DCMAKE_XCODE_ATTRIBUTE_CODE_SIGNING_REQUIRED=0;-DCMAKE_XCODE_ATTRIBUTE_CODE_SIGN_IDENTITY=")
     if (NOT TVOS_SYSROOT)
         execute_process (COMMAND xcodebuild -version -sdk ${CMAKE_OSX_SYSROOT} Path OUTPUT_VARIABLE TVOS_SYSROOT OUTPUT_STRIP_TRAILING_WHITESPACE)   # Obtain tvOS sysroot path

@@ -708,8 +708,10 @@ if (URHO3D_LIB_TYPE STREQUAL SHARED AND ARM)
     if (APPLE AND NOT IOS AND NOT TVOS)
         # do nothing on Apple silicon
     else()
-        add_custom_command (TARGET ${TARGET_NAME} POST_BUILD COMMAND ${CMAKE_STRIP} $<TARGET_FILE:${TARGET_NAME}>
-            COMMENT "Stripping Urho3D shared library")
+        if (NOT (IOS AND URHO3D_LIB_TYPE STREQUAL SHARED))
+            add_custom_command (TARGET ${TARGET_NAME} POST_BUILD COMMAND ${CMAKE_STRIP} $<TARGET_FILE:${TARGET_NAME}>
+                COMMENT "Stripping Urho3D shared library")
+        endif()
     endif ()
 endif ()
 if (URHO3D_SCP_TO_TARGET)
@@ -721,5 +723,17 @@ endif ()
 if (URHO3D_DOTNET_LIB)
     if (IOS OR TVOS)
         set_target_properties(${TARGET_NAME} PROPERTIES XCODE_ATTRIBUTE_ENABLE_BITCODE "YES")
+        if (URHO3D_LIB_TYPE STREQUAL SHARED)
+            set_target_properties(${TARGET_NAME} PROPERTIES 
+            FRAMEWORK TRUE
+            FRAMEWORK_VERSION A
+            MACOSX_FRAMEWORK_IDENTIFIER com.elix22.urho3d
+            BUILD_WITH_INSTALL_RPATH ON
+            INSTALL_RPATH "@executable_path/Frameworks"
+            XCODE_ATTRIBUTE_CODE_SIGNING_ALLOWED "NO"
+            XCODE_ATTRIBUTE_CODE_SIGNING_REQUIRED "NO"
+            XCODE_ATTRIBUTE_CODE_SIGN_IDENTITY ""
+            )
+        endif()
     endif()
 endif()
