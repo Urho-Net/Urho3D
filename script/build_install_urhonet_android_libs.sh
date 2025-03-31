@@ -76,6 +76,9 @@ source_files=(
     "${URHO3D_HOME}/DotNet/libs/android/net6.0-Release/armeabi-v7a/libMonoEmbedded.so"
     "${URHO3D_HOME}/DotNet/libs/android/net6.0-Release/x86/libMonoEmbedded.so"
     "${URHO3D_HOME}/DotNet/libs/android/net6.0-Release/x86_64/libMonoEmbedded.so"
+    "${URHO3D_HOME}/DotNet/libs/android/net6.0-Release/arm64-v8a/libUrhoMain.so"
+    "${URHO3D_HOME}/DotNet/libs/android/net6.0-Release/armeabi-v7a/libUrhoMain.so"
+    "${URHO3D_HOME}/DotNet/libs/android/net6.0-Release/x86_64/libUrhoMain.so"
     "${URHO3D_HOME}/android/urho3d-lib/build/intermediates/aar_main_jar/release/classes.jar"
 )
 
@@ -106,9 +109,9 @@ cp -f ${URHO3D_HOME}/DotNet/libs/android/net6.0-Release/armeabi-v7a/libMonoEmbed
 cp -f ${URHO3D_HOME}/DotNet/libs/android/net6.0-Release/x86/libMonoEmbedded.so     ${URHONET_HOME_ROOT}/template/libs/android/x86
 cp -f ${URHO3D_HOME}/DotNet/libs/android/net6.0-Release/x86_64/libMonoEmbedded.so    ${URHONET_HOME_ROOT}/template/libs/android/x86_64
 
-cp -f ${URHO3D_HOME}/DotNet/libs/android/net6.0-Release/arm64-v8a/libAndroidAOT.so     ${URHONET_HOME_ROOT}/template/libs/android/arm64-v8a
-cp -f ${URHO3D_HOME}/DotNet/libs/android/net6.0-Release/armeabi-v7a/libAndroidAOT.so     ${URHONET_HOME_ROOT}/template/libs/android/armeabi-v7a
-# cp -f ${URHO3D_HOME}/DotNet/libs/android/net6.0-Release/x86/libAndroidAOT.so     ${URHONET_HOME_ROOT}/template/libs/android/x86
-cp -f ${URHO3D_HOME}/DotNet/libs/android/net6.0-Release/x86_64/libAndroidAOT.so    ${URHONET_HOME_ROOT}/template/libs/android/x86_64
+cp -f ${URHO3D_HOME}/DotNet/libs/android/net6.0-Release/arm64-v8a/libUrhoMain.so     ${URHONET_HOME_ROOT}/template/libs/android/arm64-v8a
+cp -f ${URHO3D_HOME}/DotNet/libs/android/net6.0-Release/armeabi-v7a/libUrhoMain.so     ${URHONET_HOME_ROOT}/template/libs/android/armeabi-v7a
+# cp -f ${URHO3D_HOME}/DotNet/libs/android/net6.0-Release/x86/libUrhoMain.so     ${URHONET_HOME_ROOT}/template/libs/android/x86
+cp -f ${URHO3D_HOME}/DotNet/libs/android/net6.0-Release/x86_64/libUrhoMain.so    ${URHONET_HOME_ROOT}/template/libs/android/x86_64
 
 cp -f ${URHO3D_HOME}/android/urho3d-lib/build/intermediates/aar_main_jar/release/classes.jar  ${URHONET_HOME_ROOT}/template/Android/classes

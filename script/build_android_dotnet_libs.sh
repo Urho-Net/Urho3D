@@ -15,7 +15,7 @@ cp android/launcher-app/build/intermediates/stripped_native_libs/release/out/lib
 cp android/launcher-app/build/intermediates/stripped_native_libs/release/out/lib/arm64-v8a/libMonoEmbedded.so     DotNet/libs/android/net6.0-Release/arm64-v8a
 cp android/launcher-app/build/intermediates/stripped_native_libs/release/out/lib/x86_64/libMonoEmbedded.so    DotNet/libs/android/net6.0-Release/x86_64
 
-cp -f android/launcher-app/build/intermediates/stripped_native_libs/release/out/lib/armeabi-v7a/libAndroidAOT.so    DotNet/libs/android/net6.0-Release/armeabi-v7a
-# cp -f android/launcher-app/build/intermediates/stripped_native_libs/release/out/lib/x86/libAndroidAOT.so    DotNet/libs/android/net6.0-Release/x86
-cp -f android/launcher-app/build/intermediates/stripped_native_libs/release/out/lib/arm64-v8a/libAndroidAOT.so     DotNet/libs/android/net6.0-Release/arm64-v8a
-cp -f android/launcher-app/build/intermediates/stripped_native_libs/release/out/lib/x86_64/libAndroidAOT.so   DotNet/libs/android/net6.0-Release/x86_64
+cp -f android/launcher-app/build/intermediates/stripped_native_libs/release/out/lib/armeabi-v7a/libUrhoMain.so    DotNet/libs/android/net6.0-Release/armeabi-v7a
+# cp -f android/launcher-app/build/intermediates/stripped_native_libs/release/out/lib/x86/libUrhoMain.so    DotNet/libs/android/net6.0-Release/x86
+cp -f android/launcher-app/build/intermediates/stripped_native_libs/release/out/lib/arm64-v8a/libUrhoMain.so     DotNet/libs/android/net6.0-Release/arm64-v8a
+cp -f android/launcher-app/build/intermediates/stripped_native_libs/release/out/lib/x86_64/libUrhoMain.so   DotNet/libs/android/net6.0-Release/x86_64

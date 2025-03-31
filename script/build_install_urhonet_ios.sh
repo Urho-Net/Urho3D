@@ -63,6 +63,8 @@ fi
 
 cp -fRL ${URHO3D_HOME}/build-ios-dotnet-lib-metal-shared/include ${URHONET_HOME_ROOT}/template/IOS
 
+cp -f ${URHO3D_HOME}/Source/Samples/UrhoMain/UrhoMain.cpp  ${URHONET_HOME_ROOT}/template/IOS/UrhoMain.cpp 
+
 
 if [ ! -e ${URHO3D_HOME}/DotNet/libs/iphone/Release-iphoneos/Urho3D.framework/Urho3D ]; then
   echo "Release-iphoneos/Urho3D.framework does not exist. Exiting with an error."

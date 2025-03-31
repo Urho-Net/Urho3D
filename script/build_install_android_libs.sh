@@ -25,7 +25,7 @@ cp -f android/launcher-app/build/intermediates/stripped_native_libs/release/out/
 cp -f android/launcher-app/build/intermediates/stripped_native_libs/release/out/lib/arm64-v8a/libMonoEmbedded.so     ${URHONET_HOME_ROOT}/template/libs/android/arm64-v8a
 cp -f android/launcher-app/build/intermediates/stripped_native_libs/release/out/lib/x86_64/libMonoEmbedded.so    ${URHONET_HOME_ROOT}/template/libs/android/x86_64
 
-cp -f android/launcher-app/build/intermediates/stripped_native_libs/release/out/lib/armeabi-v7a/libAndroidAOT.so   ${URHONET_HOME_ROOT}/template/libs/android/armeabi-v7a
-# cp -f android/launcher-app/build/intermediates/stripped_native_libs/release/out/lib/x86/libAndroidAOT.so   ${URHONET_HOME_ROOT}/template/libs/android/x86
-cp -f android/launcher-app/build/intermediates/stripped_native_libs/release/out/lib/arm64-v8a/libAndroidAOT.so     ${URHONET_HOME_ROOT}/template/libs/android/arm64-v8a
-cp -f android/launcher-app/build/intermediates/stripped_native_libs/release/out/lib/x86_64/libAndroidAOT.so    ${URHONET_HOME_ROOT}/template/libs/android/x86_64
+cp -f android/launcher-app/build/intermediates/stripped_native_libs/release/out/lib/armeabi-v7a/libUrhoMain.so   ${URHONET_HOME_ROOT}/template/libs/android/armeabi-v7a
+# cp -f android/launcher-app/build/intermediates/stripped_native_libs/release/out/lib/x86/libUrhoMain.so   ${URHONET_HOME_ROOT}/template/libs/android/x86
+cp -f android/launcher-app/build/intermediates/stripped_native_libs/release/out/lib/arm64-v8a/libUrhoMain.so     ${URHONET_HOME_ROOT}/template/libs/android/arm64-v8a
+cp -f android/launcher-app/build/intermediates/stripped_native_libs/release/out/lib/x86_64/libUrhoMain.so    ${URHONET_HOME_ROOT}/template/libs/android/x86_64

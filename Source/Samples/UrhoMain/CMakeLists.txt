@@ -23,7 +23,7 @@
 # Check for supported ABIs - only proceed if we're building for a supported ABI
 if(ANDROID AND (ANDROID_ABI STREQUAL "armeabi-v7a" OR ANDROID_ABI STREQUAL "arm64-v8a" OR ANDROID_ABI STREQUAL "x86_64"))
     # Define target name
-    set (TARGET_NAME AndroidAOT)
+    set (TARGET_NAME UrhoMain)
 
     set (INCLUDE_DIRS ${INCLUDE_DIRS} ../../../DotNet/libs/android/net6.0-Release/${ANDROID_ABI}/include/mono-2.0)
     set (MONO_LIBPATH  ../../../DotNet/libs/android/net6.0-Release/${ANDROID_ABI}) 

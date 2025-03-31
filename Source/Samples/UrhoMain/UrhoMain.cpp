@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2008-2021 the Urho3D project.
+// Copyright (c) 2008-2025 the Urho3D project.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -20,24 +20,7 @@
 // THE SOFTWARE.
 //
 
-
-#include <cerrno>
-#include <dirent.h>
-#include <sys/wait.h>
 #include <unistd.h>
-#include <utime.h>
-
-
-
-
-#include "../Container/Str.h"
-#include "../Core/Context.h"
-#include "../IO/File.h"
-#include "../IO/FileSystem.h"
-#include "../IO/Log.h"
-#include "../Resource/ResourceCache.h"
-
-using namespace Urho3D;
 
 #if defined(__ANDROID__)
 extern "C"  void UrhoMain();
@@ -49,5 +32,27 @@ extern "C"
         UrhoMain();
         return 0;
     }
+}
+#endif
+
+#if defined(IOS) || defined(TVOS)
+extern "C"
+{
+__attribute__((visibility("default"))) int SDL_main(int argc, char** argv);
+typedef int (*SDL_main_func)(int argc, char *argv[]);
+extern  int  SDL_UIKitRunApp(int argc, char *argv[], SDL_main_func mainFunction);
+extern void UrhoMain();
+
+int SDL_main(int argc, char** argv)
+{
+    UrhoMain();
+    return 0;
+}
+
+int main(int argc, char** argv)
+{
+    return SDL_UIKitRunApp(0, NULL, SDL_main);
+}
+
 }
 #endif
