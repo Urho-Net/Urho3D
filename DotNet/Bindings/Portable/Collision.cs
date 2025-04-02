@@ -6,10 +6,17 @@ using System.Runtime.InteropServices;
 
 namespace Urho.Physics {
 	
+	[StructLayout(LayoutKind.Sequential)]
 	public unsafe struct CollisionData
 	{
-		public Vector3 ContactPosition, ContactNormal;
-		public float ContactDistance, ContactImpulse;
+		 [MarshalAs(UnmanagedType.Struct)]
+		public Vector3 ContactPosition;
+		 [MarshalAs(UnmanagedType.Struct)]
+		public Vector3  ContactNormal;
+		[MarshalAs(UnmanagedType.R4)]
+		public float ContactDistance;
+		[MarshalAs(UnmanagedType.R4)]
+		public float ContactImpulse;
 		
 		public override string ToString ()
 		{

@@ -53,7 +53,7 @@ namespace Urho
 				return new T[0];
 
 			T[] result = new T[size];
-			var typeSize = Marshal.SizeOf(typeof(T));
+			var typeSize = Marshal.SizeOf<T>(); 
 			for (int i = 0; i < size; i++)
 			{
 				IntPtr data = new IntPtr(ptr.ToInt64() + typeSize * i);
