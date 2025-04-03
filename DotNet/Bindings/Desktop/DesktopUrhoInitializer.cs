@@ -40,16 +40,17 @@ namespace Urho.Desktop
 
 		internal static void OnInited()
 		{
-			if (Environment.OSVersion.Platform == PlatformID.MacOSX ||
-				Environment.OSVersion.Platform == PlatformID.Unix)
-				return; //on macOS/Linux the libs are fat and there is no DirectX
+			// TBD ELI , removed , crashing in Windows NativeAOT mode , not sure why it's here
+			// if (Environment.OSVersion.Platform == PlatformID.MacOSX ||
+			// 	Environment.OSVersion.Platform == PlatformID.Unix)
+			// 	return; //on macOS/Linux the libs are fat and there is no DirectX
 
-			var isD3D = ApplicationOptions.LastUsedOptions?.UseDirectX11 == true;
-			var rootFolder = Path.GetDirectoryName(typeof(DesktopUrhoInitializer).Assembly.Location);
-			var relativePathToLib = Path.Combine($@"Win{(IntPtr.Size == 8 ? "64" : "32")}_{(isD3D ? "DirectX" : "OpenGL")}", $"{Consts.NativeImport}.dll");
-			var file = Path.Combine(rootFolder, relativePathToLib);
+			// var isD3D = ApplicationOptions.LastUsedOptions?.UseDirectX11 == true;
+			// var rootFolder = Path.GetDirectoryName(typeof(DesktopUrhoInitializer).Assembly.Location);
+			// var relativePathToLib = Path.Combine($@"Win{(IntPtr.Size == 8 ? "64" : "32")}_{(isD3D ? "DirectX" : "OpenGL")}", $"{Consts.NativeImport}.dll");
+			// var file = Path.Combine(rootFolder, relativePathToLib);
 
-			LoadLibrary(file);
+			// LoadLibrary(file);
 		}
 	}
 }
