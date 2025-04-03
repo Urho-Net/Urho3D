@@ -38,6 +38,7 @@
 #include <imgui/imgui.h>
 #include <imgui/imgui_internal.h>
 #include <vector>
+#include <iterator>
 
 namespace Urho3D
 {
@@ -680,9 +681,9 @@ static ImGuiKey SDL2KeyEventToImGuiKey(SDL_Keycode keycode, SDL_Scancode scancod
     void ImGuiElement::UpdateQualifiers(QualifierFlags qualifiers)
     {
         ImGui::SetCurrentContext(imguiContext_);
-        AddKeyEvent(ImGuiMod_Ctrl, (qualifiers & QUAL_CTRL) != 0);
-        AddKeyEvent(ImGuiMod_Shift, (qualifiers & QUAL_SHIFT) != 0);
-        AddKeyEvent(ImGuiMod_Alt, (qualifiers & QUAL_ALT )!= 0);
+        AddKeyEvent(ImGuiMod_Ctrl, (qualifiers & QUAL_CTRL) == QUAL_CTRL);
+        AddKeyEvent(ImGuiMod_Shift, (qualifiers & QUAL_SHIFT) == QUAL_SHIFT);
+        AddKeyEvent(ImGuiMod_Alt, (qualifiers & QUAL_ALT) == QUAL_ALT);
     }
 
     bool ImGuiElement::Begin(const String& name, bool* p_open, ImGuiWindowFlags flags)

@@ -27,6 +27,7 @@
 #include <imgui/imgui_internal.h>
 #include <imgui/imgui_multicontext_compositor.h>
 //#include <imgui/imgui_multicontext_compositor.h>
+#include <vector>
 
 namespace Urho3D
 {
