@@ -6,8 +6,11 @@
 /* @(#) $Id$ */
 
 #include "zutil.h"
+// TBD ELI , causing compilation errors on macOS Sequoia
+#if !defined(MACOS) && !defined(TARGET_OS_MAC)
 #ifndef Z_SOLO
 #  include "gzguts.h"
+#endif
 #endif
 
 z_const char * const z_errmsg[10] = {
