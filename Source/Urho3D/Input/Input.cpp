@@ -150,7 +150,7 @@ EmscriptenInput::EmscriptenInput(Input* inputInst) :
     inputInst_(inputInst)
 {
     auto* vInputInst = (void*)inputInst;
-
+#if !defined(URHO3D_DOTNET)
     // Handle pointer lock
     emscripten_set_pointerlockchange_callback(NULL, vInputInst, false, EmscriptenInput::HandlePointerLockChange);
 
@@ -161,16 +161,19 @@ EmscriptenInput::EmscriptenInput(Input* inputInst) :
     // Handle focus changes
     emscripten_set_focusout_callback(NULL, vInputInst, false, EmscriptenInput::HandleFocusChange);
     emscripten_set_focus_callback(NULL, vInputInst, false, EmscriptenInput::HandleFocusChange);
-
+#endif
     // Handle SDL events
     SDL_AddEventWatch(EmscriptenInput::HandleSDLEvents, vInputInst);
 }
 
 void EmscriptenInput::RequestPointerLock(MouseMode mode, bool suppressEvent)
 {
+// TBD ELI , for now disabling for URHO3D_DOTNET, crashing on AOT mode  needs some investigation 
+#if !defined(URHO3D_DOTNET)
     requestedMouseMode_ = mode;
     suppressMouseModeEvent_ = suppressEvent;
     emscripten_request_pointerlock(NULL, true);
+#endif
 }
 
 void EmscriptenInput::ExitPointerLock(bool suppressEvent)

@@ -23,7 +23,11 @@ namespace Urho
         static Dictionary<Type, int> hashDict;
 
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-        delegate void NativeCallback(CallbackType type, IntPtr target, IntPtr param1, int param2, string param3);
+#if __WEB__
+         delegate void NativeCallback(CallbackType type, IntPtr target, IntPtr param1, int param2, IntPtr param3);
+ #else
+         delegate void NativeCallback(CallbackType type, IntPtr target, IntPtr param1, int param2, string param3);
+ #endif
 
         [DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
         static extern void RegisterMonoNativeCallbacks(NativeCallback callback);
@@ -92,13 +96,22 @@ namespace Urho
         /// This method is called by RefCounted::~RefCounted or RefCounted::AddRef
         /// </summary>
         [MonoPInvokeCallback(typeof(NativeCallback))]
-        static void OnNativeCallback(CallbackType type, IntPtr target, IntPtr param1, int param2, string param3)
+#if __WEB__
+         static void OnNativeCallback(CallbackType type, IntPtr target, IntPtr param1, int param2, IntPtr pParam3)
+ #else
+         static void OnNativeCallback(CallbackType type, IntPtr target, IntPtr param1, int param2, string param3)
+ #endif
         {
             const string typeNameKey = "SharpTypeName";
 
             // while app is not started - accept only Log callbacks
             if (!isStarted && type != CallbackType.Log_Write)
                 return;
+
+            
+ #if __WEB__
+             string param3 = Marshal.PtrToStringAnsi(pParam3);
+ #endif
 
             switch (type)
             {
