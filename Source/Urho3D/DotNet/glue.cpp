@@ -1535,4 +1535,14 @@ extern "C"
 	}
 #endif
 
+
+#ifdef __EMSCRIPTEN__
+    DllExport Variant* Component_GetVar_StringHash(Urho3D::Component* _target, int key)
+    {
+        return (Urho3D::Variant*)(&_target->GetVar(Urho3D::StringHash(key)));
+    }
+#else
+    DllExport Variant Component_GetVar_StringHash(Urho3D::Component* _target, int key) { return _target->GetVar(Urho3D::StringHash(key)); }
+#endif
+
 }

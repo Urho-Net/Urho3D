@@ -14,12 +14,15 @@ using Urho.Resources;
 using Urho.IO;
 using Urho.Gui;
 using Urho.Audio;
-
+using System;
+using System.Runtime.InteropServices;
+using System.Collections.Generic;
 
 namespace Urho
 {
     public partial class Component : Animatable
     {
+   
         protected Engine Engine = Application.Current.Engine;
         protected Renderer Renderer = Application.Current.Renderer;
         protected Graphics Graphics = Application.Current.Graphics;
@@ -34,6 +37,24 @@ namespace Urho
 
         bool isDisposed = false;
         private bool IsDelayedStartCalled = false;
+
+      [DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+#if __WEB__
+		unsafe internal static extern Variant * Component_GetVar_StringHash (IntPtr handle, int key);
+#else
+        internal static extern Variant Component_GetVar_StringHash(IntPtr handle, int key);
+#endif
+
+        unsafe public Variant GetVar(StringHash key)
+        {
+            Runtime.ValidateRefCounted(this);
+#if __WEB__
+			return *Component_GetVar_StringHash (handle, key.Code);
+#else
+            return Component_GetVar_StringHash(handle, key.Code);
+#endif
+        }
+
 
         public bool IsStarted
         {
@@ -90,7 +111,7 @@ namespace Urho
         public virtual void OnDeserialize(IComponentDeserializer deserializer) { }
 
         public virtual void OnSerializeFields() { }
-        public virtual void OnDeserializeFields(){}
+        public virtual void OnDeserializeFields() { }
 
         public void SerializeFields()
         {
@@ -122,7 +143,7 @@ namespace Urho
                 string key = mInfo.Name;
                 object value = mInfo.GetValue(this);
 
-                if(value == null)continue;
+                if (value == null) continue;
 
                 // SerializeField((StringHash)(key),value);
                 // use a more common way to serialize , can be used alos for binary serialization
@@ -142,62 +163,71 @@ namespace Urho
 
         public void DeserializeFields(IComponentDeserializer deserializer = null)
         {
-            Type CompnentType = this.GetType();
-
-            BindingFlags bindingFlags = BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance;
-
-            foreach (FieldInfo mInfo in CompnentType.GetFields(bindingFlags))
+            try
             {
-                FieldAttributes fieldAttributes = mInfo.Attributes;
-                bool isSerializable = false;
+                Type CompnentType = this.GetType();
 
-                foreach (Attribute attr in Attribute.GetCustomAttributes(mInfo))
+                BindingFlags bindingFlags = BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance;
+
+                foreach (FieldInfo mInfo in CompnentType.GetFields(bindingFlags))
                 {
-                    if (attr.GetType() == typeof(SerializeFieldAttribute))
+                    FieldAttributes fieldAttributes = mInfo.Attributes;
+                    bool isSerializable = false;
+
+                    foreach (Attribute attr in Attribute.GetCustomAttributes(mInfo))
                     {
-                        isSerializable = true;
-                    }
-                }
-
-                // load only public or serializable fields
-                if (!(mInfo.IsPublic || isSerializable)) continue;
-                // don't load constants
-                if ((fieldAttributes & FieldAttributes.Literal) == FieldAttributes.Literal) continue;
-
-                Type type = mInfo.FieldType;
-                string key = mInfo.Name;
-
-                string blob = GetVar(key);
-                if (blob != string.Empty)
-                {
-                    try
-                    {
-                        object value = type.DeserializeJson(blob);
-                        if (value != null)
+                        if (attr.GetType() == typeof(SerializeFieldAttribute))
                         {
-                            mInfo.SetValue(this, value);
+                            isSerializable = true;
                         }
                     }
-                    catch
-                    {
 
-                    }
-                }
-                else
-                {
-                    if (deserializer != null)
+                    // load only public or serializable fields
+                    if (!(mInfo.IsPublic || isSerializable)) continue;
+                    // don't load constants
+                    if ((fieldAttributes & FieldAttributes.Literal) == FieldAttributes.Literal) continue;
+
+                    Type type = mInfo.FieldType;
+                    string key = mInfo.Name;
+                    string blob = GetVar(new StringHash(key));
+                    if (blob != string.Empty)
                     {
-                        object value = deserializer.GetObjectValueFromXmlElement(type, key);
-                        if (value != null)
+                        try
                         {
-                            mInfo.SetValue(this, value);
+                            object value = type.DeserializeJson(blob);
+                            if (value != null)
+                            {
+                                mInfo.SetValue(this, value);
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            // Handle the exception as needed
+                            Log.Error($"Error deserializing field {key}: {ex.Message}");
                         }
                     }
+                    else
+                    {
+                        if (deserializer != null)
+                        {
+                            object value = deserializer.GetObjectValueFromXmlElement(type, key);
+                            if (value != null)
+                            {
+                                mInfo.SetValue(this, value);
+                            }
+                        }
+                    }
+
                 }
 
+                OnDeserializeFields();
+            }
+            catch (Exception ex)
+            {
+                // Handle the exception as needed
+                Log.Error($"Error deserializing fields: {ex.Message}");
             }
 
-            OnDeserializeFields();
         }
 
         public virtual void OnAttachedToNode(Node node) { }

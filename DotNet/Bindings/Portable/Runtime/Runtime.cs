@@ -106,8 +106,7 @@ namespace Urho
 
             // while app is not started - accept only Log callbacks
             if (!isStarted && type != CallbackType.Log_Write)
-                return;
-
+                return;  
             
  #if __WEB__
              string param3 = Marshal.PtrToStringAnsi(pParam3);
@@ -196,7 +195,8 @@ namespace Urho
                                     }
                                 }
                             }
-                            else{
+                            else
+                            {
 #if __EDITOR__
                                 if (Application.HasCurrent)
                                 {
@@ -211,6 +211,40 @@ namespace Urho
                                         {
                                             newComponent.AttachedToNode(newComponent.Node);
                                         }
+                                    }
+                                }
+#else
+                                // Try to find the type in the current assembly
+                                // This is a fallback for when the type is not found in the original assembly
+                                string fqn_name_in_game_assembly = "";
+                                if (Application.Current != null)
+                                {
+                                    string app_fqn = Application.Current.GetType().AssemblyQualifiedName;
+                                    // Log.Error($"Serializable_Load: typeName: {typeName} not found trying to search in  {app_fqn}");
+                                    String[] app_fqn_split = app_fqn.Split(",");
+                                    String[] name_split = typeName.Split(",");
+
+                                    app_fqn_split[0] = name_split[0];
+                                    fqn_name_in_game_assembly = String.Join(",", app_fqn_split);
+                                    var fallbackType = Type.GetType(fqn_name_in_game_assembly);
+                                    if (fallbackType != null)
+                                    {
+                                        // Log.Info($"Serializable_Load: typeName: {fqn_name_in_game_assembly} found");
+                                        var newComponent = (Component)Activator.CreateInstance(fallbackType, target);
+                                        if (newComponent != null)
+                                        {
+                                            newComponent.Enabled = (param2 != 0) ? true : false;
+                                            newComponent.SetVar("SharpTypeName", typeName);
+                                            newComponent.DeserializeFields();
+                                            if (newComponent.Node != null)
+                                            {
+                                                newComponent.AttachedToNode(newComponent.Node);
+                                            }
+                                        }
+                                    }
+                                    else
+                                    {
+                                        Log.Error($"Serializable_Load: typeName: {name_split} not found");
                                     }
                                 }
 #endif                    
