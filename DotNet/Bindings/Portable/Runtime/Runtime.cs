@@ -119,7 +119,12 @@ namespace Urho
                         var component = LookupObject<Component>(param1, false);
                         if (component != null && component.HasVar("SharpTypeName") == 1)
                         {
+#if __WEB__
+                            string typeName = component.GetVar(new StringHash("SharpTypeName"));
+#else
+                            // TBD ELI , needs a fix on Web 
                             string typeName = component.GetVar("SharpTypeName");
+#endif 
                             if (!string.IsNullOrEmpty(typeName))
                             {               
                                 var typeObj = Type.GetType(typeName);
@@ -155,6 +160,40 @@ namespace Urho
                                             }
                                         }
                                     }
+#else
+                                // Native AOT use case , try to find the type in the current assembly
+                                // This is a fallback for when the type is not found in the original assembly
+                                string fqn_name_in_game_assembly = "";
+                                if (Application.Current != null)
+                                {
+                                    string app_fqn = Application.Current.GetType().AssemblyQualifiedName;
+                                    // Log.Error($"Component_Clone: typeName: {typeName} not found trying to search in  {app_fqn}");
+                                    String[] app_fqn_split = app_fqn.Split(",");
+                                    String[] name_split = typeName.Split(",");
+
+                                    app_fqn_split[0] = name_split[0];
+                                    fqn_name_in_game_assembly = String.Join(",", app_fqn_split);
+                                    var fallbackType = Type.GetType(fqn_name_in_game_assembly);
+                                    if (fallbackType != null)
+                                    {
+                                        // Log.Info($"Serializable_Load: typeName: {fqn_name_in_game_assembly} found");
+                                        var newComponent = (Component)Activator.CreateInstance(fallbackType, target);
+                                        if (newComponent != null)
+                                        {
+                                            newComponent.Enabled = component.Enabled;
+                                            newComponent.SetVar("SharpTypeName", typeName);
+                                            CopySCharpComponentAttributes(component,newComponent);
+                                            if (newComponent.Node != null)
+                                            {
+                                                newComponent.AttachedToNode(newComponent.Node);
+                                            }
+                                        }
+                                    }
+                                    else
+                                    {
+                                        Log.Error($"Component_Clone: typeName: {name_split} not found");
+                                    }
+                                }
 #endif
                                 }
                             }
