@@ -298,8 +298,14 @@ long double    truncl(long double x);
 */
 
 #include <__config>
+
+// TBD ELI , this is a workaround 
+typedef int16_t _Float16 ;
+
 #include <math.h>
 #include <type_traits>
+
+
 
 #ifdef _LIBCPP_MSVCRT
 #include "support/win32/math_win32.h"
