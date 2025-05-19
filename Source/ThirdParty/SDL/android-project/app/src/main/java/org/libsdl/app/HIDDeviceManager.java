@@ -202,7 +202,19 @@ public class HIDDeviceManager {
         filter.addAction(UsbManager.ACTION_USB_DEVICE_ATTACHED);
         filter.addAction(UsbManager.ACTION_USB_DEVICE_DETACHED);
         filter.addAction(HIDDeviceManager.ACTION_USB_PERMISSION);
-        mContext.registerReceiver(mUsbBroadcast, filter);
+
+        if (android.os.Build.VERSION.SDK_INT >= 33) { // 33 is Android 13 (Tiramisu)
+            // For Android 13+, use reflection to avoid direct reference to RECEIVER_NOT_EXPORTED
+            try {
+                int receiverNotExported = Context.class.getField("RECEIVER_NOT_EXPORTED").getInt(null);
+                mContext.registerReceiver(mUsbBroadcast, filter, receiverNotExported);
+            } catch (Exception e) {
+                // Fallback to simple registration if reflection fails
+                mContext.registerReceiver(mUsbBroadcast, filter,4);
+            }
+        } else {
+            mContext.registerReceiver(mUsbBroadcast, filter);
+        }
 
         for (UsbDevice usbDevice : mUsbManager.getDeviceList().values()) {
             handleUsbDeviceAttached(usbDevice);
