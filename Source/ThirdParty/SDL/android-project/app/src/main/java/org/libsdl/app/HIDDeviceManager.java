@@ -203,15 +203,8 @@ public class HIDDeviceManager {
         filter.addAction(UsbManager.ACTION_USB_DEVICE_DETACHED);
         filter.addAction(HIDDeviceManager.ACTION_USB_PERMISSION);
 
-        if (android.os.Build.VERSION.SDK_INT >= 33) { // 33 is Android 13 (Tiramisu)
-            // For Android 13+, use reflection to avoid direct reference to RECEIVER_NOT_EXPORTED
-            try {
-                int receiverNotExported = Context.class.getField("RECEIVER_NOT_EXPORTED").getInt(null);
-                mContext.registerReceiver(mUsbBroadcast, filter, receiverNotExported);
-            } catch (Exception e) {
-                // Fallback to simple registration if reflection fails
-                mContext.registerReceiver(mUsbBroadcast, filter,4);
-            }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            mContext.registerReceiver(mUsbBroadcast, filter, Context.RECEIVER_EXPORTED);
         } else {
             mContext.registerReceiver(mUsbBroadcast, filter);
         }
@@ -401,7 +394,11 @@ public class HIDDeviceManager {
         IntentFilter filter = new IntentFilter();
         filter.addAction(BluetoothDevice.ACTION_ACL_CONNECTED);
         filter.addAction(BluetoothDevice.ACTION_ACL_DISCONNECTED);
-        mContext.registerReceiver(mBluetoothBroadcast, filter);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            mContext.registerReceiver(mBluetoothBroadcast, filter, Context.RECEIVER_EXPORTED);
+        } else {
+            mContext.registerReceiver(mBluetoothBroadcast, filter);
+        }
 
         if (mIsChromebook) {
             mHandler = new Handler(Looper.getMainLooper());

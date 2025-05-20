@@ -33,10 +33,10 @@ plugins {
 }
 
 android {
-    compileSdkVersion(31)
+    compileSdkVersion(34)
     defaultConfig {
         minSdkVersion(21)
-        targetSdkVersion(31)
+        targetSdkVersion(34)
         testInstrumentationRunner = "android.support.test.runner.AndroidJUnitRunner"
         externalNativeBuild {
             cmake {
