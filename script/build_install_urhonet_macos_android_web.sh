@@ -31,6 +31,6 @@ else
 fi
 cd ${URHO3D_HOME}
 
-./script/build_install_urhonet_macos.sh
+./script/build_install_urhonet_macos_metal.sh
 ./script/build_install_urhonet_android_libs.sh   
 ./script/build_install_urhonet_emscripten_libs.sh

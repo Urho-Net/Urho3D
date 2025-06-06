@@ -60,6 +60,13 @@
 
 #include "../DebugNew.h"
 
+#if defined(SDL_VIDEO_DRIVER_COCOA)
+extern "C" void MacOSSetWindowToFront(SDL_Window* sdl_window);
+extern "C" void MacOSMakeWindowStayOnTop(SDL_Window* sdl_window, int priority);
+extern "C" int MacOSGetWindowLevel(SDL_Window* sdl_window);
+extern "C" int MacOSGetGlobalWindowID(SDL_Window* sdl_window);
+#endif
+
 namespace Urho3D
 {
 
@@ -172,41 +179,6 @@ void Graphics::ShowWindow()
     }
 }
 
-void* Graphics::GetNativeWindowHandle()
-{
-    if (window_)
-    {
-        SDL_SysWMinfo wmInfo;
-        SDL_VERSION(&wmInfo.version);
-        SDL_GetWindowWMInfo(window_, &wmInfo);
-#if defined(SDL_VIDEO_DRIVER_WINDOWS)
-        return  wmInfo.info.win.window;
-#endif
-#if defined(SDL_VIDEO_DRIVER_WINRT)
-        return  wmInfo.info.winrt.window;
-#endif
-#if defined(SDL_VIDEO_DRIVER_X11)
-        return  wmInfo.info.x11.window;
-#endif
-#if defined(SDL_VIDEO_DRIVER_COCOA)
-        return  wmInfo.info.cocoa.view;
-#endif
-#if defined(SDL_VIDEO_DRIVER_UIKIT)
-        return  wmInfo.info.uikit.window;
-#endif
-#if defined(SDL_VIDEO_DRIVER_WAYLAND)
-        return  wmInfo.info.wl.surface;
-#endif
-#if defined(SDL_VIDEO_DRIVER_MIR) 
-        return  wmInfo.info.mir.surface;
-#endif
-#if defined(SDL_VIDEO_DRIVER_ANDROID)
-        return  wmInfo.info.android.window;
-#endif
-    }
-
-    return nullptr;
-}
 
 void Graphics::SetOrientations(const String& orientations)
 {
@@ -732,6 +704,104 @@ void Graphics::SetEmbeddedWindow(bool enable)
 {
     isEmbeddedWindow_ = enable;
 }
+
+void* Graphics::GetNativeWindowHandle()
+{
+    if (window_)
+    {
+        SDL_SysWMinfo wmInfo;
+        SDL_VERSION(&wmInfo.version);
+        SDL_GetWindowWMInfo(window_, &wmInfo);
+#if defined(SDL_VIDEO_DRIVER_WINDOWS)
+        return  wmInfo.info.win.window;
+#endif
+#if defined(SDL_VIDEO_DRIVER_WINRT)
+        return  wmInfo.info.winrt.window;
+#endif
+#if defined(SDL_VIDEO_DRIVER_X11)
+        return  wmInfo.info.x11.window;
+#endif
+#if defined(SDL_VIDEO_DRIVER_COCOA)
+        return  wmInfo.info.cocoa.view;
+#endif
+#if defined(SDL_VIDEO_DRIVER_UIKIT)
+        return  wmInfo.info.uikit.window;
+#endif
+#if defined(SDL_VIDEO_DRIVER_WAYLAND)
+        return  wmInfo.info.wl.surface;
+#endif
+#if defined(SDL_VIDEO_DRIVER_MIR) 
+        return  wmInfo.info.mir.surface;
+#endif
+#if defined(SDL_VIDEO_DRIVER_ANDROID)
+        return  wmInfo.info.android.window;
+#endif
+    }
+
+    return nullptr;
+}
+
+void Graphics::BringWindowToFront()
+{
+    if (!window_)return ;
+#if defined(SDL_VIDEO_DRIVER_COCOA)
+    MacOSMakeWindowStayOnTop(window_, 10000);
+#endif
+}
+
+void Graphics::SetWindowToPriority(int level)
+{
+    if (!window_)return ;
+
+#if defined(SDL_VIDEO_DRIVER_COCOA)
+    MacOSMakeWindowStayOnTop(window_, level);
+#endif
+}
+
+int Graphics::GetWindowPriority()
+{
+    if (!window_)
+        return 0;
+#if defined(SDL_VIDEO_DRIVER_COCOA)
+    return MacOSGetWindowLevel(window_);
+#endif
+    return 0;
+}
+
+int Graphics::IsWindowFocused() const
+{
+    if (!window_)
+        return 0;
+        
+    Uint32 flags = SDL_GetWindowFlags(window_);
+    return ((flags & SDL_WINDOW_INPUT_FOCUS) != 0)?1:0;
+}
+
+unsigned long  Graphics::GetGlobalWindowID()
+{
+    if (!window_)
+        return 0;
+    
+#if defined(SDL_VIDEO_DRIVER_COCOA)
+    return (unsigned long)MacOSGetGlobalWindowID(window_);
+#endif
+    
+    
+    SDL_SysWMinfo wmInfo;
+    SDL_VERSION(&wmInfo.version);
+    if (SDL_GetWindowWMInfo(window_, &wmInfo)) {
+#if defined(SDL_VIDEO_DRIVER_WINDOWS)
+    // Cast the HWND to unsigned long for a numeric identifier
+    return (unsigned long)(uintptr_t)wmInfo.info.win.window;
+#endif
+#if defined(SDL_VIDEO_DRIVER_X11)
+    return (unsigned long)wmInfo.info.x11.window;
+#endif
+    }
+    
+    return 0;
+}
+
 
 void RegisterGraphicsLibrary(Context* context)
 {

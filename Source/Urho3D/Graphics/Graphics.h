@@ -179,9 +179,6 @@ public:
     void HideWindow();
     /// Show Window
     void ShowWindow();
-
-    void * GetNativeWindowHandle();
-    
     /// Set screen mode. Return true if successful.
     /// Don't use SetScreenMode if ToggleFullscreen is used directly or indirectly.
     bool SetScreenMode(int width, int height, const ScreenModeParams& params, bool maximize = false);
@@ -744,7 +741,14 @@ public:
     static unsigned GetMaxBones();
     /// Return whether is using an OpenGL 3 context. Return always false on Direct3D9 & Direct3D11.
     static bool GetGL3Support();
-
+    
+    // Get the native window handle.
+    void * GetNativeWindowHandle();
+    void SetWindowToPriority(int level);
+    int GetWindowPriority();
+    void BringWindowToFront();
+    int IsWindowFocused() const;
+    unsigned long GetGlobalWindowID();
 private:
     /// Create the application window.
     bool OpenWindow(int width, int height, bool resizable, bool borderless);

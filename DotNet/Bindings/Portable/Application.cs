@@ -35,6 +35,8 @@ namespace Urho
         AutoResetEvent frameEndResetEvent;
         public static bool isExiting = false;
 
+        public static bool IsPaused = false;
+
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         public delegate void ActionIntPtr(IntPtr value);
 
@@ -166,6 +168,7 @@ namespace Urho
 
         void HandleUpdate(UpdateEventArgs args)
         {
+            if (IsPaused) return;
             var timeStep = args.TimeStep;
             Update?.Invoke(args);
             ActionManager.Update(timeStep);
