@@ -17,59 +17,6 @@ namespace Urho
 		internal extern static IntPtr Graphics_GetMultiSampleLevels(IntPtr target, out int count);
 
 
-		[DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal extern static void Graphics_BringWindowToFront(IntPtr target);
-		
-		public void BringWindowToFront()
-		{
-			Runtime.ValidateRefCounted(this);
-			Graphics_BringWindowToFront(Handle);
-		}
-
-		[DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal extern static void Graphics_SetWindowToPriority(IntPtr target, int level);
-		
-		[DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal extern static int Graphics_GetWindowPriority(IntPtr target);
-
-		public void SetWindowToPriority(int level)
-		{
-			Runtime.ValidateRefCounted(this);
-			Graphics_SetWindowToPriority(Handle, level);
-		}
-		public int GetWindowPriority()
-		{
-			Runtime.ValidateRefCounted(this);
-			return Graphics_GetWindowPriority(Handle);
-		}
-
-
-		[DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal extern static int Graphics_IsWindowFocused(IntPtr target);
-
-		public bool IsWindowFocused
-		{
-			get
-			{
-				Runtime.ValidateRefCounted(this);
-				return Graphics_IsWindowFocused(Handle) != 0;
-			}
-		}
-
-		[DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal extern static ulong Graphics_GetGlobalWindowID(IntPtr target);
-
-		public ulong GlobalWindowID
-		{
-			get
-			{
-				Runtime.ValidateRefCounted(this);
-				return Graphics_GetGlobalWindowID(Handle);
-			}
-		}
-		
-
-
 		public int[] MultiSampleLevels
 		{
 			get

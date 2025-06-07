@@ -6,8 +6,10 @@
 /* @(#) $Id$ */
 
 #include "zutil.h"
+#ifndef __APPLE__
 #ifndef Z_SOLO
 #  include "gzguts.h"
+#endif
 #endif
 
 z_const char * const z_errmsg[10] = {

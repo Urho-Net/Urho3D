@@ -235,15 +235,6 @@ namespace Urho
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern IntPtr Graphics_GetNativeWindowHandle (IntPtr handle);
-
-		private IntPtr GetNativeWindowHandle ()
-		{
-			Runtime.ValidateRefCounted (this);
-			return Graphics_GetNativeWindowHandle (handle);
-		}
-
-		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
 		internal static extern bool Graphics_SetScreenMode (IntPtr handle, int width, int height);
 
 		/// <summary>
@@ -2589,6 +2580,60 @@ Graphics_GetPixelUVOffset
 			return Graphics_GetMaxBones ();
 		}
 
+		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+		internal static extern IntPtr Graphics_GetNativeWindowHandle (IntPtr handle);
+
+		private IntPtr GetNativeWindowHandle ()
+		{
+			Runtime.ValidateRefCounted (this);
+			return Graphics_GetNativeWindowHandle (handle);
+		}
+
+		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+		internal static extern void Graphics_SetWindowToPriority (IntPtr handle, int level);
+
+		public void SetWindowToPriority (int level)
+		{
+			Runtime.ValidateRefCounted (this);
+			Graphics_SetWindowToPriority (handle, level);
+		}
+
+		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+		internal static extern int Graphics_GetWindowPriority (IntPtr handle);
+
+		private int GetWindowPriority ()
+		{
+			Runtime.ValidateRefCounted (this);
+			return Graphics_GetWindowPriority (handle);
+		}
+
+		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+		internal static extern void Graphics_BringWindowToFront (IntPtr handle);
+
+		public void BringWindowToFront ()
+		{
+			Runtime.ValidateRefCounted (this);
+			Graphics_BringWindowToFront (handle);
+		}
+
+		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+		internal static extern int Graphics_IsWindowFocused (IntPtr handle);
+
+		private int IsWindowFocused ()
+		{
+			Runtime.ValidateRefCounted (this);
+			return Graphics_IsWindowFocused (handle);
+		}
+
+		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+		internal static extern ulong Graphics_GetGlobalWindowID (IntPtr handle);
+
+		private ulong GetGlobalWindowID ()
+		{
+			Runtime.ValidateRefCounted (this);
+			return Graphics_GetGlobalWindowID (handle);
+		}
+
 		public override StringHash Type {
 			get {
 				return UrhoGetType ();
@@ -2651,12 +2696,6 @@ Graphics_GetPixelUVOffset
 		public Urho.IntVector2 WindowPosition {
 			get {
 				return GetWindowPosition ();
-			}
-		}
-
-		public IntPtr NativeWindowHandle {
-			get {
-				return GetNativeWindowHandle ();
 			}
 		}
 
@@ -3556,6 +3595,30 @@ Graphics_GetPixelUVOffset
 		public static uint MaxBones {
 			get {
 				return GetMaxBones ();
+			}
+		}
+
+		public IntPtr NativeWindowHandle {
+			get {
+				return GetNativeWindowHandle ();
+			}
+		}
+
+		public int WindowPriority {
+			get {
+				return GetWindowPriority ();
+			}
+		}
+
+		public int WindowFocused {
+			get {
+				return IsWindowFocused ();
+			}
+		}
+
+		public ulong GlobalWindowID {
+			get {
+				return GetGlobalWindowID ();
 			}
 		}
 	}

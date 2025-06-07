@@ -777,13 +777,13 @@ int Graphics::IsWindowFocused() const
     return ((flags & SDL_WINDOW_INPUT_FOCUS) != 0)?1:0;
 }
 
-unsigned long  Graphics::GetGlobalWindowID()
+unsigned long long  Graphics::GetGlobalWindowID()
 {
     if (!window_)
         return 0;
     
 #if defined(SDL_VIDEO_DRIVER_COCOA)
-    return (unsigned long)MacOSGetGlobalWindowID(window_);
+    return (unsigned long long)MacOSGetGlobalWindowID(window_);
 #endif
     
     
@@ -792,10 +792,10 @@ unsigned long  Graphics::GetGlobalWindowID()
     if (SDL_GetWindowWMInfo(window_, &wmInfo)) {
 #if defined(SDL_VIDEO_DRIVER_WINDOWS)
     // Cast the HWND to unsigned long for a numeric identifier
-    return (unsigned long)(uintptr_t)wmInfo.info.win.window;
+    return (unsigned long long)(uintptr_t)wmInfo.info.win.window;
 #endif
 #if defined(SDL_VIDEO_DRIVER_X11)
-    return (unsigned long)wmInfo.info.x11.window;
+    return (unsigned long long)wmInfo.info.x11.window;
 #endif
     }
     

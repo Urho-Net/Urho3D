@@ -748,7 +748,7 @@ public:
     int GetWindowPriority();
     void BringWindowToFront();
     int IsWindowFocused() const;
-    unsigned long GetGlobalWindowID();
+    unsigned long long GetGlobalWindowID();
 private:
     /// Create the application window.
     bool OpenWindow(int width, int height, bool resizable, bool borderless);

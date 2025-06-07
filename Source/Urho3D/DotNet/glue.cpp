@@ -1545,31 +1545,5 @@ extern "C"
     DllExport Variant Component_GetVar_StringHash(Urho3D::Component* _target, int key) { return _target->GetVar(Urho3D::StringHash(key)); }
 #endif
 
-// TBD ELI , generate this code automatically
-DllExport  void Graphics_BringWindowToFront(Graphics * target)
-{
-    target->BringWindowToFront();
-}
-
-DllExport void Graphics_SetWindowToPriority(Graphics * target,int level)
-{
-    target->SetWindowToPriority(level);
-}
-
-DllExport int Graphics_GetWindowPriority(Graphics * target)
-{
-    return target->GetWindowPriority();
-}
-
-DllExport int Graphics_IsWindowFocused(Graphics * target)
-{
-    return target->IsWindowFocused();
-}
-
-DllExport  unsigned long Graphics_GetGlobalWindowID(Graphics * target)
-{
-    return target->GetGlobalWindowID();
-}
-
 
 }

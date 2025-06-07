@@ -15647,13 +15647,6 @@ Graphics_ShowWindow (Urho3D::Graphics *_target)
 }
 
 
-DllExport void *
-Graphics_GetNativeWindowHandle (Urho3D::Graphics *_target)
-{
-	return _target->GetNativeWindowHandle ();
-}
-
-
 DllExport int
 Graphics_SetScreenMode (Urho3D::Graphics *_target, int width, int height)
 {
@@ -17051,6 +17044,48 @@ DllExport unsigned int
 Graphics_GetMaxBones ()
 {
 	return Graphics::GetMaxBones ();
+}
+
+
+DllExport void *
+Graphics_GetNativeWindowHandle (Urho3D::Graphics *_target)
+{
+	return _target->GetNativeWindowHandle ();
+}
+
+
+DllExport void
+Graphics_SetWindowToPriority (Urho3D::Graphics *_target, int level)
+{
+	_target->SetWindowToPriority (level);
+}
+
+
+DllExport int
+Graphics_GetWindowPriority (Urho3D::Graphics *_target)
+{
+	return _target->GetWindowPriority ();
+}
+
+
+DllExport void
+Graphics_BringWindowToFront (Urho3D::Graphics *_target)
+{
+	_target->BringWindowToFront ();
+}
+
+
+DllExport int
+Graphics_IsWindowFocused (Urho3D::Graphics *_target)
+{
+	return _target->IsWindowFocused ();
+}
+
+
+DllExport unsigned long long
+Graphics_GetGlobalWindowID (Urho3D::Graphics *_target)
+{
+	return _target->GetGlobalWindowID ();
 }
 
 
