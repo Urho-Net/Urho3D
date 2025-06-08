@@ -30042,6 +30042,279 @@ Connection_SetPacketSizeLimit (Urho3D::Connection *_target, int limit)
 }
 
 
+DllExport int
+LocalConnection_GetType (Urho3D::LocalConnection *_target)
+{
+	return (_target->GetType ()).Value ();
+}
+
+
+DllExport const char *
+LocalConnection_GetTypeName (Urho3D::LocalConnection *_target)
+{
+	return stringdup((_target->GetTypeName ()).CString ());
+}
+
+
+DllExport int
+LocalConnection_GetTypeStatic ()
+{
+	return (LocalConnection::GetTypeStatic ()).Value ();
+}
+
+
+DllExport const char *
+LocalConnection_GetTypeNameStatic ()
+{
+	return stringdup((LocalConnection::GetTypeNameStatic ()).CString ());
+}
+
+
+DllExport void *
+LocalConnection_LocalConnection (Urho3D::Context * context)
+{
+	return WeakPtr<LocalConnection>(new LocalConnection(context));
+}
+
+
+DllExport enum Urho3D::PacketType
+LocalConnection_GetPacketType (Urho3D::LocalConnection *_target, bool reliable, bool inOrder)
+{
+	return _target->GetPacketType (reliable, inOrder);
+}
+
+
+DllExport void
+LocalConnection_SendMessage (Urho3D::LocalConnection *_target, int msgID, bool reliable, bool inOrder, const unsigned char * data, unsigned int numBytes, unsigned int contentID)
+{
+	_target->SendMessage (msgID, reliable, inOrder, data, numBytes, contentID);
+}
+
+
+DllExport void
+LocalConnection_SetScene (Urho3D::LocalConnection *_target, Urho3D::Scene * newScene)
+{
+	_target->SetScene (newScene);
+}
+
+
+DllExport void
+LocalConnection_SetLogStatistics (Urho3D::LocalConnection *_target, bool enable)
+{
+	_target->SetLogStatistics (enable);
+}
+
+
+DllExport void
+LocalConnection_CreateSceneUpdate (Urho3D::LocalConnection *_target)
+{
+	_target->CreateSceneUpdate ();
+}
+
+
+DllExport void
+LocalConnection_CreateControlsUpdate (Urho3D::LocalConnection *_target)
+{
+	_target->CreateControlsUpdate ();
+}
+
+
+DllExport void
+LocalConnection_SendRemoteEvents (Urho3D::LocalConnection *_target)
+{
+	_target->SendRemoteEvents ();
+}
+
+
+DllExport void
+LocalConnection_SendPackages (Urho3D::LocalConnection *_target)
+{
+	_target->SendPackages ();
+}
+
+
+DllExport void
+LocalConnection_SendBuffer (Urho3D::LocalConnection *_target, enum Urho3D::PacketType type)
+{
+	_target->SendBuffer (type);
+}
+
+
+DllExport void
+LocalConnection_SendAllBuffers (Urho3D::LocalConnection *_target)
+{
+	_target->SendAllBuffers ();
+}
+
+
+DllExport void
+LocalConnection_ClearBuffer (Urho3D::LocalConnection *_target, enum Urho3D::PacketType type)
+{
+	_target->ClearBuffer (type);
+}
+
+
+DllExport void
+LocalConnection_ClearAllBuffers (Urho3D::LocalConnection *_target)
+{
+	_target->ClearAllBuffers ();
+}
+
+
+DllExport const unsigned char *
+LocalConnection_GetBuffer (Urho3D::LocalConnection *_target, enum Urho3D::PacketType type, unsigned int * size)
+{
+	return _target->GetBuffer (type, size);
+}
+
+
+DllExport void
+LocalConnection_ProcessPendingLatestData (Urho3D::LocalConnection *_target)
+{
+	_target->ProcessPendingLatestData ();
+}
+
+
+DllExport int
+LocalConnection_ProcessBuffer (Urho3D::LocalConnection *_target, unsigned char * data, unsigned int numBytes)
+{
+	return _target->ProcessBuffer (data, numBytes);
+}
+
+
+DllExport int
+LocalConnection_ProcessMessage (Urho3D::LocalConnection *_target, int msgID, unsigned char * data, unsigned int numBytes)
+{
+	return _target->ProcessMessage (msgID, data, numBytes);
+}
+
+
+DllExport Urho3D::Scene *
+LocalConnection_GetScene (Urho3D::LocalConnection *_target)
+{
+	return _target->GetScene ();
+}
+
+
+DllExport unsigned char
+LocalConnection_GetTimeStamp (Urho3D::LocalConnection *_target)
+{
+	return _target->GetTimeStamp ();
+}
+
+
+DllExport int
+LocalConnection_IsConnected (Urho3D::LocalConnection *_target)
+{
+	return _target->IsConnected ();
+}
+
+
+DllExport int
+LocalConnection_IsSceneLoaded (Urho3D::LocalConnection *_target)
+{
+	return _target->IsSceneLoaded ();
+}
+
+
+DllExport int
+LocalConnection_GetLogStatistics (Urho3D::LocalConnection *_target)
+{
+	return _target->GetLogStatistics ();
+}
+
+
+DllExport float
+LocalConnection_GetRoundTripTime (Urho3D::LocalConnection *_target)
+{
+	return _target->GetRoundTripTime ();
+}
+
+
+DllExport unsigned int
+LocalConnection_GetLastHeardTime (Urho3D::LocalConnection *_target)
+{
+	return _target->GetLastHeardTime ();
+}
+
+
+DllExport float
+LocalConnection_GetBytesInPerSec (Urho3D::LocalConnection *_target)
+{
+	return _target->GetBytesInPerSec ();
+}
+
+
+DllExport float
+LocalConnection_GetBytesOutPerSec (Urho3D::LocalConnection *_target)
+{
+	return _target->GetBytesOutPerSec ();
+}
+
+
+DllExport int
+LocalConnection_GetPacketsInPerSec (Urho3D::LocalConnection *_target)
+{
+	return _target->GetPacketsInPerSec ();
+}
+
+
+DllExport int
+LocalConnection_GetPacketsOutPerSec (Urho3D::LocalConnection *_target)
+{
+	return _target->GetPacketsOutPerSec ();
+}
+
+
+DllExport const char *
+LocalConnection_ToString (Urho3D::LocalConnection *_target)
+{
+	return stringdup((_target->ToString ()).CString ());
+}
+
+
+DllExport unsigned int
+LocalConnection_GetNumDownloads (Urho3D::LocalConnection *_target)
+{
+	return _target->GetNumDownloads ();
+}
+
+
+DllExport const char *
+LocalConnection_GetDownloadName (Urho3D::LocalConnection *_target)
+{
+	return stringdup((_target->GetDownloadName ()).CString ());
+}
+
+
+DllExport float
+LocalConnection_GetDownloadProgress (Urho3D::LocalConnection *_target)
+{
+	return _target->GetDownloadProgress ();
+}
+
+
+DllExport void
+LocalConnection_SendPackageToClient (Urho3D::LocalConnection *_target, Urho3D::PackageFile * package)
+{
+	_target->SendPackageToClient (package);
+}
+
+
+DllExport void
+LocalConnection_ConfigureNetworkSimulator (Urho3D::LocalConnection *_target, int latencyMs, float packetLoss)
+{
+	_target->ConfigureNetworkSimulator (latencyMs, packetLoss);
+}
+
+
+DllExport void
+LocalConnection_SetPacketSizeLimit (Urho3D::LocalConnection *_target, int limit)
+{
+	_target->SetPacketSizeLimit (limit);
+}
+
+
 DllExport void
 HttpRequest_ThreadFunction (Urho3D::HttpRequest *_target)
 {

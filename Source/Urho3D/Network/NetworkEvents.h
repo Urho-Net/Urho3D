@@ -149,4 +149,13 @@ URHO3D_EVENT(E_NATMASTERDISCONNECTED, NetworkNatMasterDisconnected)
 {
 }
 
+
+/// Unhandled network message received.
+URHO3D_EVENT(E_LOCALCONNECTIONMESSAGE, LocalConnectionMessage)
+{
+    URHO3D_PARAM(P_LOCALCONNECTION, LocalConnection);        // Connection pointer
+    URHO3D_PARAM(P_DATA, Data);                    // Buffer
+}
+
+
 }

@@ -73,6 +73,7 @@ namespace SharpieBinder
 
 			// Network
 			{ "Connection", "Urho.Network" },
+			{ "LocalConnection", "Urho.Network" },
 			{ "HttpRequest", "Urho.Network" },
 			{ "Network", "Urho.Network" },
 			{ "NetworkPriority", "Urho.Network" }, 

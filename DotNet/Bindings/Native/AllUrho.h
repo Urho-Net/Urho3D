@@ -165,6 +165,7 @@
 #include <Urho3D/Navigation/Obstacle.h>
 #include <Urho3D/Navigation/OffMeshConnection.h>
 #include <Urho3D/Network/Connection.h>
+#include <Urho3D/Network/LocalConnection.h>
 #include <Urho3D/Network/HttpRequest.h>
 #include <Urho3D/Network/Network.h>
 #include <Urho3D/Network/NetworkEvents.h>

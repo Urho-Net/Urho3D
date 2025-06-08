@@ -94,6 +94,7 @@ $events{"NetworkUpdate"} = "Urho.Network";
 $events{"NetworkUpdateSent"} = "Urho.Network"; 
 $events{"NetworkSceneLoadFailed"} = "Urho.Network"; 
 $events{"RemoteEventData"} = "Urho.Network"; 
+$events{"LocalConnectionMessage"} = "Urho.Network"; 
 
 
 open CS,">Portable/Generated/Object.Events.cs" || die;

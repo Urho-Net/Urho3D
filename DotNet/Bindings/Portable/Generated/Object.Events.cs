@@ -2562,6 +2562,38 @@ namespace Urho {
 
 } /* namespace */
 
+namespace Urho.Network {
+        public partial struct LocalConnectionMessageEventArgs {
+            public EventDataContainer EventData;
+            public Connection LocalConnection => EventData.get_Connection (unchecked((int)1349730473) /* LocalConnection (P_LOCALCONNECTION) */);
+            public byte [] Data => EventData.get_Buffer (unchecked((int)2349297546) /* Data (P_DATA) */);
+        } /* struct LocalConnectionMessageEventArgs */
+
+        public partial class LocalConnection {
+             [Obsolete("SubscribeTo API may lead to unxpected behaviour and will be removed in a future version. Use C# event '.LocalConnectionMessage += ...' instead.")]
+             public Subscription SubscribeToLocalConnectionMessage (Action<LocalConnectionMessageEventArgs> handler)
+             {
+                  Action<IntPtr> proxy = (x)=> { var d = new LocalConnectionMessageEventArgs () { EventData = new EventDataContainer(x) }; handler (d); };
+                  var s = new Subscription (proxy);
+                  s.UnmanagedProxy = UrhoObject.urho_subscribe_event (handle, UrhoObject.ObjectCallbackInstance, GCHandle.ToIntPtr (s.gch), unchecked((int)1614847646) /* LocalConnectionMessage (E_LOCALCONNECTIONMESSAGE) */);
+                  return s;
+             }
+
+             static UrhoEventAdapter<LocalConnectionMessageEventArgs> eventAdapterForLocalConnectionMessage;
+             public event Action<LocalConnectionMessageEventArgs> LocalConnectionMessage
+             {
+                 add
+                 {
+                      if (eventAdapterForLocalConnectionMessage == null)
+                          eventAdapterForLocalConnectionMessage = new UrhoEventAdapter<LocalConnectionMessageEventArgs>(typeof(LocalConnection));
+                      eventAdapterForLocalConnectionMessage.AddManagedSubscriber(handle, value, SubscribeToLocalConnectionMessage);
+                 }
+                 remove { eventAdapterForLocalConnectionMessage.RemoveManagedSubscriber(handle, value); }
+             }
+        } /* class LocalConnection */ 
+
+} /* namespace */
+
 namespace Urho.Physics {
         public partial struct PhysicsPreStepEventArgs {
             public EventDataContainer EventData;

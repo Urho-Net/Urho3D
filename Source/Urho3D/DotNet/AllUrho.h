@@ -165,6 +165,7 @@
 #include "../Navigation/Obstacle.h"
 #include "../Navigation/OffMeshConnection.h"
 #include "../Network/Connection.h"
+#include "../Network/LocalConnection.h"
 #include "../Network/HttpRequest.h"
 #include "../Network/Network.h"
 #include "../Network/NetworkEvents.h"
