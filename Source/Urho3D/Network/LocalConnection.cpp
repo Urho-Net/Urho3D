@@ -427,7 +427,7 @@ bool LocalConnection::ProcessBuffer(unsigned char * data , unsigned numBytes)
     if (numBytes == 0 || !data)
     {
         URHO3D_LOGERROR("Null pointer or zero size supplied for network message data");
-        return;
+        return false;
     }
 
     MemoryBuffer buffer(data, numBytes);
