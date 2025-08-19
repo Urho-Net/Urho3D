@@ -2541,11 +2541,16 @@ void BuildAndSaveMaterial(aiMaterial* material, HashSet<String>& usedTextures)
             techniqueName += "Normal";
         if (!specularTexName.Empty())
             techniqueName += "Spec";
-        // For now lightmap does not coexist with normal & specular
-        if (normalTexName.Empty() && specularTexName.Empty() && !lightmapTexName.Empty())
-            techniqueName += "Emissive"; // TBD ELI , wrong conversion for LightMap , needs some investigation
-        if (lightmapTexName.Empty() && !emissiveTexName.Empty())
+        if (!emissiveTexName.Empty())
+        {
             techniqueName += emissiveAO_ ? "AO" : "Emissive";
+        }
+        else
+        {
+            // For now lightmap does not coexist with normal & specular
+            if (normalTexName.Empty() && specularTexName.Empty() && !lightmapTexName.Empty())
+                techniqueName += "Emissive"; // TBD ELI , wrong conversion for LightMap , needs some investigation
+        }
     }
 
     if (hasTranslucentAlpha)
