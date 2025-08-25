@@ -2444,26 +2444,27 @@ void BuildAndSaveMaterial(aiMaterial* material, HashSet<String>& usedTextures)
                 String fullPath = fullDstPath.Front();
                 // Update texture name to match the actual destination texture name
                 diffuseTexName = GetFileNameAndExtension(fullPath);
-                // Check if Diffuse Texture is transparent
-                if (!fullPath.Empty() && image->LoadFile(fullPath))
-                {
-                    if (image->GetComponents() == 4)
-                    {
-                        unsigned char* data = image->GetData();
-                        unsigned data_size = static_cast<unsigned>(image->GetWidth() * image->GetHeight() * image->GetDepth());
-                        if (data != nullptr && data_size > 0)
-                        {
-                            for (unsigned i = 0; i < data_size;i+= 4)
-                            {
-                                if (data[i] < 0.9)
-                                {
-                                    hasTranslucentAlpha = true;
-                                    break;
-                                }
-                            }
-                        }
-                    }
-                }
+                // TBD ELI , nope , this is wrong , for now disabling 
+                // // Check if Diffuse Texture is transparent
+                // if (!fullPath.Empty() && image->LoadFile(fullPath))
+                // {
+                //     if (image->GetComponents() == 4)
+                //     {
+                //         unsigned char* data = image->GetData();
+                //         unsigned data_size = static_cast<unsigned>(image->GetWidth() * image->GetHeight() * image->GetDepth());
+                //         if (data != nullptr && data_size > 0)
+                //         {
+                //             for (unsigned i = 0; i < data_size;i+= 4)
+                //             {
+                //                 if (data[i] < 0.9)
+                //                 {
+                //                     hasTranslucentAlpha = true;
+                //                     break;
+                //                 }
+                //             }
+                //         }
+                //     }
+                // }
             }
         }
     }
