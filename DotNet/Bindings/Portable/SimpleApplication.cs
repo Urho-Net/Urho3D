@@ -32,9 +32,9 @@ namespace Urho
 			var dataDir = options.ResourcePaths?.FirstOrDefault();
 			Environment.CurrentDirectory = Path.GetDirectoryName(typeof(SimpleApplication).Assembly.Location);
 
-			if (!File.Exists("CoreData.pak")) {
+			if (!System.IO.File.Exists("CoreData.pak")) {
 				using (Stream input = typeof(SimpleApplication).Assembly.GetManifestResourceStream("Urho.CoreData.pak"))
-				using (Stream output = File.Create(Path.Combine("CoreData.pak")))
+				using (Stream output = System.IO.File.Create(Path.Combine("CoreData.pak")))
 					input.CopyTo(output);
 			}
 			if (!string.IsNullOrEmpty(dataDir))

@@ -34,7 +34,6 @@ using Urho.Json.Converters;
 using Urho.Json.Serialization;
 using Urho.Json.Utilities;
 using System.Runtime.Serialization;
-using ErrorEventArgs = Urho.Json.Serialization.ErrorEventArgs;
 using System.Runtime.CompilerServices;
 using System.Diagnostics.CodeAnalysis;
 
