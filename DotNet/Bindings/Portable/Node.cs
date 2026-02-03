@@ -86,6 +86,10 @@ namespace Urho
                 var node = Marshal.ReadIntPtr(ptr, i * IntPtr.Size);
                 res[i] = Runtime.LookupObject<Node>(node);
             }
+            
+            // Free the native memory allocated by malloc in urho_node_get_components
+            Marshal.FreeHGlobal(ptr);
+            
             if (Component.IsDefinedInManagedCode<T>())
                 //is not really efficient, but underlying Urho3D knows nothing about components defined in C#
                 return res.Where(c => c.GetComponent<T>() != null).ToArray();
@@ -106,6 +110,9 @@ namespace Urho
                 var node = Marshal.ReadIntPtr(ptr, i * IntPtr.Size);
                 res[i] = Runtime.LookupObject<Node>(node);
             }
+            
+            // Free the native memory allocated by malloc in Node_GetChildrenWithTag
+            Marshal.FreeHGlobal(ptr);
 
             return res;
         }
