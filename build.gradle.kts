@@ -24,7 +24,7 @@ import org.gradle.internal.io.NullOutputStream
 import java.io.ByteArrayOutputStream
 
 buildscript {
-    extra["kotlinVersion"] = "1.7.10"
+    extra["kotlinVersion"] = "1.9.22"
     val kotlinVersion: String by extra
     repositories {
         google()
@@ -32,7 +32,7 @@ buildscript {
         maven { url = uri("https://repo.grails.org/grails/core/") } 
     }
     dependencies {
-        classpath("com.android.tools.build:gradle:7.0.0")
+        classpath("com.android.tools.build:gradle:8.1.4")
         classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion")
     }
 }

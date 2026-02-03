@@ -25,11 +25,11 @@ import java.time.Duration
 plugins {
     id("com.android.application")
     kotlin("android")
-    kotlin("android.extensions")
     urho3d("android")
 }
 
 android {
+    namespace = "com.github.urho3d.launcher"
     compileSdkVersion(34)
     defaultConfig {
         minSdkVersion(21)
@@ -84,6 +84,13 @@ android {
             isMinifyEnabled = false
             proguardFiles(getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro")
         }
+    }
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = "1.8"
     }
     externalNativeBuild {
         cmake {
