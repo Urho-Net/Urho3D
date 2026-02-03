@@ -25,13 +25,11 @@ if(ANDROID AND (ANDROID_ABI STREQUAL "armeabi-v7a" OR ANDROID_ABI STREQUAL "arm6
     # Define target name
     set (TARGET_NAME UrhoMain)
 
-    set (INCLUDE_DIRS ${INCLUDE_DIRS} ../../../DotNet/libs/android/net6.0-Release/${ANDROID_ABI}/include/mono-2.0)
-    set (MONO_LIBPATH  ../../../DotNet/libs/android/net6.0-Release/${ANDROID_ABI}) 
     set (LIBS 
         Game.so
     )
 
-    link_directories(. ${MONO_LIBPATH} /Users/elialoni/Development/Urho.Net/Source/DotNet/libs/android/net6.0-Release/${ANDROID_ABI})
+    link_directories(. ${CMAKE_SOURCE_DIR}/../../DotNet/libs/android/net10.0-Release/${ANDROID_ABI})
 
     # Define source files
     define_source_files (EXTRA_H_FILES ${COMMON_SAMPLE_H_FILES})

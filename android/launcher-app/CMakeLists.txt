@@ -37,6 +37,5 @@ include (UrhoCommon)
 add_link_options(-Wl,-z,max-page-size=16384)
 message(STATUS "Urho3D-Launcher: Enabled 16KB page size support for Android")
 
-
 add_subdirectory (${CMAKE_CURRENT_SOURCE_DIR}/../../Source/Tools/Urho3DPlayer Urho3DPlayer)
 add_subdirectory (${CMAKE_CURRENT_SOURCE_DIR}/../../Source/Samples Samples)
