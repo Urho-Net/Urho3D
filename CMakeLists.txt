@@ -44,6 +44,12 @@ set (CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake/Modules)
 # Include UrhoCommon.cmake module after setting project name
 include (UrhoCommon)
 
+# Support for 16KB page sizes on Android (required for Google Play Store / Android 15+ / API 35+)
+if (ANDROID)
+    add_link_options(-Wl,-z,max-page-size=16384)
+    message(STATUS "Urho3D: Enabled 16KB page size support for Android")
+endif ()
+
 # Setup SDK install destinations
 set (PATH_SUFFIX Urho3D)
 if (WIN32)
