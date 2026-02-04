@@ -48,7 +48,7 @@ else
     cd $URHO3D_HOME
 fi
 
-if [ ! -e ${URHO3D_HOME}/DotNet/UrhoDotNet/mobile/ios/UrhoDotNet.dll ]; then
+if [ ! -e ${URHO3D_HOME}/DotNet/UrhoDotNet/mobile/ios/release/net10.0/UrhoDotNet.dll ]; then
   echo "ios/UrhoDotNet.dll does not exist. Exiting with an error."
   exit 1
 fi
@@ -86,4 +86,4 @@ rm -f ${URHONET_HOME_ROOT}/template/libs/ios/urho3d/debug/Urho3D.framework/Urho3
 
 
 mkdir -p ${URHONET_HOME_ROOT}/template/libs/dotnet/urho/mobile/ios
-cp -f ${URHO3D_HOME}/DotNet/UrhoDotNet/mobile/ios/UrhoDotNet.dll ${URHONET_HOME_ROOT}/template/libs/dotnet/urho/mobile/ios
+cp -f ${URHO3D_HOME}/DotNet/UrhoDotNet/mobile/ios/release/net10.0/UrhoDotNet.dll ${URHONET_HOME_ROOT}/template/libs/dotnet/urho/mobile/ios
