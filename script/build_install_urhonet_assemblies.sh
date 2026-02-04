@@ -40,17 +40,17 @@ else
     echo "URHONET_HOME_ROOT=${URHONET_HOME_ROOT}"
 fi
 
-cd ${URHO3D_HOME}
+cd ${URHO3D_HOME}/DotNet/Projects
+dotnet build -c Debug Projects.sln 
+dotnet build -c Release Projects.sln 
 
-./script/make_csharp_bindings.sh
 
 mkdir -p ${URHONET_HOME_ROOT}/template/libs/dotnet/urho/desktop
-cp -f ${URHO3D_HOME}/DotNet/UrhoDotNet/desktop/UrhoDotNet.dll ${URHONET_HOME_ROOT}/template/libs/dotnet/urho/desktop
-cp -f ${URHO3D_HOME}/DotNet/UrhoDotNet/desktop/UrhoDotNet.xml ${URHONET_HOME_ROOT}/template/libs/dotnet/urho/desktop
+cp -f ${URHO3D_HOME}/DotNet/UrhoDotNet/desktop/release/net10.0/UrhoDotNet.dll ${URHONET_HOME_ROOT}/template/libs/dotnet/urho/desktop
+cp -f ${URHO3D_HOME}/DotNet/UrhoDotNet/desktop/release/net10.0/UrhoDotNet.xml ${URHONET_HOME_ROOT}/template/libs/dotnet/urho/desktop
 mkdir -p ${URHONET_HOME_ROOT}/template/libs/dotnet/urho/mobile/ios
-cp -f ${URHO3D_HOME}/DotNet/UrhoDotNet/mobile/ios/UrhoDotNet.dll ${URHONET_HOME_ROOT}/template/libs/dotnet/urho/mobile/ios
+cp -f ${URHO3D_HOME}/DotNet/UrhoDotNet/mobile/ios/release/net10.0/UrhoDotNet.dll ${URHONET_HOME_ROOT}/template/libs/dotnet/urho/mobile/ios
 mkdir -p ${URHONET_HOME_ROOT}/template/libs/dotnet/urho/mobile/android
-cp -f ${URHO3D_HOME}/DotNet/UrhoDotNet/mobile/android/UrhoDotNet.dll  ${URHONET_HOME_ROOT}/template/libs/dotnet/urho/mobile/android
-cp -f ${URHO3D_HOME}/DotNet/UrhoDotNet/mobile/android/Mono.Android.dll  ${URHONET_HOME_ROOT}/template/libs/dotnet/urho/mobile/android
+cp -f ${URHO3D_HOME}/DotNet/UrhoDotNet/mobile/android/release/net10.0/UrhoDotNet.dll  ${URHONET_HOME_ROOT}/template/libs/dotnet/urho/mobile/android
 mkdir -p ${URHONET_HOME_ROOT}/template/libs/dotnet/urho/web
-cp -f ${URHO3D_HOME}/DotNet/UrhoDotNet/web/UrhoDotNet.dll ${URHONET_HOME_ROOT}/template/libs/dotnet/urho/web
+cp -f ${URHO3D_HOME}/DotNet/UrhoDotNet/web/release/net8.0/UrhoDotNet.dll ${URHONET_HOME_ROOT}/template/libs/dotnet/urho/web
