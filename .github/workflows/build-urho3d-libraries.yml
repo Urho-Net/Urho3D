@@ -442,26 +442,6 @@ jobs:
         echo "💾 Library sizes:"
         du -sh combined-libs/DotNet/libs/* 2>/dev/null || true
     
-    - name: Checkout repository for README
-      uses: actions/checkout@v4
-      with:
-        sparse-checkout: |
-          .github/workflows/README-MACOS-LIBRARIES.md
-          script/remove_quarantine_macos.sh
-        sparse-checkout-cone-mode: false
-    
-    - name: Add macOS setup instructions
-      run: |
-        # Add README for macOS users
-        cp .github/workflows/README-MACOS-LIBRARIES.md combined-libs/README-MACOS-SETUP.md
-        
-        # Add the quarantine removal script
-        mkdir -p combined-libs/script
-        cp script/remove_quarantine_macos.sh combined-libs/script/
-        chmod +x combined-libs/script/remove_quarantine_macos.sh
-        
-        echo "✅ Added macOS setup documentation and script"
-    
     - name: Upload combined libraries
       uses: actions/upload-artifact@v4
       with:
@@ -621,19 +601,31 @@ jobs:
     - name: Check for changes
       id: check_changes
       run: |
-        if git diff --quiet DotNet/libs/; then
+        # Configure git
+        git config --local user.email "github-actions[bot]@users.noreply.github.com"
+        git config --local user.name "github-actions[bot]"
+        
+        # Add files (including new untracked files)
+        git add -A DotNet/libs/
+        
+        # Check if there are staged changes
+        if git diff --cached --quiet; then
           echo "changed=false" >> $GITHUB_OUTPUT
-          echo "No library changes to commit"
+          echo "📭 No library changes to commit"
         else
           echo "changed=true" >> $GITHUB_OUTPUT
-          echo "Libraries have changed"
+          echo "📦 Libraries have changed:"
+          git diff --cached --stat
         fi
     
     - name: Commit and push libraries
       if: steps.check_changes.outputs.changed == 'true'
       run: |
-        git config --local user.email "github-actions[bot]@users.noreply.github.com"
-        git config --local user.name "github-actions[bot]"
-        git add DotNet/libs/
-        git commit -m "🤖 Update Urho3D libraries [skip ci]"
+        git commit -m "🤖 Update Urho3D libraries [skip ci]
+        
+        Built from commit: ${{ github.sha }}
+        Workflow run: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        
+        Platform builds completed successfully."
+        
         git push
