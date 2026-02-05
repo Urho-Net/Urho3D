@@ -26,7 +26,7 @@ if(ANDROID AND (ANDROID_ABI STREQUAL "armeabi-v7a" OR ANDROID_ABI STREQUAL "arm6
     set (TARGET_NAME UrhoMain)
 
     # Only link Game.so if it exists
-    set(GAME_LIB_PATH "${CMAKE_SOURCE_DIR}/../../DotNet/libs/android/net10.0-Release/${ANDROID_ABI}/libGame.so")
+    set(GAME_LIB_PATH "${CMAKE_SOURCE_DIR}/../../DotNet/libs/android/Release/${ANDROID_ABI}/libGame.so")
     if(EXISTS ${GAME_LIB_PATH})
         set (LIBS 
             Game.so
@@ -37,7 +37,7 @@ if(ANDROID AND (ANDROID_ABI STREQUAL "armeabi-v7a" OR ANDROID_ABI STREQUAL "arm6
         set (LIBS)
     endif()
 
-    link_directories(. ${CMAKE_SOURCE_DIR}/../../DotNet/libs/android/net10.0-Release/${ANDROID_ABI})
+    link_directories(. ${CMAKE_SOURCE_DIR}/../../DotNet/libs/android/Release/${ANDROID_ABI})
 
     # Define source files
     define_source_files (EXTRA_H_FILES ${COMMON_SAMPLE_H_FILES})
