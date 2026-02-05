@@ -323,6 +323,180 @@ jobs:
         path: DotNet/libs/wasm/Release/Urho3D.a
         retention-days: 30
 
+  # Combine all artifacts into a single bundle
+  combine-artifacts:
+    name: Combine All Platform Libraries
+    runs-on: ubuntu-latest
+    needs: [build-macos, build-linux, build-windows, build-android, build-ios, build-wasm]
+    if: |
+      always() &&
+      (needs.build-macos.result == 'success' || needs.build-macos.result == 'skipped') &&
+      (needs.build-linux.result == 'success' || needs.build-linux.result == 'skipped') &&
+      (needs.build-windows.result == 'success' || needs.build-windows.result == 'skipped') &&
+      (needs.build-android.result == 'success' || needs.build-android.result == 'skipped') &&
+      (needs.build-ios.result == 'success' || needs.build-ios.result == 'skipped') &&
+      (needs.build-wasm.result == 'success' || needs.build-wasm.result == 'skipped')
+    
+    steps:
+    - name: Download all artifacts
+      uses: actions/download-artifact@v4
+      with:
+        path: artifacts
+    
+    - name: Combine artifacts into single structure
+      run: |
+        mkdir -p combined-libs/DotNet/libs
+        
+        echo "📦 Combining artifacts..."
+        echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+        
+        # macOS
+        if [ -d "artifacts/urho3d-macos-libraries" ]; then
+          echo "✓ macOS libraries"
+          mkdir -p combined-libs/DotNet/libs/macos/{arm64,x86_64}/Release
+          cp -r artifacts/urho3d-macos-libraries/DotNet/libs/macos/arm64/Release/* combined-libs/DotNet/libs/macos/arm64/Release/ 2>/dev/null || true
+          cp -r artifacts/urho3d-macos-libraries/DotNet/libs/macos/x86_64/Release/* combined-libs/DotNet/libs/macos/x86_64/Release/ 2>/dev/null || true
+        fi
+        
+        # Linux
+        if [ -d "artifacts/urho3d-linux-libraries" ]; then
+          echo "✓ Linux libraries"
+          mkdir -p combined-libs/DotNet/libs/linux/x86_64/Release
+          cp artifacts/urho3d-linux-libraries/* combined-libs/DotNet/libs/linux/x86_64/Release/ 2>/dev/null || true
+        fi
+        
+        # Windows
+        if [ -d "artifacts/urho3d-windows-libraries" ]; then
+          echo "✓ Windows libraries"
+          mkdir -p combined-libs/DotNet/libs/windows/Release
+          cp artifacts/urho3d-windows-libraries/* combined-libs/DotNet/libs/windows/Release/ 2>/dev/null || true
+        fi
+        
+        # Android
+        if [ -d "artifacts/urho3d-android-libraries" ]; then
+          echo "✓ Android libraries"
+          mkdir -p combined-libs/DotNet/libs/android/net10.0-Release
+          cp -r artifacts/urho3d-android-libraries/* combined-libs/DotNet/libs/android/net10.0-Release/ 2>/dev/null || true
+        fi
+        
+        # iOS
+        if [ -d "artifacts/urho3d-ios-libraries" ]; then
+          echo "✓ iOS libraries"
+          mkdir -p combined-libs/DotNet/libs/iphone
+          cp -r artifacts/urho3d-ios-libraries/DotNet/libs/iphone/* combined-libs/DotNet/libs/iphone/ 2>/dev/null || true
+        fi
+        
+        # WebAssembly
+        if [ -d "artifacts/urho3d-wasm-libraries" ]; then
+          echo "✓ WebAssembly libraries"
+          mkdir -p combined-libs/DotNet/libs/wasm/Release
+          cp artifacts/urho3d-wasm-libraries/* combined-libs/DotNet/libs/wasm/Release/ 2>/dev/null || true
+        fi
+        
+        echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+        echo "📊 Combined libraries structure:"
+        find combined-libs -type f -name "*.dylib" -o -name "*.so" -o -name "*.dll" -o -name "*.a" -o -name "*.framework" | sort
+        
+        echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+        echo "💾 Library sizes:"
+        du -sh combined-libs/DotNet/libs/* 2>/dev/null || true
+    
+    - name: Upload combined libraries
+      uses: actions/upload-artifact@v4
+      with:
+        name: urho3d-all-libraries
+        path: combined-libs/**/*
+        retention-days: 90
+    
+    - name: Create release archives
+      run: |
+        cd combined-libs
+        tar -czf ../urho3d-libraries.tar.gz DotNet/
+        cd ..
+        zip -r urho3d-libraries.zip combined-libs/DotNet/
+        
+        echo "✅ Archives created:"
+        ls -lh urho3d-libraries.*
+    
+    - name: Upload release archives
+      uses: actions/upload-artifact@v4
+      with:
+        name: urho3d-libraries-archives
+        path: |
+          urho3d-libraries.tar.gz
+          urho3d-libraries.zip
+        retention-days: 90
+
+  # Create GitHub Release with library archives (only on tag push)
+  create-release:
+    name: Create GitHub Release
+    runs-on: ubuntu-latest
+    needs: combine-artifacts
+    if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/')
+    permissions:
+      contents: write
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+    
+    - name: Download archives
+      uses: actions/download-artifact@v4
+      with:
+        name: urho3d-libraries-archives
+    
+    - name: Extract tag information
+      id: tag_info
+      run: |
+        TAG_NAME=${GITHUB_REF#refs/tags/}
+        echo "tag_name=$TAG_NAME" >> $GITHUB_OUTPUT
+        echo "📦 Creating release for tag: $TAG_NAME"
+    
+    - name: Generate release notes
+      id: release_notes
+      run: |
+        cat > release_notes.md << 'EOF'
+        ## Urho3D Native Libraries
+        
+        Pre-built native libraries for all platforms.
+        
+        ### 📦 Included Platforms
+        - **macOS**: arm64 (Apple Silicon) + x86_64 (Intel)
+        - **Linux**: x86_64
+        - **Windows**: x64
+        - **Android**: armeabi-v7a, arm64-v8a, x86, x86_64 (NDK 25.1.8937393)
+        - **iOS**: Release + Debug frameworks
+        - **WebAssembly**: 32-bit wasm (Emscripten 3.1.34)
+        
+        ### 📥 Downloads
+        - `urho3d-libraries.tar.gz` - For Linux/macOS
+        - `urho3d-libraries.zip` - For Windows
+        
+        Both archives contain the same files in `DotNet/libs/` structure.
+        
+        ### 🔧 Usage
+        1. Download and extract the archive
+        2. Copy `DotNet/libs/` to your project
+        3. Reference the appropriate platform libraries
+        
+        ---
+        Built from commit: ${{ github.sha }}
+        EOF
+        
+        echo "Release notes generated"
+    
+    - name: Create Release
+      uses: softprops/action-gh-release@v2
+      with:
+        files: |
+          urho3d-libraries.tar.gz
+          urho3d-libraries.zip
+        body_path: release_notes.md
+        draft: false
+        prerelease: ${{ contains(steps.tag_info.outputs.tag_name, '-') }}
+        fail_on_unmatched_files: true
+        generate_release_notes: true
+
   # Commit libraries back to repository (only on dotnet-10.x branch push)
   commit-libraries:
     name: Commit Libraries to Repository
