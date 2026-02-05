@@ -25,12 +25,13 @@ else
     echo "URHONET_HOME_ROOT=${URHONET_HOME_ROOT}"
 fi
 
-if [ "$(uname -m)" = "arm64" ]; then
-    OS_ARCH="Arm64"
+HOST_ARCH=$(uname -m)
+if [ "$HOST_ARCH" = "arm64" ]; then
+    TARGET_OS_ARCH="Arm64"
 else
-    OS_ARCH="X64"
+    TARGET_OS_ARCH="X64"
 fi
-echo "OS_ARCH=${OS_ARCH}"
+echo "OS_ARCH=${HOST_ARCH}"
 
 
 cd ${URHO3D_HOME}
@@ -72,11 +73,31 @@ mkdir -p ${URHONET_HOME_ROOT}/template/libs/dotnet/urho/desktop
 cp -f ${URHO3D_HOME}/DotNet/UrhoDotNet/desktop/UrhoDotNet.dll ${URHONET_HOME_ROOT}/template/libs/dotnet/urho/desktop
 cp -f ${URHO3D_HOME}/DotNet/UrhoDotNet/desktop/UrhoDotNet.xml ${URHONET_HOME_ROOT}/template/libs/dotnet/urho/desktop
 
-# Check if the file doesn't exist
-if [ ! -e ${URHO3D_HOME}/DotNet/libs/macos/Release/libUrho3D.dylib ]; then
-  echo "UrhoDotNet.dll does not exist. Exiting with an error."
+# Copy arm64 library if it exists
+if [ -e ${URHO3D_HOME}/DotNet/libs/macos/arm64/Release/libUrho3D.dylib ]; then
+  echo "Installing arm64 library..."
+  mkdir -p ${URHONET_HOME_ROOT}/template/libs/macos/Arm64
+  cp -f ${URHO3D_HOME}/DotNet/libs/macos/arm64/Release/libUrho3D.dylib ${URHONET_HOME_ROOT}/template/libs/macos/Arm64/
+  echo "  ✓ Installed to ${URHONET_HOME_ROOT}/template/libs/macos/Arm64/libUrho3D.dylib"
+else
+  echo "  ⊘ arm64 library not found (skipped)"
+fi
+
+# Copy x86_64 library if it exists
+if [ -e ${URHO3D_HOME}/DotNet/libs/macos/x86_64/Release/libUrho3D.dylib ]; then
+  echo "Installing x86_64 library..."
+  mkdir -p ${URHONET_HOME_ROOT}/template/libs/macos/X64
+  cp -f ${URHO3D_HOME}/DotNet/libs/macos/x86_64/Release/libUrho3D.dylib ${URHONET_HOME_ROOT}/template/libs/macos/X64/
+  echo "  ✓ Installed to ${URHONET_HOME_ROOT}/template/libs/macos/X64/libUrho3D.dylib"
+else
+  echo "  ⊘ x86_64 library not found (skipped)"
+fi
+
+# Verify at least one library was installed
+if [ ! -e ${URHONET_HOME_ROOT}/template/libs/macos/Arm64/libUrho3D.dylib ] && [ ! -e ${URHONET_HOME_ROOT}/template/libs/macos/X64/libUrho3D.dylib ]; then
+  echo "ERROR: No libUrho3D.dylib libraries were installed. Build may have failed."
   exit 1
 fi
 
-mkdir -p ${URHONET_HOME_ROOT}/template/libs/macos/${OS_ARCH}
-cp -f ${URHO3D_HOME}/DotNet/libs/macos/Release/libUrho3D.dylib  ${URHONET_HOME_ROOT}/template/libs/macos/${OS_ARCH}
+echo ""
+echo "Installation complete!"
