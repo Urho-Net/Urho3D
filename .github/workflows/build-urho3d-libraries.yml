@@ -543,7 +543,7 @@ jobs:
   commit-libraries:
     name: Commit Libraries to Repository
     runs-on: ubuntu-latest
-    needs: [build-macos, build-linux, build-windows, build-android, build-ios, build-wasm]
+    needs: [combine-artifacts]
     if: |
       github.event_name == 'push' &&
       github.ref == 'refs/heads/dotnet-10.x'
@@ -552,52 +552,24 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v4
     
-    - name: Download all artifacts
+    - name: Download combined libraries
       uses: actions/download-artifact@v4
       with:
-        path: artifacts
+        name: urho3d-all-libraries
+        path: combined-libs
     
-    - name: Copy artifacts to repository
+    - name: Copy libraries to repository
       run: |
-        # Create directories
-        mkdir -p DotNet/libs/{macos/{arm64,x86_64}/Release,linux/{x86_64,aarch64}/Release,windows/Release,android/Release/{armeabi-v7a,x86,arm64-v8a,x86_64},iphone/{Release-iphoneos,Debug-iphoneos},wasm}
+        # Ensure directory exists
+        mkdir -p DotNet/libs
         
-        # Copy macOS
-        if [ -d "artifacts/urho3d-macos-libraries" ]; then
-          cp -f artifacts/urho3d-macos-libraries/DotNet/libs/macos/arm64/Release/libUrho3D.dylib DotNet/libs/macos/arm64/Release/ 2>/dev/null || true
-          cp -f artifacts/urho3d-macos-libraries/DotNet/libs/macos/x86_64/Release/libUrho3D.dylib DotNet/libs/macos/x86_64/Release/ 2>/dev/null || true
-        fi
+        # Copy new libraries (overwrite existing, combined artifact has the full DotNet/libs/ structure)
+        cp -rf combined-libs/DotNet/libs/* DotNet/libs/
         
-        # Copy Linux
-        if [ -d "artifacts/urho3d-linux-libraries" ]; then
-          cp -f artifacts/urho3d-linux-libraries/libUrho3D.so DotNet/libs/linux/x86_64/Release/ 2>/dev/null || true
-        fi
-        
-        # Copy Windows
-        if [ -d "artifacts/urho3d-windows-libraries" ]; then
-          cp -f artifacts/urho3d-windows-libraries/Urho3D.dll DotNet/libs/windows/Release/ 2>/dev/null || true
-        fi
-        
-        # Copy Android
-        if [ -d "artifacts/urho3d-android-libraries" ]; then
-          find artifacts/urho3d-android-libraries -name "*.so" -exec sh -c '
-            for file; do
-              abi=$(basename $(dirname "$file"))
-              cp -f "$file" "DotNet/libs/android/Release/$abi/"
-            done
-          ' sh {} +
-        fi
-        
-        # Copy iOS
-        if [ -d "artifacts/urho3d-ios-libraries" ]; then
-          cp -rf artifacts/urho3d-ios-libraries/DotNet/libs/iphone/Release-iphoneos/Urho3D.framework DotNet/libs/iphone/Release-iphoneos/ 2>/dev/null || true
-          cp -rf artifacts/urho3d-ios-libraries/DotNet/libs/iphone/Debug-iphoneos/Urho3D.framework DotNet/libs/iphone/Debug-iphoneos/ 2>/dev/null || true
-        fi
-        
-        # Copy WebAssembly
-        if [ -d "artifacts/urho3d-wasm-libraries" ]; then
-          cp -f artifacts/urho3d-wasm-libraries/Urho3D.a DotNet/libs/wasm/ 2>/dev/null || true
-        fi
+        echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+        echo "📦 Libraries copied from combined artifact:"
+        find DotNet/libs -type f \( -name "*.dylib" -o -name "*.so" -o -name "*.dll" -o -name "*.a" \) | sort
+        echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
     
     - name: Check for changes
       id: check_changes
