@@ -233,10 +233,10 @@ jobs:
       with:
         name: urho3d-android-libraries
         path: |
-          DotNet/libs/android/net10.0-Release/armeabi-v7a/*.so
-          DotNet/libs/android/net10.0-Release/x86/*.so
-          DotNet/libs/android/net10.0-Release/arm64-v8a/*.so
-          DotNet/libs/android/net10.0-Release/x86_64/*.so
+          DotNet/libs/android/Release/armeabi-v7a/*.so
+          DotNet/libs/android/Release/x86/*.so
+          DotNet/libs/android/Release/arm64-v8a/*.so
+          DotNet/libs/android/Release/x86_64/*.so
         retention-days: 30
 
   build-ios:
@@ -282,6 +282,11 @@ jobs:
       with:
         submodules: recursive
     
+    - name: Setup Emscripten
+      uses: mymindstorm/setup-emsdk@v14
+      with:
+        version: '3.1.34'
+    
     - name: Install dependencies
       run: |
         sudo apt-get update
@@ -292,6 +297,9 @@ jobs:
         chmod +x script/cmake_emscripten_dotnet_lib.sh
         chmod +x script/build_emscripten_dotnet_lib.sh
         chmod +x script/cmake_generic.sh
+        
+        # Skip Emscripten installation since setup-emsdk already installed it
+        export SKIP_EMSDK_INSTALL=1
         
         ./script/build_emscripten_dotnet_lib.sh
     
@@ -346,7 +354,7 @@ jobs:
     - name: Copy artifacts to repository
       run: |
         # Create directories
-        mkdir -p DotNet/libs/{macos/{arm64,x86_64}/Release,linux/{x86_64,aarch64}/Release,windows/Release,android/net10.0-Release/{armeabi-v7a,x86,arm64-v8a,x86_64},iphone/{Release-iphoneos,Debug-iphoneos},wasm}
+        mkdir -p DotNet/libs/{macos/{arm64,x86_64}/Release,linux/{x86_64,aarch64}/Release,windows/Release,android/Release/{armeabi-v7a,x86,arm64-v8a,x86_64},iphone/{Release-iphoneos,Debug-iphoneos},wasm}
         
         # Copy macOS
         if [ -d "artifacts/urho3d-macos-libraries" ]; then
@@ -369,7 +377,7 @@ jobs:
           find artifacts/urho3d-android-libraries -name "*.so" -exec sh -c '
             for file; do
               abi=$(basename $(dirname "$file"))
-              cp -f "$file" "DotNet/libs/android/net10.0-Release/$abi/"
+              cp -f "$file" "DotNet/libs/android/Release/$abi/"
             done
           ' sh {} +
         fi

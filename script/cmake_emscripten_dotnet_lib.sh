@@ -27,54 +27,63 @@
 REQUIRED_VERSION="3.1.34"
 EMSDK_DIR="$HOME/emsdk"
 
-echo "🔧 Checking for Emscripten SDK ${REQUIRED_VERSION}..."
+# Skip installation if SKIP_EMSDK_INSTALL is set (used by GitHub Actions)
+if [ "${SKIP_EMSDK_INSTALL}" = "1" ]; then
+    echo "⏭️  Skipping emsdk installation (SKIP_EMSDK_INSTALL=1)"
+    echo "✅ Using pre-installed Emscripten from GitHub Actions"
+else
+    echo "🔧 Checking for Emscripten SDK ${REQUIRED_VERSION}..."
 
-# Check if emsdk is installed
-if [ ! -d "$EMSDK_DIR" ]; then
-    echo "📥 Emscripten SDK not found. Installing to ${EMSDK_DIR}..."
-    
-    # Clone emsdk
-    git clone https://github.com/emscripten-core/emsdk.git "$EMSDK_DIR"
-    
+    # Check if emsdk is installed
+    if [ ! -d "$EMSDK_DIR" ]; then
+        echo "📥 Emscripten SDK not found. Installing to ${EMSDK_DIR}..."
+        
+        # Clone emsdk
+        git clone https://github.com/emscripten-core/emsdk.git "$EMSDK_DIR"
+        
+        if [ $? -ne 0 ]; then
+            echo "❌ Failed to clone emsdk"
+            exit 1
+        fi
+    else
+        echo "✅ Emscripten SDK found at ${EMSDK_DIR}"
+    fi
+
+    # Navigate to emsdk directory
+    cd "$EMSDK_DIR"
+
+    # Update emsdk
+    echo "🔄 Updating emsdk..."
+    ./emsdk update
+
+    # Check if the required version is installed
+    if ! ./emsdk list | grep -q "${REQUIRED_VERSION}.*INSTALLED"; then
+        echo "📦 Installing Emscripten ${REQUIRED_VERSION}..."
+        ./emsdk install ${REQUIRED_VERSION}
+        
+        if [ $? -ne 0 ]; then
+            echo "❌ Failed to install Emscripten ${REQUIRED_VERSION}"
+            exit 1
+        fi
+    else
+        echo "✅ Emscripten ${REQUIRED_VERSION} already installed"
+    fi
+
+    # Activate the required version
+    echo "🔌 Activating Emscripten ${REQUIRED_VERSION}..."
+    ./emsdk activate ${REQUIRED_VERSION}
+
     if [ $? -ne 0 ]; then
-        echo "❌ Failed to clone emsdk"
+        echo "❌ Failed to activate Emscripten ${REQUIRED_VERSION}"
         exit 1
     fi
-else
-    echo "✅ Emscripten SDK found at ${EMSDK_DIR}"
+
+    # Source the environment
+    source "${EMSDK_DIR}/emsdk_env.sh"
+
+    # Return to original directory
+    cd - > /dev/null
 fi
-
-# Navigate to emsdk directory
-cd "$EMSDK_DIR"
-
-# Update emsdk
-echo "🔄 Updating emsdk..."
-./emsdk update
-
-# Check if the required version is installed
-if ! ./emsdk list | grep -q "${REQUIRED_VERSION}.*INSTALLED"; then
-    echo "📦 Installing Emscripten ${REQUIRED_VERSION}..."
-    ./emsdk install ${REQUIRED_VERSION}
-    
-    if [ $? -ne 0 ]; then
-        echo "❌ Failed to install Emscripten ${REQUIRED_VERSION}"
-        exit 1
-    fi
-else
-    echo "✅ Emscripten ${REQUIRED_VERSION} already installed"
-fi
-
-# Activate the required version
-echo "🔌 Activating Emscripten ${REQUIRED_VERSION}..."
-./emsdk activate ${REQUIRED_VERSION}
-
-if [ $? -ne 0 ]; then
-    echo "❌ Failed to activate Emscripten ${REQUIRED_VERSION}"
-    exit 1
-fi
-
-# Source the environment
-source "${EMSDK_DIR}/emsdk_env.sh"
 
 # Verify emcc is available
 if ! command -v emcc &> /dev/null; then
@@ -84,9 +93,6 @@ fi
 
 echo "✅ Using Emscripten: $(emcc --version | head -1)"
 echo "📍 Path: $(which emcc)"
-
-# Return to original directory
-cd - > /dev/null
 
 # Set Emscripten flags to ensure 32-bit WebAssembly output
 export EMCC_CFLAGS="-s WASM=1 -s MEMORY64=0"

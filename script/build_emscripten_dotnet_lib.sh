@@ -25,8 +25,8 @@ if [ $? -ne 0 ]; then
     exit 1
 fi
 
-# Source emsdk environment for the build
-if [ -f "$HOME/emsdk/emsdk_env.sh" ]; then
+# Source emsdk environment for the build (only if not using GitHub Actions setup)
+if [ "${SKIP_EMSDK_INSTALL}" != "1" ] && [ -f "$HOME/emsdk/emsdk_env.sh" ]; then
     source "$HOME/emsdk/emsdk_env.sh"
 fi
 
