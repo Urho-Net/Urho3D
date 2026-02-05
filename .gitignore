@@ -121,11 +121,12 @@ Thumbs.db
 CMakeDoxyFile.in
 CMakeDoxygenDefaults.cmake
 
-DotNet/libs/*
-!DotNet/libs/android/
-!DotNet/libs/android/Release/
-!DotNet/libs/android/Release/**/
-!DotNet/libs/android/Release/**/libGame.so
+# Allow all platform libraries to be committed
+# The GitHub Actions workflow will commit pre-built libraries
+# for all platforms: macOS, Linux, Windows, Android, iOS, WASM
+!DotNet/libs/
+!DotNet/libs/**
+
 DotNet/libs/wasm/MonoEmbedded.js
 DotNet/libs/wasm/MonoEmbedded.wasm
 
@@ -135,8 +136,6 @@ DotNet/Projects/UrhoDotNetIOS/obj/
 DotNet/Projects/UrhoDotNetWeb/obj/
 
 DotNet/UrhoDotNet/*
-DotNet/libs/macos/*
-DotNet/libs/iphone/*
 build-xcode-dotnet-dylib
 build-xcode
 build-ios-dotnet-lib
