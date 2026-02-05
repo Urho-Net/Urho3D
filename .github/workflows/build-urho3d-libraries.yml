@@ -442,6 +442,26 @@ jobs:
         echo "💾 Library sizes:"
         du -sh combined-libs/DotNet/libs/* 2>/dev/null || true
     
+    - name: Checkout repository for README
+      uses: actions/checkout@v4
+      with:
+        sparse-checkout: |
+          .github/workflows/README-MACOS-LIBRARIES.md
+          script/remove_quarantine_macos.sh
+        sparse-checkout-cone-mode: false
+    
+    - name: Add macOS setup instructions
+      run: |
+        # Add README for macOS users
+        cp .github/workflows/README-MACOS-LIBRARIES.md combined-libs/README-MACOS-SETUP.md
+        
+        # Add the quarantine removal script
+        mkdir -p combined-libs/script
+        cp script/remove_quarantine_macos.sh combined-libs/script/
+        chmod +x combined-libs/script/remove_quarantine_macos.sh
+        
+        echo "✅ Added macOS setup documentation and script"
+    
     - name: Upload combined libraries
       uses: actions/upload-artifact@v4
       with:
@@ -543,10 +563,9 @@ jobs:
     name: Commit Libraries to Repository
     runs-on: ubuntu-latest
     needs: [build-macos, build-linux, build-windows, build-android, build-ios, build-wasm]
-    if: false  # Disabled - do not commit libraries yet
-    # if: |
-    #   github.event_name == 'push' &&
-    #   github.ref == 'refs/heads/dotnet-10.x'
+    if: |
+      github.event_name == 'push' &&
+      github.ref == 'refs/heads/dotnet-10.x'
     
     steps:
     - name: Checkout repository
