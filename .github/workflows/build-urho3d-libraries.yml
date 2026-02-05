@@ -587,9 +587,18 @@ jobs:
         git config --local user.email "github-actions[bot]@users.noreply.github.com"
         git config --local user.name "github-actions[bot]"
         
-        # CRITICAL: Only add new/modified files from the copy operation, NOT deletions
-        # This prevents accidentally removing library files that aren't being rebuilt
-        git add --no-all DotNet/libs/
+        echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+        echo "🔍 Git status BEFORE add:"
+        git status DotNet/libs/
+        echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+        
+        # Add all library files explicitly (new, modified, deleted)
+        git add DotNet/libs/
+        
+        echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+        echo "📊 Git status AFTER add:"
+        git status DotNet/libs/
+        echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
         
         # Check if there are staged changes
         if git diff --cached --quiet; then
@@ -599,6 +608,7 @@ jobs:
           echo "changed=true" >> $GITHUB_OUTPUT
           echo "📦 Libraries have changed:"
           git diff --cached --stat
+          git diff --cached --numstat
         fi
     
     - name: Commit and push libraries
