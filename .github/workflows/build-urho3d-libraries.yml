@@ -357,13 +357,19 @@ jobs:
         # macOS
         if [ -d "artifacts/urho3d-macos-libraries" ]; then
           echo "✓ macOS libraries"
-          mkdir -p combined-libs/DotNet/libs/macos/{arm64,x86_64}/Release
-          # The artifact contains DotNet/libs/macos structure
+          mkdir -p combined-libs/DotNet/libs/macos
+          # The artifact contains DotNet/libs/macos structure with arm64/x86_64 subdirectories
           if [ -d "artifacts/urho3d-macos-libraries/DotNet" ]; then
             cp -r artifacts/urho3d-macos-libraries/DotNet/libs/macos/* combined-libs/DotNet/libs/macos/ 2>/dev/null || true
           else
-            # Fallback: artifact might have the files directly
-            find artifacts/urho3d-macos-libraries -name "*.dylib" -exec cp {} combined-libs/DotNet/libs/macos/ \; 2>/dev/null || true
+            # Fallback: find and copy preserving one level of directory structure
+            for arch_dir in artifacts/urho3d-macos-libraries/*/; do
+              if [ -d "$arch_dir" ]; then
+                arch=$(basename "$arch_dir")
+                mkdir -p combined-libs/DotNet/libs/macos/$arch/Release
+                find "$arch_dir" -name "*.dylib" -exec cp {} combined-libs/DotNet/libs/macos/$arch/Release/ \; 2>/dev/null || true
+              fi
+            done
           fi
         fi
         
@@ -397,12 +403,27 @@ jobs:
         # iOS
         if [ -d "artifacts/urho3d-ios-libraries" ]; then
           echo "✓ iOS libraries"
-          mkdir -p combined-libs/DotNet/libs/iphone/{Release-iphoneos,Debug-iphoneos}
+          mkdir -p combined-libs/DotNet/libs/iphone
           # iOS has the full structure with frameworks
           if [ -d "artifacts/urho3d-ios-libraries/DotNet" ]; then
             cp -r artifacts/urho3d-ios-libraries/DotNet/libs/iphone/* combined-libs/DotNet/libs/iphone/ 2>/dev/null || true
           else
-            find artifacts/urho3d-ios-libraries -name "*.framework" -exec cp -r {} combined-libs/DotNet/libs/iphone/ \; 2>/dev/null || true
+            # Fallback: find frameworks and preserve one level of directory structure
+            for config_dir in artifacts/urho3d-ios-libraries/*/; do
+              if [ -d "$config_dir" ]; then
+                config=$(basename "$config_dir")
+                # Check if this looks like a config directory (Release-iphoneos, Debug-iphoneos)
+                if [[ "$config" == *"iphoneos" ]]; then
+                  mkdir -p combined-libs/DotNet/libs/iphone/$config
+                  find "$config_dir" -name "*.framework" -maxdepth 1 -exec cp -r {} combined-libs/DotNet/libs/iphone/$config/ \; 2>/dev/null || true
+                fi
+              fi
+            done
+            # If no config dirs found, check for frameworks directly
+            if [ -z "$(find combined-libs/DotNet/libs/iphone -name "*.framework" 2>/dev/null)" ]; then
+              mkdir -p combined-libs/DotNet/libs/iphone/Release-iphoneos
+              find artifacts/urho3d-ios-libraries -name "*.framework" -exec cp -r {} combined-libs/DotNet/libs/iphone/Release-iphoneos/ \; 2>/dev/null || true
+            fi
           fi
         fi
         

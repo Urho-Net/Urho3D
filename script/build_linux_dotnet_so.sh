@@ -33,5 +33,7 @@ if [ ! -e lib/libUrho3D.so ]; then
   exit 1
 fi
 
+# Go back to workspace root before copying
+cd ..
 mkdir -p DotNet/libs/linux/${HOST_ARCH}/Release
-cp -L lib/libUrho3D.so  DotNet/libs/linux/${HOST_ARCH}/Release/
+cp -L build-dotnet-lib/lib/libUrho3D.so  DotNet/libs/linux/${HOST_ARCH}/Release/

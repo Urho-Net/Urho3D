@@ -22,12 +22,13 @@ if [ "$HOST_ARCH" = "arm64" ]; then
     echo "libUrho3D.dylib does not exist. Exiting with an error."
     exit 1
   fi
-   # Ad-hoc code sign the library (required for macOS to load it)
-  echo "  → Code signing arm64 library..."
-  codesign --force --sign - build-xcode-dotnet-metal-dylib/lib/libUrho3D.dylib
 
   mkdir -p DotNet/libs/macos/arm64/Release
   cp -Lf build-xcode-dotnet-metal-dylib/lib/libUrho3D.dylib DotNet/libs/macos/arm64/Release/
+  
+  # Ad-hoc code sign the library (required for macOS to load it)
+  echo "  → Code signing arm64 library..."
+  codesign --force --sign - DotNet/libs/macos/arm64/Release/libUrho3D.dylib
   
  
   
@@ -45,12 +46,12 @@ if [ ! -e build-xcode-dotnet-metal-dylib/lib/libUrho3D.dylib ]; then
   exit 1
 fi
 
-# Ad-hoc code sign the library (required for macOS to load it)
-echo "  → Code signing x86_64 library..."
-codesign --force --sign - build-xcode-dotnet-metal-dylib/lib/libUrho3D.dylib
-
 mkdir -p DotNet/libs/macos/x86_64/Release
 cp -Lf build-xcode-dotnet-metal-dylib/lib/libUrho3D.dylib DotNet/libs/macos/x86_64/Release/
+
+# Ad-hoc code sign the library (required for macOS to load it)
+echo "  → Code signing x86_64 library..."
+codesign --force --sign - DotNet/libs/macos/x86_64/Release/libUrho3D.dylib
 
 
 
