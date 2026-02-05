@@ -401,12 +401,12 @@ jobs:
         # Android
         if [ -d "artifacts/urho3d-android-libraries" ]; then
           echo "✓ Android libraries"
-          mkdir -p combined-libs/DotNet/libs/android/net10.0-Release
+          mkdir -p combined-libs/DotNet/libs/android/Release
           # Android has the full structure
           if [ -d "artifacts/urho3d-android-libraries/DotNet" ]; then
             cp -r artifacts/urho3d-android-libraries/DotNet/libs/android/* combined-libs/DotNet/libs/android/ 2>/dev/null || true
           else
-            cp -r artifacts/urho3d-android-libraries/* combined-libs/DotNet/libs/android/net10.0-Release/ 2>/dev/null || true
+            cp -r artifacts/urho3d-android-libraries/* combined-libs/DotNet/libs/android/Release/ 2>/dev/null || true
           fi
         fi
         
