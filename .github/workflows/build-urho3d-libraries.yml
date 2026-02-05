@@ -567,17 +567,36 @@ jobs:
         name: urho3d-all-libraries
         path: combined-libs
     
+    - name: Debug - Show repo state before copy
+      run: |
+        echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+        echo "📂 REPOSITORY STATE BEFORE COPY:"
+        echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+        echo "DotNet/libs directory exists: $([ -d "DotNet/libs" ] && echo "YES" || echo "NO")"
+        if [ -d "DotNet/libs" ]; then
+          echo "Files in repository DotNet/libs BEFORE copy:"
+          find DotNet/libs -type f \( -name "*.dylib" -o -name "*.so" -o -name "*.dll" -o -name "*.a" \) | sort
+          echo "Total files: $(find DotNet/libs -type f \( -name "*.dylib" -o -name "*.so" -o -name "*.dll" -o -name "*.a" \) | wc -l)"
+        fi
+        
+        echo ""
+        echo "Files in combined-libs artifact:"
+        find combined-libs -type f \( -name "*.dylib" -o -name "*.so" -o -name "*.dll" -o -name "*.a" \) | sort
+        echo "Total files: $(find combined-libs -type f \( -name "*.dylib" -o -name "*.so" -o -name "*.dll" -o -name "*.a" \) | wc -l)"
+        echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+    
     - name: Copy libraries to repository
       run: |
         # Ensure directory exists
         mkdir -p DotNet/libs
         
         # Copy new libraries (overwrite existing, combined artifact has the full DotNet/libs/ structure)
-        cp -rf combined-libs/DotNet/libs/* DotNet/libs/
+        cp -rfv combined-libs/DotNet/libs/* DotNet/libs/
         
         echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-        echo "📦 Libraries copied from combined artifact:"
+        echo "📦 AFTER COPY - Files in DotNet/libs:"
         find DotNet/libs -type f \( -name "*.dylib" -o -name "*.so" -o -name "*.dll" -o -name "*.a" \) | sort
+        echo "Total files: $(find DotNet/libs -type f \( -name "*.dylib" -o -name "*.so" -o -name "*.dll" -o -name "*.a" \) | wc -l)"
         echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
     
     - name: Check for changes
@@ -588,27 +607,59 @@ jobs:
         git config --local user.name "github-actions[bot]"
         
         echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-        echo "🔍 Git status BEFORE add:"
+        echo "🔍 GIT STATUS BEFORE ADD:"
+        git status --short DotNet/libs/
+        echo ""
+        echo "Full git status:"
         git status DotNet/libs/
+        echo ""
+        echo "Git diff (before add):"
+        git diff --stat DotNet/libs/ || echo "No unstaged changes"
+        echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+        
+        # List untracked files
+        echo "🆕 Untracked files in DotNet/libs:"
+        git ls-files --others --exclude-standard DotNet/libs/ || echo "None"
+        echo ""
+        
+        # List modified files
+        echo "📝 Modified files in DotNet/libs:"
+        git ls-files --modified DotNet/libs/ || echo "None"
+        echo ""
+        
+        # List tracked files
+        echo "📋 Currently tracked files in DotNet/libs:"
+        git ls-files DotNet/libs/ || echo "None"
         echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
         
         # Add all library files explicitly (new, modified, deleted)
-        git add DotNet/libs/
+        echo "➕ Running: git add DotNet/libs/"
+        git add -v DotNet/libs/
         
         echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-        echo "📊 Git status AFTER add:"
+        echo "📊 GIT STATUS AFTER ADD:"
+        git status --short DotNet/libs/
+        echo ""
+        echo "Full git status:"
         git status DotNet/libs/
+        echo ""
+        echo "Staged changes:"
+        git diff --cached --stat DotNet/libs/ || echo "No staged changes"
         echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
         
         # Check if there are staged changes
         if git diff --cached --quiet; then
           echo "changed=false" >> $GITHUB_OUTPUT
-          echo "📭 No library changes to commit"
+          echo "📭 NO LIBRARY CHANGES TO COMMIT"
+          echo "❌ git diff --cached --quiet returned TRUE (no changes)"
         else
           echo "changed=true" >> $GITHUB_OUTPUT
-          echo "📦 Libraries have changed:"
-          git diff --cached --stat
-          git diff --cached --numstat
+          echo "✅ LIBRARIES HAVE CHANGED"
+          echo "📦 Detailed changes:"
+          git diff --cached --stat DotNet/libs/
+          echo ""
+          echo "Numeric stat:"
+          git diff --cached --numstat DotNet/libs/
         fi
     
     - name: Commit and push libraries
