@@ -94,6 +94,16 @@ fi
 echo "✅ Using Emscripten: $(emcc --version | head -1)"
 echo "📍 Path: $(which emcc)"
 
+# Set EMSCRIPTEN environment variable for the custom toolchain
+# GitHub Actions setup-emsdk puts emcc in the PATH but doesn't set EMSCRIPTEN
+if [ -z "$EMSCRIPTEN" ]; then
+    EMSCRIPTEN_PATH=$(which emcc)
+    if [ -n "$EMSCRIPTEN_PATH" ]; then
+        export EMSCRIPTEN=$(dirname "$EMSCRIPTEN_PATH")
+        echo "🔧 Set EMSCRIPTEN=$EMSCRIPTEN"
+    fi
+fi
+
 # Set Emscripten flags to ensure 32-bit WebAssembly output
 export EMCC_CFLAGS="-s WASM=1 -s MEMORY64=0"
 
