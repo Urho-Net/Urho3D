@@ -1,0 +1,420 @@
+name: Build Urho3D Libraries
+
+on:
+  push:
+    branches: [ dotnet-10.x ]
+    paths:
+      - 'Source/**'
+      - 'script/**'
+      - 'CMakeLists.txt'
+      - '.github/workflows/build-urho3d-libraries.yml'
+  pull_request:
+    branches: [ dotnet-10.x ]
+    paths:
+      - 'Source/**'
+      - 'script/**'
+      - 'CMakeLists.txt'
+  workflow_dispatch:  # Allow manual triggering
+
+# Required permissions
+permissions:
+  contents: write
+
+jobs:
+  # Check if source files have changed
+  check-changes:
+    name: Check for source changes
+    runs-on: ubuntu-latest
+    outputs:
+      should_build: ${{ steps.check_sources.outputs.changed }}
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 2
+    
+    - name: Check for source changes
+      id: check_sources
+      run: |
+        SHOULD_BUILD=false
+        
+        # Always build on manual dispatch
+        if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+          echo "🔨 Manual workflow dispatch - FORCING BUILD"
+          SHOULD_BUILD=true
+        # Check if this is the first commit
+        elif ! git rev-parse HEAD~1 >/dev/null 2>&1; then
+          echo "First commit - building all libraries"
+          SHOULD_BUILD=true
+        else
+          # Get changed files
+          CHANGED_FILES=$(git diff --name-only HEAD~1 HEAD)
+          
+          # Check if Source directory or build scripts changed
+          while IFS= read -r file; do
+            if [[ "$file" == Source/* ]] || \
+               [[ "$file" == script/* ]] || \
+               [[ "$file" == CMakeLists.txt ]] || \
+               [[ "$file" == .github/workflows/build-urho3d-libraries.yml ]]; then
+              echo "Found source change: $file"
+              SHOULD_BUILD=true
+              break
+            fi
+          done <<< "$CHANGED_FILES"
+        fi
+        
+        if [ "$SHOULD_BUILD" = true ]; then
+          echo "changed=true" >> $GITHUB_OUTPUT
+          echo "✓ Will build libraries"
+        else
+          echo "changed=false" >> $GITHUB_OUTPUT
+          echo "✓ No source changes - skipping build"
+        fi
+
+  build-macos:
+    name: Build macOS Libraries (arm64 + x86_64)
+    runs-on: macos-latest
+    needs: check-changes
+    if: needs.check-changes.outputs.should_build == 'true'
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      with:
+        submodules: recursive
+    
+    - name: Install dependencies
+      run: |
+        brew install cmake
+    
+    - name: Build macOS libraries
+      run: |
+        chmod +x script/build_xcode_dotnet_metal_dylib.sh
+        chmod +x script/cmake_xcode_dotnet_metal_dylib.sh
+        ./script/build_xcode_dotnet_metal_dylib.sh
+    
+    - name: Verify libraries
+      run: |
+        if [ -f "DotNet/libs/macos/arm64/Release/libUrho3D.dylib" ]; then
+          file DotNet/libs/macos/arm64/Release/libUrho3D.dylib
+          otool -L DotNet/libs/macos/arm64/Release/libUrho3D.dylib
+          echo "✓ arm64 library verified"
+        fi
+        
+        if [ -f "DotNet/libs/macos/x86_64/Release/libUrho3D.dylib" ]; then
+          file DotNet/libs/macos/x86_64/Release/libUrho3D.dylib
+          otool -L DotNet/libs/macos/x86_64/Release/libUrho3D.dylib
+          echo "✓ x86_64 library verified"
+        fi
+    
+    - name: Upload macOS libraries
+      uses: actions/upload-artifact@v4
+      with:
+        name: urho3d-macos-libraries
+        path: |
+          DotNet/libs/macos/arm64/Release/libUrho3D.dylib
+          DotNet/libs/macos/x86_64/Release/libUrho3D.dylib
+        retention-days: 30
+
+  build-linux:
+    name: Build Linux Libraries (${{ matrix.arch }})
+    runs-on: ubuntu-latest
+    needs: check-changes
+    if: needs.check-changes.outputs.should_build == 'true'
+    strategy:
+      matrix:
+        arch: [x86_64, aarch64]
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      with:
+        submodules: recursive
+    
+    - name: Install dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y cmake build-essential libx11-dev libxrandr-dev \
+          libxinerama-dev libxcursor-dev libxi-dev libgl1-mesa-dev \
+          libasound2-dev libudev-dev
+    
+    - name: Set up cross-compilation for aarch64
+      if: matrix.arch == 'aarch64'
+      run: |
+        sudo apt-get install -y gcc-aarch64-linux-gnu g++-aarch64-linux-gnu
+    
+    - name: Build Linux libraries
+      run: |
+        chmod +x script/build_linux_dotnet_so.sh
+        chmod +x script/cmake_linux_dotnet_so.sh
+        
+        # Configure URHONET_HOME
+        mkdir -p ~/.urhonet_config
+        echo "$(pwd)" > ~/.urhonet_config/urhonethome
+        
+        ./script/build_linux_dotnet_so.sh
+    
+    - name: Verify library
+      run: |
+        ARCH=$(uname -m)
+        if [ -f "DotNet/libs/linux/${ARCH}/Release/libUrho3D.so" ]; then
+          file DotNet/libs/linux/${ARCH}/Release/libUrho3D.so
+          ldd DotNet/libs/linux/${ARCH}/Release/libUrho3D.so
+          echo "✓ Linux ${ARCH} library verified"
+        fi
+    
+    - name: Upload Linux libraries
+      uses: actions/upload-artifact@v4
+      with:
+        name: urho3d-linux-${{ matrix.arch }}-libraries
+        path: DotNet/libs/linux/${{ matrix.arch }}/Release/libUrho3D.so
+        retention-days: 30
+
+  build-windows:
+    name: Build Windows Libraries
+    runs-on: windows-latest
+    needs: check-changes
+    if: needs.check-changes.outputs.should_build == 'true'
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      with:
+        submodules: recursive
+    
+    - name: Setup MSVC
+      uses: microsoft/setup-msbuild@v2
+    
+    - name: Build Windows libraries
+      run: |
+        .\script\build_vs2019_dotnet_dll.bat
+    
+    - name: Verify library
+      run: |
+        if (Test-Path "DotNet\libs\windows\Release\Urho3D.dll") {
+          Write-Output "✓ Windows library built successfully"
+          Get-Item "DotNet\libs\windows\Release\Urho3D.dll" | Select-Object Name,Length,LastWriteTime
+        } else {
+          Write-Error "Windows library not found"
+          exit 1
+        }
+    
+    - name: Upload Windows libraries
+      uses: actions/upload-artifact@v4
+      with:
+        name: urho3d-windows-libraries
+        path: DotNet/libs/windows/Release/Urho3D.dll
+        retention-days: 30
+
+  build-android:
+    name: Build Android Libraries
+    runs-on: ubuntu-latest
+    needs: check-changes
+    if: needs.check-changes.outputs.should_build == 'true'
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      with:
+        submodules: recursive
+    
+    - name: Set up JDK 17
+      uses: actions/setup-java@v4
+      with:
+        distribution: 'temurin'
+        java-version: '17'
+    
+    - name: Setup Android SDK
+      uses: android-actions/setup-android@v3
+    
+    - name: Install Android NDK
+      run: |
+        ${ANDROID_HOME}/cmdline-tools/latest/bin/sdkmanager --install "ndk;25.1.8937393"
+    
+    - name: Build Android libraries
+      run: |
+        chmod +x script/build_android_dotnet_libs.sh
+        ./script/build_android_dotnet_libs.sh
+    
+    - name: Verify 16KB alignment
+      run: |
+        if [ -f "script/android_verify_16kb_alignment_libs_mac.sh" ]; then
+          chmod +x script/android_verify_16kb_alignment_libs_mac.sh
+          ./script/android_verify_16kb_alignment_libs_mac.sh
+        fi
+    
+    - name: Upload Android libraries
+      uses: actions/upload-artifact@v4
+      with:
+        name: urho3d-android-libraries
+        path: |
+          DotNet/libs/android/net10.0-Release/armeabi-v7a/*.so
+          DotNet/libs/android/net10.0-Release/x86/*.so
+          DotNet/libs/android/net10.0-Release/arm64-v8a/*.so
+          DotNet/libs/android/net10.0-Release/x86_64/*.so
+        retention-days: 30
+
+  build-ios:
+    name: Build iOS Libraries
+    runs-on: macos-latest
+    needs: check-changes
+    if: needs.check-changes.outputs.should_build == 'true'
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      with:
+        submodules: recursive
+    
+    - name: Install dependencies
+      run: |
+        brew install cmake
+    
+    - name: Build iOS libraries
+      run: |
+        chmod +x script/build_ios_dotnet_libs.sh
+        chmod +x script/cmake_ios_dotnet_lib_metal_shared.sh
+        ./script/build_ios_dotnet_libs.sh
+    
+    - name: Upload iOS libraries
+      uses: actions/upload-artifact@v4
+      with:
+        name: urho3d-ios-libraries
+        path: |
+          DotNet/libs/iphone/Release-iphoneos/Urho3D.framework
+          DotNet/libs/iphone/Debug-iphoneos/Urho3D.framework
+        retention-days: 30
+
+  build-wasm:
+    name: Build WebAssembly Libraries
+    runs-on: ubuntu-latest
+    needs: check-changes
+    if: needs.check-changes.outputs.should_build == 'true'
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      with:
+        submodules: recursive
+    
+    - name: Install dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y cmake python3 git
+    
+    - name: Build WebAssembly libraries
+      run: |
+        chmod +x script/cmake_emscripten_dotnet_lib.sh
+        chmod +x script/build_emscripten_dotnet_dylib.sh
+        chmod +x script/cmake_generic.sh
+        
+        ./script/build_emscripten_dotnet_dylib.sh
+    
+    - name: Verify WASM library is 32-bit
+      run: |
+        if [ -f "DotNet/libs/wasm/Urho3D.a" ]; then
+          echo "Checking WebAssembly format..."
+          file DotNet/libs/wasm/Urho3D.a
+          
+          # Check for wasm32 magic bytes and version
+          if hexdump -C DotNet/libs/wasm/Urho3D.a | grep -q "00 61 73 6d 01 00 00 00"; then
+            echo "✓ Confirmed 32-bit WebAssembly (wasm32) format"
+          else
+            echo "⚠️  Warning: Could not verify WebAssembly format"
+          fi
+          
+          # Verify emscripten symbols
+          if strings DotNet/libs/wasm/Urho3D.a | grep -q "emscripten"; then
+            echo "✓ Emscripten symbols found"
+          fi
+        else
+          echo "❌ WebAssembly library not found"
+          exit 1
+        fi
+    
+    - name: Upload WebAssembly libraries
+      uses: actions/upload-artifact@v4
+      with:
+        name: urho3d-wasm-libraries
+        path: DotNet/libs/wasm/Urho3D.a
+        retention-days: 30
+
+  # Commit libraries back to repository (only on main/master branch push)
+  commit-libraries:
+    name: Commit Libraries to Repository
+    runs-on: ubuntu-latest
+    needs: [build-macos, build-linux, build-windows, build-android, build-ios, build-wasm]
+    if: |
+      github.event_name == 'push' &&
+      github.ref == 'refs/heads/dotnet-10.x'
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+    
+    - name: Download all artifacts
+      uses: actions/download-artifact@v4
+      with:
+        path: artifacts
+    
+    - name: Copy artifacts to repository
+      run: |
+        # Create directories
+        mkdir -p DotNet/libs/{macos/{arm64,x86_64}/Release,linux/{x86_64,aarch64}/Release,windows/Release,android/net10.0-Release/{armeabi-v7a,x86,arm64-v8a,x86_64},iphone/{Release-iphoneos,Debug-iphoneos},wasm}
+        
+        # Copy macOS
+        if [ -d "artifacts/urho3d-macos-libraries" ]; then
+          cp -f artifacts/urho3d-macos-libraries/DotNet/libs/macos/arm64/Release/libUrho3D.dylib DotNet/libs/macos/arm64/Release/ 2>/dev/null || true
+          cp -f artifacts/urho3d-macos-libraries/DotNet/libs/macos/x86_64/Release/libUrho3D.dylib DotNet/libs/macos/x86_64/Release/ 2>/dev/null || true
+        fi
+        
+        # Copy Linux
+        if [ -d "artifacts/urho3d-linux-x86_64-libraries" ]; then
+          cp -f artifacts/urho3d-linux-x86_64-libraries/libUrho3D.so DotNet/libs/linux/x86_64/Release/ 2>/dev/null || true
+        fi
+        
+        # Copy Windows
+        if [ -d "artifacts/urho3d-windows-libraries" ]; then
+          cp -f artifacts/urho3d-windows-libraries/Urho3D.dll DotNet/libs/windows/Release/ 2>/dev/null || true
+        fi
+        
+        # Copy Android
+        if [ -d "artifacts/urho3d-android-libraries" ]; then
+          find artifacts/urho3d-android-libraries -name "*.so" -exec sh -c '
+            for file; do
+              abi=$(basename $(dirname "$file"))
+              cp -f "$file" "DotNet/libs/android/net10.0-Release/$abi/"
+            done
+          ' sh {} +
+        fi
+        
+        # Copy iOS
+        if [ -d "artifacts/urho3d-ios-libraries" ]; then
+          cp -rf artifacts/urho3d-ios-libraries/DotNet/libs/iphone/Release-iphoneos/Urho3D.framework DotNet/libs/iphone/Release-iphoneos/ 2>/dev/null || true
+          cp -rf artifacts/urho3d-ios-libraries/DotNet/libs/iphone/Debug-iphoneos/Urho3D.framework DotNet/libs/iphone/Debug-iphoneos/ 2>/dev/null || true
+        fi
+        
+        # Copy WebAssembly
+        if [ -d "artifacts/urho3d-wasm-libraries" ]; then
+          cp -f artifacts/urho3d-wasm-libraries/Urho3D.a DotNet/libs/wasm/ 2>/dev/null || true
+        fi
+    
+    - name: Check for changes
+      id: check_changes
+      run: |
+        if git diff --quiet DotNet/libs/; then
+          echo "changed=false" >> $GITHUB_OUTPUT
+          echo "No library changes to commit"
+        else
+          echo "changed=true" >> $GITHUB_OUTPUT
+          echo "Libraries have changed"
+        fi
+    
+    - name: Commit and push libraries
+      if: steps.check_changes.outputs.changed == 'true'
+      run: |
+        git config --local user.email "github-actions[bot]@users.noreply.github.com"
+        git config --local user.name "github-actions[bot]"
+        git add DotNet/libs/
+        git commit -m "🤖 Update Urho3D libraries [skip ci]"
+        git push

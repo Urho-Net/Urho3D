@@ -735,5 +735,13 @@ if (URHO3D_DOTNET_LIB)
             XCODE_ATTRIBUTE_CODE_SIGN_IDENTITY ""
             )
         endif()
+    elseif (APPLE)
+        # Ad-hoc code sign the library for macOS (required for macOS to load it)
+        if (URHO3D_LIB_TYPE STREQUAL SHARED)
+            add_custom_command(TARGET ${TARGET_NAME} POST_BUILD
+                COMMAND codesign --force --sign - $<TARGET_FILE:${TARGET_NAME}>
+                COMMAND codesign --verify --verbose $<TARGET_FILE:${TARGET_NAME}>
+                COMMENT "Ad-hoc signing Urho3D library for macOS")
+        endif()
     endif()
 endif()
