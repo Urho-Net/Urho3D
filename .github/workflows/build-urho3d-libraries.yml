@@ -350,52 +350,72 @@ jobs:
         echo "📦 Combining artifacts..."
         echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
         
+        # Debug: Show what artifacts were downloaded
+        echo "Downloaded artifacts:"
+        ls -la artifacts/
+        
         # macOS
         if [ -d "artifacts/urho3d-macos-libraries" ]; then
           echo "✓ macOS libraries"
           mkdir -p combined-libs/DotNet/libs/macos/{arm64,x86_64}/Release
-          cp -r artifacts/urho3d-macos-libraries/DotNet/libs/macos/arm64/Release/* combined-libs/DotNet/libs/macos/arm64/Release/ 2>/dev/null || true
-          cp -r artifacts/urho3d-macos-libraries/DotNet/libs/macos/x86_64/Release/* combined-libs/DotNet/libs/macos/x86_64/Release/ 2>/dev/null || true
+          # The artifact contains DotNet/libs/macos structure
+          if [ -d "artifacts/urho3d-macos-libraries/DotNet" ]; then
+            cp -r artifacts/urho3d-macos-libraries/DotNet/libs/macos/* combined-libs/DotNet/libs/macos/ 2>/dev/null || true
+          else
+            # Fallback: artifact might have the files directly
+            find artifacts/urho3d-macos-libraries -name "*.dylib" -exec cp {} combined-libs/DotNet/libs/macos/ \; 2>/dev/null || true
+          fi
         fi
         
         # Linux
         if [ -d "artifacts/urho3d-linux-libraries" ]; then
           echo "✓ Linux libraries"
           mkdir -p combined-libs/DotNet/libs/linux/x86_64/Release
-          cp artifacts/urho3d-linux-libraries/* combined-libs/DotNet/libs/linux/x86_64/Release/ 2>/dev/null || true
+          # The artifact might just contain the .so file directly
+          find artifacts/urho3d-linux-libraries -name "*.so" -exec cp {} combined-libs/DotNet/libs/linux/x86_64/Release/ \; 2>/dev/null || true
         fi
         
         # Windows
         if [ -d "artifacts/urho3d-windows-libraries" ]; then
           echo "✓ Windows libraries"
           mkdir -p combined-libs/DotNet/libs/windows/Release
-          cp artifacts/urho3d-windows-libraries/* combined-libs/DotNet/libs/windows/Release/ 2>/dev/null || true
+          find artifacts/urho3d-windows-libraries -name "*.dll" -exec cp {} combined-libs/DotNet/libs/windows/Release/ \; 2>/dev/null || true
         fi
         
         # Android
         if [ -d "artifacts/urho3d-android-libraries" ]; then
           echo "✓ Android libraries"
           mkdir -p combined-libs/DotNet/libs/android/net10.0-Release
-          cp -r artifacts/urho3d-android-libraries/* combined-libs/DotNet/libs/android/net10.0-Release/ 2>/dev/null || true
+          # Android has the full structure
+          if [ -d "artifacts/urho3d-android-libraries/DotNet" ]; then
+            cp -r artifacts/urho3d-android-libraries/DotNet/libs/android/* combined-libs/DotNet/libs/android/ 2>/dev/null || true
+          else
+            cp -r artifacts/urho3d-android-libraries/* combined-libs/DotNet/libs/android/net10.0-Release/ 2>/dev/null || true
+          fi
         fi
         
         # iOS
         if [ -d "artifacts/urho3d-ios-libraries" ]; then
           echo "✓ iOS libraries"
-          mkdir -p combined-libs/DotNet/libs/iphone
-          cp -r artifacts/urho3d-ios-libraries/DotNet/libs/iphone/* combined-libs/DotNet/libs/iphone/ 2>/dev/null || true
+          mkdir -p combined-libs/DotNet/libs/iphone/{Release-iphoneos,Debug-iphoneos}
+          # iOS has the full structure with frameworks
+          if [ -d "artifacts/urho3d-ios-libraries/DotNet" ]; then
+            cp -r artifacts/urho3d-ios-libraries/DotNet/libs/iphone/* combined-libs/DotNet/libs/iphone/ 2>/dev/null || true
+          else
+            find artifacts/urho3d-ios-libraries -name "*.framework" -exec cp -r {} combined-libs/DotNet/libs/iphone/ \; 2>/dev/null || true
+          fi
         fi
         
         # WebAssembly
         if [ -d "artifacts/urho3d-wasm-libraries" ]; then
           echo "✓ WebAssembly libraries"
           mkdir -p combined-libs/DotNet/libs/wasm/Release
-          cp artifacts/urho3d-wasm-libraries/* combined-libs/DotNet/libs/wasm/Release/ 2>/dev/null || true
+          find artifacts/urho3d-wasm-libraries -name "*.a" -exec cp {} combined-libs/DotNet/libs/wasm/Release/ \; 2>/dev/null || true
         fi
         
         echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
         echo "📊 Combined libraries structure:"
-        find combined-libs -type f -name "*.dylib" -o -name "*.so" -o -name "*.dll" -o -name "*.a" -o -name "*.framework" | sort
+        find combined-libs -type f \( -name "*.dylib" -o -name "*.so" -o -name "*.dll" -o -name "*.a" \) | sort
         
         echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
         echo "💾 Library sizes:"
