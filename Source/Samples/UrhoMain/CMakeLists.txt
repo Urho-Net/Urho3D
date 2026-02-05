@@ -25,9 +25,17 @@ if(ANDROID AND (ANDROID_ABI STREQUAL "armeabi-v7a" OR ANDROID_ABI STREQUAL "arm6
     # Define target name
     set (TARGET_NAME UrhoMain)
 
-    set (LIBS 
-        Game.so
-    )
+    # Only link Game.so if it exists
+    set(GAME_LIB_PATH "${CMAKE_SOURCE_DIR}/../../DotNet/libs/android/net10.0-Release/${ANDROID_ABI}/libGame.so")
+    if(EXISTS ${GAME_LIB_PATH})
+        set (LIBS 
+            Game.so
+        )
+        message(STATUS "Found Game.so - will link against it")
+    else()
+        message(STATUS "Game.so not found at ${GAME_LIB_PATH} - building without it")
+        set (LIBS)
+    endif()
 
     link_directories(. ${CMAKE_SOURCE_DIR}/../../DotNet/libs/android/net10.0-Release/${ANDROID_ABI})
 
