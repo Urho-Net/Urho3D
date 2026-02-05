@@ -228,13 +228,6 @@ jobs:
         chmod +x script/build_android_dotnet_libs.sh
         ./script/build_android_dotnet_libs.sh
     
-    - name: Verify 16KB alignment
-      run: |
-        if [ -f "script/android_verify_16kb_alignment_libs_mac.sh" ]; then
-          chmod +x script/android_verify_16kb_alignment_libs_mac.sh
-          ./script/android_verify_16kb_alignment_libs_mac.sh
-        fi
-    
     - name: Upload Android libraries
       uses: actions/upload-artifact@v4
       with:
@@ -297,10 +290,10 @@ jobs:
     - name: Build WebAssembly libraries
       run: |
         chmod +x script/cmake_emscripten_dotnet_lib.sh
-        chmod +x script/build_emscripten_dotnet_dylib.sh
+        chmod +x script/build_emscripten_dotnet_lib.sh
         chmod +x script/cmake_generic.sh
         
-        ./script/build_emscripten_dotnet_dylib.sh
+        ./script/build_emscripten_dotnet_lib.sh
     
     - name: Verify WASM library is 32-bit
       run: |
@@ -331,14 +324,15 @@ jobs:
         path: DotNet/libs/wasm/Urho3D.a
         retention-days: 30
 
-  # Commit libraries back to repository (only on main/master branch push)
+  # Commit libraries back to repository (only on dotnet-10.x branch push)
   commit-libraries:
     name: Commit Libraries to Repository
     runs-on: ubuntu-latest
     needs: [build-macos, build-linux, build-windows, build-android, build-ios, build-wasm]
-    if: |
-      github.event_name == 'push' &&
-      github.ref == 'refs/heads/dotnet-10.x'
+    if: false  # Disabled - do not commit libraries yet
+    # if: |
+    #   github.event_name == 'push' &&
+    #   github.ref == 'refs/heads/dotnet-10.x'
     
     steps:
     - name: Checkout repository
