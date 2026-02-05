@@ -59,6 +59,10 @@ jobs:
           if echo "$CHANGED_FILES" | grep -q ".github/workflows/build-urho3d-libraries.yml"; then
             echo "✅ Workflow file changed - FORCING BUILD to test changes"
             SHOULD_BUILD=true
+          # Check if .gitignore changed - always build to test library commits
+          elif echo "$CHANGED_FILES" | grep -q ".gitignore"; then
+            echo "✅ .gitignore changed - FORCING BUILD to test library commits"
+            SHOULD_BUILD=true
           else
             # Check if Source directory or build scripts changed
             while IFS= read -r file; do
