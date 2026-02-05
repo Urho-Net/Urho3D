@@ -51,25 +51,34 @@ jobs:
           # Get changed files
           CHANGED_FILES=$(git diff --name-only HEAD~1 HEAD)
           
-          # Check if Source directory or build scripts changed
-          while IFS= read -r file; do
-            if [[ "$file" == Source/* ]] || \
-               [[ "$file" == script/* ]] || \
-               [[ "$file" == CMakeLists.txt ]] || \
-               [[ "$file" == .github/workflows/build-urho3d-libraries.yml ]]; then
-              echo "Found source change: $file"
-              SHOULD_BUILD=true
-              break
-            fi
-          done <<< "$CHANGED_FILES"
+          echo "Changed files in this commit:"
+          echo "$CHANGED_FILES"
+          echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+          
+          # Check if workflow file changed - always build
+          if echo "$CHANGED_FILES" | grep -q ".github/workflows/build-urho3d-libraries.yml"; then
+            echo "✅ Workflow file changed - FORCING BUILD to test changes"
+            SHOULD_BUILD=true
+          else
+            # Check if Source directory or build scripts changed
+            while IFS= read -r file; do
+              if [[ "$file" == Source/* ]] || \
+                 [[ "$file" == script/* ]] || \
+                 [[ "$file" == CMakeLists.txt ]]; then
+                echo "✅ Found source change: $file"
+                SHOULD_BUILD=true
+                break
+              fi
+            done <<< "$CHANGED_FILES"
+          fi
         fi
         
         if [ "$SHOULD_BUILD" = true ]; then
           echo "changed=true" >> $GITHUB_OUTPUT
-          echo "✓ Will build libraries"
+          echo "✅ Will build libraries"
         else
           echo "changed=false" >> $GITHUB_OUTPUT
-          echo "✓ No source changes - skipping build"
+          echo "⏭️  No source changes - skipping build"
         fi
 
   build-macos:
