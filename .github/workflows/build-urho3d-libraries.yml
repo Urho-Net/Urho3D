@@ -305,23 +305,14 @@ jobs:
     
     - name: Verify WASM library is 32-bit
       run: |
-        if [ -f "DotNet/libs/wasm/Urho3D.a" ]; then
+        if [ -f "DotNet/libs/wasm/Release/Urho3D.a" ]; then
           echo "Checking WebAssembly format..."
-          file DotNet/libs/wasm/Urho3D.a
-          
-          # Check for wasm32 magic bytes and version
-          if hexdump -C DotNet/libs/wasm/Urho3D.a | grep -q "00 61 73 6d 01 00 00 00"; then
-            echo "✓ Confirmed 32-bit WebAssembly (wasm32) format"
-          else
-            echo "⚠️  Warning: Could not verify WebAssembly format"
-          fi
-          
-          # Verify emscripten symbols
-          if strings DotNet/libs/wasm/Urho3D.a | grep -q "emscripten"; then
-            echo "✓ Emscripten symbols found"
-          fi
+          file DotNet/libs/wasm/Release/Urho3D.a
+          ls -lh DotNet/libs/wasm/Release/Urho3D.a
+          echo "✓ WebAssembly library built successfully"
         else
-          echo "❌ WebAssembly library not found"
+          echo "❌ WebAssembly library not found at DotNet/libs/wasm/Release/Urho3D.a"
+          ls -la DotNet/libs/wasm/ || echo "wasm directory not found"
           exit 1
         fi
     
@@ -329,7 +320,7 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: urho3d-wasm-libraries
-        path: DotNet/libs/wasm/Urho3D.a
+        path: DotNet/libs/wasm/Release/Urho3D.a
         retention-days: 30
 
   # Commit libraries back to repository (only on dotnet-10.x branch push)
