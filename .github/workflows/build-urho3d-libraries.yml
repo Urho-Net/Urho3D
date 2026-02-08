@@ -212,6 +212,134 @@ jobs:
         if-no-files-found: warn
         retention-days: 30
 
+  build-macos-editor-arm64:
+    name: Build macOS Editor arm64 Libraries
+    runs-on: macos-latest
+    needs: check-changes
+    if: needs.check-changes.outputs.should_build == 'true'
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      with:
+        submodules: recursive
+    
+    - name: Install dependencies
+      run: |
+        brew install cmake
+    
+    - name: Build macOS Editor arm64 libraries
+      run: |
+        chmod +x script/build_xcode_dotnet_editor_metal_dylib_arm64.sh
+        chmod +x script/cmake_xcode_dotnet_editor_metal_dylib.sh
+        ./script/build_xcode_dotnet_editor_metal_dylib_arm64.sh
+    
+    - name: Verify Editor arm64 libraries
+      run: |
+        MISSING_FILES=0
+        
+        if [ -f "DotNet/libs/editor/macos/arm64/Release/libUrho3D.dylib" ]; then
+          file DotNet/libs/editor/macos/arm64/Release/libUrho3D.dylib
+          otool -L DotNet/libs/editor/macos/arm64/Release/libUrho3D.dylib
+          echo "✓ Editor arm64 Release library verified"
+        else
+          echo "❌ Editor arm64 Release library MISSING"
+          MISSING_FILES=$((MISSING_FILES + 1))
+        fi
+        
+        if [ -f "DotNet/libs/editor/macos/arm64/Debug/libUrho3D.dylib" ]; then
+          file DotNet/libs/editor/macos/arm64/Debug/libUrho3D.dylib
+          otool -L DotNet/libs/editor/macos/arm64/Debug/libUrho3D.dylib
+          echo "✓ Editor arm64 Debug library verified"
+        else
+          echo "⚠️  Editor arm64 Debug library MISSING"
+        fi
+        
+        if [ $MISSING_FILES -gt 0 ]; then
+          echo ""
+          echo "ERROR: $MISSING_FILES required Editor arm64 Release libraries are missing!"
+          exit 1
+        fi
+    
+    - name: Upload macOS Editor arm64 Release libraries
+      uses: actions/upload-artifact@v4
+      with:
+        name: urho3d-macos-editor-arm64-release-libraries
+        path: DotNet/libs/editor/macos/arm64/Release/libUrho3D.dylib
+        retention-days: 30
+    
+    - name: Upload macOS Editor arm64 Debug libraries
+      uses: actions/upload-artifact@v4
+      with:
+        name: urho3d-macos-editor-arm64-debug-libraries
+        path: DotNet/libs/editor/macos/arm64/Debug/libUrho3D.dylib
+        if-no-files-found: warn
+        retention-days: 30
+
+  build-macos-editor-x86_64:
+    name: Build macOS Editor x86_64 Libraries
+    runs-on: macos-latest
+    needs: check-changes
+    if: needs.check-changes.outputs.should_build == 'true'
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      with:
+        submodules: recursive
+    
+    - name: Install dependencies
+      run: |
+        brew install cmake
+    
+    - name: Build macOS Editor x86_64 libraries
+      run: |
+        chmod +x script/build_xcode_dotnet_editor_metal_dylib_x86_64.sh
+        chmod +x script/cmake_xcode_dotnet_editor_metal_dylib.sh
+        ./script/build_xcode_dotnet_editor_metal_dylib_x86_64.sh
+    
+    - name: Verify Editor x86_64 libraries
+      run: |
+        MISSING_FILES=0
+        
+        if [ -f "DotNet/libs/editor/macos/x86_64/Release/libUrho3D.dylib" ]; then
+          file DotNet/libs/editor/macos/x86_64/Release/libUrho3D.dylib
+          otool -L DotNet/libs/editor/macos/x86_64/Release/libUrho3D.dylib
+          echo "✓ Editor x86_64 Release library verified"
+        else
+          echo "❌ Editor x86_64 Release library MISSING"
+          MISSING_FILES=$((MISSING_FILES + 1))
+        fi
+        
+        if [ -f "DotNet/libs/editor/macos/x86_64/Debug/libUrho3D.dylib" ]; then
+          file DotNet/libs/editor/macos/x86_64/Debug/libUrho3D.dylib
+          otool -L DotNet/libs/editor/macos/x86_64/Debug/libUrho3D.dylib
+          echo "✓ Editor x86_64 Debug library verified"
+        else
+          echo "⚠️  Editor x86_64 Debug library MISSING"
+        fi
+        
+        if [ $MISSING_FILES -gt 0 ]; then
+          echo ""
+          echo "ERROR: $MISSING_FILES required Editor x86_64 Release libraries are missing!"
+          exit 1
+        fi
+    
+    - name: Upload macOS Editor x86_64 Release libraries
+      uses: actions/upload-artifact@v4
+      with:
+        name: urho3d-macos-editor-x86_64-release-libraries
+        path: DotNet/libs/editor/macos/x86_64/Release/libUrho3D.dylib
+        retention-days: 30
+    
+    - name: Upload macOS Editor x86_64 Debug libraries
+      uses: actions/upload-artifact@v4
+      with:
+        name: urho3d-macos-editor-x86_64-debug-libraries
+        path: DotNet/libs/editor/macos/x86_64/Debug/libUrho3D.dylib
+        if-no-files-found: warn
+        retention-days: 30
+
   build-linux:
     name: Build Linux Libraries
     runs-on: ubuntu-latest
@@ -459,12 +587,14 @@ jobs:
   combine-artifacts:
     name: Combine All Platform Libraries
     runs-on: ubuntu-latest
-    needs: [check-changes, build-macos-arm64, build-macos-x86_64, build-linux, build-windows, build-android, build-ios, build-wasm]
+    needs: [check-changes, build-macos-arm64, build-macos-x86_64, build-macos-editor-arm64, build-macos-editor-x86_64, build-linux, build-windows, build-android, build-ios, build-wasm]
     if: |
       always() &&
       needs.check-changes.outputs.should_build == 'true' &&
       (needs.build-macos-arm64.result == 'success' || needs.build-macos-arm64.result == 'skipped') &&
       (needs.build-macos-x86_64.result == 'success' || needs.build-macos-x86_64.result == 'skipped') &&
+      (needs.build-macos-editor-arm64.result == 'success' || needs.build-macos-editor-arm64.result == 'skipped') &&
+      (needs.build-macos-editor-x86_64.result == 'success' || needs.build-macos-editor-x86_64.result == 'skipped') &&
       (needs.build-linux.result == 'success' || needs.build-linux.result == 'skipped') &&
       (needs.build-windows.result == 'success' || needs.build-windows.result == 'skipped') &&
       (needs.build-android.result == 'success' || needs.build-android.result == 'skipped') &&
@@ -617,6 +747,38 @@ jobs:
           find artifacts/urho3d-wasm-debug-libraries -name "*.a" -exec cp {} combined-libs/DotNet/libs/wasm/Debug/ \; 2>/dev/null || true
         else
           echo "⚠️  WebAssembly Debug libraries not found"
+        fi
+        
+        # macOS Editor arm64 Release
+        if [ -d "artifacts/urho3d-macos-editor-arm64-release-libraries" ]; then
+          echo "✓ macOS Editor arm64 Release libraries"
+          mkdir -p combined-libs/DotNet/libs/editor/macos/arm64/Release
+          find artifacts/urho3d-macos-editor-arm64-release-libraries -name "*.dylib" -exec cp {} combined-libs/DotNet/libs/editor/macos/arm64/Release/ \; 2>/dev/null || true
+        fi
+        
+        # macOS Editor arm64 Debug
+        if [ -d "artifacts/urho3d-macos-editor-arm64-debug-libraries" ]; then
+          echo "✓ macOS Editor arm64 Debug libraries"
+          mkdir -p combined-libs/DotNet/libs/editor/macos/arm64/Debug
+          find artifacts/urho3d-macos-editor-arm64-debug-libraries -name "*.dylib" -exec cp {} combined-libs/DotNet/libs/editor/macos/arm64/Debug/ \; 2>/dev/null || true
+        else
+          echo "⚠️  macOS Editor arm64 Debug libraries not found"
+        fi
+        
+        # macOS Editor x86_64 Release
+        if [ -d "artifacts/urho3d-macos-editor-x86_64-release-libraries" ]; then
+          echo "✓ macOS Editor x86_64 Release libraries"
+          mkdir -p combined-libs/DotNet/libs/editor/macos/x86_64/Release
+          find artifacts/urho3d-macos-editor-x86_64-release-libraries -name "*.dylib" -exec cp {} combined-libs/DotNet/libs/editor/macos/x86_64/Release/ \; 2>/dev/null || true
+        fi
+        
+        # macOS Editor x86_64 Debug
+        if [ -d "artifacts/urho3d-macos-editor-x86_64-debug-libraries" ]; then
+          echo "✓ macOS Editor x86_64 Debug libraries"
+          mkdir -p combined-libs/DotNet/libs/editor/macos/x86_64/Debug
+          find artifacts/urho3d-macos-editor-x86_64-debug-libraries -name "*.dylib" -exec cp {} combined-libs/DotNet/libs/editor/macos/x86_64/Debug/ \; 2>/dev/null || true
+        else
+          echo "⚠️  macOS Editor x86_64 Debug libraries not found"
         fi
         
         echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"

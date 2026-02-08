@@ -141,6 +141,10 @@ DotNet/libs/
 !DotNet/libs/android/Debug/*/*.so
 !DotNet/libs/wasm/Debug/
 !DotNet/libs/wasm/Debug/*.a
+!DotNet/libs/editor/macos/arm64/Debug/
+!DotNet/libs/editor/macos/arm64/Debug/*.dylib
+!DotNet/libs/editor/macos/x86_64/Debug/
+!DotNet/libs/editor/macos/x86_64/Debug/*.dylib
 
 DotNet/libs/wasm/MonoEmbedded.js
 DotNet/libs/wasm/MonoEmbedded.wasm
