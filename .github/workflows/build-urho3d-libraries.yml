@@ -605,7 +605,8 @@ jobs:
         # Debug: Show what artifacts were downloaded
         echo "Downloaded artifacts:"
         ls -la artifacts/
-        arm64 Release
+        
+        # macOS arm64 Release
         if [ -d "artifacts/urho3d-macos-arm64-release-libraries" ]; then
           echo "✓ macOS arm64 Release libraries"
           mkdir -p combined-libs/DotNet/libs/macos/arm64/Release
