@@ -106,30 +106,60 @@ jobs:
         chmod +x script/cmake_xcode_dotnet_metal_dylib.sh
         ./script/build_xcode_dotnet_metal_dylib.sh
     
+    - name: Check what libraries were actually created
+      run: |
+        echo "📁 Checking DotNet/libs/macos directory structure:"
+        find DotNet/libs/macos -name "*.dylib" -type f || echo "No .dylib files found!"
+        echo ""
+        echo "Expected files:"
+        echo "  - DotNet/libs/macos/arm64/Release/libUrho3D.dylib"
+        echo "  - DotNet/libs/macos/arm64/Debug/libUrho3D.dylib"
+        echo "  - DotNet/libs/macos/x86_64/Release/libUrho3D.dylib"
+        echo "  - DotNet/libs/macos/x86_64/Debug/libUrho3D.dylib"
+    
     - name: Verify libraries
       run: |
+        MISSING_FILES=0
+        
         if [ -f "DotNet/libs/macos/arm64/Release/libUrho3D.dylib" ]; then
           file DotNet/libs/macos/arm64/Release/libUrho3D.dylib
           otool -L DotNet/libs/macos/arm64/Release/libUrho3D.dylib
           echo "✓ arm64 Release library verified"
+        else
+          echo "❌ arm64 Release library MISSING"
+          MISSING_FILES=$((MISSING_FILES + 1))
         fi
         
         if [ -f "DotNet/libs/macos/arm64/Debug/libUrho3D.dylib" ]; then
           file DotNet/libs/macos/arm64/Debug/libUrho3D.dylib
           otool -L DotNet/libs/macos/arm64/Debug/libUrho3D.dylib
           echo "✓ arm64 Debug library verified"
+        else
+          echo "⚠️  arm64 Debug library MISSING (this is expected if build script didn't create it)"
         fi
         
         if [ -f "DotNet/libs/macos/x86_64/Release/libUrho3D.dylib" ]; then
           file DotNet/libs/macos/x86_64/Release/libUrho3D.dylib
           otool -L DotNet/libs/macos/x86_64/Release/libUrho3D.dylib
           echo "✓ x86_64 Release library verified"
+        else
+          echo "❌ x86_64 Release library MISSING"
+          MISSING_FILES=$((MISSING_FILES + 1))
         fi
         
         if [ -f "DotNet/libs/macos/x86_64/Debug/libUrho3D.dylib" ]; then
           file DotNet/libs/macos/x86_64/Debug/libUrho3D.dylib
           otool -L DotNet/libs/macos/x86_64/Debug/libUrho3D.dylib
           echo "✓ x86_64 Debug library verified"
+        else
+          echo "⚠️  x86_64 Debug library MISSING (this is expected if build script didn't create it)"
+        fi
+        
+        # Only fail if Release builds are missing
+        if [ $MISSING_FILES -gt 0 ]; then
+          echo ""
+          echo "ERROR: $MISSING_FILES required Release libraries are missing!"
+          exit 1
         fi
     
     - name: Upload macOS Release libraries (for repo commit)
@@ -148,6 +178,7 @@ jobs:
         path: |
           DotNet/libs/macos/arm64/Debug/libUrho3D.dylib
           DotNet/libs/macos/x86_64/Debug/libUrho3D.dylib
+        if-no-files-found: warn
         retention-days: 30
 
   build-linux:
@@ -425,6 +456,8 @@ jobs:
               fi
             done
           fi
+        else
+          echo "⚠️  macOS Debug libraries not found (builds may have failed)"
         fi
         
         # Linux
