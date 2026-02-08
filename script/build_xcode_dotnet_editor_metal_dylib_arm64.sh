@@ -13,7 +13,12 @@ echo "Building macOS arm64 Editor libraries (Release + Debug)..."
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 echo "Building arm64 Release..."
 ./script/cmake_xcode_dotnet_editor_metal_dylib.sh build-xcode-dotnet-editor-metal-dylib-arm64 -DCMAKE_OSX_ARCHITECTURES=arm64
-xcodebuild -project build-xcode-dotnet-editor-metal-dylib-arm64/Urho3D.xcodeproj -scheme Urho3D -configuration Release
+rm -rf build-xcode-dotnet-editor-metal-dylib-arm64/lib
+xcodebuild -project build-xcode-dotnet-editor-metal-dylib-arm64/Urho3D.xcodeproj -scheme Urho3D -configuration Release -arch arm64 ONLY_ACTIVE_ARCH=NO
+if [ ! -e build-xcode-dotnet-editor-metal-dylib-arm64/lib/libUrho3D.dylib ]; then
+  echo "libUrho3D.dylib does not exist. Exiting with an error."
+  exit 1
+fi
 mkdir -p DotNet/libs/editor/macos/arm64/Release
 cp -Lf build-xcode-dotnet-editor-metal-dylib-arm64/lib/libUrho3D.dylib DotNet/libs/editor/macos/arm64/Release/
 echo "✓ arm64 Release library built"
@@ -21,9 +26,14 @@ echo "✓ arm64 Release library built"
 # Build Debug
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 echo "Building arm64 Debug..."
-xcodebuild -project build-xcode-dotnet-editor-metal-dylib-arm64/Urho3D.xcodeproj -scheme Urho3D -configuration Debug
+rm -rf build-xcode-dotnet-editor-metal-dylib-arm64/lib
+xcodebuild -project build-xcode-dotnet-editor-metal-dylib-arm64/Urho3D.xcodeproj -scheme Urho3D -configuration Debug -arch arm64 ONLY_ACTIVE_ARCH=NO
+if [ ! -e build-xcode-dotnet-editor-metal-dylib-arm64/lib/libUrho3D.dylib ]; then
+  echo "libUrho3D.dylib does not exist. Exiting with an error."
+  exit 1
+fi
 mkdir -p DotNet/libs/editor/macos/arm64/Debug
-cp -Lf build-xcode-dotnet-editor-metal-dylib-arm64/lib/Debug/libUrho3D.dylib DotNet/libs/editor/macos/arm64/Debug/
+cp -Lf build-xcode-dotnet-editor-metal-dylib-arm64/lib/libUrho3D.dylib DotNet/libs/editor/macos/arm64/Debug/
 echo "✓ arm64 Debug library built"
 
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"

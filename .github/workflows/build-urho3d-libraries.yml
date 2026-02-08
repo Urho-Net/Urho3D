@@ -478,18 +478,6 @@ jobs:
           DotNet/libs/android/Release/arm64-v8a/*.so
           DotNet/libs/android/Release/x86_64/*.so
         retention-days: 30
-    
-    - name: Upload Android Debug libraries
-      uses: actions/upload-artifact@v4
-      with:
-        name: urho3d-android-debug-libraries
-        path: |
-          DotNet/libs/android/Debug/armeabi-v7a/*.so
-          DotNet/libs/android/Debug/x86/*.so
-          DotNet/libs/android/Debug/arm64-v8a/*.so
-          DotNet/libs/android/Debug/x86_64/*.so
-        if-no-files-found: warn
-        retention-days: 30
 
   build-ios:
     name: Build iOS Libraries
@@ -682,28 +670,15 @@ jobs:
           echo "⚠️  Windows Debug libraries not found"
         fi
         
-        # Android
+        # Android (RelWithDebInfo only - NDK doesn't support separate Debug builds)
         if [ -d "artifacts/urho3d-android-libraries" ]; then
-          echo "✓ Android Release libraries"
+          echo "✓ Android Release libraries (RelWithDebInfo)"
           mkdir -p combined-libs/DotNet/libs/android/Release
           if [ -d "artifacts/urho3d-android-libraries/DotNet" ]; then
             cp -r artifacts/urho3d-android-libraries/DotNet/libs/android/* combined-libs/DotNet/libs/android/ 2>/dev/null || true
           else
             cp -r artifacts/urho3d-android-libraries/* combined-libs/DotNet/libs/android/Release/ 2>/dev/null || true
           fi
-        fi
-        
-        # Android Debug
-        if [ -d "artifacts/urho3d-android-debug-libraries" ]; then
-          echo "✓ Android Debug libraries"
-          mkdir -p combined-libs/DotNet/libs/android/Debug
-          if [ -d "artifacts/urho3d-android-debug-libraries/DotNet" ]; then
-            cp -r artifacts/urho3d-android-debug-libraries/DotNet/libs/android/* combined-libs/DotNet/libs/android/ 2>/dev/null || true
-          else
-            cp -r artifacts/urho3d-android-debug-libraries/* combined-libs/DotNet/libs/android/Debug/ 2>/dev/null || true
-          fi
-        else
-          echo "⚠️  Android Debug libraries not found"
         fi
         
         # iOS
