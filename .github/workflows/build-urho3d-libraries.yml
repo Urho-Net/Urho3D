@@ -635,8 +635,7 @@ jobs:
           mkdir -p combined-libs/DotNet/libs/macos/x86_64/Debug
           find artifacts/urho3d-macos-x86_64-debug-libraries -name "*.dylib" -exec cp {} combined-libs/DotNet/libs/macos/x86_64/Debug/ \; 2>/dev/null || true
         else
-          echo "⚠️  macOS x86_64 Debug libraries not found
-          echo "⚠️  macOS Debug libraries not found (builds may have failed)"
+          echo "⚠️  macOS x86_64 Debug libraries not found"
         fi
         
         # Linux
