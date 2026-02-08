@@ -128,6 +128,12 @@ DotNet/libs/
 # Exception: Android libGame.so is required for builds
 !DotNet/libs/android/Release/*/libGame.so
 
+# Exception: Allow Debug builds for artifact uploads (not committed to repo)
+!DotNet/libs/macos/arm64/Debug/
+!DotNet/libs/macos/arm64/Debug/*.dylib
+!DotNet/libs/macos/x86_64/Debug/
+!DotNet/libs/macos/x86_64/Debug/*.dylib
+
 DotNet/libs/wasm/MonoEmbedded.js
 DotNet/libs/wasm/MonoEmbedded.wasm
 
