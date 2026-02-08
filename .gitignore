@@ -125,6 +125,9 @@ CMakeDoxygenDefaults.cmake
 # Libraries are available via GitHub Actions artifacts and releases
 DotNet/libs/
 
+# Exception: Android libGame.so is required for builds
+!DotNet/libs/android/Release/*/libGame.so
+
 DotNet/libs/wasm/MonoEmbedded.js
 DotNet/libs/wasm/MonoEmbedded.wasm
 
