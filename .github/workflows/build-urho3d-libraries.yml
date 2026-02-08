@@ -112,22 +112,43 @@ jobs:
         if [ -f "DotNet/libs/macos/arm64/Release/libUrho3D.dylib" ]; then
           file DotNet/libs/macos/arm64/Release/libUrho3D.dylib
           otool -L DotNet/libs/macos/arm64/Release/libUrho3D.dylib
-          echo "✓ arm64 library verified"
+          echo "✓ arm64 Release library verified"
+        fi
+        
+        if [ -f "DotNet/libs/macos/arm64/Debug/libUrho3D.dylib" ]; then
+          file DotNet/libs/macos/arm64/Debug/libUrho3D.dylib
+          otool -L DotNet/libs/macos/arm64/Debug/libUrho3D.dylib
+          echo "✓ arm64 Debug library verified"
         fi
         
         if [ -f "DotNet/libs/macos/x86_64/Release/libUrho3D.dylib" ]; then
           file DotNet/libs/macos/x86_64/Release/libUrho3D.dylib
           otool -L DotNet/libs/macos/x86_64/Release/libUrho3D.dylib
-          echo "✓ x86_64 library verified"
+          echo "✓ x86_64 Release library verified"
+        fi
+        
+        if [ -f "DotNet/libs/macos/x86_64/Debug/libUrho3D.dylib" ]; then
+          file DotNet/libs/macos/x86_64/Debug/libUrho3D.dylib
+          otool -L DotNet/libs/macos/x86_64/Debug/libUrho3D.dylib
+          echo "✓ x86_64 Debug library verified"
         fi
     
-    - name: Upload macOS libraries
+    - name: Upload macOS Release libraries (for repo commit)
       uses: actions/upload-artifact@v4
       with:
         name: urho3d-macos-libraries
         path: |
           DotNet/libs/macos/arm64/Release/libUrho3D.dylib
           DotNet/libs/macos/x86_64/Release/libUrho3D.dylib
+        retention-days: 30
+    
+    - name: Upload macOS Debug libraries (artifact only, not committed)
+      uses: actions/upload-artifact@v4
+      with:
+        name: urho3d-macos-debug-libraries
+        path: |
+          DotNet/libs/macos/arm64/Debug/libUrho3D.dylib
+          DotNet/libs/macos/x86_64/Debug/libUrho3D.dylib
         retention-days: 30
 
   build-linux:
@@ -551,130 +572,4 @@ jobs:
         prerelease: ${{ contains(steps.tag_info.outputs.tag_name, '-') }}
         fail_on_unmatched_files: true
         generate_release_notes: true
-
-  # Commit libraries back to repository (only on dotnet-10.x branch push)
-  commit-libraries:
-    name: Commit Libraries to Repository
-    runs-on: ubuntu-latest
-    needs: [combine-artifacts]
-    if: |
-      github.event_name == 'push' &&
-      github.ref == 'refs/heads/dotnet-10.x'
-    
-    steps:
-    - name: Checkout repository
-      uses: actions/checkout@v4
-    
-    - name: Download combined libraries
-      uses: actions/download-artifact@v4
-      with:
-        name: urho3d-all-libraries
-        path: combined-libs
-    
-    - name: Debug - Show repo state before copy
-      run: |
-        echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-        echo "📂 REPOSITORY STATE BEFORE COPY:"
-        echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-        echo "DotNet/libs directory exists: $([ -d "DotNet/libs" ] && echo "YES" || echo "NO")"
-        if [ -d "DotNet/libs" ]; then
-          echo "Files in repository DotNet/libs BEFORE copy:"
-          find DotNet/libs -type f \( -name "*.dylib" -o -name "*.so" -o -name "*.dll" -o -name "*.a" \) | sort
-          echo "Total files: $(find DotNet/libs -type f \( -name "*.dylib" -o -name "*.so" -o -name "*.dll" -o -name "*.a" \) | wc -l)"
-        fi
-        
-        echo ""
-        echo "Files in combined-libs artifact:"
-        find combined-libs -type f \( -name "*.dylib" -o -name "*.so" -o -name "*.dll" -o -name "*.a" \) | sort
-        echo "Total files: $(find combined-libs -type f \( -name "*.dylib" -o -name "*.so" -o -name "*.dll" -o -name "*.a" \) | wc -l)"
-        echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-    
-    - name: Copy libraries to repository
-      run: |
-        # Ensure directory exists
-        mkdir -p DotNet/libs
-        
-        # Copy new libraries (overwrite existing, combined artifact has the full DotNet/libs/ structure)
-        cp -rfv combined-libs/DotNet/libs/* DotNet/libs/
-        
-        echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-        echo "📦 AFTER COPY - Files in DotNet/libs:"
-        find DotNet/libs -type f \( -name "*.dylib" -o -name "*.so" -o -name "*.dll" -o -name "*.a" \) | sort
-        echo "Total files: $(find DotNet/libs -type f \( -name "*.dylib" -o -name "*.so" -o -name "*.dll" -o -name "*.a" \) | wc -l)"
-        echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-    
-    - name: Check for changes
-      id: check_changes
-      run: |
-        # Configure git
-        git config --local user.email "github-actions[bot]@users.noreply.github.com"
-        git config --local user.name "github-actions[bot]"
-        
-        echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-        echo "🔍 GIT STATUS BEFORE ADD:"
-        git status --short DotNet/libs/
-        echo ""
-        echo "Full git status:"
-        git status DotNet/libs/
-        echo ""
-        echo "Git diff (before add):"
-        git diff --stat DotNet/libs/ || echo "No unstaged changes"
-        echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-        
-        # List untracked files
-        echo "🆕 Untracked files in DotNet/libs:"
-        git ls-files --others --exclude-standard DotNet/libs/ || echo "None"
-        echo ""
-        
-        # List modified files
-        echo "📝 Modified files in DotNet/libs:"
-        git ls-files --modified DotNet/libs/ || echo "None"
-        echo ""
-        
-        # List tracked files
-        echo "📋 Currently tracked files in DotNet/libs:"
-        git ls-files DotNet/libs/ || echo "None"
-        echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-        
-        # Add all library files explicitly (new, modified, deleted)
-        echo "➕ Running: git add DotNet/libs/"
-        git add -v DotNet/libs/
-        
-        echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-        echo "📊 GIT STATUS AFTER ADD:"
-        git status --short DotNet/libs/
-        echo ""
-        echo "Full git status:"
-        git status DotNet/libs/
-        echo ""
-        echo "Staged changes:"
-        git diff --cached --stat DotNet/libs/ || echo "No staged changes"
-        echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-        
-        # Check if there are staged changes
-        if git diff --cached --quiet; then
-          echo "changed=false" >> $GITHUB_OUTPUT
-          echo "📭 NO LIBRARY CHANGES TO COMMIT"
-          echo "❌ git diff --cached --quiet returned TRUE (no changes)"
-        else
-          echo "changed=true" >> $GITHUB_OUTPUT
-          echo "✅ LIBRARIES HAVE CHANGED"
-          echo "📦 Detailed changes:"
-          git diff --cached --stat DotNet/libs/
-          echo ""
-          echo "Numeric stat:"
-          git diff --cached --numstat DotNet/libs/
-        fi
-    
-    - name: Commit and push libraries
-      if: steps.check_changes.outputs.changed == 'true'
-      run: |
-        git commit -m "🤖 Update Urho3D libraries [skip ci]
-        
-        Built from commit: ${{ github.sha }}
-        Workflow run: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
-        
-        Platform builds completed successfully."
-        
-        git push
 
