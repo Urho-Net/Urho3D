@@ -359,6 +359,13 @@ jobs:
           libxinerama-dev libxcursor-dev libxi-dev libgl1-mesa-dev \
           libasound2-dev libudev-dev
     
+    - name: Detect architecture
+      id: detect_arch
+      run: |
+        ARCH=$(uname -m)
+        echo "arch=$ARCH" >> $GITHUB_OUTPUT
+        echo "Detected architecture: $ARCH"
+    
     - name: Build Linux libraries
       run: |
         chmod +x script/build_linux_dotnet_so.sh
@@ -372,7 +379,7 @@ jobs:
     
     - name: Verify library
       run: |
-        ARCH=$(uname -m)
+        ARCH="${{ steps.detect_arch.outputs.arch }}"
         if [ -f "DotNet/libs/linux/${ARCH}/Release/libUrho3D.so" ]; then
           file DotNet/libs/linux/${ARCH}/Release/libUrho3D.so
           ldd DotNet/libs/linux/${ARCH}/Release/libUrho3D.so
@@ -383,14 +390,14 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: urho3d-linux-libraries
-        path: DotNet/libs/linux/x86_64/Release/libUrho3D.so
+        path: DotNet/libs/linux/${{ steps.detect_arch.outputs.arch }}/Release/libUrho3D.so
         retention-days: 30
     
     - name: Upload Linux Debug libraries
       uses: actions/upload-artifact@v4
       with:
         name: urho3d-linux-debug-libraries
-        path: DotNet/libs/linux/x86_64/Debug/libUrho3D.so
+        path: DotNet/libs/linux/${{ steps.detect_arch.outputs.arch }}/Debug/libUrho3D.so
         if-no-files-found: warn
         retention-days: 30
 
@@ -409,15 +416,30 @@ jobs:
     - name: Setup MSVC
       uses: microsoft/setup-msbuild@v2
     
+    - name: Detect architecture
+      id: detect_arch
+      run: |
+        $arch = $env:PROCESSOR_ARCHITECTURE
+        if ($arch -eq "AMD64") {
+          $arch = "x64"
+        } elseif ($arch -eq "ARM64") {
+          $arch = "arm64"
+        } else {
+          $arch = "x86"
+        }
+        echo "arch=$arch" >> $env:GITHUB_OUTPUT
+        Write-Output "Detected architecture: $arch"
+    
     - name: Build Windows libraries
       run: |
         .\script\build_vs2019_dotnet_dll.bat
     
     - name: Verify library
       run: |
-        if (Test-Path "DotNet\libs\windows\Release\Urho3D.dll") {
+        $arch = "${{ steps.detect_arch.outputs.arch }}"
+        if (Test-Path "DotNet\libs\windows\$arch\Release\Urho3D.dll") {
           Write-Output "✓ Windows library built successfully"
-          Get-Item "DotNet\libs\windows\Release\Urho3D.dll" | Select-Object Name,Length,LastWriteTime
+          Get-Item "DotNet\libs\windows\$arch\Release\Urho3D.dll" | Select-Object Name,Length,LastWriteTime
         } else {
           Write-Error "Windows library not found"
           exit 1
@@ -427,14 +449,14 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: urho3d-windows-libraries
-        path: DotNet/libs/windows/Release/Urho3D.dll
+        path: DotNet/libs/windows/${{ steps.detect_arch.outputs.arch }}/Release/Urho3D.dll
         retention-days: 30
     
     - name: Upload Windows Debug libraries
       uses: actions/upload-artifact@v4
       with:
         name: urho3d-windows-debug-libraries
-        path: DotNet/libs/windows/Debug/Urho3D.dll
+        path: DotNet/libs/windows/${{ steps.detect_arch.outputs.arch }}/Debug/Urho3D.dll
         if-no-files-found: warn
         retention-days: 30
 
@@ -453,15 +475,30 @@ jobs:
     - name: Setup MSVC
       uses: microsoft/setup-msbuild@v2
     
+    - name: Detect architecture
+      id: detect_arch
+      run: |
+        $arch = $env:PROCESSOR_ARCHITECTURE
+        if ($arch -eq "AMD64") {
+          $arch = "x64"
+        } elseif ($arch -eq "ARM64") {
+          $arch = "arm64"
+        } else {
+          $arch = "x86"
+        }
+        echo "arch=$arch" >> $env:GITHUB_OUTPUT
+        Write-Output "Detected architecture: $arch"
+    
     - name: Build Windows Editor libraries
       run: |
         .\script\build_vs2019_dotnet_editor_dll.bat
     
     - name: Verify Editor library
       run: |
-        if (Test-Path "DotNet\libs\editor\windows\Release\Urho3D.dll") {
+        $arch = "${{ steps.detect_arch.outputs.arch }}"
+        if (Test-Path "DotNet\libs\editor\windows\$arch\Release\Urho3D.dll") {
           Write-Output "✓ Windows Editor library built successfully"
-          Get-Item "DotNet\libs\editor\windows\Release\Urho3D.dll" | Select-Object Name,Length,LastWriteTime
+          Get-Item "DotNet\libs\editor\windows\$arch\Release\Urho3D.dll" | Select-Object Name,Length,LastWriteTime
         } else {
           Write-Error "Windows Editor library not found"
           exit 1
@@ -471,14 +508,14 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: urho3d-windows-editor-release-libraries
-        path: DotNet/libs/editor/windows/Release/Urho3D.dll
+        path: DotNet/libs/editor/windows/${{ steps.detect_arch.outputs.arch }}/Release/Urho3D.dll
         retention-days: 30
     
     - name: Upload Windows Editor Debug libraries
       uses: actions/upload-artifact@v4
       with:
         name: urho3d-windows-editor-debug-libraries
-        path: DotNet/libs/editor/windows/Debug/Urho3D.dll
+        path: DotNet/libs/editor/windows/${{ steps.detect_arch.outputs.arch }}/Debug/Urho3D.dll
         if-no-files-found: warn
         retention-days: 30
 
@@ -501,6 +538,13 @@ jobs:
           libxinerama-dev libxcursor-dev libxi-dev libgl1-mesa-dev \
           libasound2-dev libudev-dev
     
+    - name: Detect architecture
+      id: detect_arch
+      run: |
+        ARCH=$(uname -m)
+        echo "arch=$ARCH" >> $GITHUB_OUTPUT
+        echo "Detected architecture: $ARCH"
+    
     - name: Build Linux Editor libraries
       run: |
         chmod +x script/build_linux_dotnet_editor_so.sh
@@ -514,7 +558,7 @@ jobs:
     
     - name: Verify Editor library
       run: |
-        ARCH=$(uname -m)
+        ARCH="${{ steps.detect_arch.outputs.arch }}"
         if [ -f "DotNet/libs/editor/linux/${ARCH}/Release/libUrho3D.so" ]; then
           file DotNet/libs/editor/linux/${ARCH}/Release/libUrho3D.so
           ldd DotNet/libs/editor/linux/${ARCH}/Release/libUrho3D.so
@@ -525,14 +569,14 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: urho3d-linux-editor-release-libraries
-        path: DotNet/libs/editor/linux/x86_64/Release/libUrho3D.so
+        path: DotNet/libs/editor/linux/${{ steps.detect_arch.outputs.arch }}/Release/libUrho3D.so
         retention-days: 30
     
     - name: Upload Linux Editor Debug libraries
       uses: actions/upload-artifact@v4
       with:
         name: urho3d-linux-editor-debug-libraries
-        path: DotNet/libs/editor/linux/x86_64/Debug/libUrho3D.so
+        path: DotNet/libs/editor/linux/${{ steps.detect_arch.outputs.arch }}/Debug/libUrho3D.so
         if-no-files-found: warn
         retention-days: 30
 
@@ -757,15 +801,15 @@ jobs:
         # Windows
         if [ -d "artifacts/urho3d-windows-libraries" ]; then
           echo "✓ Windows Release libraries"
-          mkdir -p combined-libs/DotNet/libs/windows/Release
-          find artifacts/urho3d-windows-libraries -name "*.dll" -exec cp {} combined-libs/DotNet/libs/windows/Release/ \; 2>/dev/null || true
+          mkdir -p combined-libs/DotNet/libs/windows/x64/Release
+          find artifacts/urho3d-windows-libraries -name "*.dll" -exec cp {} combined-libs/DotNet/libs/windows/x64/Release/ \; 2>/dev/null || true
         fi
         
         # Windows Debug
         if [ -d "artifacts/urho3d-windows-debug-libraries" ]; then
           echo "✓ Windows Debug libraries"
-          mkdir -p combined-libs/DotNet/libs/windows/Debug
-          find artifacts/urho3d-windows-debug-libraries -name "*.dll" -exec cp {} combined-libs/DotNet/libs/windows/Debug/ \; 2>/dev/null || true
+          mkdir -p combined-libs/DotNet/libs/windows/x64/Debug
+          find artifacts/urho3d-windows-debug-libraries -name "*.dll" -exec cp {} combined-libs/DotNet/libs/windows/x64/Debug/ \; 2>/dev/null || true
         else
           echo "⚠️  Windows Debug libraries not found"
         fi
@@ -859,15 +903,15 @@ jobs:
         # Windows Editor Release
         if [ -d "artifacts/urho3d-windows-editor-release-libraries" ]; then
           echo "✓ Windows Editor Release libraries"
-          mkdir -p combined-libs/DotNet/libs/editor/windows/Release
-          find artifacts/urho3d-windows-editor-release-libraries -name "*.dll" -exec cp {} combined-libs/DotNet/libs/editor/windows/Release/ \; 2>/dev/null || true
+          mkdir -p combined-libs/DotNet/libs/editor/windows/x64/Release
+          find artifacts/urho3d-windows-editor-release-libraries -name "*.dll" -exec cp {} combined-libs/DotNet/libs/editor/windows/x64/Release/ \; 2>/dev/null || true
         fi
         
         # Windows Editor Debug
         if [ -d "artifacts/urho3d-windows-editor-debug-libraries" ]; then
           echo "✓ Windows Editor Debug libraries"
-          mkdir -p combined-libs/DotNet/libs/editor/windows/Debug
-          find artifacts/urho3d-windows-editor-debug-libraries -name "*.dll" -exec cp {} combined-libs/DotNet/libs/editor/windows/Debug/ \; 2>/dev/null || true
+          mkdir -p combined-libs/DotNet/libs/editor/windows/x64/Debug
+          find artifacts/urho3d-windows-editor-debug-libraries -name "*.dll" -exec cp {} combined-libs/DotNet/libs/editor/windows/x64/Debug/ \; 2>/dev/null || true
         else
           echo "⚠️  Windows Editor Debug libraries not found"
         fi
@@ -919,8 +963,7 @@ jobs:
         if [ -d "combined-libs/DotNet/libs/windows" ]; then
           cp -r combined-libs/DotNet/libs/windows runtime-bundle/DotNet/libs/
         fi
-        if [ -d "all-libraries.zip
-          urho3d-editor-all-combined-libs/DotNet/libs/android" ]; then
+        if [ -d "combined-libs/DotNet/libs/android" ]; then
           cp -r combined-libs/DotNet/libs/android runtime-bundle/DotNet/libs/
         fi
         if [ -d "combined-libs/DotNet/libs/iphone" ]; then
