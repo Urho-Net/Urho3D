@@ -940,12 +940,10 @@ jobs:
         echo "💾 Library sizes:"
         du -sh combined-libs/DotNet/libs/* 2>/dev/null || true
     
-    - name: Upload combined libraries
-      uses: actions/upload-artifact@v4
-      with:
-        name: urho3d-all-libraries
-        path: combined-libs/**/*
-        retention-days: 90
+    # Note: We no longer upload combined-libs as an artifact since we create
+    # separate runtime and editor archives below. The combined-libs directory
+    # is only used as a working directory to organize the files before
+    # creating the final archives.
     
     - name: Create release archives
       run: |
@@ -987,11 +985,10 @@ jobs:
         echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
         
         # Remove any existing archives to avoid zip updating existing files
-        rm -f urho3d-libraries.tar.gz urho3d-all-libraries.zip urho3d-editor-all-libraries.zip
+        rm -f urho3d-all-libraries.zip urho3d-editor-all-libraries.zip
         
-        # Create runtime libraries archive
+        # Create runtime libraries archive (all libraries except editor)
         cd runtime-bundle
-        tar -czf ../urho3d-libraries.tar.gz DotNet/
         zip -r ../urho3d-all-libraries.zip DotNet/
         cd ..
         
@@ -1001,15 +998,13 @@ jobs:
         cd ..
         
         echo "✅ Archives created:"
-        ls -lh urho3d-*.zip urho3d-*.tar.gz
+        ls -lh urho3d-*.zip
     
-    - name: Upload runtime libraries archives
+    - name: Upload runtime libraries archive
       uses: actions/upload-artifact@v4
       with:
-        name: urho3d-libraries-archives
-        path: |
-          urho3d-libraries.tar.gz
-          urho3d-all-libraries.zip
+        name: urho3d-all-libraries
+        path: urho3d-all-libraries.zip
         retention-days: 90
     
     - name: Upload editor libraries archive
