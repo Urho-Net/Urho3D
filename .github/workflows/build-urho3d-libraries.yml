@@ -990,14 +990,20 @@ jobs:
         echo "✅ Archives created:"
         ls -lh urho3d-*.zip urho3d-*.tar.gz
     
-    - name: Upload release archives
+    - name: Upload runtime libraries archives
       uses: actions/upload-artifact@v4
       with:
         name: urho3d-libraries-archives
         path: |
           urho3d-libraries.tar.gz
           urho3d-all-libraries.zip
-          urho3d-editor-all-libraries.zip
+        retention-days: 90
+    
+    - name: Upload editor libraries archive
+      uses: actions/upload-artifact@v4
+      with:
+        name: urho3d-editor-all-libraries
+        path: urho3d-editor-all-libraries.zip
         retention-days: 90
 
   # Create GitHub Release with library archives (only on tag push)
