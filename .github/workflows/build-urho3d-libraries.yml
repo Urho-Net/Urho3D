@@ -953,28 +953,46 @@ jobs:
         mkdir -p runtime-bundle/DotNet/libs
         mkdir -p editor-bundle/DotNet/libs
         
+        echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+        echo "🔍 Separating runtime and editor libraries..."
+        echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+        
         # Copy runtime libraries (everything except editor)
-        # Use find to copy only non-editor directories
         for dir in combined-libs/DotNet/libs/*/; do
           dirname=$(basename "$dir")
+          echo "Checking directory: $dirname"
           # Skip the editor directory
           if [ "$dirname" != "editor" ]; then
+            echo "  ✓ Copying $dirname to runtime bundle"
             cp -r "$dir" runtime-bundle/DotNet/libs/
+          else
+            echo "  ⏭  Skipping $dirname (editor directory)"
           fi
         done
         
         # Copy editor libraries
         if [ -d "combined-libs/DotNet/libs/editor" ]; then
+          echo "✓ Copying editor directory to editor bundle"
           cp -r combined-libs/DotNet/libs/editor editor-bundle/DotNet/libs/
         fi
+        
+        echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+        echo "📊 Runtime bundle contents:"
+        find runtime-bundle/DotNet/libs -maxdepth 1 -type d | sort
+        
+        echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+        echo "📊 Editor bundle contents:"
+        find editor-bundle/DotNet/libs -maxdepth 1 -type d | sort
+        
+        echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
         
         # Create runtime libraries archive
         cd runtime-bundle
         tar -czf ../urho3d-libraries.tar.gz DotNet/
+        zip -r ../urho3d-all-libraries.zip DotNet/
         cd ..
-        zip -r urho3d-all-libraries.zip runtime-bundle/DotNet/
         
-        # Create editor libraries archive (zip from inside editor-bundle so path is DotNet/ not editor-bundle/DotNet/)
+        # Create editor libraries archive
         cd editor-bundle
         zip -r ../urho3d-editor-all-libraries.zip DotNet/
         cd ..
