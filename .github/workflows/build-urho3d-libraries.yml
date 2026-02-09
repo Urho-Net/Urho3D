@@ -438,6 +438,104 @@ jobs:
         if-no-files-found: warn
         retention-days: 30
 
+  build-windows-editor:
+    name: Build Windows Editor Libraries
+    runs-on: windows-2019
+    needs: check-changes
+    if: needs.check-changes.outputs.should_build == 'true'
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      with:
+        submodules: recursive
+    
+    - name: Setup MSVC
+      uses: microsoft/setup-msbuild@v2
+    
+    - name: Build Windows Editor libraries
+      run: |
+        .\script\build_vs2019_dotnet_editor_dll.bat
+    
+    - name: Verify Editor library
+      run: |
+        if (Test-Path "DotNet\libs\editor\windows\Release\Urho3D.dll") {
+          Write-Output "✓ Windows Editor library built successfully"
+          Get-Item "DotNet\libs\editor\windows\Release\Urho3D.dll" | Select-Object Name,Length,LastWriteTime
+        } else {
+          Write-Error "Windows Editor library not found"
+          exit 1
+        }
+    
+    - name: Upload Windows Editor Release libraries
+      uses: actions/upload-artifact@v4
+      with:
+        name: urho3d-windows-editor-release-libraries
+        path: DotNet/libs/editor/windows/Release/Urho3D.dll
+        retention-days: 30
+    
+    - name: Upload Windows Editor Debug libraries
+      uses: actions/upload-artifact@v4
+      with:
+        name: urho3d-windows-editor-debug-libraries
+        path: DotNet/libs/editor/windows/Debug/Urho3D.dll
+        if-no-files-found: warn
+        retention-days: 30
+
+  build-linux-editor:
+    name: Build Linux Editor Libraries
+    runs-on: ubuntu-latest
+    needs: check-changes
+    if: needs.check-changes.outputs.should_build == 'true'
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      with:
+        submodules: recursive
+    
+    - name: Install dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y cmake build-essential libx11-dev libxrandr-dev \
+          libxinerama-dev libxcursor-dev libxi-dev libgl1-mesa-dev \
+          libasound2-dev libudev-dev
+    
+    - name: Build Linux Editor libraries
+      run: |
+        chmod +x script/build_linux_dotnet_editor_so.sh
+        chmod +x script/cmake_linux_dotnet_editor_so.sh
+        
+        # Configure URHONET_HOME
+        mkdir -p ~/.urhonet_config
+        echo "$(pwd)" > ~/.urhonet_config/urhonethome
+        
+        ./script/build_linux_dotnet_editor_so.sh
+    
+    - name: Verify Editor library
+      run: |
+        ARCH=$(uname -m)
+        if [ -f "DotNet/libs/editor/linux/${ARCH}/Release/libUrho3D.so" ]; then
+          file DotNet/libs/editor/linux/${ARCH}/Release/libUrho3D.so
+          ldd DotNet/libs/editor/linux/${ARCH}/Release/libUrho3D.so
+          echo "✓ Linux ${ARCH} Editor library verified"
+        fi
+    
+    - name: Upload Linux Editor Release libraries
+      uses: actions/upload-artifact@v4
+      with:
+        name: urho3d-linux-editor-release-libraries
+        path: DotNet/libs/editor/linux/x86_64/Release/libUrho3D.so
+        retention-days: 30
+    
+    - name: Upload Linux Editor Debug libraries
+      uses: actions/upload-artifact@v4
+      with:
+        name: urho3d-linux-editor-debug-libraries
+        path: DotNet/libs/editor/linux/x86_64/Debug/libUrho3D.so
+        if-no-files-found: warn
+        retention-days: 30
+
   build-android:
     name: Build Android Libraries
     runs-on: ubuntu-latest
@@ -575,7 +673,7 @@ jobs:
   combine-artifacts:
     name: Combine All Platform Libraries
     runs-on: ubuntu-latest
-    needs: [check-changes, build-macos-arm64, build-macos-x86_64, build-macos-editor-arm64, build-macos-editor-x86_64, build-linux, build-windows, build-android, build-ios, build-wasm]
+    needs: [check-changes, build-macos-arm64, build-macos-x86_64, build-macos-editor-arm64, build-macos-editor-x86_64, build-linux, build-windows, build-windows-editor, build-linux-editor, build-android, build-ios, build-wasm]
     if: |
       always() &&
       needs.check-changes.outputs.should_build == 'true' &&
@@ -585,6 +683,8 @@ jobs:
       (needs.build-macos-editor-x86_64.result == 'success' || needs.build-macos-editor-x86_64.result == 'skipped') &&
       (needs.build-linux.result == 'success' || needs.build-linux.result == 'skipped') &&
       (needs.build-windows.result == 'success' || needs.build-windows.result == 'skipped') &&
+      (needs.build-windows-editor.result == 'success' || needs.build-windows-editor.result == 'skipped') &&
+      (needs.build-linux-editor.result == 'success' || needs.build-linux-editor.result == 'skipped') &&
       (needs.build-android.result == 'success' || needs.build-android.result == 'skipped') &&
       (needs.build-ios.result == 'success' || needs.build-ios.result == 'skipped') &&
       (needs.build-wasm.result == 'success' || needs.build-wasm.result == 'skipped')
@@ -756,6 +856,38 @@ jobs:
           echo "⚠️  macOS Editor x86_64 Debug libraries not found"
         fi
         
+        # Windows Editor Release
+        if [ -d "artifacts/urho3d-windows-editor-release-libraries" ]; then
+          echo "✓ Windows Editor Release libraries"
+          mkdir -p combined-libs/DotNet/libs/editor/windows/Release
+          find artifacts/urho3d-windows-editor-release-libraries -name "*.dll" -exec cp {} combined-libs/DotNet/libs/editor/windows/Release/ \; 2>/dev/null || true
+        fi
+        
+        # Windows Editor Debug
+        if [ -d "artifacts/urho3d-windows-editor-debug-libraries" ]; then
+          echo "✓ Windows Editor Debug libraries"
+          mkdir -p combined-libs/DotNet/libs/editor/windows/Debug
+          find artifacts/urho3d-windows-editor-debug-libraries -name "*.dll" -exec cp {} combined-libs/DotNet/libs/editor/windows/Debug/ \; 2>/dev/null || true
+        else
+          echo "⚠️  Windows Editor Debug libraries not found"
+        fi
+        
+        # Linux Editor Release
+        if [ -d "artifacts/urho3d-linux-editor-release-libraries" ]; then
+          echo "✓ Linux Editor Release libraries"
+          mkdir -p combined-libs/DotNet/libs/editor/linux/x86_64/Release
+          find artifacts/urho3d-linux-editor-release-libraries -name "*.so" -exec cp {} combined-libs/DotNet/libs/editor/linux/x86_64/Release/ \; 2>/dev/null || true
+        fi
+        
+        # Linux Editor Debug
+        if [ -d "artifacts/urho3d-linux-editor-debug-libraries" ]; then
+          echo "✓ Linux Editor Debug libraries"
+          mkdir -p combined-libs/DotNet/libs/editor/linux/x86_64/Debug
+          find artifacts/urho3d-linux-editor-debug-libraries -name "*.so" -exec cp {} combined-libs/DotNet/libs/editor/linux/x86_64/Debug/ \; 2>/dev/null || true
+        else
+          echo "⚠️  Linux Editor Debug libraries not found"
+        fi
+        
         echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
         echo "📊 Combined libraries structure:"
         find combined-libs -type f \( -name "*.dylib" -o -name "*.so" -o -name "*.dll" -o -name "*.a" \) | sort
@@ -773,13 +905,47 @@ jobs:
     
     - name: Create release archives
       run: |
-        cd combined-libs
+        # Create separate bundles for runtime and editor libraries
+        mkdir -p runtime-bundle/DotNet/libs
+        mkdir -p editor-bundle/DotNet/libs
+        
+        # Copy runtime libraries (everything except editor)
+        if [ -d "combined-libs/DotNet/libs/macos" ]; then
+          cp -r combined-libs/DotNet/libs/macos runtime-bundle/DotNet/libs/
+        fi
+        if [ -d "combined-libs/DotNet/libs/linux" ]; then
+          cp -r combined-libs/DotNet/libs/linux runtime-bundle/DotNet/libs/
+        fi
+        if [ -d "combined-libs/DotNet/libs/windows" ]; then
+          cp -r combined-libs/DotNet/libs/windows runtime-bundle/DotNet/libs/
+        fi
+        if [ -d "all-libraries.zip
+          urho3d-editor-all-combined-libs/DotNet/libs/android" ]; then
+          cp -r combined-libs/DotNet/libs/android runtime-bundle/DotNet/libs/
+        fi
+        if [ -d "combined-libs/DotNet/libs/iphone" ]; then
+          cp -r combined-libs/DotNet/libs/iphone runtime-bundle/DotNet/libs/
+        fi
+        if [ -d "combined-libs/DotNet/libs/wasm" ]; then
+          cp -r combined-libs/DotNet/libs/wasm runtime-bundle/DotNet/libs/
+        fi
+        
+        # Copy editor libraries
+        if [ -d "combined-libs/DotNet/libs/editor" ]; then
+          cp -r combined-libs/DotNet/libs/editor editor-bundle/DotNet/libs/
+        fi
+        
+        # Create runtime libraries archive
+        cd runtime-bundle
         tar -czf ../urho3d-libraries.tar.gz DotNet/
         cd ..
-        zip -r urho3d-libraries.zip combined-libs/DotNet/
+        zip -r urho3d-all-libraries.zip runtime-bundle/DotNet/
+        
+        # Create editor libraries archive
+        zip -r urho3d-editor-all-libraries.zip editor-bundle/DotNet/
         
         echo "✅ Archives created:"
-        ls -lh urho3d-libraries.*
+        ls -lh urho3d-*.zip urho3d-*.tar.gz
     
     - name: Upload release archives
       uses: actions/upload-artifact@v4
@@ -831,10 +997,11 @@ jobs:
         - **iOS**: Release + Debug frameworks
         - **WebAssembly**: 32-bit wasm (Emscripten 3.1.34)
         
-        ### 📥 Downloads
-        - `urho3d-libraries.tar.gz` - For Linux/macOS
-        - `urho3d-libraries.zip` - For Windows
+        ### 📥 DownloadsRuntime libraries (Linux/macOS format)
+        - `urho3d-all-libraries.zip` - Runtime libraries (all platforms)
+        - `urho3d-editor-all-libraries.zip` - Editor libraries (macOS only)
         
+        All archives contain
         Both archives contain the same files in `DotNet/libs/` structure.
         
         ### 🔧 Usage
@@ -852,7 +1019,8 @@ jobs:
       uses: softprops/action-gh-release@v2
       with:
         files: |
-          urho3d-libraries.tar.gz
+          urho3d-all-libraries.zip
+          urho3d-editor-all-libraries.tar.gz
           urho3d-libraries.zip
         body_path: release_notes.md
         draft: false

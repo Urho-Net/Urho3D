@@ -1,12 +1,5 @@
-URHONET_HOME_ROOT=$(cat ~/.urhonet_config/urhonethome)
-URHO3D_HOME=$(pwd)
 
-if [ ! -d "$URHONET_HOME_ROOT" ]; then
-    echo  "Urho.Net is not configured , please  run configure.sh (configure.bat on Windows) from the Urho.Net installation folder  "
-    exit -1
-else
-    echo "URHONET_HOME_ROOT=${URHONET_HOME_ROOT}"
-fi
+URHO3D_HOME=$(pwd)
 
 CWD=$(pwd)
 unamestr=$(uname)
