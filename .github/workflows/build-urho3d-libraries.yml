@@ -996,7 +996,8 @@ jobs:
         name: urho3d-libraries-archives
         path: |
           urho3d-libraries.tar.gz
-          urho3d-libraries.zip
+          urho3d-all-libraries.zip
+          urho3d-editor-all-libraries.zip
         retention-days: 90
 
   # Create GitHub Release with library archives (only on tag push)
