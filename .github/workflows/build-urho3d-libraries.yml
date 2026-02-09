@@ -954,24 +954,14 @@ jobs:
         mkdir -p editor-bundle/DotNet/libs
         
         # Copy runtime libraries (everything except editor)
-        if [ -d "combined-libs/DotNet/libs/macos" ]; then
-          cp -r combined-libs/DotNet/libs/macos runtime-bundle/DotNet/libs/
-        fi
-        if [ -d "combined-libs/DotNet/libs/linux" ]; then
-          cp -r combined-libs/DotNet/libs/linux runtime-bundle/DotNet/libs/
-        fi
-        if [ -d "combined-libs/DotNet/libs/windows" ]; then
-          cp -r combined-libs/DotNet/libs/windows runtime-bundle/DotNet/libs/
-        fi
-        if [ -d "combined-libs/DotNet/libs/android" ]; then
-          cp -r combined-libs/DotNet/libs/android runtime-bundle/DotNet/libs/
-        fi
-        if [ -d "combined-libs/DotNet/libs/iphone" ]; then
-          cp -r combined-libs/DotNet/libs/iphone runtime-bundle/DotNet/libs/
-        fi
-        if [ -d "combined-libs/DotNet/libs/wasm" ]; then
-          cp -r combined-libs/DotNet/libs/wasm runtime-bundle/DotNet/libs/
-        fi
+        # Use find to copy only non-editor directories
+        for dir in combined-libs/DotNet/libs/*/; do
+          dirname=$(basename "$dir")
+          # Skip the editor directory
+          if [ "$dirname" != "editor" ]; then
+            cp -r "$dir" runtime-bundle/DotNet/libs/
+          fi
+        done
         
         # Copy editor libraries
         if [ -d "combined-libs/DotNet/libs/editor" ]; then
@@ -984,8 +974,10 @@ jobs:
         cd ..
         zip -r urho3d-all-libraries.zip runtime-bundle/DotNet/
         
-        # Create editor libraries archive
-        zip -r urho3d-editor-all-libraries.zip editor-bundle/DotNet/
+        # Create editor libraries archive (zip from inside editor-bundle so path is DotNet/ not editor-bundle/DotNet/)
+        cd editor-bundle
+        zip -r ../urho3d-editor-all-libraries.zip DotNet/
+        cd ..
         
         echo "✅ Archives created:"
         ls -lh urho3d-*.zip urho3d-*.tar.gz
