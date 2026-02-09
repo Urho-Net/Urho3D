@@ -986,6 +986,9 @@ jobs:
         
         echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
         
+        # Remove any existing archives to avoid zip updating existing files
+        rm -f urho3d-libraries.tar.gz urho3d-all-libraries.zip urho3d-editor-all-libraries.zip
+        
         # Create runtime libraries archive
         cd runtime-bundle
         tar -czf ../urho3d-libraries.tar.gz DotNet/
