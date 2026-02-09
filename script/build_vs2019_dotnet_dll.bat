@@ -1,10 +1,10 @@
 call script/cmake_vs2019_dotnet_dll.bat build-vs2019-dotnet-dll
 
-REM Detect host architecture
-set HOST_ARCH=x64
-if "%PROCESSOR_ARCHITECTURE%"=="AMD64" set HOST_ARCH=x64
-if "%PROCESSOR_ARCHITECTURE%"=="ARM64" set HOST_ARCH=arm64
-if "%PROCESSOR_ARCHITECTURE%"=="x86" set HOST_ARCH=x86
+REM Detect host architecture (.NET naming convention)
+set HOST_ARCH=X64
+if "%PROCESSOR_ARCHITECTURE%"=="AMD64" set HOST_ARCH=X64
+if "%PROCESSOR_ARCHITECTURE%"=="ARM64" set HOST_ARCH=Arm64
+if "%PROCESSOR_ARCHITECTURE%"=="x86" set HOST_ARCH=X86
 
 echo Building for Windows %HOST_ARCH%...
 

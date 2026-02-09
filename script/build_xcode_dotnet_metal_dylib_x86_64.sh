@@ -16,7 +16,7 @@ URHO3D_HOME=${scriptDir}
 HOST_ARCH=$(uname -m)
 echo "Host architecture: $HOST_ARCH"
 
-echo "Building for x86_64..."
+echo "Building for X64..."
 
 # Build Release
 echo "  → Building Release configuration..."
@@ -27,14 +27,14 @@ if [ ! -e build-xcode-dotnet-metal-dylib/lib/libUrho3D.dylib ]; then
   exit 1
 fi
 
-mkdir -p DotNet/libs/macos/x86_64/Release
-cp -Lf build-xcode-dotnet-metal-dylib/lib/libUrho3D.dylib DotNet/libs/macos/x86_64/Release/
+mkdir -p DotNet/libs/macos/X64/Release
+cp -Lf build-xcode-dotnet-metal-dylib/lib/libUrho3D.dylib DotNet/libs/macos/X64/Release/
 
 # Ad-hoc code sign the library (required for macOS to load it)
-echo "  → Code signing x86_64 Release library..."
-codesign --force --sign - DotNet/libs/macos/x86_64/Release/libUrho3D.dylib
+echo "  → Code signing X64 Release library..."
+codesign --force --sign - DotNet/libs/macos/X64/Release/libUrho3D.dylib
 
-echo "  ✓ x86_64 Release:  DotNet/libs/macos/x86_64/Release/libUrho3D.dylib"
+echo "  ✓ X64 Release:  DotNet/libs/macos/X64/Release/libUrho3D.dylib"
 
 # Build Debug
 echo "  → Building Debug configuration..."
@@ -45,16 +45,16 @@ if [ ! -e build-xcode-dotnet-metal-dylib/lib/libUrho3D.dylib ]; then
   exit 1
 fi
 
-mkdir -p DotNet/libs/macos/x86_64/Debug
-cp -Lf build-xcode-dotnet-metal-dylib/lib/libUrho3D.dylib DotNet/libs/macos/x86_64/Debug/
+mkdir -p DotNet/libs/macos/X64/Debug
+cp -Lf build-xcode-dotnet-metal-dylib/lib/libUrho3D.dylib DotNet/libs/macos/X64/Debug/
 
 # Ad-hoc code sign the library (required for macOS to load it)
-echo "  → Code signing x86_64 Debug library..."
-codesign --force --sign - DotNet/libs/macos/x86_64/Debug/libUrho3D.dylib
+echo "  → Code signing X64 Debug library..."
+codesign --force --sign - DotNet/libs/macos/X64/Debug/libUrho3D.dylib
 
-echo "  ✓ x86_64 Debug:    DotNet/libs/macos/x86_64/Debug/libUrho3D.dylib"
+echo "  ✓ X64 Debug:    DotNet/libs/macos/X64/Debug/libUrho3D.dylib"
 
 echo ""
 echo "Build complete:"
-echo "  ✓ x86_64 Release:  DotNet/libs/macos/x86_64/Release/libUrho3D.dylib"
-echo "  ✓ x86_64 Debug:    DotNet/libs/macos/x86_64/Debug/libUrho3D.dylib"
+echo "  ✓ X64 Release:  DotNet/libs/macos/X64/Release/libUrho3D.dylib"
+echo "  ✓ X64 Debug:    DotNet/libs/macos/X64/Debug/libUrho3D.dylib"

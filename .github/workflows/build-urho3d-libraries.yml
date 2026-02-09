@@ -112,26 +112,26 @@ jobs:
       run: |
         MISSING_FILES=0
         
-        if [ -f "DotNet/libs/macos/arm64/Release/libUrho3D.dylib" ]; then
-          file DotNet/libs/macos/arm64/Release/libUrho3D.dylib
-          otool -L DotNet/libs/macos/arm64/Release/libUrho3D.dylib
-          echo "✓ arm64 Release library verified"
+        if [ -f "DotNet/libs/macos/Arm64/Release/libUrho3D.dylib" ]; then
+          file DotNet/libs/macos/Arm64/Release/libUrho3D.dylib
+          otool -L DotNet/libs/macos/Arm64/Release/libUrho3D.dylib
+          echo "✓ Arm64 Release library verified"
         else
-          echo "❌ arm64 Release library MISSING"
+          echo "❌ Arm64 Release library MISSING"
           MISSING_FILES=$((MISSING_FILES + 1))
         fi
         
-        if [ -f "DotNet/libs/macos/arm64/Debug/libUrho3D.dylib" ]; then
-          file DotNet/libs/macos/arm64/Debug/libUrho3D.dylib
-          otool -L DotNet/libs/macos/arm64/Debug/libUrho3D.dylib
-          echo "✓ arm64 Debug library verified"
+        if [ -f "DotNet/libs/macos/Arm64/Debug/libUrho3D.dylib" ]; then
+          file DotNet/libs/macos/Arm64/Debug/libUrho3D.dylib
+          otool -L DotNet/libs/macos/Arm64/Debug/libUrho3D.dylib
+          echo "✓ Arm64 Debug library verified"
         else
-          echo "⚠️  arm64 Debug library MISSING"
+          echo "⚠️  Arm64 Debug library MISSING"
         fi
         
         if [ $MISSING_FILES -gt 0 ]; then
           echo ""
-          echo "ERROR: $MISSING_FILES required arm64 Release libraries are missing!"
+          echo "ERROR: $MISSING_FILES required Arm64 Release libraries are missing!"
           exit 1
         fi
     
@@ -139,14 +139,14 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: urho3d-macos-arm64-release-libraries
-        path: DotNet/libs/macos/arm64/Release/libUrho3D.dylib
+        path: DotNet/libs/macos/Arm64/Release/libUrho3D.dylib
         retention-days: 30
     
     - name: Upload macOS arm64 Debug libraries
       uses: actions/upload-artifact@v4
       with:
         name: urho3d-macos-arm64-debug-libraries
-        path: DotNet/libs/macos/arm64/Debug/libUrho3D.dylib
+        path: DotNet/libs/macos/Arm64/Debug/libUrho3D.dylib
         if-no-files-found: warn
         retention-days: 30
 
@@ -176,26 +176,26 @@ jobs:
       run: |
         MISSING_FILES=0
         
-        if [ -f "DotNet/libs/macos/x86_64/Release/libUrho3D.dylib" ]; then
-          file DotNet/libs/macos/x86_64/Release/libUrho3D.dylib
-          otool -L DotNet/libs/macos/x86_64/Release/libUrho3D.dylib
-          echo "✓ x86_64 Release library verified"
+        if [ -f "DotNet/libs/macos/X64/Release/libUrho3D.dylib" ]; then
+          file DotNet/libs/macos/X64/Release/libUrho3D.dylib
+          otool -L DotNet/libs/macos/X64/Release/libUrho3D.dylib
+          echo "✓ X64 Release library verified"
         else
-          echo "❌ x86_64 Release library MISSING"
+          echo "❌ X64 Release library MISSING"
           MISSING_FILES=$((MISSING_FILES + 1))
         fi
         
-        if [ -f "DotNet/libs/macos/x86_64/Debug/libUrho3D.dylib" ]; then
-          file DotNet/libs/macos/x86_64/Debug/libUrho3D.dylib
-          otool -L DotNet/libs/macos/x86_64/Debug/libUrho3D.dylib
-          echo "✓ x86_64 Debug library verified"
+        if [ -f "DotNet/libs/macos/X64/Debug/libUrho3D.dylib" ]; then
+          file DotNet/libs/macos/X64/Debug/libUrho3D.dylib
+          otool -L DotNet/libs/macos/X64/Debug/libUrho3D.dylib
+          echo "✓ X64 Debug library verified"
         else
-          echo "⚠️  x86_64 Debug library MISSING"
+          echo "⚠️  X64 Debug library MISSING"
         fi
         
         if [ $MISSING_FILES -gt 0 ]; then
           echo ""
-          echo "ERROR: $MISSING_FILES required x86_64 Release libraries are missing!"
+          echo "ERROR: $MISSING_FILES required X64 Release libraries are missing!"
           exit 1
         fi
     
@@ -203,14 +203,14 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: urho3d-macos-x86_64-release-libraries
-        path: DotNet/libs/macos/x86_64/Release/libUrho3D.dylib
+        path: DotNet/libs/macos/X64/Release/libUrho3D.dylib
         retention-days: 30
     
     - name: Upload macOS x86_64 Debug libraries
       uses: actions/upload-artifact@v4
       with:
         name: urho3d-macos-x86_64-debug-libraries
-        path: DotNet/libs/macos/x86_64/Debug/libUrho3D.dylib
+        path: DotNet/libs/macos/X64/Debug/libUrho3D.dylib
         if-no-files-found: warn
         retention-days: 30
 
@@ -240,26 +240,26 @@ jobs:
       run: |
         MISSING_FILES=0
         
-        if [ -f "DotNet/libs/editor/macos/arm64/Release/libUrho3D.dylib" ]; then
-          file DotNet/libs/editor/macos/arm64/Release/libUrho3D.dylib
-          otool -L DotNet/libs/editor/macos/arm64/Release/libUrho3D.dylib
-          echo "✓ Editor arm64 Release library verified"
+        if [ -f "DotNet/libs/editor/macos/Arm64/Release/libUrho3D.dylib" ]; then
+          file DotNet/libs/editor/macos/Arm64/Release/libUrho3D.dylib
+          otool -L DotNet/libs/editor/macos/Arm64/Release/libUrho3D.dylib
+          echo "✓ Editor Arm64 Release library verified"
         else
-          echo "❌ Editor arm64 Release library MISSING"
+          echo "❌ Editor Arm64 Release library MISSING"
           MISSING_FILES=$((MISSING_FILES + 1))
         fi
         
-        if [ -f "DotNet/libs/editor/macos/arm64/Debug/libUrho3D.dylib" ]; then
-          file DotNet/libs/editor/macos/arm64/Debug/libUrho3D.dylib
-          otool -L DotNet/libs/editor/macos/arm64/Debug/libUrho3D.dylib
-          echo "✓ Editor arm64 Debug library verified"
+        if [ -f "DotNet/libs/editor/macos/Arm64/Debug/libUrho3D.dylib" ]; then
+          file DotNet/libs/editor/macos/Arm64/Debug/libUrho3D.dylib
+          otool -L DotNet/libs/editor/macos/Arm64/Debug/libUrho3D.dylib
+          echo "✓ Editor Arm64 Debug library verified"
         else
-          echo "⚠️  Editor arm64 Debug library MISSING"
+          echo "⚠️  Editor Arm64 Debug library MISSING"
         fi
         
         if [ $MISSING_FILES -gt 0 ]; then
           echo ""
-          echo "ERROR: $MISSING_FILES required Editor arm64 Release libraries are missing!"
+          echo "ERROR: $MISSING_FILES required Editor Arm64 Release libraries are missing!"
           exit 1
         fi
     
@@ -267,14 +267,14 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: urho3d-macos-editor-arm64-release-libraries
-        path: DotNet/libs/editor/macos/arm64/Release/libUrho3D.dylib
+        path: DotNet/libs/editor/macos/Arm64/Release/libUrho3D.dylib
         retention-days: 30
     
     - name: Upload macOS Editor arm64 Debug libraries
       uses: actions/upload-artifact@v4
       with:
         name: urho3d-macos-editor-arm64-debug-libraries
-        path: DotNet/libs/editor/macos/arm64/Debug/libUrho3D.dylib
+        path: DotNet/libs/editor/macos/Arm64/Debug/libUrho3D.dylib
         if-no-files-found: warn
         retention-days: 30
 
@@ -304,26 +304,26 @@ jobs:
       run: |
         MISSING_FILES=0
         
-        if [ -f "DotNet/libs/editor/macos/x86_64/Release/libUrho3D.dylib" ]; then
-          file DotNet/libs/editor/macos/x86_64/Release/libUrho3D.dylib
-          otool -L DotNet/libs/editor/macos/x86_64/Release/libUrho3D.dylib
-          echo "✓ Editor x86_64 Release library verified"
+        if [ -f "DotNet/libs/editor/macos/X64/Release/libUrho3D.dylib" ]; then
+          file DotNet/libs/editor/macos/X64/Release/libUrho3D.dylib
+          otool -L DotNet/libs/editor/macos/X64/Release/libUrho3D.dylib
+          echo "✓ Editor X64 Release library verified"
         else
-          echo "❌ Editor x86_64 Release library MISSING"
+          echo "❌ Editor X64 Release library MISSING"
           MISSING_FILES=$((MISSING_FILES + 1))
         fi
         
-        if [ -f "DotNet/libs/editor/macos/x86_64/Debug/libUrho3D.dylib" ]; then
-          file DotNet/libs/editor/macos/x86_64/Debug/libUrho3D.dylib
-          otool -L DotNet/libs/editor/macos/x86_64/Debug/libUrho3D.dylib
-          echo "✓ Editor x86_64 Debug library verified"
+        if [ -f "DotNet/libs/editor/macos/X64/Debug/libUrho3D.dylib" ]; then
+          file DotNet/libs/editor/macos/X64/Debug/libUrho3D.dylib
+          otool -L DotNet/libs/editor/macos/X64/Debug/libUrho3D.dylib
+          echo "✓ Editor X64 Debug library verified"
         else
-          echo "⚠️  Editor x86_64 Debug library MISSING"
+          echo "⚠️  Editor X64 Debug library MISSING"
         fi
         
         if [ $MISSING_FILES -gt 0 ]; then
           echo ""
-          echo "ERROR: $MISSING_FILES required Editor x86_64 Release libraries are missing!"
+          echo "ERROR: $MISSING_FILES required Editor X64 Release libraries are missing!"
           exit 1
         fi
     
@@ -331,14 +331,14 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: urho3d-macos-editor-x86_64-release-libraries
-        path: DotNet/libs/editor/macos/x86_64/Release/libUrho3D.dylib
+        path: DotNet/libs/editor/macos/X64/Release/libUrho3D.dylib
         retention-days: 30
     
     - name: Upload macOS Editor x86_64 Debug libraries
       uses: actions/upload-artifact@v4
       with:
         name: urho3d-macos-editor-x86_64-debug-libraries
-        path: DotNet/libs/editor/macos/x86_64/Debug/libUrho3D.dylib
+        path: DotNet/libs/editor/macos/X64/Debug/libUrho3D.dylib
         if-no-files-found: warn
         retention-days: 30
 
@@ -481,12 +481,13 @@ jobs:
       id: detect_arch
       run: |
         $arch = $env:PROCESSOR_ARCHITECTURE
+        # Convert to .NET architecture naming
         if ($arch -eq "AMD64") {
-          $arch = "x64"
+          $arch = "X64"
         } elseif ($arch -eq "ARM64") {
-          $arch = "arm64"
+          $arch = "Arm64"
         } else {
-          $arch = "x86"
+          $arch = "X86"
         }
         echo "arch=$arch" >> $env:GITHUB_OUTPUT
         Write-Output "Detected architecture: $arch"
@@ -544,8 +545,16 @@ jobs:
       id: detect_arch
       run: |
         ARCH=$(uname -m)
-        echo "arch=$ARCH" >> $GITHUB_OUTPUT
-        echo "Detected architecture: $ARCH"
+        # Convert to .NET architecture naming
+        if [ "$ARCH" = "x86_64" ]; then
+          DOTNET_ARCH="X64"
+        elif [ "$ARCH" = "aarch64" ] || [ "$ARCH" = "arm64" ]; then
+          DOTNET_ARCH="Arm64"
+        else
+          DOTNET_ARCH="$ARCH"
+        fi
+        echo "arch=$DOTNET_ARCH" >> $GITHUB_OUTPUT
+        echo "Detected architecture: $ARCH -> .NET arch: $DOTNET_ARCH"
     
     - name: Build Linux Editor libraries
       run: |
@@ -754,48 +763,48 @@ jobs:
         
         # macOS arm64 Release
         if [ -d "artifacts/urho3d-macos-arm64-release-libraries" ]; then
-          echo "✓ macOS arm64 Release libraries"
-          mkdir -p combined-libs/DotNet/libs/macos/arm64/Release
-          find artifacts/urho3d-macos-arm64-release-libraries -name "*.dylib" -exec cp {} combined-libs/DotNet/libs/macos/arm64/Release/ \; 2>/dev/null || true
+          echo "✓ macOS Arm64 Release libraries"
+          mkdir -p combined-libs/DotNet/libs/macos/Arm64/Release
+          find artifacts/urho3d-macos-arm64-release-libraries -name "*.dylib" -exec cp {} combined-libs/DotNet/libs/macos/Arm64/Release/ \; 2>/dev/null || true
         fi
         
         # macOS arm64 Debug
         if [ -d "artifacts/urho3d-macos-arm64-debug-libraries" ]; then
-          echo "✓ macOS arm64 Debug libraries"
-          mkdir -p combined-libs/DotNet/libs/macos/arm64/Debug
-          find artifacts/urho3d-macos-arm64-debug-libraries -name "*.dylib" -exec cp {} combined-libs/DotNet/libs/macos/arm64/Debug/ \; 2>/dev/null || true
+          echo "✓ macOS Arm64 Debug libraries"
+          mkdir -p combined-libs/DotNet/libs/macos/Arm64/Debug
+          find artifacts/urho3d-macos-arm64-debug-libraries -name "*.dylib" -exec cp {} combined-libs/DotNet/libs/macos/Arm64/Debug/ \; 2>/dev/null || true
         else
-          echo "⚠️  macOS arm64 Debug libraries not found"
+          echo "⚠️  macOS Arm64 Debug libraries not found"
         fi
         
         # macOS x86_64 Release
         if [ -d "artifacts/urho3d-macos-x86_64-release-libraries" ]; then
-          echo "✓ macOS x86_64 Release libraries"
-          mkdir -p combined-libs/DotNet/libs/macos/x86_64/Release
-          find artifacts/urho3d-macos-x86_64-release-libraries -name "*.dylib" -exec cp {} combined-libs/DotNet/libs/macos/x86_64/Release/ \; 2>/dev/null || true
+          echo "✓ macOS X64 Release libraries"
+          mkdir -p combined-libs/DotNet/libs/macos/X64/Release
+          find artifacts/urho3d-macos-x86_64-release-libraries -name "*.dylib" -exec cp {} combined-libs/DotNet/libs/macos/X64/Release/ \; 2>/dev/null || true
         fi
         
         # macOS x86_64 Debug
         if [ -d "artifacts/urho3d-macos-x86_64-debug-libraries" ]; then
-          echo "✓ macOS x86_64 Debug libraries"
-          mkdir -p combined-libs/DotNet/libs/macos/x86_64/Debug
-          find artifacts/urho3d-macos-x86_64-debug-libraries -name "*.dylib" -exec cp {} combined-libs/DotNet/libs/macos/x86_64/Debug/ \; 2>/dev/null || true
+          echo "✓ macOS X64 Debug libraries"
+          mkdir -p combined-libs/DotNet/libs/macos/X64/Debug
+          find artifacts/urho3d-macos-x86_64-debug-libraries -name "*.dylib" -exec cp {} combined-libs/DotNet/libs/macos/X64/Debug/ \; 2>/dev/null || true
         else
-          echo "⚠️  macOS x86_64 Debug libraries not found"
+          echo "⚠️  macOS X64 Debug libraries not found"
         fi
         
         # Linux
         if [ -d "artifacts/urho3d-linux-libraries" ]; then
           echo "✓ Linux Release libraries"
-          mkdir -p combined-libs/DotNet/libs/linux/x86_64/Release
-          find artifacts/urho3d-linux-libraries -name "*.so" -exec cp {} combined-libs/DotNet/libs/linux/x86_64/Release/ \; 2>/dev/null || true
+          mkdir -p combined-libs/DotNet/libs/linux/X64/Release
+          find artifacts/urho3d-linux-libraries -name "*.so" -exec cp {} combined-libs/DotNet/libs/linux/X64/Release/ \; 2>/dev/null || true
         fi
         
         # Linux Debug
         if [ -d "artifacts/urho3d-linux-debug-libraries" ]; then
           echo "✓ Linux Debug libraries"
-          mkdir -p combined-libs/DotNet/libs/linux/x86_64/Debug
-          find artifacts/urho3d-linux-debug-libraries -name "*.so" -exec cp {} combined-libs/DotNet/libs/linux/x86_64/Debug/ \; 2>/dev/null || true
+          mkdir -p combined-libs/DotNet/libs/linux/X64/Debug
+          find artifacts/urho3d-linux-debug-libraries -name "*.so" -exec cp {} combined-libs/DotNet/libs/linux/X64/Debug/ \; 2>/dev/null || true
         else
           echo "⚠️  Linux Debug libraries not found"
         fi
@@ -803,15 +812,15 @@ jobs:
         # Windows
         if [ -d "artifacts/urho3d-windows-libraries" ]; then
           echo "✓ Windows Release libraries"
-          mkdir -p combined-libs/DotNet/libs/windows/x64/Release
-          find artifacts/urho3d-windows-libraries -name "*.dll" -exec cp {} combined-libs/DotNet/libs/windows/x64/Release/ \; 2>/dev/null || true
+          mkdir -p combined-libs/DotNet/libs/windows/X64/Release
+          find artifacts/urho3d-windows-libraries -name "*.dll" -exec cp {} combined-libs/DotNet/libs/windows/X64/Release/ \; 2>/dev/null || true
         fi
         
         # Windows Debug
         if [ -d "artifacts/urho3d-windows-debug-libraries" ]; then
           echo "✓ Windows Debug libraries"
-          mkdir -p combined-libs/DotNet/libs/windows/x64/Debug
-          find artifacts/urho3d-windows-debug-libraries -name "*.dll" -exec cp {} combined-libs/DotNet/libs/windows/x64/Debug/ \; 2>/dev/null || true
+          mkdir -p combined-libs/DotNet/libs/windows/X64/Debug
+          find artifacts/urho3d-windows-debug-libraries -name "*.dll" -exec cp {} combined-libs/DotNet/libs/windows/X64/Debug/ \; 2>/dev/null || true
         else
           echo "⚠️  Windows Debug libraries not found"
         fi
@@ -872,48 +881,48 @@ jobs:
         
         # macOS Editor arm64 Release
         if [ -d "artifacts/urho3d-macos-editor-arm64-release-libraries" ]; then
-          echo "✓ macOS Editor arm64 Release libraries"
-          mkdir -p combined-libs/DotNet/libs/editor/macos/arm64/Release
-          find artifacts/urho3d-macos-editor-arm64-release-libraries -name "*.dylib" -exec cp {} combined-libs/DotNet/libs/editor/macos/arm64/Release/ \; 2>/dev/null || true
+          echo "✓ macOS Editor Arm64 Release libraries"
+          mkdir -p combined-libs/DotNet/libs/editor/macos/Arm64/Release
+          find artifacts/urho3d-macos-editor-arm64-release-libraries -name "*.dylib" -exec cp {} combined-libs/DotNet/libs/editor/macos/Arm64/Release/ \; 2>/dev/null || true
         fi
         
         # macOS Editor arm64 Debug
         if [ -d "artifacts/urho3d-macos-editor-arm64-debug-libraries" ]; then
-          echo "✓ macOS Editor arm64 Debug libraries"
-          mkdir -p combined-libs/DotNet/libs/editor/macos/arm64/Debug
-          find artifacts/urho3d-macos-editor-arm64-debug-libraries -name "*.dylib" -exec cp {} combined-libs/DotNet/libs/editor/macos/arm64/Debug/ \; 2>/dev/null || true
+          echo "✓ macOS Editor Arm64 Debug libraries"
+          mkdir -p combined-libs/DotNet/libs/editor/macos/Arm64/Debug
+          find artifacts/urho3d-macos-editor-arm64-debug-libraries -name "*.dylib" -exec cp {} combined-libs/DotNet/libs/editor/macos/Arm64/Debug/ \; 2>/dev/null || true
         else
-          echo "⚠️  macOS Editor arm64 Debug libraries not found"
+          echo "⚠️  macOS Editor Arm64 Debug libraries not found"
         fi
         
         # macOS Editor x86_64 Release
         if [ -d "artifacts/urho3d-macos-editor-x86_64-release-libraries" ]; then
-          echo "✓ macOS Editor x86_64 Release libraries"
-          mkdir -p combined-libs/DotNet/libs/editor/macos/x86_64/Release
-          find artifacts/urho3d-macos-editor-x86_64-release-libraries -name "*.dylib" -exec cp {} combined-libs/DotNet/libs/editor/macos/x86_64/Release/ \; 2>/dev/null || true
+          echo "✓ macOS Editor X64 Release libraries"
+          mkdir -p combined-libs/DotNet/libs/editor/macos/X64/Release
+          find artifacts/urho3d-macos-editor-x86_64-release-libraries -name "*.dylib" -exec cp {} combined-libs/DotNet/libs/editor/macos/X64/Release/ \; 2>/dev/null || true
         fi
         
         # macOS Editor x86_64 Debug
         if [ -d "artifacts/urho3d-macos-editor-x86_64-debug-libraries" ]; then
-          echo "✓ macOS Editor x86_64 Debug libraries"
-          mkdir -p combined-libs/DotNet/libs/editor/macos/x86_64/Debug
-          find artifacts/urho3d-macos-editor-x86_64-debug-libraries -name "*.dylib" -exec cp {} combined-libs/DotNet/libs/editor/macos/x86_64/Debug/ \; 2>/dev/null || true
+          echo "✓ macOS Editor X64 Debug libraries"
+          mkdir -p combined-libs/DotNet/libs/editor/macos/X64/Debug
+          find artifacts/urho3d-macos-editor-x86_64-debug-libraries -name "*.dylib" -exec cp {} combined-libs/DotNet/libs/editor/macos/X64/Debug/ \; 2>/dev/null || true
         else
-          echo "⚠️  macOS Editor x86_64 Debug libraries not found"
+          echo "⚠️  macOS Editor X64 Debug libraries not found"
         fi
         
         # Windows Editor Release
         if [ -d "artifacts/urho3d-windows-editor-release-libraries" ]; then
           echo "✓ Windows Editor Release libraries"
-          mkdir -p combined-libs/DotNet/libs/editor/windows/x64/Release
-          find artifacts/urho3d-windows-editor-release-libraries -name "*.dll" -exec cp {} combined-libs/DotNet/libs/editor/windows/x64/Release/ \; 2>/dev/null || true
+          mkdir -p combined-libs/DotNet/libs/editor/windows/X64/Release
+          find artifacts/urho3d-windows-editor-release-libraries -name "*.dll" -exec cp {} combined-libs/DotNet/libs/editor/windows/X64/Release/ \; 2>/dev/null || true
         fi
         
         # Windows Editor Debug
         if [ -d "artifacts/urho3d-windows-editor-debug-libraries" ]; then
           echo "✓ Windows Editor Debug libraries"
-          mkdir -p combined-libs/DotNet/libs/editor/windows/x64/Debug
-          find artifacts/urho3d-windows-editor-debug-libraries -name "*.dll" -exec cp {} combined-libs/DotNet/libs/editor/windows/x64/Debug/ \; 2>/dev/null || true
+          mkdir -p combined-libs/DotNet/libs/editor/windows/X64/Debug
+          find artifacts/urho3d-windows-editor-debug-libraries -name "*.dll" -exec cp {} combined-libs/DotNet/libs/editor/windows/X64/Debug/ \; 2>/dev/null || true
         else
           echo "⚠️  Windows Editor Debug libraries not found"
         fi
@@ -921,15 +930,15 @@ jobs:
         # Linux Editor Release
         if [ -d "artifacts/urho3d-linux-editor-release-libraries" ]; then
           echo "✓ Linux Editor Release libraries"
-          mkdir -p combined-libs/DotNet/libs/editor/linux/x86_64/Release
-          find artifacts/urho3d-linux-editor-release-libraries -name "*.so" -exec cp {} combined-libs/DotNet/libs/editor/linux/x86_64/Release/ \; 2>/dev/null || true
+          mkdir -p combined-libs/DotNet/libs/editor/linux/X64/Release
+          find artifacts/urho3d-linux-editor-release-libraries -name "*.so" -exec cp {} combined-libs/DotNet/libs/editor/linux/X64/Release/ \; 2>/dev/null || true
         fi
         
         # Linux Editor Debug
         if [ -d "artifacts/urho3d-linux-editor-debug-libraries" ]; then
           echo "✓ Linux Editor Debug libraries"
-          mkdir -p combined-libs/DotNet/libs/editor/linux/x86_64/Debug
-          find artifacts/urho3d-linux-editor-debug-libraries -name "*.so" -exec cp {} combined-libs/DotNet/libs/editor/linux/x86_64/Debug/ \; 2>/dev/null || true
+          mkdir -p combined-libs/DotNet/libs/editor/linux/X64/Debug
+          find artifacts/urho3d-linux-editor-debug-libraries -name "*.so" -exec cp {} combined-libs/DotNet/libs/editor/linux/X64/Debug/ \; 2>/dev/null || true
         else
           echo "⚠️  Linux Editor Debug libraries not found"
         fi

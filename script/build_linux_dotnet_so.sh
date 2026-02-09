@@ -15,8 +15,16 @@ else
 fi
 
 HOST_ARCH=$(uname -m)
+# Convert to .NET architecture naming
+if [ "$HOST_ARCH" = "x86_64" ]; then
+  DOTNET_ARCH="X64"
+elif [ "$HOST_ARCH" = "aarch64" ] || [ "$HOST_ARCH" = "arm64" ]; then
+  DOTNET_ARCH="Arm64"
+else
+  DOTNET_ARCH="$HOST_ARCH"
+fi
 
-echo "Building for Linux ${HOST_ARCH}..."
+echo "Building for Linux ${DOTNET_ARCH}..."
 
 # Build Release
 echo "  → Building Release configuration..."
@@ -30,9 +38,9 @@ if [ ! -e lib/libUrho3D.so ]; then
 fi
 
 cd ..
-mkdir -p DotNet/libs/linux/${HOST_ARCH}/Release
-cp -L build-dotnet-lib/lib/libUrho3D.so  DotNet/libs/linux/${HOST_ARCH}/Release/
-echo "  ✓ Linux ${HOST_ARCH} Release: DotNet/libs/linux/${HOST_ARCH}/Release/libUrho3D.so"
+mkdir -p DotNet/libs/linux/${DOTNET_ARCH}/Release
+cp -L build-dotnet-lib/lib/libUrho3D.so  DotNet/libs/linux/${DOTNET_ARCH}/Release/
+echo "  ✓ Linux ${DOTNET_ARCH} Release: DotNet/libs/linux/${DOTNET_ARCH}/Release/libUrho3D.so"
 
 # Build Debug
 echo "  → Building Debug configuration..."
@@ -46,11 +54,11 @@ if [ ! -e lib/libUrho3D.so ]; then
 fi
 
 cd ..
-mkdir -p DotNet/libs/linux/${HOST_ARCH}/Debug
-cp -L build-dotnet-lib-debug/lib/libUrho3D.so  DotNet/libs/linux/${HOST_ARCH}/Debug/
-echo "  ✓ Linux ${HOST_ARCH} Debug:   DotNet/libs/linux/${HOST_ARCH}/Debug/libUrho3D.so"
+mkdir -p DotNet/libs/linux/${DOTNET_ARCH}/Debug
+cp -L build-dotnet-lib-debug/lib/libUrho3D.so  DotNet/libs/linux/${DOTNET_ARCH}/Debug/
+echo "  ✓ Linux ${DOTNET_ARCH} Debug:   DotNet/libs/linux/${DOTNET_ARCH}/Debug/libUrho3D.so"
 
 echo ""
 echo "Build complete:"
-echo "  ✓ Linux ${HOST_ARCH} Release: DotNet/libs/linux/${HOST_ARCH}/Release/libUrho3D.so"
-echo "  ✓ Linux ${HOST_ARCH} Debug:   DotNet/libs/linux/${HOST_ARCH}/Debug/libUrho3D.so"
+echo "  ✓ Linux ${DOTNET_ARCH} Release: DotNet/libs/linux/${DOTNET_ARCH}/Release/libUrho3D.so"
+echo "  ✓ Linux ${DOTNET_ARCH} Debug:   DotNet/libs/linux/${DOTNET_ARCH}/Debug/libUrho3D.so"
