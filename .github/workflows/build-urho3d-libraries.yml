@@ -1027,10 +1027,15 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v4
     
-    - name: Download archives
+    - name: Download runtime libraries archive
       uses: actions/download-artifact@v4
       with:
-        name: urho3d-libraries-archives
+        name: urho3d-all-libraries
+    
+    - name: Download editor libraries archive
+      uses: actions/download-artifact@v4
+      with:
+        name: urho3d-editor-all-libraries
     
     - name: Extract tag information
       id: tag_info
@@ -1055,17 +1060,21 @@ jobs:
         - **iOS**: Release + Debug frameworks
         - **WebAssembly**: 32-bit wasm (Emscripten 3.1.34)
         
-        ### 📥 DownloadsRuntime libraries (Linux/macOS format)
-        - `urho3d-all-libraries.zip` - Runtime libraries (all platforms)
-        - `urho3d-editor-all-libraries.zip` - Editor libraries (macOS only)
-        
-        All archives contain
-        Both archives contain the same files in `DotNet/libs/` structure.
+        ### 📥 Downloads
+        - `urho3d-all-libraries.zip` - Runtime libraries (all platforms except editor)
+        - `urho3d-editor-all-libraries.zip` - Editor libraries (Windows, macOS, Linux)
         
         ### 🔧 Usage
-        1. Download and extract the archive
-        2. Copy `DotNet/libs/` to your project
-        3. Reference the appropriate platform libraries
+        ```bash
+        # Download runtime libraries only
+        ./download-libraries.sh --repo OWNER/REPO
+        
+        # Download runtime + editor libraries
+        ./download-libraries.sh --repo OWNER/REPO --with-editor
+        
+        # Download specific version
+        ./download-libraries.sh --repo OWNER/REPO --tag v1.0.0
+        ```
         
         ---
         Built from commit: ${{ github.sha }}
@@ -1078,8 +1087,7 @@ jobs:
       with:
         files: |
           urho3d-all-libraries.zip
-          urho3d-editor-all-libraries.tar.gz
-          urho3d-libraries.zip
+          urho3d-editor-all-libraries.zip
         body_path: release_notes.md
         draft: false
         prerelease: ${{ contains(steps.tag_info.outputs.tag_name, '-') }}
