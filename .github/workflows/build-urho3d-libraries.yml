@@ -365,8 +365,16 @@ jobs:
       id: detect_arch
       run: |
         ARCH=$(uname -m)
-        echo "arch=$ARCH" >> $GITHUB_OUTPUT
-        echo "Detected architecture: $ARCH"
+        # Convert to .NET architecture naming
+        if [ "$ARCH" = "x86_64" ]; then
+          DOTNET_ARCH="X64"
+        elif [ "$ARCH" = "aarch64" ] || [ "$ARCH" = "arm64" ]; then
+          DOTNET_ARCH="Arm64"
+        else
+          DOTNET_ARCH="$ARCH"
+        fi
+        echo "arch=$DOTNET_ARCH" >> $GITHUB_OUTPUT
+        echo "Detected architecture: $ARCH -> .NET arch: $DOTNET_ARCH"
     
     - name: Build Linux libraries
       run: |
@@ -422,12 +430,13 @@ jobs:
       id: detect_arch
       run: |
         $arch = $env:PROCESSOR_ARCHITECTURE
+        # Convert to .NET architecture naming
         if ($arch -eq "AMD64") {
-          $arch = "x64"
+          $arch = "X64"
         } elseif ($arch -eq "ARM64") {
-          $arch = "arm64"
+          $arch = "Arm64"
         } else {
-          $arch = "x86"
+          $arch = "X86"
         }
         echo "arch=$arch" >> $env:GITHUB_OUTPUT
         Write-Output "Detected architecture: $arch"
